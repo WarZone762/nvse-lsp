@@ -1,0 +1,5 @@
+name foo;
+
+begin MenuMode {
+    1 + 2;
+}
