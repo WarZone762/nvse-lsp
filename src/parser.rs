@@ -1,0 +1,231 @@
+use std::{cell::Cell, mem};
+
+use tower_lsp::lsp_types::DiagnosticSeverity;
+
+use crate::node::{NodeKind, TokenKind};
+
+use self::other::script;
+
+mod other;
+
+pub(crate) fn parse(input: Input) -> Vec<Event> {
+    let mut p = Parser::new(input);
+    script(&mut p);
+
+    p.finish()
+}
+
+#[derive(Debug)]
+pub(crate) struct Parser {
+    input: Input,
+    pos: usize,
+    events: Vec<Event>,
+    steps: Cell<usize>,
+}
+
+impl Parser {
+    const STEP_LIMIT: usize = 15_000_000;
+
+    pub fn new(input: Input) -> Self {
+        Self {
+            input,
+            pos: 0,
+            events: vec![],
+            steps: 0.into(),
+        }
+    }
+
+    pub fn finish(self) -> Vec<Event> {
+        self.events
+    }
+
+    pub fn cur(&self) -> TokenKind {
+        self.nth(0)
+    }
+
+    pub fn nth(&self, n: usize) -> TokenKind {
+        assert!(
+            self.steps.get() < Self::STEP_LIMIT,
+            "parser step limit exceeded"
+        );
+        self.steps.set(self.steps.get() + 1);
+        self.input.kind(self.pos + n)
+    }
+
+    pub fn at(&self, kind: TokenKind) -> bool {
+        self.nth_at(0, kind)
+    }
+
+    pub fn nth_at(&self, n: usize, kind: TokenKind) -> bool {
+        self.input.kind(self.pos + n) == kind
+    }
+
+    pub fn opt(&mut self, kind: TokenKind) -> bool {
+        if !self.at(kind) {
+            return false;
+        }
+
+        self.do_next(kind);
+        true
+    }
+
+    pub fn start(&mut self) -> Marker {
+        let pos = self.events.len();
+        self.push_event(Event::Start(NodeKind::Tombstone, None));
+        Marker::new(pos)
+    }
+
+    /// Assert the current token is `kind` and advance
+    pub fn next(&mut self, kind: TokenKind) {
+        if !self.opt(kind) {
+            panic!("unexpected token: expected {kind:?}, got {:?}", self.cur())
+        }
+    }
+
+    pub fn next_any(&mut self) {
+        let kind = self.cur();
+        if kind == TokenKind::Eof {
+            return;
+        }
+        self.do_next(kind);
+    }
+
+    pub fn ward_and_next(&mut self, msg: &str) {
+        self.warn(msg);
+        self.next_any();
+    }
+
+    pub fn warn(&mut self, msg: &str) {
+        self.push_event(Event::Diagnostic(msg.into(), DiagnosticSeverity::WARNING));
+    }
+
+    pub fn err(&mut self, msg: &str) {
+        self.push_event(Event::Diagnostic(
+            format!("parsing error: {msg}"),
+            DiagnosticSeverity::WARNING,
+        ));
+    }
+
+    /// Advance and return `true` if the current token is `kind`, otherwise emit an error and
+    /// return `false`
+    pub fn expect(&mut self, kind: TokenKind) -> bool {
+        if self.opt(kind) {
+            return true;
+        }
+        self.err(&format!("expected {kind:?}"));
+        false
+    }
+
+    pub fn err_and_next(&mut self, msg: &str) {
+        self.err(msg);
+        self.next_any();
+    }
+
+    fn do_next(&mut self, kind: TokenKind) {
+        self.pos += 1;
+        self.steps = 0.into();
+        self.push_event(Event::Token(kind));
+    }
+
+    pub fn push_event(&mut self, event: Event) {
+        self.events.push(event);
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub(crate) struct CompletedMarker {
+    pos: usize,
+    kind: NodeKind,
+}
+
+impl CompletedMarker {
+    pub fn new(pos: usize, kind: NodeKind) -> Self {
+        Self { pos, kind }
+    }
+
+    /// Create a [`Marker`] before `self`
+    pub fn precede(&self, p: &mut Parser) -> Marker {
+        let new_pos = p.start();
+
+        let Event::Start(_, forward_parent) = &mut p.events[self.pos] else {
+            panic!("tried to precede a non-start Marker")
+        };
+        *forward_parent = Some(new_pos.pos - self.pos);
+        new_pos
+    }
+
+    /// Extend `self` to the left until `m`
+    pub fn extend_to(self, p: &mut Parser, m: Marker) -> CompletedMarker {
+        let Event::Start(_, forward_parent) = &mut p.events[self.pos] else {
+            panic!("tried to extend_to a non-start Marker")
+        };
+        *forward_parent = Some(self.pos - m.pos);
+        self
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub(crate) struct Marker {
+    pos: usize,
+}
+
+impl Marker {
+    pub fn new(pos: usize) -> Self {
+        Self { pos }
+    }
+
+    pub fn complete(self, p: &mut Parser, kind: NodeKind) -> CompletedMarker {
+        let event = &mut p.events[self.pos];
+        let Event::Start(node_kind, _) = event else {
+            panic!("tried to complete a non-start Marker");
+        };
+        *node_kind = kind;
+        p.push_event(Event::Finish);
+
+        CompletedMarker::new(self.pos, kind)
+    }
+
+    pub fn abandon(self, p: &mut Parser) {
+        if self.pos == p.events.len() - 1 {
+            let Event::Start(NodeKind::Tombstone, None) = p.events.pop().unwrap() else {
+                panic!("tried to abandon a valid marker");
+            };
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) enum Event {
+    Start(NodeKind, Option<usize>),
+    Diagnostic(String, DiagnosticSeverity),
+    Token(TokenKind),
+    Finish,
+}
+
+impl Event {
+    pub fn take(&mut self) -> Self {
+        mem::replace(self, Event::Start(NodeKind::Tombstone, None))
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct Input {
+    tokens: Vec<TokenKind>,
+}
+
+impl Input {
+    pub fn kind(&self, n: usize) -> TokenKind {
+        self.tokens[n]
+    }
+}
+
+impl FromIterator<TokenKind> for Input {
+    fn from_iter<T: IntoIterator<Item = TokenKind>>(iter: T) -> Self {
+        Self {
+            tokens: iter
+                .into_iter()
+                .filter(|x| !matches!(x, TokenKind::Whitespace))
+                .collect(),
+        }
+    }
+}

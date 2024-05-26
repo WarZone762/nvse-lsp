@@ -1,15 +1,21 @@
-#![feature(let_chains)]
+#![feature(let_chains, get_mut_unchecked, debug_closure_helpers)]
 
 mod lexer;
+mod node;
+mod parser;
+mod tree_builder;
 
-use std::collections::HashMap;
+use std::pin::Pin;
+use std::rc::Rc;
 
-use lexer::{Lexer, TokenKind};
+use lexer::Lexer;
+use node::Node;
 use tower_lsp::jsonrpc::Result;
 use tower_lsp::lsp_types::*;
 use tower_lsp::{Client, LanguageServer, LspService, Server};
 
 use dashmap::DashMap;
+use tree_builder::parse_str;
 
 static LEGEND: &[SemanticTokenType] = &[
     SemanticTokenType::KEYWORD,
@@ -41,15 +47,65 @@ impl Backend {
         }
     }
 
-    pub fn add_doc(&self, doc: TextDocumentItem) {
-        self.docs.insert(doc.uri.clone(), doc.into());
+    pub async fn add_doc(&self, doc: TextDocumentItem) {
+        let uri = doc.uri.clone();
+        self.docs.insert(uri.clone(), doc.into());
+        let new_doc = self.docs.get(&uri).unwrap();
+        self.client
+            .publish_diagnostics(
+                uri,
+                new_doc
+                    .diagnostics
+                    .iter()
+                    .map(|x| {
+                        let (line, col) = new_doc.pos_at(x.offset);
+                        let (line_end, col_end) = new_doc.pos_at(x.offset + x.offset);
+                        Diagnostic {
+                            range: Range::new(
+                                Position::new(line as _, col as _),
+                                Position::new(line_end as _, col_end as _),
+                            ),
+                            severity: Some(x.severity),
+                            message: x.msg.clone(),
+                            ..Default::default()
+                        }
+                    })
+                    .collect(),
+                None,
+            )
+            .await;
     }
 
     pub async fn update_doc(&self, uri: Url, changes: Vec<TextDocumentContentChangeEvent>) {
         if let Some(mut doc) = self.docs.get_mut(&uri) {
             for change in changes {
-                doc.text = change.text;
+                let (text, (tree, diagnostics)) = Doc::parse_text(change.text);
+                doc.text = text;
+                doc.tree = tree;
+                doc.diagnostics = diagnostics;
             }
+            self.client
+                .publish_diagnostics(
+                    uri,
+                    doc.diagnostics
+                        .iter()
+                        .map(|x| {
+                            let (line, col) = doc.pos_at(x.offset);
+                            let (line_end, col_end) = doc.pos_at(x.offset + x.offset);
+                            Diagnostic {
+                                range: Range::new(
+                                    Position::new(line as _, col as _),
+                                    Position::new(line_end as _, col_end as _),
+                                ),
+                                severity: Some(x.severity),
+                                message: x.msg.clone(),
+                                ..Default::default()
+                            }
+                        })
+                        .collect(),
+                    None,
+                )
+                .await;
         } else {
             self.client
                 .show_message(
@@ -64,16 +120,27 @@ impl Backend {
 #[derive(Debug)]
 struct Doc {
     uri: Url,
-    text: String,
+    text: Pin<Box<str>>,
+    tree: Rc<Node<'static>>,
+    diagnostics: Vec<tree_builder::Diagnostic>,
     version: i32,
     language_id: String,
 }
 
+unsafe impl Send for Doc {}
+unsafe impl Sync for Doc {}
+
 impl From<TextDocumentItem> for Doc {
     fn from(value: TextDocumentItem) -> Self {
+        let text = value.text.into_boxed_str();
+        let (tree, diagnostics) =
+            parse_str(unsafe { (text.as_ref() as *const str).as_ref().unwrap() });
+        let text = Box::into_pin(text);
         Self {
             uri: value.uri,
-            text: value.text,
+            text,
+            tree,
+            diagnostics,
             version: value.version,
             language_id: value.language_id,
         }
@@ -99,6 +166,18 @@ impl Doc {
         }
 
         (line, pos)
+    }
+
+    fn parse_text(
+        string: String,
+    ) -> (
+        Pin<Box<str>>,
+        (Rc<Node<'static>>, Vec<tree_builder::Diagnostic>),
+    ) {
+        let text = string.into_boxed_str();
+        let parsed = parse_str(unsafe { (text.as_ref() as *const str).as_ref().unwrap() });
+        let text = Box::into_pin(text);
+        (text, parsed)
     }
 }
 
@@ -138,7 +217,7 @@ impl LanguageServer for Backend {
     }
 
     async fn did_open(&self, params: DidOpenTextDocumentParams) {
-        self.add_doc(params.text_document);
+        self.add_doc(params.text_document).await;
     }
 
     async fn did_change(&self, params: DidChangeTextDocumentParams) {
