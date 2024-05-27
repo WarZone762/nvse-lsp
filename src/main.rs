@@ -5,16 +5,12 @@ mod node;
 mod parser;
 mod tree_builder;
 
-use std::pin::Pin;
 use std::rc::Rc;
 
+use dashmap::DashMap;
 use lexer::Lexer;
 use node::Node;
-use tower_lsp::jsonrpc::Result;
-use tower_lsp::lsp_types::*;
-use tower_lsp::{Client, LanguageServer, LspService, Server};
-
-use dashmap::DashMap;
+use tower_lsp::{jsonrpc::Result, lsp_types::*, Client, LanguageServer, LspService, Server};
 use tree_builder::parse_str;
 
 static LEGEND: &[SemanticTokenType] = &[
@@ -27,10 +23,7 @@ static LEGEND: &[SemanticTokenType] = &[
 ];
 
 fn semantic_token_type_index(value: SemanticTokenType) -> u32 {
-    LEGEND
-        .iter()
-        .position(|x| *x == value)
-        .expect("semantic token type not in legend") as _
+    LEGEND.iter().position(|x| *x == value).expect("semantic token type not in legend") as _
 }
 
 #[derive(Debug)]
@@ -41,10 +34,7 @@ struct Backend {
 
 impl Backend {
     pub fn new(client: Client) -> Self {
-        Self {
-            client,
-            docs: DashMap::new(),
-        }
+        Self { client, docs: DashMap::new() }
     }
 
     pub async fn add_doc(&self, doc: TextDocumentItem) {
@@ -79,10 +69,7 @@ impl Backend {
     pub async fn update_doc(&self, uri: Url, changes: Vec<TextDocumentContentChangeEvent>) {
         if let Some(mut doc) = self.docs.get_mut(&uri) {
             for change in changes {
-                let (text, (tree, diagnostics)) = Doc::parse_text(change.text);
-                doc.text = text;
-                doc.tree = tree;
-                doc.diagnostics = diagnostics;
+                doc.update_text(change.text);
             }
             self.client
                 .publish_diagnostics(
@@ -91,7 +78,7 @@ impl Backend {
                         .iter()
                         .map(|x| {
                             let (line, col) = doc.pos_at(x.offset);
-                            let (line_end, col_end) = doc.pos_at(x.offset + x.offset);
+                            let (line_end, col_end) = doc.pos_at(x.offset + x.len);
                             Diagnostic {
                                 range: Range::new(
                                     Position::new(line as _, col as _),
@@ -108,10 +95,7 @@ impl Backend {
                 .await;
         } else {
             self.client
-                .show_message(
-                    MessageType::ERROR,
-                    format!("unknown document {}", uri.as_str()),
-                )
+                .show_message(MessageType::ERROR, format!("unknown document {}", uri.as_str()))
                 .await;
         }
     }
@@ -120,8 +104,8 @@ impl Backend {
 #[derive(Debug)]
 struct Doc {
     uri: Url,
-    text: Pin<Box<str>>,
-    tree: Rc<Node<'static>>,
+    text: Box<str>,
+    tree: Rc<Node>,
     diagnostics: Vec<tree_builder::Diagnostic>,
     version: i32,
     language_id: String,
@@ -133,9 +117,7 @@ unsafe impl Sync for Doc {}
 impl From<TextDocumentItem> for Doc {
     fn from(value: TextDocumentItem) -> Self {
         let text = value.text.into_boxed_str();
-        let (tree, diagnostics) =
-            parse_str(unsafe { (text.as_ref() as *const str).as_ref().unwrap() });
-        let text = Box::into_pin(text);
+        let (tree, diagnostics) = parse_str(&text);
         Self {
             uri: value.uri,
             text,
@@ -148,15 +130,18 @@ impl From<TextDocumentItem> for Doc {
 }
 
 impl Doc {
+    pub fn update_text(&mut self, new_text: String) {
+        let text = new_text.into_boxed_str();
+        let (tree, diagnostics) = parse_str(&text);
+        self.text = text;
+        self.tree = tree;
+        self.diagnostics = diagnostics;
+    }
+
     pub fn pos_at(&self, offset: usize) -> (usize, usize) {
         let (mut line, mut pos) = (0, 0);
 
-        for (_, c) in self
-            .text
-            .chars()
-            .enumerate()
-            .take_while(|(i, _)| *i < offset)
-        {
+        for (_, c) in self.text.chars().enumerate().take_while(|(i, _)| *i < offset) {
             if c == '\n' {
                 pos = 0;
                 line += 1;
@@ -166,18 +151,6 @@ impl Doc {
         }
 
         (line, pos)
-    }
-
-    fn parse_text(
-        string: String,
-    ) -> (
-        Pin<Box<str>>,
-        (Rc<Node<'static>>, Vec<tree_builder::Diagnostic>),
-    ) {
-        let text = string.into_boxed_str();
-        let parsed = parse_str(unsafe { (text.as_ref() as *const str).as_ref().unwrap() });
-        let text = Box::into_pin(text);
-        (text, parsed)
     }
 }
 
@@ -211,9 +184,7 @@ impl LanguageServer for Backend {
     }
 
     async fn initialized(&self, _: InitializedParams) {
-        self.client
-            .log_message(MessageType::WARNING, "server initialized!")
-            .await;
+        self.client.log_message(MessageType::WARNING, "server initialized!").await;
     }
 
     async fn did_open(&self, params: DidOpenTextDocumentParams) {
@@ -221,8 +192,7 @@ impl LanguageServer for Backend {
     }
 
     async fn did_change(&self, params: DidChangeTextDocumentParams) {
-        self.update_doc(params.text_document.uri, params.content_changes)
-            .await;
+        self.update_doc(params.text_document.uri, params.content_changes).await;
     }
 
     async fn semantic_tokens_full(
@@ -249,17 +219,14 @@ impl LanguageServer for Backend {
                 Some(SemanticToken {
                     delta_line,
                     delta_start,
-                    length: x.len() as _,
+                    length: x.len as _,
                     token_type,
                     token_modifiers_bitset: 0,
                 })
             })
             .collect();
 
-        Ok(Some(SemanticTokensResult::Tokens(SemanticTokens {
-            data,
-            ..Default::default()
-        })))
+        Ok(Some(SemanticTokensResult::Tokens(SemanticTokens { data, ..Default::default() })))
     }
 
     async fn shutdown(&self) -> Result<()> {

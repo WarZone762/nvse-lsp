@@ -8,19 +8,16 @@ use crate::{
     parser::{parse, Event},
 };
 
-pub(crate) fn parse_str(string: &str) -> (Rc<Node<'_>>, Vec<Diagnostic>) {
+pub(crate) fn parse_str(string: &str) -> (Rc<Node>, Vec<Diagnostic>) {
     let tokens = Lexer::new(string).collect::<Vec<_>>();
 
-    output_to_tree(
-        process_events(parse(tokens.iter().map(|x| x.kind).collect())),
-        tokens,
-    )
+    output_to_tree(process_events(parse(tokens.iter().map(|x| x.kind).collect())), tokens)
 }
 
 pub(crate) fn output_to_tree(
     output: Vec<Event>,
-    tokens: Vec<Token<'_>>,
-) -> (Rc<Node<'_>>, Vec<Diagnostic>) {
+    tokens: Vec<Token>,
+) -> (Rc<Node>, Vec<Diagnostic>) {
     let builder = TriviaBuilder::new(tokens);
     builder.process(output)
 }
@@ -57,13 +54,13 @@ pub(crate) fn process_events(mut events: Vec<Event>) -> Vec<Event> {
 }
 
 #[derive(Debug, Default)]
-pub(crate) struct TreeBuilder<'a> {
-    parents: Vec<(Node<'a>, usize)>,
-    children: Vec<NodeOrToken<'a>>,
+pub(crate) struct TreeBuilder {
+    parents: Vec<(Node, usize)>,
+    children: Vec<NodeOrToken>,
 }
 
-impl<'a> TreeBuilder<'a> {
-    pub fn token(&mut self, token: Token<'a>) {
+impl TreeBuilder {
+    pub fn token(&mut self, token: Token) {
         self.children.push(token.into());
     }
 
@@ -96,36 +93,27 @@ impl<'a> TreeBuilder<'a> {
         self.children.push(node.into());
     }
 
-    pub fn finish(mut self) -> Rc<Node<'a>> {
-        let Some(root) = self.children.pop() else {
-            panic!("TreeBuilder has no root node")
-        };
-        let NodeOrToken::Node(root) = root else {
-            panic!("TreeBuilder root is a token")
-        };
+    pub fn finish(mut self) -> Rc<Node> {
+        let Some(root) = self.children.pop() else { panic!("TreeBuilder has no root node") };
+        let NodeOrToken::Node(root) = root else { panic!("TreeBuilder root is a token") };
         root
     }
 }
 
 #[derive(Debug)]
-pub(crate) struct TriviaBuilder<'a> {
-    tokens: Vec<Token<'a>>,
+pub(crate) struct TriviaBuilder {
+    tokens: Vec<Token>,
     token_pos: usize,
     diagnostics: Vec<Diagnostic>,
-    tree_builder: TreeBuilder<'a>,
+    tree_builder: TreeBuilder,
 }
 
-impl<'a> TriviaBuilder<'a> {
-    pub fn new(tokens: Vec<Token<'a>>) -> Self {
-        Self {
-            tokens,
-            token_pos: 0,
-            diagnostics: vec![],
-            tree_builder: TreeBuilder::default(),
-        }
+impl TriviaBuilder {
+    pub fn new(tokens: Vec<Token>) -> Self {
+        Self { tokens, token_pos: 0, diagnostics: vec![], tree_builder: TreeBuilder::default() }
     }
 
-    pub fn process(mut self, events: Vec<Event>) -> (Rc<Node<'a>>, Vec<Diagnostic>) {
+    pub fn process(mut self, events: Vec<Event>) -> (Rc<Node>, Vec<Diagnostic>) {
         for e in events {
             match e {
                 Event::Start(kind, _) => self.start_node(kind),
@@ -165,12 +153,7 @@ impl<'a> TriviaBuilder<'a> {
             .map(|x| x.offset)
             .unwrap_or(0);
 
-        self.diagnostics.push(Diagnostic {
-            msg,
-            severity,
-            offset,
-            len: 0,
-        });
+        self.diagnostics.push(Diagnostic { msg, severity, offset, len: 1 });
     }
 
     fn attach_trivia(&mut self) {
@@ -188,7 +171,7 @@ impl<'a> TriviaBuilder<'a> {
         self.token_pos += 1;
     }
 
-    fn finish(mut self) -> (Rc<Node<'a>>, Vec<Diagnostic>) {
+    fn finish(mut self) -> (Rc<Node>, Vec<Diagnostic>) {
         self.finish_node(true);
 
         (self.tree_builder.finish(), self.diagnostics)
@@ -209,10 +192,17 @@ mod test {
 
     #[test]
     fn a() {
+        fn print_tree(text: &str) {
+            println!("{}", parse_str(text).0.print_tree(text));
+        }
+
         println!("{:#?}", parse_str("   name    foo     ; "));
         println!("{:#?}", parse_str("   name    foo      "));
         println!("{:#?}", parse_str("   name         ; "));
         println!("{:#?}", parse_str("       foo     ; "));
         println!("{:#?}", parse_str("    "));
+
+        print_tree("   name    foo     ; ");
+        print_tree(include_str!("../test/test.gek"));
     }
 }

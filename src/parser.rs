@@ -2,11 +2,16 @@ use std::{cell::Cell, mem};
 
 use tower_lsp::lsp_types::DiagnosticSeverity;
 
+use self::other::script;
 use crate::node::{NodeKind, TokenKind};
 
-use self::other::script;
-
+mod expression;
 mod other;
+mod statement;
+
+use expression::*;
+use other::*;
+use statement::*;
 
 pub(crate) fn parse(input: Input) -> Vec<Event> {
     let mut p = Parser::new(input);
@@ -27,12 +32,7 @@ impl Parser {
     const STEP_LIMIT: usize = 15_000_000;
 
     pub fn new(input: Input) -> Self {
-        Self {
-            input,
-            pos: 0,
-            events: vec![],
-            steps: 0.into(),
-        }
+        Self { input, pos: 0, events: vec![], steps: 0.into() }
     }
 
     pub fn finish(self) -> Vec<Event> {
@@ -44,12 +44,13 @@ impl Parser {
     }
 
     pub fn nth(&self, n: usize) -> TokenKind {
-        assert!(
-            self.steps.get() < Self::STEP_LIMIT,
-            "parser step limit exceeded"
-        );
+        assert!(self.steps.get() < Self::STEP_LIMIT, "parser step limit exceeded");
         self.steps.set(self.steps.get() + 1);
         self.input.kind(self.pos + n)
+    }
+
+    pub fn more(&self) -> bool {
+        !self.at(TokenKind::Eof)
     }
 
     pub fn at(&self, kind: TokenKind) -> bool {
@@ -102,12 +103,12 @@ impl Parser {
     pub fn err(&mut self, msg: &str) {
         self.push_event(Event::Diagnostic(
             format!("parsing error: {msg}"),
-            DiagnosticSeverity::WARNING,
+            DiagnosticSeverity::ERROR,
         ));
     }
 
-    /// Advance and return `true` if the current token is `kind`, otherwise emit an error and
-    /// return `false`
+    /// Advance and return `true` if the current token is `kind`, otherwise emit
+    /// an error and return `false`
     pub fn expect(&mut self, kind: TokenKind) -> bool {
         if self.opt(kind) {
             return true;
@@ -221,11 +222,6 @@ impl Input {
 
 impl FromIterator<TokenKind> for Input {
     fn from_iter<T: IntoIterator<Item = TokenKind>>(iter: T) -> Self {
-        Self {
-            tokens: iter
-                .into_iter()
-                .filter(|x| !matches!(x, TokenKind::Whitespace))
-                .collect(),
-        }
+        Self { tokens: iter.into_iter().filter(|x| !matches!(x, TokenKind::Whitespace)).collect() }
     }
 }

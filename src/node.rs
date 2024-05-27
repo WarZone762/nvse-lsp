@@ -3,24 +3,24 @@ use std::{fmt::Debug, rc::Rc};
 use tower_lsp::lsp_types::SemanticTokenType;
 
 #[derive(Debug)]
-pub(crate) enum NodeOrToken<'a> {
-    Node(Rc<Node<'a>>),
-    Token(Token<'a>),
+pub(crate) enum NodeOrToken {
+    Node(Rc<Node>),
+    Token(Token),
 }
 
-impl<'a> From<Rc<Node<'a>>> for NodeOrToken<'a> {
-    fn from(value: Rc<Node<'a>>) -> Self {
+impl From<Rc<Node>> for NodeOrToken {
+    fn from(value: Rc<Node>) -> Self {
         Self::Node(value)
     }
 }
 
-impl<'a> From<Token<'a>> for NodeOrToken<'a> {
-    fn from(value: Token<'a>) -> Self {
+impl From<Token> for NodeOrToken {
+    fn from(value: Token) -> Self {
         Self::Token(value)
     }
 }
 
-impl<'a> NodeOrToken<'a> {
+impl NodeOrToken {
     pub fn offset(&self) -> usize {
         match self {
             NodeOrToken::Node(x) => x.offset,
@@ -35,14 +35,14 @@ impl<'a> NodeOrToken<'a> {
         }
     }
 
-    pub fn parent(&self) -> &Option<Rc<Node<'a>>> {
+    pub fn parent(&self) -> &Option<Rc<Node>> {
         match self {
             NodeOrToken::Node(x) => &x.parent,
             NodeOrToken::Token(x) => &x.parent,
         }
     }
 
-    pub unsafe fn parent_mut(&mut self) -> &mut Option<Rc<Node<'a>>> {
+    pub unsafe fn parent_mut(&mut self) -> &mut Option<Rc<Node>> {
         match self {
             NodeOrToken::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
             NodeOrToken::Token(x) => &mut x.parent,
@@ -50,14 +50,14 @@ impl<'a> NodeOrToken<'a> {
     }
 }
 
-pub(crate) struct Node<'a> {
+pub(crate) struct Node {
     pub kind: NodeKind,
     pub offset: usize,
-    pub children: Vec<NodeOrToken<'a>>,
-    pub parent: Option<Rc<Node<'a>>>,
+    pub children: Vec<NodeOrToken>,
+    pub parent: Option<Rc<Node>>,
 }
 
-impl Debug for Node<'_> {
+impl Debug for Node {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut out = f.debug_struct("Node");
         out.field("kind", &self.kind)
@@ -78,35 +78,60 @@ impl Debug for Node<'_> {
     }
 }
 
-impl Node<'_> {
+impl Node {
     pub fn new(kind: NodeKind, offset: usize) -> Self {
-        Self {
-            kind,
-            offset,
-            children: Vec::new(),
-            parent: None,
-        }
+        Self { kind, offset, children: Vec::new(), parent: None }
     }
 
     pub fn end(&self) -> usize {
-        self.offset + self.children.last().map(|x| x.end()).unwrap_or(0)
+        self.children.last().map(|x| x.end()).unwrap_or(0)
+    }
+
+    pub fn print_tree(&self, text: &str) -> String {
+        self.print_tree_inner(text, 0)
+    }
+
+    fn print_tree_inner(&self, text: &str, ident: usize) -> String {
+        let mut string =
+            format!("{}{:?}@{}..{}", "    ".repeat(ident), self.kind, self.offset, self.end());
+        for child in &self.children {
+            string.push('\n');
+            string.push_str(&match child {
+                NodeOrToken::Node(x) => x.print_tree_inner(text, ident + 1),
+                NodeOrToken::Token(x) => {
+                    format!(
+                        "{}{:?}@{}..{} {:?}",
+                        "    ".repeat(ident + 1),
+                        x.kind,
+                        x.offset,
+                        x.end(),
+                        x.text(text)
+                    )
+                }
+            })
+        }
+        string
     }
 }
 
 #[derive(Clone)]
-pub(crate) struct Token<'a> {
+pub(crate) struct Token {
     pub kind: TokenKind,
     pub offset: usize,
-    pub text: &'a str,
-    pub parent: Option<Rc<Node<'a>>>,
+    pub len: usize,
+    pub byte_offset: usize,
+    pub byte_len: usize,
+    pub parent: Option<Rc<Node>>,
 }
 
-impl Debug for Token<'_> {
+impl Debug for Token {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut out = f.debug_struct("Token");
         out.field("kind", &self.kind)
             .field("offset", &self.offset)
-            .field("text", &self.text);
+            .field("len", &self.len)
+            .field("byte_offset", &self.byte_offset)
+            .field("byte_len", &self.byte_len);
         if let Some(parent) = &self.parent {
             out.field_with("parent", |f| {
                 f.debug_struct("Node")
@@ -122,32 +147,35 @@ impl Debug for Token<'_> {
     }
 }
 
-impl PartialEq for Token<'_> {
+impl PartialEq for Token {
     fn eq(&self, other: &Self) -> bool {
-        self.kind == other.kind && self.offset == other.offset && self.text == other.text
+        self.kind == other.kind && self.offset == other.offset && self.len == other.len
     }
 }
 
-impl Eq for Token<'_> {}
+impl Eq for Token {}
 
-impl<'a> Token<'a> {
-    pub fn new(kind: TokenKind, offset: usize, text: &'a str) -> Self {
-        Self {
-            kind,
-            offset,
-            text,
-            parent: None,
+impl Token {
+    pub fn new(
+        kind: TokenKind,
+        offset: usize,
+        len: usize,
+        byte_offset: usize,
+        byte_len: usize,
+    ) -> Self {
+        Self { kind, offset, len, byte_offset, byte_len, parent: None }
+    }
+
+    pub fn text<'a>(&self, string: &'a str) -> &'a str {
+        unsafe {
+            std::str::from_utf8_unchecked(
+                &string.as_bytes()[self.byte_offset..self.byte_offset + self.byte_len],
+            )
         }
-    }
-}
-
-impl Token<'_> {
-    pub fn len(&self) -> usize {
-        self.text.len()
     }
 
     pub fn end(&self) -> usize {
-        self.offset + self.text.len()
+        self.offset + self.len
     }
 }
 
@@ -167,6 +195,8 @@ macro_rules! tokens {
                     $($(
                         $($lit => Some(Self::$ident),)?
                     )*)*
+                    // TODO
+                    "menumode" | "gamemode" => Some(Self::BlockType),
                     "true" | "false" => Some(Self::Bool),
                     _ => None,
                 }
@@ -199,6 +229,8 @@ pub(crate) enum NodeKind {
     ForStmt,
     IfStmt,
     ReturnStmt,
+    BreakStmt,
+    ContinueStmt,
     WhileStmt,
     BlockStmt,
     AssignmentExpr,
@@ -214,6 +246,14 @@ pub(crate) enum NodeKind {
     IdentExpr,
     GroupingExpr,
     LambdaExpr,
+
+    ArgList,
+    VarDecl,
+    Name,
+    NameRef,
+    Literal,
+
+    Error,
     Tombstone,
 }
 
@@ -224,9 +264,10 @@ tokens! {
     "while" => While,
     "fn" => Fn,
     "return" => Return,
+    "break" => Break,
+    "continue" => Continue,
     "for" => For,
     "name" => Name,
-    "begin" => Begin,
     BlockType,
 
     (is_type)
@@ -266,19 +307,19 @@ tokens! {
 
     (is_brace)
     "{" => LeftBrace,
-    "}" => RigthBrace,
+    "}" => RightBrace,
     "[" => LeftBracket,
-    "]" => RigthBracket,
+    "]" => RightBracket,
     "(" => LeftParen,
-    ")" => RigthParne,
+    ")" => RightParen,
 
     (is_literal)
     String,
     Number,
-    Identifier,
     Bool,
 
     (is_misc)
+    Identifier,
     "," => Comma,
     ";" => Semicolon,
     "." => Dot,

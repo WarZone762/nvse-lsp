@@ -27,7 +27,7 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn next_token(&mut self) -> Option<Token<'a>> {
+    fn next_token(&mut self) -> Option<Token> {
         if let Some(c) = self.peek(0) {
             if c.is_whitespace() {
                 self.next_char();
@@ -61,7 +61,7 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn number(&mut self) -> Token<'a> {
+    fn number(&mut self) -> Token {
         self.next_char();
         let mut has_dot = false;
         while let Some(c) = self.peek(0) {
@@ -77,10 +77,10 @@ impl<'a> Lexer<'a> {
         self.finish_token(TokenKind::Number)
     }
 
-    fn ident(&mut self) -> Token<'a> {
+    fn ident(&mut self) -> Token {
         self.next_char();
         while let Some(c) = self.peek(0)
-            && c.is_alphanumeric()
+            && (c.is_alphanumeric() || c == '_')
         {
             self.next_char();
         }
@@ -90,7 +90,7 @@ impl<'a> Lexer<'a> {
         )
     }
 
-    fn string(&mut self) -> Token<'a> {
+    fn string(&mut self) -> Token {
         self.next_char();
         while let Some(c) = self.peek(0)
             && (c != '"' || self.peek(-1).is_some_and(|x| x == '\\'))
@@ -102,7 +102,7 @@ impl<'a> Lexer<'a> {
         self.finish_token(TokenKind::String)
     }
 
-    fn op_misc(&mut self) -> Token<'a> {
+    fn op_misc(&mut self) -> Token {
         let c = self.next_char().unwrap();
 
         if let Some(next_c) = self.peek(0) {
@@ -117,9 +117,14 @@ impl<'a> Lexer<'a> {
         self.finish_token(TokenKind::from_str(text).unwrap_or(TokenKind::Error))
     }
 
-    fn finish_token(&mut self, kind: TokenKind) -> Token<'a> {
-        let text = self.token_text();
-        let t = Token::new(kind, self.token_start_pos, text);
+    fn finish_token(&mut self, kind: TokenKind) -> Token {
+        let t = Token::new(
+            kind,
+            self.token_start_pos,
+            self.pos - self.token_start_pos,
+            self.token_start_byte_pos,
+            self.byte_pos - self.token_start_byte_pos,
+        );
 
         self.token_start_pos = self.pos;
         self.token_start_byte_pos = self.byte_pos;
@@ -147,8 +152,8 @@ impl<'a> Lexer<'a> {
     }
 }
 
-impl<'a> Iterator for Lexer<'a> {
-    type Item = Token<'a>;
+impl Iterator for Lexer<'_> {
+    type Item = Token;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.next_token()
@@ -158,14 +163,17 @@ impl<'a> Iterator for Lexer<'a> {
 #[cfg(test)]
 mod test {
     use super::*;
+
+    fn token_from_str(kind: TokenKind, string: &str, offset: usize) -> Token {
+        let byte_offset = string.char_indices().nth(offset).map(|x| x.0).unwrap_or(0);
+        Token::new(kind, offset, string.len(), byte_offset, string.bytes().len())
+    }
+
     #[test]
     fn number() {
         fn test(string: &str) {
             let mut lexer = Lexer::new(string);
-            assert_eq!(
-                Token::new(TokenKind::Number, 0, string),
-                lexer.next().unwrap(),
-            );
+            assert_eq!(token_from_str(TokenKind::Number, string, 0), lexer.next().unwrap(),);
         }
 
         test("1");
@@ -176,10 +184,10 @@ mod test {
         test("1.23");
 
         let mut lexer = Lexer::new(".1");
-        assert_eq!(Token::new(TokenKind::Number, 1, "1"), lexer.nth(1).unwrap());
+        assert_eq!(token_from_str(TokenKind::Number, "1", 1), lexer.nth(1).unwrap());
 
         let mut lexer = Lexer::new("1.");
-        assert_eq!(Token::new(TokenKind::Number, 0, "1"), lexer.next().unwrap());
+        assert_eq!(token_from_str(TokenKind::Number, "1", 0), lexer.next().unwrap());
     }
 
     #[test]
@@ -187,10 +195,10 @@ mod test {
         fn test(string: &str) {
             let mut lexer = Lexer::new(string);
             assert_eq!(
-                Token::new(
+                token_from_str(
                     TokenKind::from_str(string).unwrap_or(TokenKind::Identifier),
+                    string,
                     0,
-                    string
                 ),
                 lexer.next().unwrap(),
             );
@@ -201,9 +209,13 @@ mod test {
         test("while");
         test("fn");
         test("return");
+        test("break");
+        test("continue");
         test("for");
         test("name");
-        test("begin");
+
+        test("MenuMode");
+        test("GameMode");
 
         test("int");
         test("double");
@@ -215,11 +227,8 @@ mod test {
         test("bar1");
 
         let mut lexer = Lexer::new("1a");
-        assert_eq!(Token::new(TokenKind::Number, 0, "1"), lexer.next().unwrap());
-        assert_eq!(
-            Token::new(TokenKind::Identifier, 1, "a"),
-            lexer.next().unwrap()
-        );
+        assert_eq!(token_from_str(TokenKind::Number, "1", 0), lexer.next().unwrap());
+        assert_eq!(token_from_str(TokenKind::Identifier, "a", 1), lexer.next().unwrap());
     }
 
     #[test]
@@ -227,10 +236,7 @@ mod test {
         fn test(string: &str) {
             let string = string.trim();
             let mut lexer = Lexer::new(string);
-            assert_eq!(
-                Token::new(TokenKind::String, 0, string),
-                lexer.next().unwrap(),
-            );
+            assert_eq!(token_from_str(TokenKind::String, string, 0), lexer.next().unwrap(),);
         }
 
         test(r#"   ""   "#);
@@ -247,7 +253,7 @@ mod test {
         fn test(string: &str) {
             let mut lexer = Lexer::new(string);
             assert_eq!(
-                Token::new(TokenKind::from_str(string).unwrap(), 0, string),
+                token_from_str(TokenKind::from_str(string).unwrap(), string, 0),
                 lexer.next().unwrap(),
             );
         }
