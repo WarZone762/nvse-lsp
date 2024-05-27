@@ -185,24 +185,3 @@ pub(crate) struct Diagnostic {
     pub offset: usize,
     pub len: usize,
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn a() {
-        fn print_tree(text: &str) {
-            println!("{}", parse_str(text).0.print_tree(text));
-        }
-
-        println!("{:#?}", parse_str("   name    foo     ; "));
-        println!("{:#?}", parse_str("   name    foo      "));
-        println!("{:#?}", parse_str("   name         ; "));
-        println!("{:#?}", parse_str("       foo     ; "));
-        println!("{:#?}", parse_str("    "));
-
-        print_tree("   name    foo     ; ");
-        print_tree(include_str!("../test/test.gek"));
-    }
-}

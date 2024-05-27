@@ -5,5 +5,8 @@ edition = "2021"
 
 [dependencies]
 dashmap = "5.5"
-tokio = { version = "1.37.0", features = ["full"] }
-tower-lsp = "0.20.0"
+tokio = { version = "1.37", features = ["full"] }
+tower-lsp = "0.20"
+
+[dev-dependencies]
+similar-asserts = "1.5"

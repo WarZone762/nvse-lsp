@@ -87,7 +87,7 @@ impl Node {
         self.children.last().map(|x| x.end()).unwrap_or(0)
     }
 
-    pub fn print_tree(&self, text: &str) -> String {
+    pub fn tree_string(&self, text: &str) -> String {
         self.print_tree_inner(text, 0)
     }
 
@@ -180,7 +180,7 @@ impl Token {
 }
 
 macro_rules! tokens {
-    ($(($group:ident) $($($lit:literal =>)? $ident:ident,)*)*) => {
+    ($(($group:ident) $($($lit:literal =>)? $ident:ident $(($display:literal))?,)*)*) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[allow(dead_code)]
         pub(crate) enum TokenKind {
@@ -195,10 +195,20 @@ macro_rules! tokens {
                     $($(
                         $($lit => Some(Self::$ident),)?
                     )*)*
-                    // TODO
-                    "menumode" | "gamemode" => Some(Self::BlockType),
+                    blocktypes!() => Some(Self::BlockType),
                     "true" | "false" => Some(Self::Bool),
                     _ => None,
+                }
+            }
+        }
+
+        impl ::std::fmt::Display for TokenKind {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+                match self {
+                    $($(
+                        $(Self::$ident => f.write_str($lit),)?
+                        $(Self::$ident => f.write_str($display),)?
+                    )*)*
                 }
             }
         }
@@ -216,6 +226,13 @@ macro_rules! tokens {
                 }
             }
         )*
+    };
+}
+
+// TODO
+macro_rules! blocktypes {
+    () => {
+        "menumode" | "gamemode"
     };
 }
 
@@ -264,11 +281,11 @@ tokens! {
     "while" => While,
     "fn" => Fn,
     "return" => Return,
-    "break" => Break,
-    "continue" => Continue,
     "for" => For,
+    BlockType("block type"),
     "name" => Name,
-    BlockType,
+    "continue" => Continue,
+    "break" => Break,
 
     (is_type)
     "int" => IntType,
@@ -288,6 +305,10 @@ tokens! {
     "*=" => StarEq,
     "/" => Slash,
     "/=" => SlashEq,
+    "%" => Mod,
+    "%=" => ModEq,
+    "^" => Pow,
+    "^=" => PowEq,
     "=" => Eq,
     "==" => EqEq,
     "<" => Less,
@@ -302,6 +323,7 @@ tokens! {
     "&" => BitwiseAnd,
     "~" => Tilde,
     "$" => Dollar,
+    "#" => Pound,
     "?" => Ternary,
     ":" => Colon,
 
@@ -314,18 +336,19 @@ tokens! {
     ")" => RightParen,
 
     (is_literal)
-    String,
-    Number,
-    Bool,
+    String("string"),
+    Number("number"),
+    Bool("boolean"),
 
     (is_misc)
-    Identifier,
+    Identifier("identifier"),
     "," => Comma,
     ";" => Semicolon,
     "." => Dot,
-    Whitespace,
-    Eof,
-    Error,
+    Whitespace("whitespace"),
+    Comment("comment"),
+    Eof("end of file"),
+    Error("error"),
 }
 
 impl TokenKind {

@@ -79,7 +79,7 @@ impl Parser {
     /// Assert the current token is `kind` and advance
     pub fn next(&mut self, kind: TokenKind) {
         if !self.opt(kind) {
-            panic!("unexpected token: expected {kind:?}, got {:?}", self.cur())
+            panic!("unexpected token: expected '{kind}', got '{}'", self.cur())
         }
     }
 
@@ -91,7 +91,7 @@ impl Parser {
         self.do_next(kind);
     }
 
-    pub fn ward_and_next(&mut self, msg: &str) {
+    pub fn warn_and_next(&mut self, msg: &str) {
         self.warn(msg);
         self.next_any();
     }
@@ -113,7 +113,7 @@ impl Parser {
         if self.opt(kind) {
             return true;
         }
-        self.err(&format!("expected {kind:?}"));
+        self.err(&format!("expected '{kind}'"));
         false
     }
 
@@ -224,4 +224,72 @@ impl FromIterator<TokenKind> for Input {
     fn from_iter<T: IntoIterator<Item = TokenKind>>(iter: T) -> Self {
         Self { tokens: iter.into_iter().filter(|x| !matches!(x, TokenKind::Whitespace)).collect() }
     }
+}
+
+#[cfg(test)]
+mod test {
+    use std::{
+        fs,
+        path::{Path, PathBuf},
+    };
+
+    use crate::tree_builder::parse_str;
+
+    fn case_paths() -> impl Iterator<Item = (PathBuf, PathBuf)> {
+        let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
+        let ast_dir = test_dir.join("ast");
+        let case_dir = test_dir.join("cases");
+
+        fs::read_dir(case_dir).unwrap().map(move |f| {
+            let f = f.unwrap();
+            let mut ast = f.path();
+            ast.set_extension("ast");
+            let ast = ast_dir.join(ast.file_name().unwrap());
+
+            (f.path(), ast)
+        })
+    }
+
+    #[test]
+    #[ignore]
+    fn gen_test_data() {
+        for (case, ast) in case_paths() {
+            if !ast.exists() {
+                let text = fs::read_to_string(case).unwrap();
+                let mut tree = parse_str(&text).0.tree_string(&text);
+                tree.push('\n');
+                fs::write(&ast, tree).unwrap();
+                println!("Generated {ast:?}");
+            } else {
+                println!("Skipped {ast:?}")
+            }
+        }
+    }
+
+    macro_rules! test_from_file {
+        ($name:ident, $file:literal) => {
+            #[test]
+            fn $name() {
+                let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
+                let ast_dir = test_dir.join("ast");
+                let case_dir = test_dir.join("cases");
+
+                let case = case_dir.join(format!("{}.gek", $file));
+                let ast = ast_dir.join(format!("{}.ast", $file));
+
+                let text = fs::read_to_string(&case).unwrap();
+                let mut tree = parse_str(&text).0.tree_string(&text);
+                tree.push('\n');
+                let must = fs::read_to_string(&ast).unwrap();
+                if tree != must {
+                    panic!(
+                        "{case:?}\n\n{}",
+                        similar_asserts::SimpleDiff::from_str(&tree, &must, "new", "old")
+                    )
+                }
+            }
+        };
+    }
+
+    test_from_file!(test, "test");
 }

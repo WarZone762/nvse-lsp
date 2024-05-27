@@ -18,7 +18,7 @@ pub(crate) fn script(p: &mut Parser) {
     match p.cur() {
         TokenKind::BlockType => begin(p),
         TokenKind::Fn => fn_decl(p),
-        x => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
+        _ => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
     }
 
     while p.more() {
@@ -26,7 +26,7 @@ pub(crate) fn script(p: &mut Parser) {
         match p.cur() {
             TokenKind::BlockType => begin(p),
             TokenKind::Fn => fn_decl(p),
-            x => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
+            _ => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
         }
     }
 
@@ -102,27 +102,5 @@ pub(crate) fn name_ref(p: &mut Parser) -> CompletedMarker {
     } else {
         p.err_and_next("expected an identifier");
         m.complete(p, NodeKind::Error)
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use crate::{
-        lexer::Lexer,
-        parser::{parse, Event},
-    };
-
-    fn lex(string: &str) -> Vec<Event> {
-        parse(Lexer::new(string).map(|x| x.kind).collect())
-    }
-
-    #[test]
-    fn a() {
-        let e = lex("name foo;");
-        println!("{e:#?}");
-
-        let e = lex("name foo");
-        println!("{e:#?}");
     }
 }

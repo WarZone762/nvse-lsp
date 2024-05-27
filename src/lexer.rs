@@ -39,6 +39,10 @@ impl<'a> Lexer<'a> {
                 return Some(self.finish_token(TokenKind::Whitespace));
             }
 
+            if c == '/' && self.peek(1) == Some('/') {
+                return Some(self.comment());
+            }
+
             if c.is_ascii_digit() {
                 return Some(self.number());
             }
@@ -59,6 +63,20 @@ impl<'a> Lexer<'a> {
             self.done = true;
             Some(self.finish_token(TokenKind::Eof))
         }
+    }
+
+    fn comment(&mut self) -> Token {
+        self.next_char();
+        self.next_char();
+        while let Some(c) = self.peek(0) {
+            if c == '\n' {
+                self.next_char();
+                break;
+            }
+            self.next_char();
+        }
+
+        self.finish_token(TokenKind::Comment)
     }
 
     fn number(&mut self) -> Token {
@@ -106,7 +124,8 @@ impl<'a> Lexer<'a> {
         let c = self.next_char().unwrap();
 
         if let Some(next_c) = self.peek(0) {
-            if matches!(c, '+' | '-' | '*' | '/' | '=' | '!' | '<' | '>') && next_c == '='
+            if matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '=' | '!' | '<' | '>')
+                && next_c == '='
                 || matches!(c, '+' | '-' | '|' | '&') && next_c == c
             {
                 self.next_char();
@@ -169,11 +188,37 @@ mod test {
         Token::new(kind, offset, string.len(), byte_offset, string.bytes().len())
     }
 
+    fn test_str(string: &str, kind_fn: impl FnOnce() -> TokenKind) {
+        let mut lexer = Lexer::new(string);
+        assert_eq!(token_from_str(kind_fn(), string, 0), lexer.next().unwrap(), "{string:?}",);
+    }
+
+    #[test]
+    fn comment() {
+        fn test(string: &str) {
+            test_str(string, || TokenKind::Comment);
+        }
+
+        test("//");
+        test("//1");
+        test("//123");
+        test("// ");
+        test("// 1");
+        test("// 123");
+        test("// 123 ");
+        test("//\n");
+        test("//1\n");
+        test("//123\n");
+        test("// \n");
+        test("// 1\n");
+        test("// 123\n");
+        test("// 123 \n");
+    }
+
     #[test]
     fn number() {
         fn test(string: &str) {
-            let mut lexer = Lexer::new(string);
-            assert_eq!(token_from_str(TokenKind::Number, string, 0), lexer.next().unwrap(),);
+            test_str(string, || TokenKind::Number);
         }
 
         test("1");
@@ -193,15 +238,9 @@ mod test {
     #[test]
     fn ident() {
         fn test(string: &str) {
-            let mut lexer = Lexer::new(string);
-            assert_eq!(
-                token_from_str(
-                    TokenKind::from_str(string).unwrap_or(TokenKind::Identifier),
-                    string,
-                    0,
-                ),
-                lexer.next().unwrap(),
-            );
+            test_str(string, || {
+                TokenKind::from_str(&string.to_lowercase()).unwrap_or(TokenKind::Identifier)
+            });
         }
 
         test("if");
@@ -234,9 +273,7 @@ mod test {
     #[test]
     fn string() {
         fn test(string: &str) {
-            let string = string.trim();
-            let mut lexer = Lexer::new(string);
-            assert_eq!(token_from_str(TokenKind::String, string, 0), lexer.next().unwrap(),);
+            test_str(string.trim(), || TokenKind::String);
         }
 
         test(r#"   ""   "#);
@@ -251,11 +288,7 @@ mod test {
     #[test]
     fn ops_misc() {
         fn test(string: &str) {
-            let mut lexer = Lexer::new(string);
-            assert_eq!(
-                token_from_str(TokenKind::from_str(string).unwrap(), string, 0),
-                lexer.next().unwrap(),
-            );
+            test_str(string, || TokenKind::from_str(string).unwrap());
         }
 
         test("+");
@@ -268,6 +301,10 @@ mod test {
         test("*=");
         test("/");
         test("/=");
+        test("%");
+        test("%=");
+        test("^");
+        test("^=");
         test("=");
         test("==");
         test("!");
@@ -282,6 +319,7 @@ mod test {
         test("&&");
         test("~");
         test("$");
+        test("#");
         test("{");
         test("[");
         test("(");
