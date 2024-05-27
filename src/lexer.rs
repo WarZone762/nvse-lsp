@@ -139,10 +139,10 @@ impl<'a> Lexer<'a> {
     fn finish_token(&mut self, kind: TokenKind) -> Token {
         let t = Token::new(
             kind,
-            self.token_start_pos,
-            self.pos - self.token_start_pos,
-            self.token_start_byte_pos,
-            self.byte_pos - self.token_start_byte_pos,
+            self.token_start_pos as _,
+            (self.pos - self.token_start_pos) as _,
+            self.token_start_byte_pos as _,
+            (self.byte_pos - self.token_start_byte_pos) as _,
         );
 
         self.token_start_pos = self.pos;
@@ -185,7 +185,13 @@ mod test {
 
     fn token_from_str(kind: TokenKind, string: &str, offset: usize) -> Token {
         let byte_offset = string.char_indices().nth(offset).map(|x| x.0).unwrap_or(0);
-        Token::new(kind, offset, string.len(), byte_offset, string.bytes().len())
+        Token::new(
+            kind,
+            offset as _,
+            string.len() as _,
+            byte_offset as _,
+            string.bytes().len() as _,
+        )
     }
 
     fn test_str(string: &str, kind_fn: impl FnOnce() -> TokenKind) {
@@ -283,6 +289,12 @@ mod test {
         test(r#"   "\"\""   "#);
         test(r#"   "\"123\""   "#);
         test(r#"   "\"123\"   "#);
+
+        test(r#"   "\n"   "#);
+        test(r#"   "\n\n"   "#);
+        test(r#"   "\n1\n"   "#);
+        test(r#"   "\n134\n"   "#);
+        test(r#"   "123\n134\n13"   "#);
     }
 
     #[test]

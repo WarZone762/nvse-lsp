@@ -86,7 +86,7 @@ impl TreeBuilder {
         for _ in 0..n {
             let mut child = self.children.pop().unwrap();
             unsafe {
-                *child.parent_mut() = Some(node.clone());
+                *child.parent_mut() = Some(Rc::downgrade(&node));
                 Rc::get_mut_unchecked(&mut node).children.insert(0, child);
             }
         }
@@ -182,6 +182,6 @@ impl TriviaBuilder {
 pub(crate) struct Diagnostic {
     pub msg: String,
     pub severity: DiagnosticSeverity,
-    pub offset: usize,
-    pub len: usize,
+    pub offset: u32,
+    pub len: u32,
 }

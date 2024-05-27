@@ -1,6 +1,11 @@
-use std::{fmt::Debug, rc::Rc};
+use std::{
+    fmt::Debug,
+    rc::{Rc, Weak},
+};
 
 use tower_lsp::lsp_types::SemanticTokenType;
+
+mod api;
 
 #[derive(Debug)]
 pub(crate) enum NodeOrToken {
@@ -21,28 +26,28 @@ impl From<Token> for NodeOrToken {
 }
 
 impl NodeOrToken {
-    pub fn offset(&self) -> usize {
+    pub fn offset(&self) -> u32 {
         match self {
             NodeOrToken::Node(x) => x.offset,
             NodeOrToken::Token(x) => x.offset,
         }
     }
 
-    pub fn end(&self) -> usize {
+    pub fn end(&self) -> u32 {
         match self {
             NodeOrToken::Node(x) => x.end(),
             NodeOrToken::Token(x) => x.end(),
         }
     }
 
-    pub fn parent(&self) -> &Option<Rc<Node>> {
+    pub fn parent(&self) -> &Option<Weak<Node>> {
         match self {
             NodeOrToken::Node(x) => &x.parent,
             NodeOrToken::Token(x) => &x.parent,
         }
     }
 
-    pub unsafe fn parent_mut(&mut self) -> &mut Option<Rc<Node>> {
+    pub unsafe fn parent_mut(&mut self) -> &mut Option<Weak<Node>> {
         match self {
             NodeOrToken::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
             NodeOrToken::Token(x) => &mut x.parent,
@@ -52,9 +57,9 @@ impl NodeOrToken {
 
 pub(crate) struct Node {
     pub kind: NodeKind,
-    pub offset: usize,
+    pub offset: u32,
     pub children: Vec<NodeOrToken>,
-    pub parent: Option<Rc<Node>>,
+    pub parent: Option<Weak<Node>>,
 }
 
 impl Debug for Node {
@@ -66,8 +71,8 @@ impl Debug for Node {
         if let Some(parent) = &self.parent {
             out.field_with("parent", |f| {
                 f.debug_struct("Node")
-                    .field("kind", &parent.kind)
-                    .field("offset", &parent.offset)
+                    .field("kind", &parent.upgrade().unwrap().kind)
+                    .field("offset", &parent.upgrade().unwrap().offset)
                     .finish()
             });
         } else {
@@ -79,11 +84,11 @@ impl Debug for Node {
 }
 
 impl Node {
-    pub fn new(kind: NodeKind, offset: usize) -> Self {
+    pub fn new(kind: NodeKind, offset: u32) -> Self {
         Self { kind, offset, children: Vec::new(), parent: None }
     }
 
-    pub fn end(&self) -> usize {
+    pub fn end(&self) -> u32 {
         self.children.last().map(|x| x.end()).unwrap_or(0)
     }
 
@@ -117,11 +122,11 @@ impl Node {
 #[derive(Clone)]
 pub(crate) struct Token {
     pub kind: TokenKind,
-    pub offset: usize,
-    pub len: usize,
-    pub byte_offset: usize,
-    pub byte_len: usize,
-    pub parent: Option<Rc<Node>>,
+    pub offset: u32,
+    pub len: u32,
+    pub byte_offset: u32,
+    pub byte_len: u32,
+    pub parent: Option<Weak<Node>>,
 }
 
 impl Debug for Token {
@@ -135,8 +140,8 @@ impl Debug for Token {
         if let Some(parent) = &self.parent {
             out.field_with("parent", |f| {
                 f.debug_struct("Node")
-                    .field("kind", &parent.kind)
-                    .field("offset", &parent.offset)
+                    .field("kind", &parent.upgrade().unwrap().kind)
+                    .field("offset", &parent.upgrade().unwrap().offset)
                     .finish()
             });
         } else {
@@ -156,25 +161,20 @@ impl PartialEq for Token {
 impl Eq for Token {}
 
 impl Token {
-    pub fn new(
-        kind: TokenKind,
-        offset: usize,
-        len: usize,
-        byte_offset: usize,
-        byte_len: usize,
-    ) -> Self {
+    pub fn new(kind: TokenKind, offset: u32, len: u32, byte_offset: u32, byte_len: u32) -> Self {
         Self { kind, offset, len, byte_offset, byte_len, parent: None }
     }
 
     pub fn text<'a>(&self, string: &'a str) -> &'a str {
         unsafe {
             std::str::from_utf8_unchecked(
-                &string.as_bytes()[self.byte_offset..self.byte_offset + self.byte_len],
+                &string.as_bytes()
+                    [self.byte_offset as usize..(self.byte_offset + self.byte_len) as usize],
             )
         }
     }
 
-    pub fn end(&self) -> usize {
+    pub fn end(&self) -> u32 {
         self.offset + self.len
     }
 }
