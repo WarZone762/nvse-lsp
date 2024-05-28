@@ -1,0 +1,24 @@
+name NewTestShowoffOnExplosionHit;
+
+// SetEventHandlerAlt "ShowOff:OnExplosionHit" NewTestShowoffOnExplosionHit
+// SetEventHandlerAlt "ShowOff:OnExplosionHitAnyRef" NewTestShowoffOnExplosionHit
+
+fn (ref rHitActor, ref rSourceActor) {
+
+    if (rHitActor == player) {
+        return;
+    }
+
+    ref rExplosion = ThisAlt();
+    printvar(rHitActor, rExplosion);
+
+    //rHitActor.GetAV(Health);
+    //float fHealth = rHitActor.GetAV(Health);
+    //printvar fHealth
+
+    double fDamage = GetExplosionHitDamage();
+    printvar(fDamage);
+    SetExplosionHitDamage(0);
+
+
+}

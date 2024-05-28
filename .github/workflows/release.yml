@@ -1,0 +1,45 @@
+name: release
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            code-target: win32-x64
+            file_ext: .exe
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            code-target: linux-x64
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            code-target: darwin-x64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: dtolnay/rust-toolchain@nightly
+
+      - run: cargo build --release
+
+      - run: |
+          mkdir ./dist ./out
+          mv ../target/release/nvse-lsp${{ matrix.file_ext }} ./dist/nvse-lsp${{ matrix.file_ext }}
+          npm i
+          npx vsce pack -o ./out/vscode-nvse-lsp-${{ matrix.target }}.vsix
+        working-directory: ./vscode
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nvse-lsp-${{ matrix.target }}
+          path: ./vscode/dist/nvse-lsp
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vscode-nvse-lsp-${{ matrix.target }}
+          path: ./vscode/out

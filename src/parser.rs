@@ -222,7 +222,12 @@ impl Input {
 
 impl FromIterator<TokenKind> for Input {
     fn from_iter<T: IntoIterator<Item = TokenKind>>(iter: T) -> Self {
-        Self { tokens: iter.into_iter().filter(|x| !matches!(x, TokenKind::Whitespace)).collect() }
+        Self {
+            tokens: iter
+                .into_iter()
+                .filter(|x| !matches!(x, TokenKind::Whitespace | TokenKind::Comment))
+                .collect(),
+        }
     }
 }
 
