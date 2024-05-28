@@ -1,0 +1,83 @@
+{
+    "name": "vscode-nvse-lsp",
+    "publisher": "WarZone762",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.81.0"
+    },
+    "main": "./dist/extension",
+    "repository": "https://github.com/WarZone762/nvse-lsp",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "NVSE Language Server configuration",
+            "properties": {
+                "nvse-lsp.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VS Code and the language server."
+                }
+            }
+        },
+        "languages": [
+            {
+                "id": "geckscript-nvse",
+                "aliases": [
+                    "geckscript-nvse",
+                    "geckscript-xnvse",
+                    "obscript-nvse",
+                    "obscript-xnvse"
+                ],
+                "extensions": [
+                    ".gek",
+                    ".geck"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "geckscript-nvse",
+                "scopeName": "source.geckscript-nvse",
+                "path": "./syntaxes/geckscript-nvse.json"
+            }
+        ],
+        "semanticTokenTypes": [
+            {
+                "id": "escapeSequence",
+                "description": "Style for char escapes in strings"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "tsc-compile": "tsc -b",
+        "lint": "eslint ./src --ext .js, .ts",
+        "clean": "rm -rf ./out ./dist",
+        "pack": "vsce pack -o ./out/vscode-nvse-lsp.vsix && 7z a ./out/vscode-nvse-lsp.7z ./out/vscode-nvse-lsp.vsix",
+        "run-vscode": "code --extensionDevelopmentPath=$PWD ."
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11",
+        "@types/vscode": "^1.81",
+        "@typescript-eslint/eslint-plugin": "^7.1",
+        "@typescript-eslint/parser": "^7.1",
+        "@vscode/test-electron": "^2.1",
+        "@vscode/vsce": "^2.24",
+        "esbuild": "^0.21",
+        "eslint": "^8.19",
+        "typescript": "^5.3"
+    }
+}

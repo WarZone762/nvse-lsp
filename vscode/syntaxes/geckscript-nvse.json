@@ -1,0 +1,35 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "scopeName": "source.geckscript-nvse",
+    "patterns": [
+        {
+            "name": "comment.line",
+            "match": "//*"
+        },
+        {
+            "name": "string.quoted.double",
+            "begin": "\"",
+            "end": "\""
+        },
+        {
+            "name": "storage.type",
+            "match": "(?i)\\b(int|double|ref|string|array)\\b"
+        },
+        {
+            "name": "keyword.control",
+            "match": "(?i)\\b(if|else|while|fn|return|for|namecontinue|break)\\b"
+        },
+        {
+            "name": "keyword.operator",
+            "match": "\\+=|-=|\\*=|\\/=|%=|\\^=|\\|\\||&&|==|!=|>=|<=|<<|>>|\\$|#|\\(|\\)|\\[|\\]|{|}|->|\\.|!|>|<|=|\\+|-|\\*|\\/|%|\\^|\\||&|:|\\?|~"
+        },
+        {
+            "name": "variable.name",
+            "match": "\\b\\w[\\w\\d]*\\b"
+        },
+        {
+            "name": "constant.numeric",
+            "match": "(?i)\\d*\\.?\\d+"
+        }
+    ]
+}
