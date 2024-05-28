@@ -10,7 +10,11 @@ mod tree_builder;
 use dashmap::DashMap;
 use doc::Doc;
 use features::*;
-use tower_lsp::{jsonrpc::Result, lsp_types::*, Client, LanguageServer, LspService, Server};
+use tower_lsp::{
+    jsonrpc::Result,
+    lsp_types::{notification::Notification, *},
+    Client, LanguageServer, LspService, Server,
+};
 
 #[tokio::main]
 async fn main() {
@@ -27,6 +31,14 @@ struct Backend {
     docs: DashMap<Url, Doc>,
 }
 
+struct AstNotification;
+
+impl Notification for AstNotification {
+    type Params = String;
+
+    const METHOD: &'static str = "geckscript-nvse/ast";
+}
+
 impl Backend {
     pub fn new(client: Client) -> Self {
         Self { client, docs: DashMap::new() }
@@ -35,6 +47,7 @@ impl Backend {
     pub async fn add_doc(&self, doc: TextDocumentItem) {
         let doc = doc.into();
         self.publish_diagnostics(&doc).await;
+        self.client.send_notification::<AstNotification>(doc.tree.tree_string(&doc.text)).await;
         self.docs.insert(doc.uri.clone(), doc);
     }
 
@@ -44,6 +57,7 @@ impl Backend {
                 doc.update_text(change.text);
             }
             self.publish_diagnostics(&doc).await;
+            self.client.send_notification::<AstNotification>(doc.tree.tree_string(&doc.text)).await;
         } else {
             self.client
                 .show_message(MessageType::ERROR, format!("unknown document {}", uri.as_str()))

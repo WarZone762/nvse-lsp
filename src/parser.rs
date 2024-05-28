@@ -44,7 +44,12 @@ impl Parser {
     }
 
     pub fn nth(&self, n: usize) -> TokenKind {
-        assert!(self.steps.get() < Self::STEP_LIMIT, "parser step limit exceeded");
+        assert!(
+            self.steps.get() < Self::STEP_LIMIT,
+            "parser step limit exceeded at {:?}@{}",
+            self.input.kind(self.pos + n),
+            self.pos,
+        );
         self.steps.set(self.steps.get() + 1);
         self.input.kind(self.pos + n)
     }
@@ -235,6 +240,7 @@ impl FromIterator<TokenKind> for Input {
 mod test {
     use std::{
         fs,
+        io::Write,
         path::{Path, PathBuf},
     };
 
@@ -253,6 +259,25 @@ mod test {
 
             (f.path(), ast)
         })
+    }
+
+    fn strip_range(string: &str) -> String {
+        let mut buf = String::new();
+        let mut chars = string.chars();
+        while let Some(c) = chars.next() {
+            if c == '@' {
+                buf.push(loop {
+                    if let Some(c) = chars.next()
+                        && (c == ' ' || c == '\n')
+                    {
+                        break c;
+                    }
+                });
+            } else {
+                buf.push(c);
+            }
+        }
+        buf
     }
 
     #[test]
@@ -289,7 +314,13 @@ mod test {
                 if tree != must {
                     panic!(
                         "{case:?}\n\n{}",
-                        similar_asserts::SimpleDiff::from_str(&tree, &must, "new", "old")
+                        // similar_asserts::SimpleDiff::from_str(&must, &tree, "old", "new")
+                        similar_asserts::SimpleDiff::from_str(
+                            &strip_range(&must),
+                            &strip_range(&tree),
+                            "old",
+                            "new",
+                        )
                     )
                 }
             }
@@ -297,4 +328,5 @@ mod test {
     }
 
     test_from_file!(test, "test");
+    test_from_file!(test2, "test2");
 }

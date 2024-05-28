@@ -1,175 +1,74 @@
 use super::*;
 
 pub(crate) fn expr(p: &mut Parser) -> CompletedMarker {
-    expr_assignment(p)
+    expr_bp(p, 1)
 }
 
-pub(crate) fn expr_assignment(p: &mut Parser) -> CompletedMarker {
-    let lhs = expr_ternary(p);
+pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> CompletedMarker {
+    let mut lhs = expr_lhs(p);
 
-    if p.at(TokenKind::Eq) {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_assignment(p);
-        return m.complete(p, NodeKind::AssignmentExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_ternary(p: &mut Parser) -> CompletedMarker {
-    let mut cond = expr_logical_or(p);
-
-    while p.at(TokenKind::Ternary) {
-        let m = cond.precede(p);
-        p.next_any();
-
-        if p.opt(TokenKind::Colon) {
-            expr_logical_or(p);
-            p.expect(TokenKind::Colon);
+    loop {
+        let bp = bin_op_bp(p.cur()) * 2;
+        if bp < min_bp {
+            break;
         }
-        expr_logical_or(p);
-        cond = m.complete(p, NodeKind::TernaryExpr);
-    }
-
-    cond
-}
-
-pub(crate) fn expr_logical_or(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_logical_and(p);
-
-    while p.at(TokenKind::LogicOr) {
         let m = lhs.precede(p);
+
         p.next_any();
-        expr_logical_and(p);
+        expr_bp(p, bp + 1);
+
         lhs = m.complete(p, NodeKind::BinayExpr);
     }
 
     lhs
 }
 
-pub(crate) fn expr_logical_and(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_equality(p);
-
-    while p.at(TokenKind::LogicAnd) {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_equality(p);
-        lhs = m.complete(p, NodeKind::BinayExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_equality(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_comparison(p);
-
-    while p.at(TokenKind::EqEq) || p.at(TokenKind::BangEq) {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_comparison(p);
-        lhs = m.complete(p, NodeKind::BinayExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_comparison(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_term(p);
-
-    while p.at(TokenKind::Less)
-        || p.at(TokenKind::LessEq)
-        || p.at(TokenKind::Greater)
-        || p.at(TokenKind::GreaterEq)
-    {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_term(p);
-        lhs = m.complete(p, NodeKind::BinayExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_term(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_factor(p);
-
-    while p.at(TokenKind::Plus) || p.at(TokenKind::Minus) {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_factor(p);
-        lhs = m.complete(p, NodeKind::BinayExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_factor(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_unary(p);
-
-    while p.at(TokenKind::Star) || p.at(TokenKind::Slash) {
-        let m = lhs.precede(p);
-        p.next_any();
-        expr_unary(p);
-        lhs = m.complete(p, NodeKind::BinayExpr);
-    }
-
-    lhs
-}
-
-pub(crate) fn expr_unary(p: &mut Parser) -> CompletedMarker {
-    if p.at(TokenKind::Bang) || p.at(TokenKind::Minus) || p.at(TokenKind::Dollar) {
+pub(crate) fn expr_lhs(p: &mut Parser) -> CompletedMarker {
+    if p.at(TokenKind::Bang) | p.at(TokenKind::Minus) | p.at(TokenKind::Dollar) {
         let m = p.start();
         p.next_any();
-        expr_unary(p);
-        return m.complete(p, NodeKind::UnaryExpr);
-    }
-
-    expr_postfix(p)
-}
-
-pub(crate) fn expr_postfix(p: &mut Parser) -> CompletedMarker {
-    let lhs = expr_call(p);
-
-    if p.at(TokenKind::LeftBracket) {
-        let m = lhs.precede(p);
-        p.next_any();
         expr(p);
-        p.expect(TokenKind::RightBracket);
-        return m.complete(p, NodeKind::SubscriptExpr);
+        m.complete(p, NodeKind::UnaryExpr)
+    } else {
+        let lhs = expr_primary(p);
+        expr_postfix(p, lhs)
     }
+}
 
-    if p.at(TokenKind::PlusPlus) || p.at(TokenKind::MinusMinus) {
-        let m = lhs.precede(p);
-        p.next_any();
-        return m.complete(p, NodeKind::UnaryExpr);
+pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> CompletedMarker {
+    loop {
+        lhs = match p.cur() {
+            TokenKind::LeftParen => expr_call(p, lhs),
+            TokenKind::LeftBracket => {
+                let m = lhs.precede(p);
+                p.next_any();
+                expr(p);
+                p.expect(TokenKind::RightBracket);
+                m.complete(p, NodeKind::SubscriptExpr)
+            }
+            TokenKind::PlusPlus | TokenKind::MinusMinus => {
+                let m = lhs.precede(p);
+                p.next_any();
+                m.complete(p, NodeKind::UnaryExpr)
+            }
+            TokenKind::Ternary => {
+                let m = lhs.precede(p);
+                p.next_any();
+                expr(p);
+                p.expect(TokenKind::Colon);
+                expr(p);
+                m.complete(p, NodeKind::TernaryExpr)
+            }
+            _ => break,
+        };
     }
-
     lhs
 }
 
-pub(crate) fn expr_call(p: &mut Parser) -> CompletedMarker {
-    let mut lhs = expr_primary(p);
-
-    while p.at(TokenKind::Dot) || p.at(TokenKind::LeftParen) {
-        let m = lhs.precede(p);
-        if p.at(TokenKind::Dot) {
-            p.next_any();
-            name_ref(p);
-        } else {
-            p.next_any();
-            while p.more() && !p.at(TokenKind::RightParen) {
-                expr(p);
-                if p.at(TokenKind::RightParen) || !p.expect(TokenKind::Comma) {
-                    break;
-                }
-            }
-            p.expect(TokenKind::RightParen);
-        }
-        lhs = m.complete(p, NodeKind::CallExpr);
-    }
-
-    lhs
+pub(crate) fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker {
+    let m = lhs.precede(p);
+    arg_list(p);
+    m.complete(p, NodeKind::CallExpr)
 }
 
 pub(crate) fn expr_primary(p: &mut Parser) -> CompletedMarker {
@@ -198,7 +97,27 @@ pub(crate) fn expr_primary(p: &mut Parser) -> CompletedMarker {
 pub(crate) fn expr_fn(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::Fn);
-    arg_list(p);
+    param_list(p);
     stmt_block(p);
     m.complete(p, NodeKind::LambdaExpr)
+}
+
+pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
+    match token {
+        TokenKind::Dot => 7,
+        TokenKind::Star | TokenKind::Slash | TokenKind::Mod => 6,
+        TokenKind::Plus | TokenKind::Minus => 5,
+        TokenKind::Less | TokenKind::LessEq | TokenKind::Greater | TokenKind::GreaterEq => 5,
+        TokenKind::EqEq | TokenKind::BangEq => 4,
+        TokenKind::LogicAnd => 3,
+        TokenKind::LogicOr => 2,
+        TokenKind::Eq
+        | TokenKind::PlusEq
+        | TokenKind::MinusEq
+        | TokenKind::StarEq
+        | TokenKind::SlashEq
+        | TokenKind::ModEq
+        | TokenKind::PowEq => 1,
+        _ => 0,
+    }
 }

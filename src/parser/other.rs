@@ -48,7 +48,7 @@ pub(crate) fn fn_decl(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::Fn);
-    arg_list(p);
+    param_list(p);
     stmt_block(p);
 
     m.complete(p, NodeKind::FnDeclStmt);
@@ -57,7 +57,22 @@ pub(crate) fn fn_decl(p: &mut Parser) {
 pub(crate) fn arg_list(p: &mut Parser) {
     let m = p.start();
 
-    p.expect(TokenKind::LeftParen);
+    p.next(TokenKind::LeftParen);
+    while p.more() && !p.at(TokenKind::RightParen) {
+        expr(p);
+        if p.at(TokenKind::RightParen) || !p.expect(TokenKind::Comma) {
+            break;
+        }
+    }
+    p.expect(TokenKind::RightParen);
+
+    m.complete(p, NodeKind::ArgList);
+}
+
+pub(crate) fn param_list(p: &mut Parser) {
+    let m = p.start();
+
+    p.next(TokenKind::LeftParen);
     while p.more() && !p.at(TokenKind::RightParen) {
         var_decl(p);
         if p.at(TokenKind::RightParen) || !p.expect(TokenKind::Comma) {
@@ -66,7 +81,7 @@ pub(crate) fn arg_list(p: &mut Parser) {
     }
     p.expect(TokenKind::RightParen);
 
-    m.complete(p, NodeKind::ArgList);
+    m.complete(p, NodeKind::ParamList);
 }
 
 pub(crate) fn var_decl(p: &mut Parser) {

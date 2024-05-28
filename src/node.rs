@@ -93,16 +93,16 @@ impl Node {
     }
 
     pub fn tree_string(&self, text: &str) -> String {
-        self.print_tree_inner(text, 0)
+        self.tree_string_inner(text, 0)
     }
 
-    fn print_tree_inner(&self, text: &str, ident: usize) -> String {
+    fn tree_string_inner(&self, text: &str, ident: usize) -> String {
         let mut string =
             format!("{}{:?}@{}..{}", "    ".repeat(ident), self.kind, self.offset, self.end());
         for child in &self.children {
             string.push('\n');
             string.push_str(&match child {
-                NodeOrToken::Node(x) => x.print_tree_inner(text, ident + 1),
+                NodeOrToken::Node(x) => x.tree_string_inner(text, ident + 1),
                 NodeOrToken::Token(x) => {
                     format!(
                         "{}{:?}@{}..{} {:?}",
@@ -265,6 +265,7 @@ pub(crate) enum NodeKind {
     LambdaExpr,
 
     ArgList,
+    ParamList,
     VarDecl,
     Name,
     NameRef,

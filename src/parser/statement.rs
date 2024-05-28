@@ -34,7 +34,7 @@ pub(crate) fn stmt_for(p: &mut Parser) {
         if p.cur().is_type() {
             var_decl(p);
         } else {
-            expr_assignment(p);
+            expr(p);
         }
         p.expect(TokenKind::Semicolon);
     }
