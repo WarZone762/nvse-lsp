@@ -1,35 +1,52 @@
 {
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "scopeName": "source.geckscript-nvse",
+    "fileTypes": [
+        "geckscript-nvse"
+    ],
     "patterns": [
         {
             "name": "comment.line",
-            "match": "//*"
+            "match": "//.*"
         },
         {
             "name": "string.quoted.double",
             "begin": "\"",
-            "end": "\""
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape",
+                    "match": "\\\\\\\\|\\\\."
+                }
+            ]
         },
         {
             "name": "storage.type",
-            "match": "(?i)\\b(int|double|ref|string|array)\\b"
+            "match": "\\b(int|float|double|ref|string|array)\\b"
+        },
+        {
+            "name": "keyword.other",
+            "match": "\\b(name|fn)\\b"
         },
         {
             "name": "keyword.control",
-            "match": "(?i)\\b(if|else|while|fn|return|for|namecontinue|break)\\b"
+            "match": "\\b(if|else|while|return|for|continue|break)\\b"
         },
         {
             "name": "keyword.operator",
             "match": "\\+=|-=|\\*=|\\/=|%=|\\^=|\\|\\||&&|==|!=|>=|<=|<<|>>|\\$|#|\\(|\\)|\\[|\\]|{|}|->|\\.|!|>|<|=|\\+|-|\\*|\\/|%|\\^|\\||&|:|\\?|~"
         },
         {
-            "name": "variable.name",
-            "match": "\\b\\w[\\w\\d]*\\b"
-        },
-        {
             "name": "constant.numeric",
             "match": "(?i)\\d*\\.?\\d+"
+        },
+        {
+            "name": "support.function",
+            "match": "\\b\\w+(?=\\s*\\(.*\\))\\b"
+        },
+        {
+            "name": "variable.name",
+            "match": "\\b\\w[\\w\\d]*\\b"
         }
     ]
 }

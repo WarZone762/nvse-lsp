@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use tower_lsp::lsp_types::*;
 
 use crate::{lexer::Lexer, node::TokenKind, Doc};
@@ -81,6 +83,39 @@ impl SemanticTokenBuilder {
 
         let delta_line = line - self.last_line;
         let delta_start = if delta_line == 0 { pos - self.last_pos } else { pos };
+
+        if let Some(last) = self.semantic_tokens.last()
+            && delta_line == 0
+            && delta_start < last.length
+        {
+            let last = self.semantic_tokens.pop().unwrap();
+            self.semantic_tokens.push(SemanticToken {
+                delta_line: last.delta_line,
+                delta_start: last.delta_start,
+                length: delta_start,
+                token_type: last.token_type,
+                token_modifiers_bitset: last.token_modifiers_bitset,
+            });
+            self.semantic_tokens.push(SemanticToken {
+                delta_line: 0,
+                delta_start,
+                length: len,
+                token_type,
+                token_modifiers_bitset: 0,
+            });
+
+            self.last_line = line;
+            self.last_pos = pos + len;
+
+            self.semantic_tokens.push(SemanticToken {
+                delta_line: 0,
+                delta_start: len,
+                length: last.length - delta_start - len,
+                token_type: last.token_type,
+                token_modifiers_bitset: last.token_modifiers_bitset,
+            });
+            return;
+        }
 
         self.last_line = line;
         self.last_pos = pos;
