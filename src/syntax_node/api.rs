@@ -1,10 +1,14 @@
 use std::rc::Rc;
 
-use super::{Node, NodeOrToken, Token};
+use super::{NodeOrToken, Token};
 
 impl NodeOrToken {
     pub fn dfs(&self) -> Iter<'_> {
         Iter::new(self)
+    }
+
+    pub fn leafs(&self) -> impl Iterator<Item = &Rc<Token>> {
+        self.dfs().filter_map(|x| x.token())
     }
 }
 

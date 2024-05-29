@@ -7,7 +7,7 @@ use tower_lsp::lsp_types::SemanticTokenType;
 
 mod api;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum NodeOrToken {
     Node(Rc<Node>),
     Token(Rc<Token>),
@@ -26,31 +26,45 @@ impl From<Rc<Token>> for NodeOrToken {
 }
 
 impl NodeOrToken {
+    pub fn node(&self) -> Option<&Rc<Node>> {
+        match self {
+            Self::Node(x) => Some(x),
+            Self::Token(_) => None,
+        }
+    }
+
+    pub fn token(&self) -> Option<&Rc<Token>> {
+        match self {
+            Self::Node(_) => None,
+            Self::Token(x) => Some(x),
+        }
+    }
+
     pub fn offset(&self) -> u32 {
         match self {
-            NodeOrToken::Node(x) => x.offset,
-            NodeOrToken::Token(x) => x.offset,
+            Self::Node(x) => x.offset,
+            Self::Token(x) => x.offset,
         }
     }
 
     pub fn end(&self) -> u32 {
         match self {
-            NodeOrToken::Node(x) => x.end(),
-            NodeOrToken::Token(x) => x.end(),
+            Self::Node(x) => x.end(),
+            Self::Token(x) => x.end(),
         }
     }
 
     pub fn parent(&self) -> &Option<Weak<Node>> {
         match self {
-            NodeOrToken::Node(x) => &x.parent,
-            NodeOrToken::Token(x) => &x.parent,
+            Self::Node(x) => &x.parent,
+            Self::Token(x) => &x.parent,
         }
     }
 
     pub unsafe fn parent_mut(&mut self) -> &mut Option<Weak<Node>> {
         match self {
-            NodeOrToken::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
-            NodeOrToken::Token(x) => &mut Rc::get_mut_unchecked(x).parent,
+            Self::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
+            Self::Token(x) => &mut Rc::get_mut_unchecked(x).parent,
         }
     }
 }
@@ -260,7 +274,7 @@ pub(crate) enum NodeKind {
     BlockStmt,
     AssignmentExpr,
     TernaryExpr,
-    BinayExpr,
+    BinaryExpr,
     UnaryExpr,
     SubscriptExpr,
     CallExpr,
@@ -303,14 +317,23 @@ tokens! {
     "string" => StringType,
     "array" => ArrayType,
 
-    (is_operator)
+    (is_unary_and_bin_op)
     "+" => Plus,
-    "+=" => PlusEq,
-    "++" => PlusPlus,
     "-" => Minus,
-    "-=" => MinusEq,
-    "--" => MinusMinus,
     "*" => Star,
+    "&" => BitwiseAnd,
+
+    (is_unary_only_op)
+    "++" => PlusPlus,
+    "--" => MinusMinus,
+    "$" => Dollar,
+    "#" => Pound,
+    "!" => Bang,
+    "~" => Tilde,
+
+    (is_bin_only_op)
+    "+=" => PlusEq,
+    "-=" => MinusEq,
     "*=" => StarEq,
     "/" => Slash,
     "/=" => SlashEq,
@@ -318,23 +341,24 @@ tokens! {
     "%=" => ModEq,
     "^" => Pow,
     "^=" => PowEq,
+    "|=" => BitwiseOrEq,
+    "&=" => BitwiseAndEq,
     "=" => Eq,
     "==" => EqEq,
     "<" => Less,
     ">" => Greater,
     "<=" => LessEq,
     ">=" => GreaterEq,
-    "!" => Bang,
     "!=" => BangEq,
     "||" => LogicOr,
     "&&" => LogicAnd,
+    "<<" => Lt2,
+    ">>" => Gt2,
     "|" => BitwiseOr,
-    "&" => BitwiseAnd,
-    "~" => Tilde,
-    "$" => Dollar,
-    "#" => Pound,
-    "?" => Ternary,
     ":" => Colon,
+    "::" => Colon2,
+    "." => Dot,
+
 
     (is_brace)
     "{" => LeftBrace,
@@ -353,7 +377,7 @@ tokens! {
     Identifier("identifier"),
     "," => Comma,
     ";" => Semicolon,
-    "." => Dot,
+    "?" => Ternary,
     Whitespace("whitespace"),
     Comment("comment"),
     Eof("end of file"),
@@ -361,12 +385,27 @@ tokens! {
 }
 
 impl TokenKind {
+    pub fn is_op(&self) -> bool {
+        self.is_unary_only_op()
+            || self.is_bin_only_op()
+            || self.is_unary_and_bin_op()
+            || *self == TokenKind::Ternary
+    }
+
+    pub fn is_unary_op(&self) -> bool {
+        self.is_unary_only_op() || self.is_unary_and_bin_op()
+    }
+
+    pub fn is_bin_op(&self) -> bool {
+        self.is_bin_only_op() || self.is_unary_and_bin_op()
+    }
+
     pub fn to_semantic(self) -> Option<SemanticTokenType> {
         Some(if self.is_keyword() {
             SemanticTokenType::KEYWORD
         } else if self.is_type() {
             SemanticTokenType::TYPE
-        } else if self.is_operator() {
+        } else if self.is_op() {
             SemanticTokenType::OPERATOR
         } else if self.is_brace() {
             SemanticTokenType::new("punctuation")

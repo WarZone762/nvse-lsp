@@ -1,12 +1,14 @@
 #![feature(let_chains, get_mut_unchecked, debug_closure_helpers)]
 
+mod ast;
 mod doc;
 mod features;
 mod lexer;
-mod node;
 mod parser;
+mod syntax_node;
 mod tree_builder;
 
+use ast::AstNode;
 use dashmap::DashMap;
 use doc::Doc;
 use features::*;
@@ -48,7 +50,7 @@ struct AstNotificationParams {
 
 impl AstNotificationParams {
     pub fn new(doc: &Doc) -> Self {
-        Self { uri: doc.uri.clone(), ast: doc.tree.tree_string(&doc.text) }
+        Self { uri: doc.uri.clone(), ast: doc.tree.syntax().tree_string(&doc.text) }
     }
 }
 

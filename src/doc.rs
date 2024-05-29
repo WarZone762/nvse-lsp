@@ -3,7 +3,8 @@ use std::rc::Rc;
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    node::Node,
+    ast::{AstNode, Script},
+    syntax_node::Node,
     tree_builder::{self, parse_str},
 };
 
@@ -11,7 +12,8 @@ use crate::{
 pub(crate) struct Doc {
     pub uri: Url,
     pub text: Box<str>,
-    pub tree: Rc<Node>,
+    // pub tree: Rc<Node>,
+    pub tree: Script,
     pub diagnostics: Vec<tree_builder::Diagnostic>,
     pub version: i32,
     pub language_id: String,
@@ -27,7 +29,7 @@ impl From<TextDocumentItem> for Doc {
         Self {
             uri: value.uri,
             text,
-            tree,
+            tree: AstNode::cast(tree).unwrap(),
             diagnostics,
             version: value.version,
             language_id: value.language_id,
@@ -40,7 +42,7 @@ impl Doc {
         let text = new_text.into_boxed_str();
         let (tree, diagnostics) = parse_str(&text);
         self.text = text;
-        self.tree = tree;
+        self.tree = AstNode::cast(tree).unwrap();
         self.diagnostics = diagnostics;
     }
 

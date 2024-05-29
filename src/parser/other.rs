@@ -1,5 +1,5 @@
 use super::*;
-use crate::node::{NodeKind, TokenKind};
+use crate::syntax_node::{NodeKind, TokenKind};
 
 pub(crate) fn script(p: &mut Parser) {
     let m = p.start();

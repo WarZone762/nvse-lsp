@@ -1,5 +1,5 @@
 use super::*;
-use crate::node::{NodeKind, TokenKind};
+use crate::syntax_node::{NodeKind, TokenKind};
 
 pub(crate) fn stmt(p: &mut Parser) {
     match p.cur() {
@@ -62,7 +62,11 @@ pub(crate) fn stmt_if(p: &mut Parser) {
     p.expect(TokenKind::RightParen);
     stmt_block(p);
     if p.opt(TokenKind::Else) {
-        stmt_block(p);
+        if p.at(TokenKind::If) {
+            stmt_if(p);
+        } else {
+            stmt_block(p);
+        }
     }
 
     m.complete(p, NodeKind::IfStmt);

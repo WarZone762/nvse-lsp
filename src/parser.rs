@@ -3,7 +3,7 @@ use std::{cell::Cell, mem};
 use tower_lsp::lsp_types::DiagnosticSeverity;
 
 use self::other::script;
-use crate::node::{NodeKind, TokenKind};
+use crate::syntax_node::{NodeKind, TokenKind};
 
 mod expression;
 mod other;
@@ -281,22 +281,6 @@ mod test {
         buf
     }
 
-    #[test]
-    #[ignore]
-    fn gen_test_data() {
-        for (case, ast) in case_paths() {
-            if !ast.exists() {
-                let text = fs::read_to_string(case).unwrap();
-                let mut tree = parse_str(&text).0.tree_string(&text);
-                tree.push('\n');
-                fs::write(&ast, tree).unwrap();
-                println!("Generated {ast:?}");
-            } else {
-                println!("Skipped {ast:?}")
-            }
-        }
-    }
-
     macro_rules! test_from_file {
         ($name:ident, $file:literal) => {
             #[test]
@@ -307,6 +291,14 @@ mod test {
 
                 let case = case_dir.join(format!("{}.gek", $file));
                 let ast = ast_dir.join(format!("{}.ast", $file));
+
+                if !ast.exists() {
+                    let text = fs::read_to_string(&case).unwrap();
+                    let mut tree = parse_str(&text).0.tree_string(&text);
+                    tree.push('\n');
+                    fs::write(&ast, tree).unwrap();
+                    println!("Generated {ast:?}");
+                }
 
                 let text = fs::read_to_string(&case).unwrap();
                 let mut tree = parse_str(&text).0.tree_string(&text);
@@ -328,6 +320,7 @@ mod test {
         };
     }
 
-    test_from_file!(test, "test");
-    test_from_file!(test2, "test2");
+    test_from_file!(nvse_ternary_op, "nvse-ternary-operations");
+    test_from_file!(nvse_bin_op, "nvse-binary-operations");
+    test_from_file!(nvse_unary_op, "nvse-unary-operations");
 }

@@ -17,19 +17,14 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> CompletedMarker {
         p.next_any();
         expr_bp(p, bp + 1);
 
-        lhs = m.complete(p, NodeKind::BinayExpr);
+        lhs = m.complete(p, NodeKind::BinaryExpr);
     }
 
     lhs
 }
 
 pub(crate) fn expr_lhs(p: &mut Parser) -> CompletedMarker {
-    if p.at(TokenKind::Bang)
-        | p.at(TokenKind::Minus)
-        | p.at(TokenKind::Dollar)
-        | p.at(TokenKind::MinusMinus)
-        | p.at(TokenKind::PlusPlus)
-    {
+    if p.cur().is_unary_op() {
         let m = p.start();
         p.next_any();
         expr(p);
@@ -59,7 +54,7 @@ pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> Complete
             TokenKind::Ternary => {
                 let m = lhs.precede(p);
                 p.next_any();
-                expr(p);
+                expr_bp(p, bin_op_bp(TokenKind::Colon) * 2 + 1);
                 p.expect(TokenKind::Colon);
                 expr(p);
                 m.complete(p, NodeKind::TernaryExpr)
@@ -109,20 +104,30 @@ pub(crate) fn expr_fn(p: &mut Parser) -> CompletedMarker {
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
     match token {
-        TokenKind::Dot => 7,
-        TokenKind::Star | TokenKind::Slash | TokenKind::Mod => 6,
-        TokenKind::Plus | TokenKind::Minus => 5,
-        TokenKind::Less | TokenKind::LessEq | TokenKind::Greater | TokenKind::GreaterEq => 5,
-        TokenKind::EqEq | TokenKind::BangEq => 4,
-        TokenKind::LogicAnd => 3,
-        TokenKind::LogicOr => 2,
+        TokenKind::Dot => 13,
+        TokenKind::Star | TokenKind::Slash | TokenKind::Mod | TokenKind::Pow => 12,
+        TokenKind::Plus | TokenKind::Minus => 11,
+        TokenKind::Lt2 | TokenKind::Gt2 => 10,
+        TokenKind::BitwiseAnd => 9,
+        TokenKind::BitwiseOr => 8,
+        TokenKind::Less | TokenKind::LessEq | TokenKind::Greater | TokenKind::GreaterEq => 7,
+        TokenKind::EqEq | TokenKind::BangEq => 6,
+        TokenKind::LogicAnd => 5,
+        TokenKind::LogicOr => 4,
+        TokenKind::Colon2 => 3,
+        TokenKind::Colon => 2,
         TokenKind::Eq
         | TokenKind::PlusEq
         | TokenKind::MinusEq
         | TokenKind::StarEq
         | TokenKind::SlashEq
         | TokenKind::ModEq
-        | TokenKind::PowEq => 1,
+        | TokenKind::PowEq
+        | TokenKind::BitwiseOrEq
+        | TokenKind::BitwiseAndEq => 1,
+        x if x.is_bin_op() => {
+            panic!("encountered binary operator with no binding power assigned: '{x}'")
+        }
         _ => 0,
     }
 }

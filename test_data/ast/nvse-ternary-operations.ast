@@ -1,0 +1,186 @@
+Script@0..348
+    Name@0..4 "name"
+    Whitespace@4..5 " "
+    Name@5..12
+        Identifier@5..12 "ternary"
+    Semicolon@12..13 ";"
+    Whitespace@13..15 "\n\n"
+    FnDeclStmt@15..347
+        Fn@15..17 "fn"
+        Whitespace@17..18 " "
+        ParamList@18..20
+            LeftParen@18..19 "("
+            RightParen@19..20 ")"
+        Whitespace@20..21 " "
+        BlockStmt@21..347
+            LeftBrace@21..22 "{"
+            Whitespace@22..24 "\n\t"
+            VarDeclStmt@24..63
+                VarDecl@24..62
+                    StringType@24..30 "string"
+                    Whitespace@30..31 " "
+                    Name@31..39
+                        Identifier@31..39 "testName"
+                    Whitespace@39..40 " "
+                    Eq@40..41 "="
+                    Whitespace@41..42 " "
+                    Literal@42..62
+                        String@42..62 "\"Ternary Operations\""
+                Semicolon@62..63 ";"
+            Whitespace@63..65 "\n\t"
+            ExprStmt@65..127
+                CallExpr@65..126
+                    NameRef@65..70
+                        Identifier@65..70 "print"
+                    ArgList@70..126
+                        LeftParen@70..71 "("
+                        LeftParen@71..72 "("
+                        BinaryExpr@72..124
+                            BinaryExpr@72..107
+                                Literal@72..96
+                                    String@72..96 "\"Started running xNVSE \""
+                                Whitespace@96..97 " "
+                                Plus@97..98 "+"
+                                Whitespace@98..99 " "
+                                NameRef@99..107
+                                    Identifier@99..107 "testName"
+                            Whitespace@107..108 " "
+                            Plus@108..109 "+"
+                            Whitespace@109..110 " "
+                            Literal@110..124
+                                String@110..124 "\" unit tests.\""
+                        RightParen@124..125 ")"
+                        RightParen@125..126 ")"
+                Semicolon@126..127 ";"
+            Whitespace@127..131 "\n\t\n\t"
+            VarDeclStmt@131..153
+                VarDecl@131..152
+                    IntType@131..134 "int"
+                    Whitespace@134..135 " "
+                    Name@135..144
+                        Identifier@135..144 "condition"
+                    Whitespace@144..145 " "
+                    Eq@145..146 "="
+                    Whitespace@146..147 " "
+                    Literal@147..152
+                        Bool@147..152 "false"
+                Semicolon@152..153 ";"
+            Whitespace@153..155 "\n\t"
+            VarDeclStmt@155..185
+                VarDecl@155..184
+                    IntType@155..158 "int"
+                    Whitespace@158..159 " "
+                    Name@159..164
+                        Identifier@159..164 "iTest"
+                    Whitespace@164..165 " "
+                    Eq@165..166 "="
+                    Whitespace@166..167 " "
+                    TernaryExpr@167..184
+                        NameRef@167..176
+                            Identifier@167..176 "condition"
+                        Whitespace@176..177 " "
+                        Ternary@177..178 "?"
+                        Whitespace@178..179 " "
+                        Literal@179..180
+                            Number@179..180 "1"
+                        Whitespace@180..181 " "
+                        Colon@181..182 ":"
+                        Whitespace@182..183 " "
+                        Literal@183..184
+                            Number@183..184 "2"
+                Semicolon@184..185 ";"
+            Whitespace@185..187 "\n\t"
+            ExprStmt@187..206
+                CallExpr@187..205
+                    NameRef@187..193
+                        Identifier@187..193 "assert"
+                    ArgList@193..205
+                        LeftParen@193..194 "("
+                        BinaryExpr@194..204
+                            NameRef@194..199
+                                Identifier@194..199 "iTest"
+                            Whitespace@199..200 " "
+                            EqEq@200..202 "=="
+                            Whitespace@202..203 " "
+                            Literal@203..204
+                                Number@203..204 "2"
+                        RightParen@204..205 ")"
+                Semicolon@205..206 ";"
+            Whitespace@206..210 "\n\t\n\t"
+            ExprStmt@210..227
+                BinaryExpr@210..226
+                    NameRef@210..219
+                        Identifier@210..219 "condition"
+                    Whitespace@219..220 " "
+                    Eq@220..221 "="
+                    Whitespace@221..222 " "
+                    Literal@222..226
+                        Bool@222..226 "true"
+                Semicolon@226..227 ";"
+            Whitespace@227..229 "\n\t"
+            ExprStmt@229..255
+                BinaryExpr@229..254
+                    NameRef@229..234
+                        Identifier@229..234 "iTest"
+                    Whitespace@234..235 " "
+                    Eq@235..236 "="
+                    Whitespace@236..237 " "
+                    TernaryExpr@237..254
+                        NameRef@237..246
+                            Identifier@237..246 "condition"
+                        Whitespace@246..247 " "
+                        Ternary@247..248 "?"
+                        Whitespace@248..249 " "
+                        Literal@249..250
+                            Number@249..250 "1"
+                        Whitespace@250..251 " "
+                        Colon@251..252 ":"
+                        Whitespace@252..253 " "
+                        Literal@253..254
+                            Number@253..254 "2"
+                Semicolon@254..255 ";"
+            Whitespace@255..257 "\n\t"
+            ExprStmt@257..276
+                CallExpr@257..275
+                    NameRef@257..263
+                        Identifier@257..263 "assert"
+                    ArgList@263..275
+                        LeftParen@263..264 "("
+                        BinaryExpr@264..274
+                            NameRef@264..269
+                                Identifier@264..269 "iTest"
+                            Whitespace@269..270 " "
+                            EqEq@270..272 "=="
+                            Whitespace@272..273 " "
+                            Literal@273..274
+                                Number@273..274 "1"
+                        RightParen@274..275 ")"
+                Semicolon@275..276 ";"
+            Whitespace@276..282 "\n\t\n\t\n\t"
+            ExprStmt@282..345
+                CallExpr@282..344
+                    NameRef@282..287
+                        Identifier@282..287 "print"
+                    ArgList@287..344
+                        LeftParen@287..288 "("
+                        LeftParen@288..289 "("
+                        BinaryExpr@289..342
+                            BinaryExpr@289..325
+                                Literal@289..314
+                                    String@289..314 "\"Finished running xNVSE \""
+                                Whitespace@314..315 " "
+                                Plus@315..316 "+"
+                                Whitespace@316..317 " "
+                                NameRef@317..325
+                                    Identifier@317..325 "testName"
+                            Whitespace@325..326 " "
+                            Plus@326..327 "+"
+                            Whitespace@327..328 " "
+                            Literal@328..342
+                                String@328..342 "\" unit tests.\""
+                        RightParen@342..343 ")"
+                        RightParen@343..344 ")"
+                Semicolon@344..345 ";"
+            Whitespace@345..346 "\n"
+            RightBrace@346..347 "}"
+    Whitespace@347..348 "\n"

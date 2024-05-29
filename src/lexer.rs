@@ -1,4 +1,4 @@
-use crate::node::{Token, TokenKind};
+use crate::syntax_node::{Token, TokenKind};
 
 pub(crate) struct Lexer<'a> {
     input: &'a str,
@@ -146,9 +146,9 @@ impl<'a> Lexer<'a> {
         let c = self.next_char().unwrap();
 
         if let Some(next_c) = self.peek(0) {
-            if matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '=' | '!' | '<' | '>')
+            if matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '|' | '&' | '=' | '!' | '<' | '>')
                 && next_c == '='
-                || matches!(c, '+' | '-' | '|' | '&') && next_c == c
+                || matches!(c, '+' | '-' | '|' | '&' | '<' | '>' | ':') && next_c == c
             {
                 self.next_char();
             }
@@ -340,6 +340,8 @@ mod test {
         test("%=");
         test("^");
         test("^=");
+        test("|=");
+        test("&=");
         test("=");
         test("==");
         test("!");
@@ -348,6 +350,8 @@ mod test {
         test("<=");
         test(">");
         test(">=");
+        test("<<");
+        test(">>");
         test("|");
         test("||");
         test("&");
@@ -365,6 +369,7 @@ mod test {
         test(";");
         test("?");
         test(":");
+        test("::");
         test(".");
     }
 }

@@ -1,7 +1,10 @@
+use std::rc::Rc;
+
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    node::{NodeKind, NodeOrToken, TokenKind},
+    ast::AstNode,
+    syntax_node::{NodeKind, NodeOrToken, TokenKind},
     Doc,
 };
 
@@ -17,47 +20,37 @@ impl Doc {
     pub(crate) fn semantic_tokens(&self) -> Vec<SemanticToken> {
         let mut builder = SemanticTokenBuilder::new();
 
-        for child in NodeOrToken::Node(self.tree.clone()).dfs() {
-            match child {
-                NodeOrToken::Node(_) => (),
-                NodeOrToken::Token(t) => {
-                    let kind = if t
-                        .parent()
-                        .and_then(|x| {
-                            Some(
-                                x.kind == NodeKind::NameRef
-                                    && x.parent()?.kind == NodeKind::CallExpr,
-                            )
-                        })
-                        .unwrap_or(false)
-                    {
-                        SemanticTokenType::FUNCTION
-                    } else {
-                        let Some(kind) = t.kind.to_semantic() else { continue };
-                        kind
-                    };
-                    let Position { line, character: pos } = self.pos_at(t.offset);
+        for t in NodeOrToken::Node(self.tree.syntax().clone()).leafs() {
+            let kind = if t
+                .parent()
+                .and_then(|x| {
+                    Some(x.kind == NodeKind::NameRef && x.parent()?.kind == NodeKind::CallExpr)
+                })
+                .unwrap_or(false)
+            {
+                SemanticTokenType::FUNCTION
+            } else {
+                let Some(kind) = t.kind.to_semantic() else { continue };
+                kind
+            };
+            let Position { line, character: pos } = self.pos_at(t.offset);
 
-                    builder.push(kind, None, line, pos, t.len);
+            builder.push(kind, None, line, pos, t.len);
 
-                    if t.kind == TokenKind::String {
-                        for (i, c) in t.text(&self.text).chars().enumerate() {
-                            let i = i as u32;
-                            if t.text(&self.text).chars().nth(i.saturating_sub(1) as _)
-                                == Some('\\')
-                            {
-                                continue;
-                            }
-                            if c == '\\' {
-                                builder.push(
-                                    SemanticTokenType::new("escapeSequence"),
-                                    None,
-                                    line,
-                                    i + pos,
-                                    2,
-                                );
-                            }
-                        }
+            if t.kind == TokenKind::String {
+                for (i, c) in t.text(&self.text).chars().enumerate() {
+                    let i = i as u32;
+                    if t.text(&self.text).chars().nth(i.saturating_sub(1) as _) == Some('\\') {
+                        continue;
+                    }
+                    if c == '\\' {
+                        builder.push(
+                            SemanticTokenType::new("escapeSequence"),
+                            None,
+                            line,
+                            i + pos,
+                            2,
+                        );
                     }
                 }
             }

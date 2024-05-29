@@ -4,8 +4,8 @@ use tower_lsp::lsp_types::DiagnosticSeverity;
 
 use crate::{
     lexer::Lexer,
-    node::{Node, NodeKind, NodeOrToken, Token, TokenKind},
     parser::{parse, Event},
+    syntax_node::{Node, NodeKind, NodeOrToken, Token, TokenKind},
 };
 
 pub(crate) fn parse_str(string: &str) -> (Rc<Node>, Vec<Diagnostic>) {
