@@ -40,7 +40,11 @@ impl<'a> Lexer<'a> {
             }
 
             if c == '/' && self.peek(1) == Some('/') {
-                return Some(self.comment());
+                return Some(self.comment_line());
+            }
+
+            if c == '/' && self.peek(1) == Some('*') {
+                return Some(self.comment_block());
             }
 
             if c.is_ascii_digit() {
@@ -65,11 +69,26 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn comment(&mut self) -> Token {
+    fn comment_line(&mut self) -> Token {
         self.next_char();
         self.next_char();
         while let Some(c) = self.peek(0) {
             if c == '\n' {
+                self.next_char();
+                break;
+            }
+            self.next_char();
+        }
+
+        self.finish_token(TokenKind::Comment)
+    }
+
+    fn comment_block(&mut self) -> Token {
+        self.next_char();
+        self.next_char();
+        while let Some(c) = self.peek(0) {
+            if c == '*' && self.peek(1) == Some('/') {
+                self.next_char();
                 self.next_char();
                 break;
             }
@@ -111,8 +130,11 @@ impl<'a> Lexer<'a> {
     fn string(&mut self) -> Token {
         self.next_char();
         while let Some(c) = self.peek(0)
-            && (c != '"' || self.peek(-1).is_some_and(|x| x == '\\'))
+            && c != '"'
         {
+            if c == '\\' {
+                self.next_char();
+            }
             self.next_char();
         }
         self.next_char();
@@ -288,6 +310,7 @@ mod test {
         test(r#"   "\""   "#);
         test(r#"   "\"\""   "#);
         test(r#"   "\"123\""   "#);
+        test(r#"   "\"123\\"   "#);
         test(r#"   "\"123\"   "#);
 
         test(r#"   "\n"   "#);

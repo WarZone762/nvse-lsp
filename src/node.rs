@@ -10,7 +10,7 @@ mod api;
 #[derive(Debug)]
 pub(crate) enum NodeOrToken {
     Node(Rc<Node>),
-    Token(Token),
+    Token(Rc<Token>),
 }
 
 impl From<Rc<Node>> for NodeOrToken {
@@ -19,8 +19,8 @@ impl From<Rc<Node>> for NodeOrToken {
     }
 }
 
-impl From<Token> for NodeOrToken {
-    fn from(value: Token) -> Self {
+impl From<Rc<Token>> for NodeOrToken {
+    fn from(value: Rc<Token>) -> Self {
         Self::Token(value)
     }
 }
@@ -50,7 +50,7 @@ impl NodeOrToken {
     pub unsafe fn parent_mut(&mut self) -> &mut Option<Weak<Node>> {
         match self {
             NodeOrToken::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
-            NodeOrToken::Token(x) => &mut x.parent,
+            NodeOrToken::Token(x) => &mut Rc::get_mut_unchecked(x).parent,
         }
     }
 }
@@ -88,10 +88,6 @@ impl Node {
         Self { kind, offset, children: Vec::new(), parent: None }
     }
 
-    pub fn end(&self) -> u32 {
-        self.children.last().map(|x| x.end()).unwrap_or(0)
-    }
-
     pub fn tree_string(&self, text: &str) -> String {
         self.tree_string_inner(text, 0)
     }
@@ -116,6 +112,14 @@ impl Node {
             })
         }
         string
+    }
+
+    pub fn parent(&self) -> Option<Rc<Node>> {
+        Some(self.parent.as_ref()?.upgrade().unwrap())
+    }
+
+    pub fn end(&self) -> u32 {
+        self.children.last().map(|x| x.end()).unwrap_or(0)
     }
 }
 
@@ -163,6 +167,10 @@ impl Eq for Token {}
 impl Token {
     pub fn new(kind: TokenKind, offset: u32, len: u32, byte_offset: u32, byte_len: u32) -> Self {
         Self { kind, offset, len, byte_offset, byte_len, parent: None }
+    }
+
+    pub fn parent(&self) -> Option<Rc<Node>> {
+        Some(self.parent.as_ref()?.upgrade().unwrap())
     }
 
     pub fn text<'a>(&self, string: &'a str) -> &'a str {
@@ -236,7 +244,7 @@ macro_rules! blocktypes {
     };
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum NodeKind {
     Script,
     BeginStmt,
@@ -360,11 +368,15 @@ impl TokenKind {
             SemanticTokenType::TYPE
         } else if self.is_operator() {
             SemanticTokenType::OPERATOR
+        } else if self.is_brace() {
+            SemanticTokenType::new("punctuation")
         } else {
             match self {
-                Self::Number => SemanticTokenType::NUMBER,
                 Self::String => SemanticTokenType::STRING,
+                Self::Number => SemanticTokenType::NUMBER,
+                Self::Bool => SemanticTokenType::new("boolean"),
                 Self::Identifier => SemanticTokenType::VARIABLE,
+                Self::Comment => SemanticTokenType::COMMENT,
                 _ => return None,
             }
         })

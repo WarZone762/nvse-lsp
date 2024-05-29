@@ -61,7 +61,7 @@ pub(crate) struct TreeBuilder {
 
 impl TreeBuilder {
     pub fn token(&mut self, token: Token) {
-        self.children.push(token.into());
+        self.children.push(Rc::new(token).into());
     }
 
     pub fn start_node(&mut self, kind: NodeKind) {
@@ -159,7 +159,7 @@ impl TriviaBuilder {
     fn attach_trivia(&mut self) {
         while self.token_pos < self.tokens.len() {
             let kind = self.tokens[self.token_pos].kind;
-            if !matches!(kind, TokenKind::Whitespace) {
+            if !matches!(kind, TokenKind::Whitespace | TokenKind::Comment) {
                 break;
             }
             self.do_token();

@@ -10,6 +10,7 @@ mod tree_builder;
 use dashmap::DashMap;
 use doc::Doc;
 use features::*;
+use serde::{Deserialize, Serialize};
 use tower_lsp::{
     jsonrpc::Result,
     lsp_types::{notification::Notification, *},
@@ -34,9 +35,21 @@ struct Backend {
 struct AstNotification;
 
 impl Notification for AstNotification {
-    type Params = String;
+    type Params = AstNotificationParams;
 
     const METHOD: &'static str = "geckscript-nvse/ast";
+}
+
+#[derive(Serialize, Deserialize)]
+struct AstNotificationParams {
+    uri: Url,
+    ast: String,
+}
+
+impl AstNotificationParams {
+    pub fn new(doc: &Doc) -> Self {
+        Self { uri: doc.uri.clone(), ast: doc.tree.tree_string(&doc.text) }
+    }
 }
 
 impl Backend {
@@ -47,7 +60,7 @@ impl Backend {
     pub async fn add_doc(&self, doc: TextDocumentItem) {
         let doc = doc.into();
         self.publish_diagnostics(&doc).await;
-        self.client.send_notification::<AstNotification>(doc.tree.tree_string(&doc.text)).await;
+        self.client.send_notification::<AstNotification>(AstNotificationParams::new(&doc)).await;
         self.docs.insert(doc.uri.clone(), doc);
     }
 
@@ -57,7 +70,9 @@ impl Backend {
                 doc.update_text(change.text);
             }
             self.publish_diagnostics(&doc).await;
-            self.client.send_notification::<AstNotification>(doc.tree.tree_string(&doc.text)).await;
+            self.client
+                .send_notification::<AstNotification>(AstNotificationParams::new(&doc))
+                .await;
         } else {
             self.client
                 .show_message(MessageType::ERROR, format!("unknown document {}", uri.as_str()))

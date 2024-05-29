@@ -24,7 +24,12 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> CompletedMarker {
 }
 
 pub(crate) fn expr_lhs(p: &mut Parser) -> CompletedMarker {
-    if p.at(TokenKind::Bang) | p.at(TokenKind::Minus) | p.at(TokenKind::Dollar) {
+    if p.at(TokenKind::Bang)
+        | p.at(TokenKind::Minus)
+        | p.at(TokenKind::Dollar)
+        | p.at(TokenKind::MinusMinus)
+        | p.at(TokenKind::PlusPlus)
+    {
         let m = p.start();
         p.next_any();
         expr(p);

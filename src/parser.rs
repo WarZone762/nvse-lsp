@@ -240,7 +240,6 @@ impl FromIterator<TokenKind> for Input {
 mod test {
     use std::{
         fs,
-        io::Write,
         path::{Path, PathBuf},
     };
 
@@ -250,6 +249,8 @@ mod test {
         let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
         let ast_dir = test_dir.join("ast");
         let case_dir = test_dir.join("cases");
+        fs::create_dir_all(&case_dir).unwrap();
+        fs::create_dir_all(&ast_dir).unwrap();
 
         fs::read_dir(case_dir).unwrap().map(move |f| {
             let f = f.unwrap();

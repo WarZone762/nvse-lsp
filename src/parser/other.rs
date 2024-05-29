@@ -72,7 +72,7 @@ pub(crate) fn arg_list(p: &mut Parser) {
 pub(crate) fn param_list(p: &mut Parser) {
     let m = p.start();
 
-    p.next(TokenKind::LeftParen);
+    p.expect(TokenKind::LeftParen);
     while p.more() && !p.at(TokenKind::RightParen) {
         var_decl(p);
         if p.at(TokenKind::RightParen) || !p.expect(TokenKind::Comma) {

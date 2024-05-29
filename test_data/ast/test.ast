@@ -8,7 +8,7 @@ Script@0..1354
     FnDeclStmt@12..1353
         Fn@12..14 "fn"
         Whitespace@14..15 " "
-        ArgList@15..17
+        ParamList@15..17
             LeftParen@15..16 "("
             RightParen@16..17 ")"
         Whitespace@17..18 " "
@@ -23,8 +23,9 @@ Script@0..1354
                     CallExpr@28..47
                         NameRef@28..45
                             Identifier@28..45 "GetActiveMenuMode"
-                        LeftParen@45..46 "("
-                        RightParen@46..47 ")"
+                        ArgList@45..47
+                            LeftParen@45..46 "("
+                            RightParen@46..47 ")"
                     Whitespace@47..48 " "
                     BangEq@48..50 "!="
                     Whitespace@50..51 " "
@@ -53,100 +54,104 @@ Script@0..1354
                     CallExpr@111..136
                         NameRef@111..123
                             Identifier@111..123 "Ar_Construct"
-                        LeftParen@123..124 "("
-                        Literal@124..135
-                            String@124..135 "\"stringmap\""
-                        RightParen@135..136 ")"
+                        ArgList@123..136
+                            LeftParen@123..124 "("
+                            Literal@124..135
+                                String@124..135 "\"stringmap\""
+                            RightParen@135..136 ")"
                 Semicolon@136..137 ";"
             Whitespace@137..142 "\n    "
             ExprStmt@142..309
                 CallExpr@142..308
                     NameRef@142..152
                         Identifier@142..152 "Ar_ForEach"
-                    LeftParen@152..153 "("
-                    CallExpr@153..164
-                        NameRef@153..162
-                            Identifier@153..162 "GetQuests"
-                        LeftParen@162..163 "("
-                        RightParen@163..164 ")"
-                    Comma@164..165 ","
-                    Whitespace@165..166 " "
-                    LambdaExpr@166..307
-                        Fn@166..168 "fn"
-                        Whitespace@168..169 " "
-                        ArgList@169..181
-                            LeftParen@169..170 "("
-                            VarDecl@170..180
-                                ArrayType@170..175 "array"
-                                Whitespace@175..176 " "
-                                Name@176..180
-                                    Identifier@176..180 "iter"
-                            RightParen@180..181 ")"
-                        Whitespace@181..182 " "
-                        BlockStmt@182..307
-                            LeftBrace@182..183 "{"
-                            Whitespace@183..192 "\n        "
-                            VarDeclStmt@192..227
-                                VarDecl@192..226
-                                    StringType@192..198 "string"
-                                    Whitespace@198..199 " "
-                                    Name@199..203
-                                        Identifier@199..203 "edid"
-                                    Whitespace@203..204 " "
-                                    Eq@204..205 "="
-                                    Whitespace@205..206 " "
-                                    CallExpr@206..226
-                                        NameRef@206..217
-                                            Identifier@206..217 "GetEditorId"
-                                        LeftParen@217..218 "("
-                                        SubscriptExpr@218..225
-                                            NameRef@218..222
-                                                Identifier@218..222 "iter"
-                                            LeftBracket@222..223 "["
-                                            Literal@223..224
-                                                Number@223..224 "0"
-                                            RightBracket@224..225 "]"
-                                        RightParen@225..226 ")"
-                                Semicolon@226..227 ";"
-                            Whitespace@227..236 "\n        "
-                            VarDeclStmt@236..260
-                                VarDecl@236..259
-                                    StringType@236..242 "string"
-                                    Whitespace@242..243 " "
-                                    Name@243..248
-                                        Identifier@243..248 "qname"
-                                    Whitespace@248..249 " "
-                                    Eq@249..250 "="
-                                    Whitespace@250..251 " "
-                                    UnaryExpr@251..259
-                                        Dollar@251..252 "$"
-                                        SubscriptExpr@252..259
-                                            NameRef@252..256
-                                                Identifier@252..256 "iter"
-                                            LeftBracket@256..257 "["
-                                            Literal@257..258
-                                                Number@257..258 "0"
-                                            RightBracket@258..259 "]"
-                                Semicolon@259..260 ";"
-                            Whitespace@260..270 "\n\n        "
-                            ExprStmt@270..301
-                                AssignmentExpr@270..300
-                                    SubscriptExpr@270..293
-                                        NameRef@270..286
-                                            Identifier@270..286 "mpNameToEditorId"
-                                        LeftBracket@286..287 "["
-                                        NameRef@287..292
-                                            Identifier@287..292 "qname"
-                                        RightBracket@292..293 "]"
-                                    Whitespace@293..294 " "
-                                    Eq@294..295 "="
-                                    Whitespace@295..296 " "
-                                    NameRef@296..300
-                                        Identifier@296..300 "edid"
-                                Semicolon@300..301 ";"
-                            Whitespace@301..306 "\n    "
-                            RightBrace@306..307 "}"
-                    RightParen@307..308 ")"
+                    ArgList@152..308
+                        LeftParen@152..153 "("
+                        CallExpr@153..164
+                            NameRef@153..162
+                                Identifier@153..162 "GetQuests"
+                            ArgList@162..164
+                                LeftParen@162..163 "("
+                                RightParen@163..164 ")"
+                        Comma@164..165 ","
+                        Whitespace@165..166 " "
+                        LambdaExpr@166..307
+                            Fn@166..168 "fn"
+                            Whitespace@168..169 " "
+                            ParamList@169..181
+                                LeftParen@169..170 "("
+                                VarDecl@170..180
+                                    ArrayType@170..175 "array"
+                                    Whitespace@175..176 " "
+                                    Name@176..180
+                                        Identifier@176..180 "iter"
+                                RightParen@180..181 ")"
+                            Whitespace@181..182 " "
+                            BlockStmt@182..307
+                                LeftBrace@182..183 "{"
+                                Whitespace@183..192 "\n        "
+                                VarDeclStmt@192..227
+                                    VarDecl@192..226
+                                        StringType@192..198 "string"
+                                        Whitespace@198..199 " "
+                                        Name@199..203
+                                            Identifier@199..203 "edid"
+                                        Whitespace@203..204 " "
+                                        Eq@204..205 "="
+                                        Whitespace@205..206 " "
+                                        CallExpr@206..226
+                                            NameRef@206..217
+                                                Identifier@206..217 "GetEditorId"
+                                            ArgList@217..226
+                                                LeftParen@217..218 "("
+                                                SubscriptExpr@218..225
+                                                    NameRef@218..222
+                                                        Identifier@218..222 "iter"
+                                                    LeftBracket@222..223 "["
+                                                    Literal@223..224
+                                                        Number@223..224 "0"
+                                                    RightBracket@224..225 "]"
+                                                RightParen@225..226 ")"
+                                    Semicolon@226..227 ";"
+                                Whitespace@227..236 "\n        "
+                                VarDeclStmt@236..260
+                                    VarDecl@236..259
+                                        StringType@236..242 "string"
+                                        Whitespace@242..243 " "
+                                        Name@243..248
+                                            Identifier@243..248 "qname"
+                                        Whitespace@248..249 " "
+                                        Eq@249..250 "="
+                                        Whitespace@250..251 " "
+                                        UnaryExpr@251..259
+                                            Dollar@251..252 "$"
+                                            SubscriptExpr@252..259
+                                                NameRef@252..256
+                                                    Identifier@252..256 "iter"
+                                                LeftBracket@256..257 "["
+                                                Literal@257..258
+                                                    Number@257..258 "0"
+                                                RightBracket@258..259 "]"
+                                    Semicolon@259..260 ";"
+                                Whitespace@260..270 "\n\n        "
+                                ExprStmt@270..301
+                                    BinayExpr@270..300
+                                        SubscriptExpr@270..293
+                                            NameRef@270..286
+                                                Identifier@270..286 "mpNameToEditorId"
+                                            LeftBracket@286..287 "["
+                                            NameRef@287..292
+                                                Identifier@287..292 "qname"
+                                            RightBracket@292..293 "]"
+                                        Whitespace@293..294 " "
+                                        Eq@294..295 "="
+                                        Whitespace@295..296 " "
+                                        NameRef@296..300
+                                            Identifier@296..300 "edid"
+                                    Semicolon@300..301 ";"
+                                Whitespace@301..306 "\n    "
+                                RightBrace@306..307 "}"
+                        RightParen@307..308 ")"
                 Semicolon@308..309 ";"
             Whitespace@309..315 "\n\n    "
             VarDeclStmt@315..376
@@ -161,19 +166,21 @@ Script@0..1354
                     CallExpr@331..375
                         NameRef@331..335
                             Identifier@331..335 "Call"
-                        LeftParen@335..336 "("
-                        CallExpr@336..371
-                            NameRef@336..349
-                                Identifier@336..349 "CompileScript"
-                            LeftParen@349..350 "("
-                            Literal@350..370
-                                String@350..370 "\"SQL\\GetTracked.txt\""
-                            RightParen@370..371 ")"
-                        Comma@371..372 ","
-                        Whitespace@372..373 " "
-                        Literal@373..374
-                            Number@373..374 "1"
-                        RightParen@374..375 ")"
+                        ArgList@335..375
+                            LeftParen@335..336 "("
+                            CallExpr@336..371
+                                NameRef@336..349
+                                    Identifier@336..349 "CompileScript"
+                                ArgList@349..371
+                                    LeftParen@349..350 "("
+                                    Literal@350..370
+                                        String@350..370 "\"SQL\\GetTracked.txt\""
+                                    RightParen@370..371 ")"
+                            Comma@371..372 ","
+                            Whitespace@372..373 " "
+                            Literal@373..374
+                                Number@373..374 "1"
+                            RightParen@374..375 ")"
                 Semicolon@375..376 ";"
             Whitespace@376..381 "\n    "
             ForStmt@381..1351
@@ -201,10 +208,11 @@ Script@0..1354
                     CallExpr@401..471
                         NameRef@401..411
                             Identifier@401..411 "GetUIFloat"
-                        LeftParen@411..412 "("
-                        Literal@412..470
-                            String@412..470 "\"MapMenu/GLOW_BRANCH/MM_MainRect/MM_QuestsList/childcount\""
-                        RightParen@470..471 ")"
+                        ArgList@411..471
+                            LeftParen@411..412 "("
+                            Literal@412..470
+                                String@412..470 "\"MapMenu/GLOW_BRANCH/MM_MainRect/MM_QuestsList/childcount\""
+                            RightParen@470..471 ")"
                 Semicolon@471..472 ";"
                 Whitespace@472..473 " "
                 UnaryExpr@473..476
@@ -246,10 +254,11 @@ Script@0..1354
                             CallExpr@587..615
                                 NameRef@587..604
                                     Identifier@587..604 "IsComponentLoaded"
-                                LeftParen@604..605 "("
-                                NameRef@605..614
-                                    Identifier@605..614 "questPath"
-                                RightParen@614..615 ")"
+                                ArgList@604..615
+                                    LeftParen@604..605 "("
+                                    NameRef@605..614
+                                        Identifier@605..614 "questPath"
+                                    RightParen@614..615 ")"
                         RightParen@615..616 ")"
                         Whitespace@616..617 " "
                         BlockStmt@617..648
@@ -273,16 +282,17 @@ Script@0..1354
                             CallExpr@677..724
                                 NameRef@677..688
                                     Identifier@677..688 "GetUiString"
-                                LeftParen@688..689 "("
-                                BinayExpr@689..723
-                                    NameRef@689..698
-                                        Identifier@689..698 "questPath"
-                                    Whitespace@698..699 " "
-                                    Plus@699..700 "+"
-                                    Whitespace@700..701 " "
-                                    Literal@701..723
-                                        String@701..723 "\"/ListItemText/string\""
-                                RightParen@723..724 ")"
+                                ArgList@688..724
+                                    LeftParen@688..689 "("
+                                    BinayExpr@689..723
+                                        NameRef@689..698
+                                            Identifier@689..698 "questPath"
+                                        Whitespace@698..699 " "
+                                        Plus@699..700 "+"
+                                        Whitespace@700..701 " "
+                                        Literal@701..723
+                                            String@701..723 "\"/ListItemText/string\""
+                                    RightParen@723..724 ")"
                         Semicolon@724..725 ";"
                     Whitespace@725..734 "\n        "
                     IfStmt@734..827
@@ -294,14 +304,15 @@ Script@0..1354
                             CallExpr@739..777
                                 NameRef@739..748
                                     Identifier@739..748 "Ar_HasKey"
-                                LeftParen@748..749 "("
-                                NameRef@749..765
-                                    Identifier@749..765 "mpNameToEditorId"
-                                Comma@765..766 ","
-                                Whitespace@766..767 " "
-                                NameRef@767..776
-                                    Identifier@767..776 "questName"
-                                RightParen@776..777 ")"
+                                ArgList@748..777
+                                    LeftParen@748..749 "("
+                                    NameRef@749..765
+                                        Identifier@749..765 "mpNameToEditorId"
+                                    Comma@765..766 ","
+                                    Whitespace@766..767 " "
+                                    NameRef@767..776
+                                        Identifier@767..776 "questName"
+                                    RightParen@776..777 ")"
                         RightParen@777..778 ")"
                         Whitespace@778..779 " "
                         BlockStmt@779..827
@@ -345,13 +356,15 @@ Script@0..1354
                         CallExpr@896..925
                             NameRef@896..907
                                 Identifier@896..907 "IsFormValid"
-                            LeftParen@907..908 "("
-                            CallExpr@908..924
-                                NameRef@908..922
-                                    Identifier@908..922 "GetActiveQuest"
-                                LeftParen@922..923 "("
-                                RightParen@923..924 ")"
-                            RightParen@924..925 ")"
+                            ArgList@907..925
+                                LeftParen@907..908 "("
+                                CallExpr@908..924
+                                    NameRef@908..922
+                                        Identifier@908..922 "GetActiveQuest"
+                                    ArgList@922..924
+                                        LeftParen@922..923 "("
+                                        RightParen@923..924 ")"
+                                RightParen@924..925 ")"
                         RightParen@925..926 ")"
                         Whitespace@926..927 " "
                         BlockStmt@927..1224
@@ -361,24 +374,26 @@ Script@0..1354
                                 If@941..943 "if"
                                 Whitespace@943..944 " "
                                 LeftParen@944..945 "("
-                                BinayExpr@945..987
-                                    UnaryExpr@945..975
-                                        Dollar@945..946 "$"
+                                UnaryExpr@945..987
+                                    Dollar@945..946 "$"
+                                    BinayExpr@946..987
                                         CallExpr@946..975
                                             NameRef@946..957
                                                 Identifier@946..957 "GetEditorId"
-                                            LeftParen@957..958 "("
-                                            CallExpr@958..974
-                                                NameRef@958..972
-                                                    Identifier@958..972 "GetActiveQuest"
-                                                LeftParen@972..973 "("
-                                                RightParen@973..974 ")"
-                                            RightParen@974..975 ")"
-                                    Whitespace@975..976 " "
-                                    BangEq@976..978 "!="
-                                    Whitespace@978..979 " "
-                                    NameRef@979..987
-                                        Identifier@979..987 "editorId"
+                                            ArgList@957..975
+                                                LeftParen@957..958 "("
+                                                CallExpr@958..974
+                                                    NameRef@958..972
+                                                        Identifier@958..972 "GetActiveQuest"
+                                                    ArgList@972..974
+                                                        LeftParen@972..973 "("
+                                                        RightParen@973..974 ")"
+                                                RightParen@974..975 ")"
+                                        Whitespace@975..976 " "
+                                        BangEq@976..978 "!="
+                                        Whitespace@978..979 " "
+                                        NameRef@979..987
+                                            Identifier@979..987 "editorId"
                                 RightParen@987..988 ")"
                                 Whitespace@988..989 " "
                                 BlockStmt@989..1112
@@ -388,29 +403,31 @@ Script@0..1354
                                         CallExpr@1007..1097
                                             NameRef@1007..1020
                                                 Identifier@1007..1020 "SetUIFloatAlt"
-                                            LeftParen@1020..1021 "("
-                                            BinayExpr@1021..1066
-                                                NameRef@1021..1030
-                                                    Identifier@1021..1030 "questPath"
-                                                Whitespace@1030..1031 " "
-                                                Plus@1031..1032 "+"
-                                                Whitespace@1032..1033 " "
-                                                Literal@1033..1066
-                                                    String@1033..1066 "\"/MM_Template_ItemMarker/visible\""
-                                            Comma@1066..1067 ","
-                                            Whitespace@1067..1068 " "
-                                            CallExpr@1068..1096
-                                                NameRef@1068..1077
-                                                    Identifier@1068..1077 "Ar_HasKey"
-                                                LeftParen@1077..1078 "("
-                                                NameRef@1078..1085
-                                                    Identifier@1078..1085 "tracked"
-                                                Comma@1085..1086 ","
-                                                Whitespace@1086..1087 " "
-                                                NameRef@1087..1095
-                                                    Identifier@1087..1095 "editorId"
-                                                RightParen@1095..1096 ")"
-                                            RightParen@1096..1097 ")"
+                                            ArgList@1020..1097
+                                                LeftParen@1020..1021 "("
+                                                BinayExpr@1021..1066
+                                                    NameRef@1021..1030
+                                                        Identifier@1021..1030 "questPath"
+                                                    Whitespace@1030..1031 " "
+                                                    Plus@1031..1032 "+"
+                                                    Whitespace@1032..1033 " "
+                                                    Literal@1033..1066
+                                                        String@1033..1066 "\"/MM_Template_ItemMarker/visible\""
+                                                Comma@1066..1067 ","
+                                                Whitespace@1067..1068 " "
+                                                CallExpr@1068..1096
+                                                    NameRef@1068..1077
+                                                        Identifier@1068..1077 "Ar_HasKey"
+                                                    ArgList@1077..1096
+                                                        LeftParen@1077..1078 "("
+                                                        NameRef@1078..1085
+                                                            Identifier@1078..1085 "tracked"
+                                                        Comma@1085..1086 ","
+                                                        Whitespace@1086..1087 " "
+                                                        NameRef@1087..1095
+                                                            Identifier@1087..1095 "editorId"
+                                                        RightParen@1095..1096 ")"
+                                                RightParen@1096..1097 ")"
                                         Semicolon@1097..1098 ";"
                                     Whitespace@1098..1111 "\n            "
                                     RightBrace@1111..1112 "}"
@@ -424,20 +441,21 @@ Script@0..1354
                                         CallExpr@1136..1199
                                             NameRef@1136..1149
                                                 Identifier@1136..1149 "SetUIFloatAlt"
-                                            LeftParen@1149..1150 "("
-                                            BinayExpr@1150..1195
-                                                NameRef@1150..1159
-                                                    Identifier@1150..1159 "questPath"
-                                                Whitespace@1159..1160 " "
-                                                Plus@1160..1161 "+"
-                                                Whitespace@1161..1162 " "
-                                                Literal@1162..1195
-                                                    String@1162..1195 "\"/MM_Template_ItemMarker/visible\""
-                                            Comma@1195..1196 ","
-                                            Whitespace@1196..1197 " "
-                                            Literal@1197..1198
-                                                Number@1197..1198 "1"
-                                            RightParen@1198..1199 ")"
+                                            ArgList@1149..1199
+                                                LeftParen@1149..1150 "("
+                                                BinayExpr@1150..1195
+                                                    NameRef@1150..1159
+                                                        Identifier@1150..1159 "questPath"
+                                                    Whitespace@1159..1160 " "
+                                                    Plus@1160..1161 "+"
+                                                    Whitespace@1161..1162 " "
+                                                    Literal@1162..1195
+                                                        String@1162..1195 "\"/MM_Template_ItemMarker/visible\""
+                                                Comma@1195..1196 ","
+                                                Whitespace@1196..1197 " "
+                                                Literal@1197..1198
+                                                    Number@1197..1198 "1"
+                                                RightParen@1198..1199 ")"
                                         Semicolon@1199..1200 ";"
                                     Whitespace@1200..1213 "\n            "
                                     RightBrace@1213..1214 "}"
@@ -453,29 +471,31 @@ Script@0..1354
                                 CallExpr@1244..1334
                                     NameRef@1244..1257
                                         Identifier@1244..1257 "SetUIFloatAlt"
-                                    LeftParen@1257..1258 "("
-                                    BinayExpr@1258..1303
-                                        NameRef@1258..1267
-                                            Identifier@1258..1267 "questPath"
-                                        Whitespace@1267..1268 " "
-                                        Plus@1268..1269 "+"
-                                        Whitespace@1269..1270 " "
-                                        Literal@1270..1303
-                                            String@1270..1303 "\"/MM_Template_ItemMarker/visible\""
-                                    Comma@1303..1304 ","
-                                    Whitespace@1304..1305 " "
-                                    CallExpr@1305..1333
-                                        NameRef@1305..1314
-                                            Identifier@1305..1314 "Ar_HasKey"
-                                        LeftParen@1314..1315 "("
-                                        NameRef@1315..1322
-                                            Identifier@1315..1322 "tracked"
-                                        Comma@1322..1323 ","
-                                        Whitespace@1323..1324 " "
-                                        NameRef@1324..1332
-                                            Identifier@1324..1332 "editorId"
-                                        RightParen@1332..1333 ")"
-                                    RightParen@1333..1334 ")"
+                                    ArgList@1257..1334
+                                        LeftParen@1257..1258 "("
+                                        BinayExpr@1258..1303
+                                            NameRef@1258..1267
+                                                Identifier@1258..1267 "questPath"
+                                            Whitespace@1267..1268 " "
+                                            Plus@1268..1269 "+"
+                                            Whitespace@1269..1270 " "
+                                            Literal@1270..1303
+                                                String@1270..1303 "\"/MM_Template_ItemMarker/visible\""
+                                        Comma@1303..1304 ","
+                                        Whitespace@1304..1305 " "
+                                        CallExpr@1305..1333
+                                            NameRef@1305..1314
+                                                Identifier@1305..1314 "Ar_HasKey"
+                                            ArgList@1314..1333
+                                                LeftParen@1314..1315 "("
+                                                NameRef@1315..1322
+                                                    Identifier@1315..1322 "tracked"
+                                                Comma@1322..1323 ","
+                                                Whitespace@1323..1324 " "
+                                                NameRef@1324..1332
+                                                    Identifier@1324..1332 "editorId"
+                                                RightParen@1332..1333 ")"
+                                        RightParen@1333..1334 ")"
                                 Semicolon@1334..1335 ";"
                             Whitespace@1335..1344 "\n        "
                             RightBrace@1344..1345 "}"
