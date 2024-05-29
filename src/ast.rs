@@ -2,6 +2,7 @@ use std::{marker::PhantomData, rc::Rc};
 
 use crate::syntax_node::{Node, NodeKind, NodeOrToken, Token, TokenKind};
 
+#[allow(dead_code)]
 mod nodes;
 pub(crate) use nodes::*;
 

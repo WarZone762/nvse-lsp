@@ -101,6 +101,15 @@ macro_rules! child {
             })
         }
     };
+    ($name:ident, $type:ident, $n:literal) => {
+        pub fn $name(&self) -> Option<$type> {
+            self.syntax_node
+                .children
+                .iter()
+                .filter_map(|x| AstNode::cast(x.node()?.clone()))
+                .nth($n)
+        }
+    };
 }
 
 macro_rules! token {
@@ -114,6 +123,30 @@ macro_rules! token {
                     NodeOrToken::Token(x) => Some(x),
                 })
                 .find(|x| matches!(x.kind, $kinds))
+                .cloned()
+        }
+    };
+    ($name:ident, $pat:pat, $n:literal) => {
+        pub fn $name(&self) -> Option<Rc<Token>> {
+            self.syntax_node
+                .children
+                .iter()
+                .filter_map(|x| x.token())
+                .filter(|x| matches!(x.kind, $pat))
+                .nth($n)
+                .cloned()
+        }
+    };
+    ($name:ident, $test:expr) => {
+        pub fn $name(&self) -> Option<Rc<Token>> {
+            self.syntax_node
+                .children
+                .iter()
+                .filter_map(|x| match x {
+                    NodeOrToken::Node(_) => None,
+                    NodeOrToken::Token(x) => Some(x),
+                })
+                .find($test)
                 .cloned()
         }
     };
@@ -139,6 +172,7 @@ enum_! {
     Return(ReturnStmt),
     Break(BreakStmt),
     Continue(ContinueStmt),
+    Empty(EmptyStmt),
 }
 
 node! {
@@ -146,6 +180,7 @@ node! {
     NodeKind::BeginStmt,
     token!(blocktype, TokenKind::BlockType);
     child!(block, BlockStmt);
+    child!(param, Expr);
 }
 
 node! {
@@ -166,14 +201,14 @@ node! {
     VarDeclStmt,
     NodeKind::VarDeclStmt,
     child!(var_decl, VarDecl);
-    token!(semicolon, TokenKind::Semicolon);
+    token!(semi, TokenKind::Semicolon);
 }
 
 node! {
     ExprStmt,
     NodeKind::ExprStmt,
     child!(expr, Expr);
-    token!(semicolon, TokenKind::Semicolon);
+    token!(semi, TokenKind::Semicolon);
 }
 
 node! {
@@ -181,9 +216,12 @@ node! {
     NodeKind::ForStmt,
     token!(for_kw, TokenKind::For);
     token!(lparen, TokenKind::LeftParen);
+    child!(init_expr, Expr);
+    token!(semi_1, TokenKind::Semicolon);
+    child!(cond, Expr, 1);
+    token!(semi_2, TokenKind::Semicolon, 1);
+    child!(loop_expr, Expr, 2);
     token!(rparen, TokenKind::RightParen);
-    child!(initializer, Expr);
-    token!(semicolon_1, TokenKind::Semicolon);
     child!(block, BlockStmt);
 }
 
@@ -196,6 +234,7 @@ node! {
     token!(rparen, TokenKind::RightParen);
     child!(true_branch, BlockStmt);
     token!(else_kw, TokenKind::Else);
+    child!(false_branch, BlockStmt, 1);
 }
 
 node! {
@@ -213,16 +252,27 @@ node! {
     NodeKind::ReturnStmt,
     token!(ret_kw, TokenKind::Return);
     child!(expr, Expr);
+    token!(semi, TokenKind::Semicolon);
 }
 
 node! {
     BreakStmt,
     NodeKind::BreakStmt,
+    token!(break_kw, TokenKind::Break);
+    token!(semi, TokenKind::Semicolon);
 }
 
 node! {
     ContinueStmt,
     NodeKind::ContinueStmt,
+    token!(continue_kw, TokenKind::Continue);
+    token!(semi, TokenKind::Semicolon);
+}
+
+node! {
+    EmptyStmt,
+    NodeKind::EmptyStmt,
+    token!(semi, TokenKind::Semicolon);
 }
 
 enum_! {
@@ -232,14 +282,18 @@ enum_! {
     Unary(UnaryExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
+    Paren(ParenExpr),
     Lambda(LambdaExpr),
+    NameRef(NameRef),
+    Lit(Lit),
 }
 
 node! {
     BinaryExpr,
     NodeKind::BinaryExpr,
     child!(lhs, Expr);
-    token!(op, TokenKind::Plus | TokenKind::Minus);
+    token!(op, |x| x.kind.is_bin_op());
+    child!(rhs, Expr, 1);
 }
 
 node! {
@@ -248,20 +302,22 @@ node! {
     token!(question_mark, TokenKind::Ternary);
     child!(cond, Expr);
     token!(colon, TokenKind::Colon);
+    child!(expr, Expr, 1);
 }
 
 node! {
     UnaryExpr,
     NodeKind::UnaryExpr,
+    token!(op, |x| x.kind.is_unary_op());
     child!(operand, Expr);
-    token!(op, TokenKind::Star);
 }
 
 node! {
     SubscriptExpr,
     NodeKind::SubscriptExpr,
+    child!(lhs, Expr);
     token!(lsqbracket, TokenKind::LeftBracket);
-    child!(cond, Expr);
+    child!(subscript, Expr, 1);
     token!(rsqbracket, TokenKind::RightBracket);
 }
 
@@ -276,7 +332,7 @@ node! {
 
 node! {
     ParenExpr,
-    NodeKind::GroupingExpr,
+    NodeKind::ParenExpr,
     token!(lparen, TokenKind::LeftParen);
     child!(expr, Expr);
     token!(rparen, TokenKind::RightParen);
@@ -286,7 +342,7 @@ node! {
     LambdaExpr,
     NodeKind::LambdaExpr,
     token!(fn_kw, TokenKind::Fn);
-    child!(expr, ParamList);
+    child!(params, ParamList);
     child!(block, BlockStmt);
 }
 
@@ -305,15 +361,8 @@ node! {
 node! {
     VarDecl,
     NodeKind::VarDecl,
-    token!(
-        r#type,
-        TokenKind::IntType
-          | TokenKind::DoubleType
-          | TokenKind::RefType
-          | TokenKind::StringType
-          | TokenKind::ArrayType
-    );
-    token!(name_ref, TokenKind::Identifier);
+    token!(r#type, |x| x.kind.is_type());
+    child!(name, Name);
 }
 
 node! {
@@ -329,7 +378,7 @@ node! {
 }
 
 node! {
-    Literal,
-    NodeKind::Literal,
+    Lit,
+    NodeKind::Lit,
     token!(lit, TokenKind::Number | TokenKind::String | TokenKind::Bool);
 }

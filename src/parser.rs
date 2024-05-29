@@ -300,14 +300,19 @@ mod test {
                     println!("Generated {ast:?}");
                 }
 
-                let text = fs::read_to_string(&case).unwrap();
+                let text = fs::read_to_string(&case)
+                    .unwrap()
+                    .replace("\\r\\n", "\\n")
+                    .replace("\r\n", "\n");
                 let mut tree = parse_str(&text).0.tree_string(&text);
                 tree.push('\n');
-                let must = fs::read_to_string(&ast).unwrap();
+                let must = fs::read_to_string(&ast)
+                    .unwrap()
+                    .replace("\\r\\n", "\\n")
+                    .replace("\r\n", "\n");
                 if tree != must {
                     panic!(
-                        "{case:?}\n\n{}",
-                        // similar_asserts::SimpleDiff::from_str(&must, &tree, "old", "new")
+                        "{case:?}:\n\n{}",
                         similar_asserts::SimpleDiff::from_str(
                             &strip_range(&must),
                             &strip_range(&tree),
@@ -323,4 +328,5 @@ mod test {
     test_from_file!(nvse_ternary_op, "nvse-ternary-operations");
     test_from_file!(nvse_bin_op, "nvse-binary-operations");
     test_from_file!(nvse_unary_op, "nvse-unary-operations");
+    test_from_file!(nvse_comments, "nvse-comments");
 }

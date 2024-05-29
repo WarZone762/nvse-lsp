@@ -24,7 +24,7 @@ Script@0..776
                     Whitespace@38..39 " "
                     Eq@39..40 "="
                     Whitespace@40..41 " "
-                    Literal@41..59
+                    Lit@41..59
                         String@41..59 "\"Unary Operations\""
                 Semicolon@59..60 ";"
             Whitespace@60..62 "\n\t"
@@ -37,7 +37,7 @@ Script@0..776
                         LeftParen@68..69 "("
                         BinaryExpr@69..121
                             BinaryExpr@69..104
-                                Literal@69..93
+                                Lit@69..93
                                     String@69..93 "\"Started running xNVSE \""
                                 Whitespace@93..94 " "
                                 Plus@94..95 "+"
@@ -47,7 +47,7 @@ Script@0..776
                             Whitespace@104..105 " "
                             Plus@105..106 "+"
                             Whitespace@106..107 " "
-                            Literal@107..121
+                            Lit@107..121
                                 String@107..121 "\" unit tests.\""
                         RightParen@121..122 ")"
                         RightParen@122..123 ")"
@@ -64,7 +64,7 @@ Script@0..776
                     Whitespace@161..162 " "
                     Eq@162..163 "="
                     Whitespace@163..164 " "
-                    Literal@164..165
+                    Lit@164..165
                         Number@164..165 "0"
                 Semicolon@165..166 ";"
             Whitespace@166..168 "\n\t"
@@ -82,7 +82,7 @@ Script@0..776
                             Whitespace@178..179 " "
                             EqEq@179..181 "=="
                             Whitespace@181..182 " "
-                            Literal@182..183
+                            Lit@182..183
                                 Number@182..183 "0"
                         RightParen@183..184 ")"
                 Semicolon@184..185 ";"
@@ -103,7 +103,7 @@ Script@0..776
                             Whitespace@252..253 " "
                             EqEq@253..255 "=="
                             Whitespace@255..256 " "
-                            Literal@256..257
+                            Lit@256..257
                                 Number@256..257 "1"
                         RightParen@257..258 ")"
                 Semicolon@258..259 ";"
@@ -120,7 +120,7 @@ Script@0..776
                             Whitespace@269..270 " "
                             EqEq@270..272 "=="
                             Whitespace@272..273 " "
-                            Literal@273..274
+                            Lit@273..274
                                 Number@273..274 "0"
                         RightParen@274..275 ")"
                 Semicolon@275..276 ";"
@@ -136,7 +136,7 @@ Script@0..776
                     Whitespace@320..321 " "
                     Eq@321..322 "="
                     Whitespace@322..323 " "
-                    Literal@323..328
+                    Lit@323..328
                         String@323..328 "\"123\""
                 Semicolon@328..329 ";"
             Whitespace@329..331 "\n\t"
@@ -165,7 +165,7 @@ Script@0..776
                             Whitespace@354..355 " "
                             EqEq@355..357 "=="
                             Whitespace@357..358 " "
-                            Literal@358..361
+                            Lit@358..361
                                 Number@358..361 "123"
                         RightParen@361..362 ")"
                 Semicolon@362..363 ";"
@@ -177,7 +177,7 @@ Script@0..776
                     Whitespace@372..373 " "
                     Eq@373..374 "="
                     Whitespace@374..375 " "
-                    Literal@375..381
+                    Lit@375..381
                         String@375..381 "\"test\""
                 Semicolon@381..382 ";"
             Whitespace@382..384 "\n\t"
@@ -206,7 +206,7 @@ Script@0..776
                             Whitespace@413..414 " "
                             EqEq@414..416 "=="
                             Whitespace@416..417 " "
-                            Literal@417..422
+                            Lit@417..422
                                 String@417..422 "\"123\""
                         RightParen@422..423 ")"
                 Semicolon@423..424 ";"
@@ -224,7 +224,7 @@ Script@0..776
                     Whitespace@457..458 " "
                     UnaryExpr@458..460
                         BitwiseAnd@458..459 "&"
-                        Literal@459..460
+                        Lit@459..460
                             Number@459..460 "1"
                 Semicolon@460..461 ";"
             Whitespace@461..463 "\n\t"
@@ -246,7 +246,7 @@ Script@0..776
                                     Identifier@480..487 "ar_List"
                                 ArgList@487..490
                                     LeftParen@487..488 "("
-                                    Literal@488..489
+                                    Lit@488..489
                                         Number@488..489 "1"
                                     RightParen@489..490 ")"
                             RightParen@490..491 ")"
@@ -278,7 +278,7 @@ Script@0..776
                             Whitespace@516..517 " "
                             EqEq@517..519 "=="
                             Whitespace@519..520 " "
-                            Literal@520..521
+                            Lit@520..521
                                 Number@520..521 "1"
                         RightParen@521..522 ")"
                 Semicolon@522..523 ";"
@@ -290,7 +290,7 @@ Script@0..776
                     Whitespace@526..527 " "
                     Eq@527..528 "="
                     Whitespace@528..529 " "
-                    Literal@529..530
+                    Lit@529..530
                         Number@529..530 "2"
                 Semicolon@530..531 ";"
             Whitespace@531..532 " "
@@ -307,7 +307,7 @@ Script@0..776
                         NameRef@560..565
                             Identifier@560..565 "aTest"
                         LeftBracket@565..566 "["
-                        Literal@566..567
+                        Lit@566..567
                             Number@566..567 "0"
                         RightBracket@567..568 "]"
                 Semicolon@568..569 ";"
@@ -326,7 +326,7 @@ Script@0..776
                             Whitespace@592..593 " "
                             EqEq@593..595 "=="
                             Whitespace@595..596 " "
-                            Literal@596..597
+                            Lit@596..597
                                 Number@596..597 "1"
                         RightParen@597..598 ")"
                 Semicolon@598..599 ";"
@@ -340,7 +340,7 @@ Script@0..776
                     Whitespace@636..637 " "
                     Eq@637..638 "="
                     Whitespace@638..639 " "
-                    Literal@639..644
+                    Lit@639..644
                         String@639..644 "\"123\""
                 Semicolon@644..645 ";"
             Whitespace@645..647 "\n\t"
@@ -355,13 +355,13 @@ Script@0..776
                                 NameRef@654..661
                                     Identifier@654..661 "testStr"
                                 LeftBracket@661..662 "["
-                                Literal@662..663
+                                Lit@662..663
                                     Number@662..663 "0"
                                 RightBracket@663..664 "]"
                             Whitespace@664..665 " "
                             EqEq@665..667 "=="
                             Whitespace@667..668 " "
-                            Literal@668..671
+                            Lit@668..671
                                 String@668..671 "\"1\""
                         RightParen@671..672 ")"
                 Semicolon@672..673 ";"
@@ -376,7 +376,7 @@ Script@0..776
                         LeftParen@699..700 "("
                         UnaryExpr@700..706
                             Bang@700..701 "!"
-                            Literal@701..706
+                            Lit@701..706
                                 Bool@701..706 "false"
                         RightParen@706..707 ")"
                 Semicolon@707..708 ";"
@@ -390,7 +390,7 @@ Script@0..776
                         LeftParen@717..718 "("
                         BinaryExpr@718..771
                             BinaryExpr@718..754
-                                Literal@718..743
+                                Lit@718..743
                                     String@718..743 "\"Finished running xNVSE \""
                                 Whitespace@743..744 " "
                                 Plus@744..745 "+"
@@ -400,7 +400,7 @@ Script@0..776
                             Whitespace@754..755 " "
                             Plus@755..756 "+"
                             Whitespace@756..757 " "
-                            Literal@757..771
+                            Lit@757..771
                                 String@757..771 "\" unit tests.\""
                         RightParen@771..772 ")"
                         RightParen@772..773 ")"

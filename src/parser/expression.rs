@@ -76,7 +76,7 @@ pub(crate) fn expr_primary(p: &mut Parser) -> CompletedMarker {
         x if x.is_literal() => {
             let m = p.start();
             p.next_any();
-            m.complete(p, NodeKind::Literal)
+            m.complete(p, NodeKind::Lit)
         }
         TokenKind::Identifier => name_ref(p),
         TokenKind::LeftParen => {

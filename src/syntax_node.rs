@@ -272,6 +272,7 @@ pub(crate) enum NodeKind {
     ContinueStmt,
     WhileStmt,
     BlockStmt,
+    EmptyStmt,
     AssignmentExpr,
     TernaryExpr,
     BinaryExpr,
@@ -283,7 +284,7 @@ pub(crate) enum NodeKind {
     NuberExpr,
     StringExpr,
     IdentExpr,
-    GroupingExpr,
+    ParenExpr,
     LambdaExpr,
 
     ArgList,
@@ -291,7 +292,7 @@ pub(crate) enum NodeKind {
     VarDecl,
     Name,
     NameRef,
-    Literal,
+    Lit,
 
     Error,
     Tombstone,

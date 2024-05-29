@@ -20,6 +20,11 @@ pub(crate) fn stmt(p: &mut Parser) {
         }
         TokenKind::While => stmt_while(p),
         TokenKind::LeftBrace => stmt_block(p),
+        TokenKind::Semicolon => {
+            let m = p.start();
+            p.next_any();
+            m.complete(p, NodeKind::EmptyStmt);
+        }
         x if x.is_type() => stmt_var_decl(p),
         _ => stmt_expr(p),
     }

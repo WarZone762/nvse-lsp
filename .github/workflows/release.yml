@@ -25,6 +25,9 @@ jobs:
           node-version: '20'
       - uses: dtolnay/rust-toolchain@nightly
 
+      - name: Test
+        run: cargo test -- --show-output
+
       - run: cargo build --release
 
       - run: |

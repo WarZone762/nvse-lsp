@@ -1,10 +1,7 @@
-use std::rc::Rc;
-
 use tower_lsp::lsp_types::*;
 
 use crate::{
     ast::{AstNode, Script},
-    syntax_node::Node,
     tree_builder::{self, parse_str},
 };
 
@@ -12,7 +9,6 @@ use crate::{
 pub(crate) struct Doc {
     pub uri: Url,
     pub text: Box<str>,
-    // pub tree: Rc<Node>,
     pub tree: Script,
     pub diagnostics: Vec<tree_builder::Diagnostic>,
     pub version: i32,

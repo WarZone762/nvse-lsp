@@ -1,5 +1,3 @@
-use std::rc::Rc;
-
 use tower_lsp::lsp_types::*;
 
 use crate::{
@@ -33,26 +31,29 @@ impl Doc {
                 let Some(kind) = t.kind.to_semantic() else { continue };
                 kind
             };
-            let Position { line, character: pos } = self.pos_at(t.offset);
+            let Position { mut line, character: mut pos } = self.pos_at(t.offset);
 
-            builder.push(kind, None, line, pos, t.len);
-
-            if t.kind == TokenKind::String {
-                for (i, c) in t.text(&self.text).chars().enumerate() {
-                    let i = i as u32;
-                    if t.text(&self.text).chars().nth(i.saturating_sub(1) as _) == Some('\\') {
-                        continue;
-                    }
-                    if c == '\\' {
-                        builder.push(
-                            SemanticTokenType::new("escapeSequence"),
-                            None,
-                            line,
-                            i + pos,
-                            2,
-                        );
+            for line_text in t.text(&self.text).split('\n') {
+                builder.push(&kind, None, line, pos, line_text.len() as _);
+                if t.kind == TokenKind::String {
+                    for (i, c) in line_text.chars().enumerate() {
+                        let i = i as u32;
+                        if t.text(&self.text).chars().nth(i.saturating_sub(1) as _) == Some('\\') {
+                            continue;
+                        }
+                        if c == '\\' {
+                            builder.push(
+                                &SemanticTokenType::new("escapeSequence"),
+                                None,
+                                line,
+                                i + pos,
+                                2,
+                            );
+                        }
                     }
                 }
+                line += 1;
+                pos = 0;
             }
         }
 
@@ -74,8 +75,8 @@ static LEGEND: &[SemanticTokenType] = &[
     SemanticTokenType::new("boolean"),
 ];
 
-pub(crate) fn semantic_token_type_index(value: SemanticTokenType) -> u32 {
-    LEGEND.iter().position(|x| *x == value).expect("semantic token type not in legend") as _
+pub(crate) fn semantic_token_type_index(value: &SemanticTokenType) -> u32 {
+    LEGEND.iter().position(|x| x == value).expect("semantic token type not in legend") as _
 }
 
 struct SemanticTokenBuilder {
@@ -91,8 +92,8 @@ impl SemanticTokenBuilder {
 
     pub fn push(
         &mut self,
-        token_type: SemanticTokenType,
-        token_modifiers_bitset: Option<SemanticTokenModifier>,
+        token_type: &SemanticTokenType,
+        _token_modifiers_bitset: Option<SemanticTokenModifier>,
         line: u32,
         pos: u32,
         len: u32,
@@ -144,7 +145,7 @@ impl SemanticTokenBuilder {
             length: len,
             token_type,
             token_modifiers_bitset: 0,
-        })
+        });
     }
 
     pub fn finish(self) -> Vec<SemanticToken> {
