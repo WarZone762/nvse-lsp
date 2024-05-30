@@ -13,12 +13,6 @@ pub(crate) struct Lexer<'a> {
     done: bool,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum LexerState {
-    Normal,
-    StringTemplateString,
-}
-
 impl<'a> Lexer<'a> {
     pub fn new(input: &'a str) -> Self {
         Self {
@@ -163,7 +157,7 @@ impl<'a> Lexer<'a> {
     fn string_shard(&mut self) -> Token {
         while let Some(c) = self.peek(0)
             && c != '"'
-            && c != '$'
+            && (c != '$' || self.peek(1) != Some('{'))
         {
             if c == '\\' {
                 self.next_char();
@@ -239,6 +233,12 @@ impl Iterator for Lexer<'_> {
     fn next(&mut self) -> Option<Self::Item> {
         self.next_token()
     }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum LexerState {
+    Normal,
+    StringTemplateString,
 }
 
 #[cfg(test)]
@@ -378,6 +378,27 @@ mod test {
         test(r#"   "\n1\n"   "#);
         test(r#"   "\n134\n"   "#);
         test(r#"   "123\n134\n13"   "#);
+    }
+
+    #[test]
+    fn string_template() {
+        fn test(string: &str) {
+            let string = string.trim();
+            let lexer = Lexer::new(string);
+            let mut ts = lexer.collect::<Vec<_>>();
+            ts.drain(..);
+        }
+
+        // test(r#"   "${"   "#);
+        test(r#"   "$}"   "#);
+        // test(r#"   "${}"   "#);
+        // test(r#"   "${1 + 2}"   "#);
+        // test(r#"   "123${1 + 2}"   "#);
+        // test(r#"   "${1 + 2}123"   "#);
+        // test(r#"   "123${1 + 2}123"   "#);
+        // test(r#"   "${${}}"   "#);
+        // test(r#"   "${${123}}"   "#);
+        // test(r#"   "${${"${"${}"}"}}"   "#);
     }
 
     #[test]
