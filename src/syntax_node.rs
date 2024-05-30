@@ -314,6 +314,7 @@ pub(crate) enum NodeKind {
     VarDeclStmt,
     ExprStmt,
     ForStmt,
+    ForEachStmt,
     IfStmt,
     ReturnStmt,
     BreakStmt,

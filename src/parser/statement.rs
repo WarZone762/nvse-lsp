@@ -37,17 +37,32 @@ pub(crate) fn stmt_for(p: &mut Parser) {
     p.expect(TokenKind::LeftParen);
     if !p.at(TokenKind::Semicolon) && !p.at(TokenKind::RightParen) {
         if p.cur().is_type() {
-            var_decl(p);
+            let var_decl_m = p.start();
+            p.next_any();
+            name(p);
+            if p.opt(TokenKind::Eq) {
+                expr(p);
+                var_decl_m.complete(p, NodeKind::VarDecl);
+            } else if p.at(TokenKind::Colon) {
+                var_decl_m.complete(p, NodeKind::VarDecl);
+                p.next_any();
+                expr(p);
+                p.expect(TokenKind::RightParen);
+                stmt_block(p);
+
+                m.complete(p, NodeKind::ForEachStmt);
+                return;
+            }
         } else {
             expr(p);
         }
-        p.expect(TokenKind::Semicolon);
     }
+    p.expect(TokenKind::Semicolon);
 
     if !p.at(TokenKind::Semicolon) && !p.at(TokenKind::RightParen) {
         expr(p);
-        p.expect(TokenKind::Semicolon);
     }
+    p.expect(TokenKind::Semicolon);
 
     if !p.at(TokenKind::RightParen) {
         expr(p);
