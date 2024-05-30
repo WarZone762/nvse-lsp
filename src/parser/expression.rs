@@ -1,11 +1,11 @@
 use super::*;
 
-pub(crate) fn expr(p: &mut Parser) -> CompletedMarker {
+pub(crate) fn expr(p: &mut Parser) -> Option<CompletedMarker> {
     expr_bp(p, 1)
 }
 
-pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> CompletedMarker {
-    let mut lhs = expr_lhs(p);
+pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
+    let mut lhs = expr_lhs(p)?;
 
     loop {
         let bp = bin_op_bp(p.cur()) * 2;
@@ -20,19 +20,19 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> CompletedMarker {
         lhs = m.complete(p, NodeKind::BinaryExpr);
     }
 
-    lhs
+    Some(lhs)
 }
 
-pub(crate) fn expr_lhs(p: &mut Parser) -> CompletedMarker {
-    if p.cur().is_unary_op() {
+pub(crate) fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
+    Some(if p.cur().is_unary_op() {
         let m = p.start();
         p.next_any();
         expr(p);
         m.complete(p, NodeKind::UnaryExpr)
     } else {
-        let lhs = expr_primary(p);
+        let lhs = expr_primary(p)?;
         expr_postfix(p, lhs)
-    }
+    })
 }
 
 pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> CompletedMarker {
@@ -71,27 +71,33 @@ pub(crate) fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker
     m.complete(p, NodeKind::CallExpr)
 }
 
-pub(crate) fn expr_primary(p: &mut Parser) -> CompletedMarker {
-    match p.cur() {
+pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
+    Some(match p.cur() {
         x if x.is_literal() => {
             let m = p.start();
             p.next_any();
-            m.complete(p, NodeKind::Lit)
+            m.complete(p, NodeKind::Literal)
         }
+        TokenKind::QuoteDouble => expr_str(p),
         TokenKind::Identifier => name_ref(p),
         TokenKind::LeftParen => {
             p.next_any();
-            let m = expr(p);
+            let m = expr(p)?;
             p.expect(TokenKind::RightParen);
             m
         }
         TokenKind::Fn => expr_fn(p),
         _ => {
             let m = p.start();
-            p.err_and_next("expected expression");
+            p.err("expected expression");
+            if p.at(TokenKind::RightBrace) {
+                m.abandon(p);
+                return None;
+            }
+            p.next_any();
             m.complete(p, NodeKind::Error)
         }
-    }
+    })
 }
 
 pub(crate) fn expr_fn(p: &mut Parser) -> CompletedMarker {
@@ -100,6 +106,28 @@ pub(crate) fn expr_fn(p: &mut Parser) -> CompletedMarker {
     param_list(p);
     stmt_block(p);
     m.complete(p, NodeKind::LambdaExpr)
+}
+
+pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
+    let m = p.start();
+    p.next(TokenKind::QuoteDouble);
+    while p.more() && !p.at(TokenKind::QuoteDouble) {
+        match p.cur() {
+            TokenKind::DollarLeftBrace => {
+                p.next_any();
+                expr(p);
+                p.expect(TokenKind::RightBrace);
+            }
+            TokenKind::StringShard => p.next_any(),
+            _ => {
+                let m = p.start();
+                p.err_and_next("expected a string or '}'");
+                return m.complete(p, NodeKind::Error);
+            }
+        }
+    }
+    p.expect(TokenKind::QuoteDouble);
+    m.complete(p, NodeKind::StrExpr)
 }
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {

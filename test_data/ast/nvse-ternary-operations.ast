@@ -24,8 +24,10 @@ Script@0..348
                     Whitespace@39..40 " "
                     Eq@40..41 "="
                     Whitespace@41..42 " "
-                    Lit@42..62
-                        String@42..62 "\"Ternary Operations\""
+                    StrExpr@42..62
+                        QuoteDouble@42..43 "\""
+                        StringShard@43..61 "Ternary Operations"
+                        QuoteDouble@61..62 "\""
                 Semicolon@62..63 ";"
             Whitespace@63..65 "\n\t"
             ExprStmt@65..127
@@ -37,8 +39,10 @@ Script@0..348
                         LeftParen@71..72 "("
                         BinaryExpr@72..124
                             BinaryExpr@72..107
-                                Lit@72..96
-                                    String@72..96 "\"Started running xNVSE \""
+                                StrExpr@72..96
+                                    QuoteDouble@72..73 "\""
+                                    StringShard@73..95 "Started running xNVSE "
+                                    QuoteDouble@95..96 "\""
                                 Whitespace@96..97 " "
                                 Plus@97..98 "+"
                                 Whitespace@98..99 " "
@@ -47,8 +51,10 @@ Script@0..348
                             Whitespace@107..108 " "
                             Plus@108..109 "+"
                             Whitespace@109..110 " "
-                            Lit@110..124
-                                String@110..124 "\" unit tests.\""
+                            StrExpr@110..124
+                                QuoteDouble@110..111 "\""
+                                StringShard@111..123 " unit tests."
+                                QuoteDouble@123..124 "\""
                         RightParen@124..125 ")"
                         RightParen@125..126 ")"
                 Semicolon@126..127 ";"
@@ -62,7 +68,7 @@ Script@0..348
                     Whitespace@144..145 " "
                     Eq@145..146 "="
                     Whitespace@146..147 " "
-                    Lit@147..152
+                    Literal@147..152
                         Bool@147..152 "false"
                 Semicolon@152..153 ";"
             Whitespace@153..155 "\n\t"
@@ -81,12 +87,12 @@ Script@0..348
                         Whitespace@176..177 " "
                         Ternary@177..178 "?"
                         Whitespace@178..179 " "
-                        Lit@179..180
+                        Literal@179..180
                             Number@179..180 "1"
                         Whitespace@180..181 " "
                         Colon@181..182 ":"
                         Whitespace@182..183 " "
-                        Lit@183..184
+                        Literal@183..184
                             Number@183..184 "2"
                 Semicolon@184..185 ";"
             Whitespace@185..187 "\n\t"
@@ -102,7 +108,7 @@ Script@0..348
                             Whitespace@199..200 " "
                             EqEq@200..202 "=="
                             Whitespace@202..203 " "
-                            Lit@203..204
+                            Literal@203..204
                                 Number@203..204 "2"
                         RightParen@204..205 ")"
                 Semicolon@205..206 ";"
@@ -114,7 +120,7 @@ Script@0..348
                     Whitespace@219..220 " "
                     Eq@220..221 "="
                     Whitespace@221..222 " "
-                    Lit@222..226
+                    Literal@222..226
                         Bool@222..226 "true"
                 Semicolon@226..227 ";"
             Whitespace@227..229 "\n\t"
@@ -131,12 +137,12 @@ Script@0..348
                         Whitespace@246..247 " "
                         Ternary@247..248 "?"
                         Whitespace@248..249 " "
-                        Lit@249..250
+                        Literal@249..250
                             Number@249..250 "1"
                         Whitespace@250..251 " "
                         Colon@251..252 ":"
                         Whitespace@252..253 " "
-                        Lit@253..254
+                        Literal@253..254
                             Number@253..254 "2"
                 Semicolon@254..255 ";"
             Whitespace@255..257 "\n\t"
@@ -152,7 +158,7 @@ Script@0..348
                             Whitespace@269..270 " "
                             EqEq@270..272 "=="
                             Whitespace@272..273 " "
-                            Lit@273..274
+                            Literal@273..274
                                 Number@273..274 "1"
                         RightParen@274..275 ")"
                 Semicolon@275..276 ";"
@@ -166,8 +172,10 @@ Script@0..348
                         LeftParen@288..289 "("
                         BinaryExpr@289..342
                             BinaryExpr@289..325
-                                Lit@289..314
-                                    String@289..314 "\"Finished running xNVSE \""
+                                StrExpr@289..314
+                                    QuoteDouble@289..290 "\""
+                                    StringShard@290..313 "Finished running xNVSE "
+                                    QuoteDouble@313..314 "\""
                                 Whitespace@314..315 " "
                                 Plus@315..316 "+"
                                 Whitespace@316..317 " "
@@ -176,8 +184,10 @@ Script@0..348
                             Whitespace@325..326 " "
                             Plus@326..327 "+"
                             Whitespace@327..328 " "
-                            Lit@328..342
-                                String@328..342 "\" unit tests.\""
+                            StrExpr@328..342
+                                QuoteDouble@328..329 "\""
+                                StringShard@329..341 " unit tests."
+                                QuoteDouble@341..342 "\""
                         RightParen@342..343 ")"
                         RightParen@343..344 ")"
                 Semicolon@344..345 ";"

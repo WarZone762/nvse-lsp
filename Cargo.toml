@@ -10,6 +10,7 @@ opt-level = 3
 
 [dependencies]
 dashmap = "5.5"
+lsp-types = "0.96"
 serde = { version = "1.0.203", features = ["derive"] }
 tokio = { version = "1.37", features = ["full"] }
 tower-lsp = "0.20"

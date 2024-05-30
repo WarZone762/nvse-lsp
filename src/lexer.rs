@@ -2,6 +2,7 @@ use crate::syntax_node::{Token, TokenKind};
 
 pub(crate) struct Lexer<'a> {
     input: &'a str,
+    state_stack: Vec<LexerState>,
     indices: Vec<(usize, char)>,
     pos: usize,
     byte_pos: usize,
@@ -12,10 +13,17 @@ pub(crate) struct Lexer<'a> {
     done: bool,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum LexerState {
+    Normal,
+    StringTemplateString,
+}
+
 impl<'a> Lexer<'a> {
     pub fn new(input: &'a str) -> Self {
         Self {
             input,
+            state_stack: vec![],
             indices: input.char_indices().collect(),
             pos: 0,
             byte_pos: 0,
@@ -29,37 +37,62 @@ impl<'a> Lexer<'a> {
 
     fn next_token(&mut self) -> Option<Token> {
         if let Some(c) = self.peek(0) {
-            if c.is_whitespace() {
-                self.next_char();
-                while let Some(c) = self.peek(0)
-                    && c.is_whitespace()
-                {
+            if self.state() == LexerState::Normal {
+                if c.is_whitespace() {
                     self.next_char();
+                    while let Some(c) = self.peek(0)
+                        && c.is_whitespace()
+                    {
+                        self.next_char();
+                    }
+                    return Some(self.finish_token(TokenKind::Whitespace));
                 }
-                return Some(self.finish_token(TokenKind::Whitespace));
-            }
 
-            if c == '/' && self.peek(1) == Some('/') {
-                return Some(self.comment_line());
-            }
+                if c == '/' && self.peek(1) == Some('/') {
+                    return Some(self.comment_line());
+                }
 
-            if c == '/' && self.peek(1) == Some('*') {
-                return Some(self.comment_block());
-            }
+                if c == '/' && self.peek(1) == Some('*') {
+                    return Some(self.comment_block());
+                }
 
-            if c.is_ascii_digit() {
-                return Some(self.number());
-            }
+                if c.is_ascii_digit() {
+                    return Some(self.number());
+                }
 
-            if c.is_alphabetic() || c == '_' {
-                return Some(self.ident());
-            }
+                if c.is_alphabetic() || c == '_' {
+                    return Some(self.ident());
+                }
 
-            if c == '"' {
-                return Some(self.string());
-            }
+                if c == '"' {
+                    self.state_stack.push(LexerState::StringTemplateString);
+                    self.next_char();
+                    return Some(self.finish_token(TokenKind::QuoteDouble));
+                }
 
-            return Some(self.op_misc());
+                if c == '{' {
+                    self.state_stack.push(LexerState::Normal);
+                } else if c == '}' {
+                    self.state_stack.pop();
+                }
+
+                return Some(self.op_misc());
+            } else {
+                return Some(match c {
+                    '"' => {
+                        self.state_stack.pop();
+                        self.next_char();
+                        self.finish_token(TokenKind::QuoteDouble)
+                    }
+                    '$' if self.peek(1) == Some('{') => {
+                        self.state_stack.push(LexerState::Normal);
+                        self.next_char();
+                        self.next_char();
+                        self.finish_token(TokenKind::DollarLeftBrace)
+                    }
+                    _ => self.string_shard(),
+                });
+            }
         }
         if self.done {
             None
@@ -127,19 +160,22 @@ impl<'a> Lexer<'a> {
         )
     }
 
-    fn string(&mut self) -> Token {
-        self.next_char();
+    fn string_shard(&mut self) -> Token {
         while let Some(c) = self.peek(0)
             && c != '"'
+            && c != '$'
         {
             if c == '\\' {
                 self.next_char();
+                if self.peek(0).is_some() {
+                    self.next_char();
+                    continue;
+                }
             }
             self.next_char();
         }
-        self.next_char();
 
-        self.finish_token(TokenKind::String)
+        self.finish_token(TokenKind::StringShard)
     }
 
     fn op_misc(&mut self) -> Token {
@@ -156,6 +192,10 @@ impl<'a> Lexer<'a> {
 
         let text = self.token_text();
         self.finish_token(TokenKind::from_str(text).unwrap_or(TokenKind::Error))
+    }
+
+    fn state(&self) -> LexerState {
+        self.state_stack.last().copied().unwrap_or(LexerState::Normal)
     }
 
     fn finish_token(&mut self, kind: TokenKind) -> Token {
@@ -299,19 +339,39 @@ mod test {
     }
 
     #[test]
-    fn string() {
+    fn string_shard() {
         fn test(string: &str) {
-            test_str(string.trim(), || TokenKind::String);
+            let string = string.trim();
+            let mut lexer = Lexer::new(string);
+            assert_eq!(
+                token_from_str(TokenKind::StringShard, &string[1..string.len() - 1], 1),
+                lexer.nth(1).unwrap(),
+                "{string:?}",
+            );
         }
 
-        test(r#"   ""   "#);
+        let string = r#"   ""   "#.trim();
+        let mut lexer = Lexer::new(string);
+        assert_eq!(
+            token_from_str(TokenKind::QuoteDouble, "\"", 1),
+            lexer.nth(1).unwrap(),
+            "{string:?}",
+        );
+
         test(r#"   "1"   "#);
         test(r#"   "123"   "#);
         test(r#"   "\""   "#);
         test(r#"   "\"\""   "#);
         test(r#"   "\"123\""   "#);
         test(r#"   "\"123\\"   "#);
-        test(r#"   "\"123\"   "#);
+
+        let string = r#"   "\"123\"   "#.trim();
+        let mut lexer = Lexer::new(string);
+        assert_eq!(
+            token_from_str(TokenKind::StringShard, &string[1..], 1),
+            lexer.nth(1).unwrap(),
+            "{string:?}",
+        );
 
         test(r#"   "\n"   "#);
         test(r#"   "\n\n"   "#);

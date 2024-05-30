@@ -2,7 +2,7 @@ use tower_lsp::lsp_types::*;
 
 use crate::{
     ast::AstNode,
-    syntax_node::{NodeKind, NodeOrToken, TokenKind},
+    syntax_node::{NodeKind, TokenKind},
     Doc,
 };
 
@@ -18,7 +18,7 @@ impl Doc {
     pub(crate) fn semantic_tokens(&self) -> Vec<SemanticToken> {
         let mut builder = SemanticTokenBuilder::new();
 
-        for t in NodeOrToken::Node(self.tree.syntax().clone()).leafs() {
+        for t in self.tree.syntax().leafs() {
             let kind = if t
                 .parent()
                 .and_then(|x| {
@@ -27,6 +27,10 @@ impl Doc {
                 .unwrap_or(false)
             {
                 SemanticTokenType::FUNCTION
+            } else if t.kind == TokenKind::RightBrace
+                && t.parent().is_some_and(|x| x.kind == NodeKind::StrExpr)
+            {
+                SemanticTokenTypeCustom::ESCAPE_SEQUENCE
             } else {
                 let Some(kind) = t.kind.to_semantic() else { continue };
                 kind
@@ -35,7 +39,7 @@ impl Doc {
 
             for line_text in t.text(&self.text).split('\n') {
                 builder.push(&kind, None, line, pos, line_text.len() as _);
-                if t.kind == TokenKind::String {
+                if t.kind == TokenKind::StringShard {
                     for (i, c) in line_text.chars().enumerate() {
                         let i = i as u32;
                         if t.text(&self.text).chars().nth(i.saturating_sub(1) as _) == Some('\\') {
@@ -43,7 +47,7 @@ impl Doc {
                         }
                         if c == '\\' {
                             builder.push(
-                                &SemanticTokenType::new("escapeSequence"),
+                                &SemanticTokenTypeCustom::ESCAPE_SEQUENCE,
                                 None,
                                 line,
                                 i + pos,
@@ -70,10 +74,18 @@ static LEGEND: &[SemanticTokenType] = &[
     SemanticTokenType::STRING,
     SemanticTokenType::TYPE,
     SemanticTokenType::VARIABLE,
-    SemanticTokenType::new("punctuation"),
-    SemanticTokenType::new("escapeSequence"),
-    SemanticTokenType::new("boolean"),
+    SemanticTokenTypeCustom::BOOLEAN,
+    SemanticTokenTypeCustom::ESCAPE_SEQUENCE,
+    SemanticTokenTypeCustom::PUNCTUATION,
 ];
+
+pub(crate) struct SemanticTokenTypeCustom;
+
+impl SemanticTokenTypeCustom {
+    pub const BOOLEAN: SemanticTokenType = SemanticTokenType::new("boolean");
+    pub const ESCAPE_SEQUENCE: SemanticTokenType = SemanticTokenType::new("escapeSequence");
+    pub const PUNCTUATION: SemanticTokenType = SemanticTokenType::new("punctuation");
+}
 
 pub(crate) fn semantic_token_type_index(value: &SemanticTokenType) -> u32 {
     LEGEND.iter().position(|x| x == value).expect("semantic token type not in legend") as _

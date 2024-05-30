@@ -285,7 +285,8 @@ enum_! {
     Paren(ParenExpr),
     Lambda(LambdaExpr),
     NameRef(NameRef),
-    Lit(Lit),
+    Str(StrExpr),
+    Lit(Literal),
 }
 
 node! {
@@ -378,7 +379,35 @@ node! {
 }
 
 node! {
-    Lit,
-    NodeKind::Lit,
-    token!(lit, TokenKind::Number | TokenKind::String | TokenKind::Bool);
+    StrExpr,
+    NodeKind::StrExpr,
+    token!(lquote, TokenKind::QuoteDouble);
+    children!(shards, StringShard);
+    token!(rquote, TokenKind::QuoteDouble, 1);
+}
+
+enum_! {
+    StringShard,
+    Literal(StringShardLiteral),
+    Expr(StringShardExpr),
+}
+
+node! {
+    StringShardLiteral,
+    NodeKind::StringShardLiteral,
+    token!(token, TokenKind::StringShard);
+}
+
+node! {
+    StringShardExpr,
+    NodeKind::StringShardExpr,
+    token!(dollar_lbrace, TokenKind::DollarLeftBrace);
+    child!(expr, Expr);
+    token!(rbrace, TokenKind::RightBrace);
+}
+
+node! {
+    Literal,
+    NodeKind::Literal,
+    token!(lit, TokenKind::Number | TokenKind::Bool);
 }

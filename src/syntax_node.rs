@@ -5,6 +5,8 @@ use std::{
 
 use tower_lsp::lsp_types::SemanticTokenType;
 
+use crate::semantic_tokens::SemanticTokenTypeCustom;
+
 mod api;
 
 #[derive(Debug, Clone)]
@@ -69,6 +71,52 @@ impl NodeOrToken {
     }
 }
 
+#[derive(Debug)]
+pub(crate) enum NodeOrTokenRef<'a> {
+    Node(&'a Node),
+    Token(&'a Token),
+}
+
+impl<'a> NodeOrTokenRef<'a> {
+    pub fn node(&self) -> Option<&'a Node> {
+        match self {
+            NodeOrTokenRef::Node(x) => Some(x),
+            NodeOrTokenRef::Token(_) => None,
+        }
+    }
+
+    pub fn token(&self) -> Option<&'a Token> {
+        match self {
+            NodeOrTokenRef::Node(_) => None,
+            NodeOrTokenRef::Token(x) => Some(x),
+        }
+    }
+
+    pub fn foo(&self) {
+        todo!()
+    }
+}
+
+impl<'a> From<&'a NodeOrToken> for NodeOrTokenRef<'a> {
+    fn from(value: &'a NodeOrToken) -> Self {
+        match value {
+            NodeOrToken::Node(x) => x.as_ref().into(),
+            NodeOrToken::Token(x) => x.as_ref().into(),
+        }
+    }
+}
+
+impl<'a> From<&'a Node> for NodeOrTokenRef<'a> {
+    fn from(value: &'a Node) -> Self {
+        Self::Node(value)
+    }
+}
+
+impl<'a> From<&'a Token> for NodeOrTokenRef<'a> {
+    fn from(value: &'a Token) -> Self {
+        Self::Token(value)
+    }
+}
 pub(crate) struct Node {
     pub kind: NodeKind,
     pub offset: u32,
@@ -282,7 +330,7 @@ pub(crate) enum NodeKind {
     GetExpr,
     BoolExpr,
     NuberExpr,
-    StringExpr,
+    StrExpr,
     IdentExpr,
     ParenExpr,
     LambdaExpr,
@@ -292,7 +340,9 @@ pub(crate) enum NodeKind {
     VarDecl,
     Name,
     NameRef,
-    Lit,
+    StringShardLiteral,
+    StringShardExpr,
+    Literal,
 
     Error,
     Tombstone,
@@ -361,7 +411,7 @@ tokens! {
     "." => Dot,
 
 
-    (is_brace)
+    (is_paired)
     "{" => LeftBrace,
     "}" => RightBrace,
     "[" => LeftBracket,
@@ -370,15 +420,17 @@ tokens! {
     ")" => RightParen,
 
     (is_literal)
-    String("string"),
     Number("number"),
     Bool("boolean"),
 
     (is_misc)
     Identifier("identifier"),
+    "${" => DollarLeftBrace,
+    "\"" => QuoteDouble,
     "," => Comma,
     ";" => Semicolon,
     "?" => Ternary,
+    StringShard("string"),
     Whitespace("whitespace"),
     Comment("comment"),
     Eof("end of file"),
@@ -408,13 +460,14 @@ impl TokenKind {
             SemanticTokenType::TYPE
         } else if self.is_op() {
             SemanticTokenType::OPERATOR
-        } else if self.is_brace() {
-            SemanticTokenType::new("punctuation")
+        } else if self.is_paired() {
+            SemanticTokenTypeCustom::PUNCTUATION
         } else {
             match self {
-                Self::String => SemanticTokenType::STRING,
+                Self::DollarLeftBrace => SemanticTokenTypeCustom::ESCAPE_SEQUENCE,
+                Self::StringShard | Self::QuoteDouble => SemanticTokenType::STRING,
                 Self::Number => SemanticTokenType::NUMBER,
-                Self::Bool => SemanticTokenType::new("boolean"),
+                Self::Bool => SemanticTokenTypeCustom::BOOLEAN,
                 Self::Identifier => SemanticTokenType::VARIABLE,
                 Self::Comment => SemanticTokenType::COMMENT,
                 _ => return None,

@@ -3,10 +3,13 @@
 mod ast;
 mod doc;
 mod features;
+mod hir;
 mod lexer;
 mod parser;
 mod syntax_node;
 mod tree_builder;
+
+use std::borrow::Cow;
 
 use ast::AstNode;
 use dashmap::DashMap;
@@ -14,7 +17,7 @@ use doc::Doc;
 use features::*;
 use serde::{Deserialize, Serialize};
 use tower_lsp::{
-    jsonrpc::Result,
+    jsonrpc::{self, Result},
     lsp_types::{notification::Notification, *},
     Client, LanguageServer, LspService, Server,
 };
@@ -32,26 +35,6 @@ async fn main() {
 struct Backend {
     client: Client,
     docs: DashMap<Url, Doc>,
-}
-
-struct AstNotification;
-
-impl Notification for AstNotification {
-    type Params = AstNotificationParams;
-
-    const METHOD: &'static str = "geckscript-nvse/ast";
-}
-
-#[derive(Serialize, Deserialize)]
-struct AstNotificationParams {
-    uri: Url,
-    ast: String,
-}
-
-impl AstNotificationParams {
-    pub fn new(doc: &Doc) -> Self {
-        Self { uri: doc.uri.clone(), ast: doc.tree.syntax().tree_string(&doc.text) }
-    }
 }
 
 impl Backend {
@@ -85,6 +68,10 @@ impl Backend {
     pub async fn publish_diagnostics(&self, doc: &Doc) {
         self.client.publish_diagnostics(doc.uri.clone(), doc.diagnostics().collect(), None).await;
     }
+
+    pub fn get_doc(&self, uri: &Url) -> Result<dashmap::mapref::one::Ref<Url, Doc>> {
+        self.docs.get(uri).ok_or_else(|| request_failed(format!("failed to get document {uri}")))
+    }
 }
 
 #[tower_lsp::async_trait]
@@ -95,6 +82,7 @@ impl LanguageServer for Backend {
                 text_document_sync: Some(TextDocumentSyncCapability::Kind(
                     TextDocumentSyncKind::FULL,
                 )),
+                hover_provider: Some(HoverProviderCapability::Simple(true)),
                 semantic_tokens_provider: Some(semantic_tokens::capabilities()),
                 ..Default::default()
             },
@@ -117,12 +105,18 @@ impl LanguageServer for Backend {
         self.update_doc(params.text_document.uri, params.content_changes).await;
     }
 
+    async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {
+        let pos_params = params.text_document_position_params;
+        let doc = self.get_doc(&pos_params.text_document.uri)?;
+
+        Ok(doc.hover(pos_params.position))
+    }
+
     async fn semantic_tokens_full(
         &self,
         params: SemanticTokensParams,
     ) -> Result<Option<SemanticTokensResult>> {
-        let uri = params.text_document.uri;
-        let doc = self.docs.get(&uri).unwrap();
+        let doc = self.get_doc(&params.text_document.uri)?;
 
         Ok(Some(SemanticTokensResult::Tokens(SemanticTokens {
             data: doc.semantic_tokens(),
@@ -132,5 +126,33 @@ impl LanguageServer for Backend {
 
     async fn shutdown(&self) -> Result<()> {
         Ok(())
+    }
+}
+
+fn request_failed(msg: impl Into<Cow<'static, str>>) -> jsonrpc::Error {
+    jsonrpc::Error {
+        code: jsonrpc::ErrorCode::ServerError(lsp_types::error_codes::REQUEST_FAILED),
+        message: msg.into(),
+        data: None,
+    }
+}
+
+struct AstNotification;
+
+impl Notification for AstNotification {
+    type Params = AstNotificationParams;
+
+    const METHOD: &'static str = "geckscript-nvse/ast";
+}
+
+#[derive(Serialize, Deserialize)]
+struct AstNotificationParams {
+    uri: Url,
+    ast: String,
+}
+
+impl AstNotificationParams {
+    pub fn new(doc: &Doc) -> Self {
+        Self { uri: doc.uri.clone(), ast: doc.tree.syntax().tree_string(&doc.text) }
     }
 }

@@ -55,6 +55,21 @@ impl Doc {
         })
     }
 
+    pub fn offset_at(&self, mut pos: Position) -> u32 {
+        let mut offset = 0;
+        let mut chars = self.text.chars();
+        while let Some(c) = chars.next()
+            && pos.line != 0
+        {
+            offset += 1;
+            if c == '\n' {
+                pos.line -= 1;
+            }
+        }
+
+        offset + pos.character
+    }
+
     pub fn pos_at(&self, offset: u32) -> Position {
         let (mut line, mut character) = (0, 0);
 
