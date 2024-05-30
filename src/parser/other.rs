@@ -48,6 +48,9 @@ pub(crate) fn fn_decl(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::Fn);
+    if p.at(TokenKind::Identifier) {
+        name(p);
+    }
     param_list(p);
     stmt_block(p);
 

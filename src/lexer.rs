@@ -11,9 +11,12 @@ pub(crate) struct Lexer<'a> {
     token_start_byte_pos: usize,
 
     done: bool,
+    steps: u32,
 }
 
 impl<'a> Lexer<'a> {
+    const STEP_LIMIT: u32 = 15_000_000;
+
     pub fn new(input: &'a str) -> Self {
         Self {
             input,
@@ -26,10 +29,16 @@ impl<'a> Lexer<'a> {
             token_start_byte_pos: 0,
 
             done: false,
+            steps: 0,
         }
     }
 
     fn next_token(&mut self) -> Option<Token> {
+        self.steps += 1;
+        if self.steps > Self::STEP_LIMIT {
+            panic!("lexer step limit exceeded at {}", self.pos);
+        }
+
         if let Some(c) = self.peek(0) {
             if self.state() == LexerState::Normal {
                 if c.is_whitespace() {
@@ -216,6 +225,8 @@ impl<'a> Lexer<'a> {
     }
 
     fn next_char(&mut self) -> Option<char> {
+        self.steps = 0;
+
         let next = self.indices.get(self.pos)?;
         self.pos += 1;
         self.byte_pos += next.1.len_utf8();

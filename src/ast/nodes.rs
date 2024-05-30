@@ -167,6 +167,7 @@ enum_! {
     VarDecl(VarDeclStmt),
     Expr(ExprStmt),
     For(ForStmt),
+    ForEach(ForEachStmt),
     If(IfStmt),
     While(WhileStmt),
     Return(ReturnStmt),
@@ -221,6 +222,18 @@ node! {
     child!(cond, Expr, 1);
     token!(semi_2, TokenKind::Semicolon, 1);
     child!(loop_expr, Expr, 2);
+    token!(rparen, TokenKind::RightParen);
+    child!(block, BlockStmt);
+}
+
+node! {
+    ForEachStmt,
+    NodeKind::ForEachStmt,
+    token!(for_kw, TokenKind::For);
+    token!(lparen, TokenKind::LeftParen);
+    child!(var_decl, VarDecl);
+    token!(col, TokenKind::Colon);
+    child!(iterable, Expr, 1);
     token!(rparen, TokenKind::RightParen);
     child!(block, BlockStmt);
 }
