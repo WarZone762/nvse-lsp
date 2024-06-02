@@ -4,28 +4,15 @@ use crate::syntax_node::{NodeKind, TokenKind};
 pub(crate) fn script(p: &mut Parser) {
     let m = p.start();
 
-    // Name
     p.expect(TokenKind::Name);
     name(p);
     p.expect(TokenKind::Semicolon);
 
-    // Variable declarations
-    // TODO: TokenSet
-    while p.more() && !p.at(TokenKind::BlockType) && !p.at(TokenKind::Fn) {
-        stmt_var_decl(p);
-    }
-
-    match p.cur() {
-        TokenKind::BlockType => begin(p),
-        TokenKind::Fn => fn_decl(p),
-        _ => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
-    }
-
     while p.more() {
-        p.err("cannot have multiple blocks in one script");
         match p.cur() {
             TokenKind::BlockType => begin(p),
             TokenKind::Fn => fn_decl(p),
+            x if x.is_type() => stmt_var_decl(p),
             _ => p.err_and_next("expected block type (GameMode, MenuMode, ...) or 'fn'"),
         }
     }
@@ -41,7 +28,7 @@ pub(crate) fn begin(p: &mut Parser) {
     }
     stmt_block(p);
 
-    m.complete(p, NodeKind::BeginStmt);
+    m.complete(p, NodeKind::BlockTypeItem);
 }
 
 pub(crate) fn fn_decl(p: &mut Parser) {
@@ -54,7 +41,7 @@ pub(crate) fn fn_decl(p: &mut Parser) {
     param_list(p);
     stmt_block(p);
 
-    m.complete(p, NodeKind::FnDeclStmt);
+    m.complete(p, NodeKind::FnDeclItem);
 }
 
 pub(crate) fn arg_list(p: &mut Parser) {

@@ -145,6 +145,12 @@ impl Debug for Node {
     }
 }
 
+impl PartialEq for Node {
+    fn eq(&self, other: &Self) -> bool {
+        self.kind == other.kind && self.offset == other.offset
+    }
+}
+
 impl Node {
     pub fn new(kind: NodeKind, offset: u32) -> Self {
         Self { kind, offset, children: Vec::new(), parent: None }
@@ -309,8 +315,8 @@ macro_rules! blocktypes {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum NodeKind {
     Script,
-    BeginStmt,
-    FnDeclStmt,
+    FnDeclItem,
+    BlockTypeItem,
     VarDeclStmt,
     ExprStmt,
     ForStmt,

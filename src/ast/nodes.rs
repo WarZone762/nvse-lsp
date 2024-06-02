@@ -2,7 +2,7 @@ use super::*;
 
 macro_rules! enum_ {
     ($name:ident, $($member:ident($member_kind:ident),)*) => {
-        #[derive(Debug)]
+        #[derive(Debug, Clone)]
         pub(crate) enum $name {
             $(
                 $member($member_kind),
@@ -44,7 +44,7 @@ macro_rules! enum_ {
 
 macro_rules! node {
     ($name:ident, $pat:pat, $($items:item)*) => {
-        #[derive(Debug)]
+        #[derive(Debug, Clone)]
         pub(crate) struct $name {
             pub syntax_node: Rc<Node>,
         }
@@ -156,13 +156,36 @@ node! {
     Script,
     NodeKind::Script,
     token!(name_token, TokenKind::Name);
-    token!(name, TokenKind::Identifier);
+    child!(name, Name);
+    children!(items, Item);
+}
+
+enum_! {
+    Item,
+    FnDecl(FnDeclItem),
+    BlockType(BlockTypeItem),
+    VarDeclStmt(VarDeclStmt),
+}
+
+node! {
+    FnDeclItem,
+    NodeKind::FnDeclItem,
+    token!(fn_token, TokenKind::Fn);
+    child!(name, Name);
+    child!(param_list, ParamList);
+    child!(block, BlockStmt);
+}
+
+node! {
+    BlockTypeItem,
+    NodeKind::BlockTypeItem,
+    token!(blocktype, TokenKind::BlockType);
+    child!(block, BlockStmt);
+    child!(param, Expr);
 }
 
 enum_! {
     Stmt,
-    Begin(BeginStmt),
-    FnDecl(FnDeclStmt),
     Block(BlockStmt),
     VarDecl(VarDeclStmt),
     Expr(ExprStmt),
@@ -174,22 +197,6 @@ enum_! {
     Break(BreakStmt),
     Continue(ContinueStmt),
     Empty(EmptyStmt),
-}
-
-node! {
-    BeginStmt,
-    NodeKind::BeginStmt,
-    token!(blocktype, TokenKind::BlockType);
-    child!(block, BlockStmt);
-    child!(param, Expr);
-}
-
-node! {
-    FnDeclStmt,
-    NodeKind::FnDeclStmt,
-    token!(fn_token, TokenKind::Fn);
-    child!(param_list, ParamList);
-    child!(block, BlockStmt);
 }
 
 node! {
@@ -247,7 +254,8 @@ node! {
     token!(rparen, TokenKind::RightParen);
     child!(true_branch, BlockStmt);
     token!(else_kw, TokenKind::Else);
-    child!(false_branch, BlockStmt, 1);
+    child!(false_branch, IfStmt);
+    child!(else_branch, BlockStmt, 1);
 }
 
 node! {
@@ -313,10 +321,11 @@ node! {
 node! {
     TernaryExpr,
     NodeKind::TernaryExpr,
-    token!(question_mark, TokenKind::Ternary);
     child!(cond, Expr);
+    token!(question_mark, TokenKind::Ternary);
+    child!(true_expr, Expr, 1);
     token!(colon, TokenKind::Colon);
-    child!(expr, Expr, 1);
+    child!(false_expr, Expr, 2);
 }
 
 node! {

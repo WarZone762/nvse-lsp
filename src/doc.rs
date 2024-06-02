@@ -2,6 +2,7 @@ use tower_lsp::lsp_types::*;
 
 use crate::{
     ast::{AstNode, Script},
+    hir::{self, LowerCtx, Workspace},
     tree_builder::{self, parse_str},
 };
 
@@ -34,6 +35,19 @@ impl From<TextDocumentItem> for Doc {
 }
 
 impl Doc {
+    pub fn new(value: TextDocumentItem) -> Self {
+        let text = value.text.into_boxed_str();
+        let (tree, diagnostics) = parse_str(&text);
+        Self {
+            uri: value.uri,
+            text,
+            tree: AstNode::cast(tree).unwrap(),
+            diagnostics,
+            version: value.version,
+            language_id: value.language_id,
+        }
+    }
+
     pub fn update_text(&mut self, new_text: String) {
         let text = new_text.into_boxed_str();
         let (tree, diagnostics) = parse_str(&text);

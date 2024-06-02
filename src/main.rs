@@ -1,4 +1,4 @@
-#![feature(let_chains, get_mut_unchecked, debug_closure_helpers)]
+#![feature(let_chains, coroutines, iter_from_coroutine, get_mut_unchecked, debug_closure_helpers)]
 
 mod ast;
 mod doc;
@@ -15,7 +15,9 @@ use ast::AstNode;
 use dashmap::DashMap;
 use doc::Doc;
 use features::*;
+use hir::Workspace;
 use serde::{Deserialize, Serialize};
+use tokio::sync::RwLock;
 use tower_lsp::{
     jsonrpc::{self, Result},
     lsp_types::{notification::Notification, *},
@@ -35,17 +37,22 @@ async fn main() {
 struct Backend {
     client: Client,
     docs: DashMap<Url, Doc>,
+    workspace: RwLock<Workspace>,
 }
+
+unsafe impl Send for Workspace {}
+unsafe impl Sync for Workspace {}
 
 impl Backend {
     pub fn new(client: Client) -> Self {
-        Self { client, docs: DashMap::new() }
+        Self { client, docs: DashMap::new(), workspace: Workspace::new().into() }
     }
 
     pub async fn add_doc(&self, doc: TextDocumentItem) {
         let doc = doc.into();
         self.publish_diagnostics(&doc).await;
         self.client.send_notification::<AstNotification>(AstNotificationParams::new(&doc)).await;
+        self.workspace.write().await.add_doc(&doc);
         self.docs.insert(doc.uri.clone(), doc);
     }
 
@@ -58,6 +65,7 @@ impl Backend {
             self.client
                 .send_notification::<AstNotification>(AstNotificationParams::new(&doc))
                 .await;
+            self.workspace.write().await.add_doc(&doc);
         } else {
             self.client
                 .show_message(MessageType::ERROR, format!("unknown document {}", uri.as_str()))

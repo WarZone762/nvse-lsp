@@ -7,7 +7,9 @@ mod nodes;
 pub(crate) use nodes::*;
 
 pub(crate) trait AstNode {
-    fn can_cast(kind: NodeKind) -> bool;
+    fn can_cast(kind: NodeKind) -> bool
+    where
+        Self: Sized;
     fn cast(syntax_node: Rc<Node>) -> Option<Self>
     where
         Self: Sized;

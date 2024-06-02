@@ -5,7 +5,7 @@ Script@0..3995
         Identifier@5..11 "binary"
     Semicolon@11..12 ";"
     Whitespace@12..14 "\n\n"
-    FnDeclStmt@14..3995
+    FnDeclItem@14..3995
         Fn@14..16 "fn"
         Whitespace@16..17 " "
         ParamList@17..19

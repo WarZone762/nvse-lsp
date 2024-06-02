@@ -5,7 +5,7 @@ Script@0..587
         Identifier@5..13 "comments"
     Semicolon@13..14 ";"
     Whitespace@14..16 "\n\n"
-    FnDeclStmt@16..587
+    FnDeclItem@16..587
         Fn@16..18 "fn"
         Whitespace@18..19 " "
         ParamList@19..21

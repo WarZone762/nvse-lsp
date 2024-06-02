@@ -5,7 +5,7 @@ Script@0..776
         Identifier@5..10 "unary"
     Semicolon@10..11 ";"
     Whitespace@11..13 "\n\n"
-    FnDeclStmt@13..776
+    FnDeclItem@13..776
         Fn@13..15 "fn"
         Whitespace@15..16 " "
         ParamList@16..18

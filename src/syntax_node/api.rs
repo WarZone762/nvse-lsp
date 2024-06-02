@@ -1,8 +1,14 @@
+use std::rc::Rc;
+
 use super::{Node, NodeOrTokenRef, Token};
 
 impl Node {
     pub fn dfs(&self) -> Iter<'_> {
         Iter::new(self)
+    }
+
+    pub fn ancestors(self: Rc<Self>) -> impl Iterator<Item = Rc<Node>> {
+        std::iter::successors(Some(self), |x| x.parent())
     }
 
     pub fn leafs(&self) -> impl Iterator<Item = &Token> {
