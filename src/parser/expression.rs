@@ -114,11 +114,17 @@ pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
     while p.more() && !p.at(TokenKind::QuoteDouble) {
         match p.cur() {
             TokenKind::DollarLeftBrace => {
+                let shard_m = p.start();
                 p.next_any();
                 expr(p);
                 p.expect(TokenKind::RightBrace);
+                shard_m.complete(p, NodeKind::StringShardExpr);
             }
-            TokenKind::StringShard => p.next_any(),
+            TokenKind::StringShard => {
+                let shard_m = p.start();
+                p.next_any();
+                shard_m.complete(p, NodeKind::StringShardLiteral);
+            }
             _ => {
                 let m = p.start();
                 p.err_and_next("expected a string or '}'");

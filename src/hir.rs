@@ -1,50 +1,17 @@
 use std::{collections::HashMap, iter, rc::Rc};
 
-use tower_lsp::lsp_types::Url;
-
 use crate::{
     ast::{self, AstNode},
-    doc::Doc,
-    syntax_node::Node,
+    db::{self, Lookup},
 };
 
-mod lower;
+pub(crate) mod lower;
 mod printer;
-pub(crate) use lower::*;
+mod propagate;
+pub(crate) mod ty;
 
-#[derive(Debug)]
-pub(crate) struct Workspace {
-    pub hir_map: HashMap<Url, Script>,
-    pub global_symbols: Vec<Symbol>,
-}
-
-impl Workspace {
-    pub fn new() -> Self {
-        Self { hir_map: HashMap::new(), global_symbols: vec![] }
-    }
-
-    pub fn syntax_to_hir(&self, uri: &Url, node: Rc<Node>) -> Option<HirNode> {
-        if node.parent.is_none() {
-            return Some(self.hir_map.get(uri)?.into());
-        }
-
-        node.clone()
-            .ancestors()
-            .filter_map(|x| self.syntax_to_hir(uri, x))
-            .flat_map(|x| x.children())
-            .find(|x| x.node().is_some_and(|x| *x.syntax() == node))
-    }
-
-    pub fn resolve(&self, name_ref: &NameRef) -> Type {
-        Type::Ambiguous
-    }
-
-    pub fn add_doc(&mut self, doc: &Doc) {
-        let mut ctx = LowerCtx::new(self, &doc.text);
-        let script = ctx.script(doc.tree.clone());
-        self.hir_map.insert(doc.uri.clone(), script);
-    }
-}
+use db::*;
+use ty::*;
 
 macro_rules! impl_from {
     ($enum:ident, $($variant:ident($type:ty),)*) => {
@@ -58,137 +25,62 @@ macro_rules! impl_from {
     };
 }
 
-macro_rules! impl_from_ref {
-    ($enum:ident, $($type:ident,)*) => {
-        $(
-            impl<'a> From<&'a $type> for $enum<'a> {
-                fn from(value: &'a $type) -> Self {
-                    Self::$type(value)
-                }
-            }
-        )*
-    };
+#[derive(Debug, Clone, Copy)]
+pub(crate) enum HirNode {
+    Script(db::FileId),
+    Item(ItemId),
+    Stmt(StmtId),
+    Expr(ExprId),
+    Block(BlockId),
+    VarDecl(VarDeclId),
+    Name(NameId),
+    StringShard(StringShardId),
 }
 
-macro_rules! impl_try_from_ref {
-    ($enum:ident, $($type:ident,)*) => {
-        $(
-            impl<'a> TryFrom<$enum<'a>> for &'a $type {
-                type Error = ();
-
-                fn try_from(value: $enum<'a>) -> Result<Self, Self::Error> {
-                    match value {
-                        $enum::$type(x) => Ok(x),
-                        _ => Err(()),
-                    }
-                }
-            }
-        )*
-    };
-}
-
-#[derive(Debug)]
-pub(crate) enum HirNode<'a> {
-    Script(&'a Script),
-    Item(&'a Item),
-    Stmt(&'a Stmt),
-    IfStmt(&'a IfStmt),
-    Expr(&'a Expr),
-    Block(&'a Block),
-    ParamList(&'a ParamList),
-    ArgList(&'a ArgList),
-    VarDecl(&'a VarDecl),
-    Name(&'a Name),
-    NameRef(&'a NameRef),
-    StringShard(&'a StringShard),
-    Literal(&'a Literal),
-}
-
-impl_from_ref! {
+impl_from! {
     HirNode,
-    Script,
-    Item,
-    Stmt,
-    IfStmt,
-    Expr,
-    Block,
-    ParamList,
-    ArgList,
-    VarDecl,
-    Name,
-    NameRef,
-    StringShard,
-    Literal,
+    Script(db::FileId),
+    Item(ItemId),
+    Stmt(StmtId),
+    Expr(ExprId),
+    Block(BlockId),
+    VarDecl(VarDeclId),
+    Name(NameId),
+    StringShard(StringShardId),
 }
 
-impl<'a> From<&'a Box<Expr>> for HirNode<'a> {
-    fn from(value: &'a Box<Expr>) -> Self {
-        Self::Expr(value.as_ref())
-    }
-}
-
-impl<'a> From<&'a Box<IfStmt>> for HirNode<'a> {
-    fn from(value: &'a Box<IfStmt>) -> Self {
-        Self::IfStmt(value.as_ref())
-    }
-}
-
-impl<'a> From<&'a Rc<VarDecl>> for HirNode<'a> {
-    fn from(value: &'a Rc<VarDecl>) -> Self {
-        Self::VarDecl(value)
-    }
-}
-
-impl_try_from_ref! {
-    HirNode,
-    Script,
-    Item,
-    Stmt,
-    Expr,
-    Block,
-    ParamList,
-    ArgList,
-    VarDecl,
-    Name,
-    NameRef,
-    StringShard,
-    Literal,
-}
-
-impl<'a> HirNode<'a> {
-    pub fn children(&self) -> Box<dyn Iterator<Item = HirNode<'a>> + 'a> {
+impl HirNode {
+    pub fn children<'a>(
+        &self,
+        db: &'a db::Database,
+        script_db: &'a ScriptDatabase,
+    ) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         match self {
-            HirNode::Script(x) => Box::new(x.children()),
-            HirNode::Item(x) => Box::new(x.children()),
-            HirNode::Stmt(x) => Box::new(x.children()),
-            HirNode::IfStmt(x) => Box::new(x.children()),
-            HirNode::Expr(x) => Box::new(x.children()),
-            HirNode::Block(x) => Box::new(x.children()),
-            HirNode::ParamList(x) => Box::new(x.children()),
-            HirNode::ArgList(x) => Box::new(x.children()),
-            HirNode::VarDecl(x) => Box::new(x.children()),
-            HirNode::Name(x) => Box::new(iter::once(HirNode::from(*x))),
-            HirNode::NameRef(x) => Box::new(iter::once(HirNode::from(*x))),
-            HirNode::StringShard(x) => Box::new(iter::once(HirNode::from(*x))),
-            HirNode::Literal(x) => Box::new(iter::once(HirNode::from(*x))),
+            HirNode::Script(x) => Box::new(x.hir(db).children()),
+            HirNode::Item(x) => x.children(script_db),
+            HirNode::Stmt(x) => x.children(script_db),
+            HirNode::Expr(x) => x.children(script_db),
+            HirNode::Block(x) => Box::new(x.children(script_db)),
+            HirNode::VarDecl(x) => Box::new(x.children(script_db)),
+            HirNode::Name(_) => Box::new(iter::empty()),
+            HirNode::StringShard(x) => x.children(script_db),
         }
     }
 
-    pub fn node(&self) -> Option<&dyn AstNode> {
+    pub fn node<'a>(
+        &self,
+        db: &'a db::Database,
+        script_db: &'a ScriptDatabase,
+    ) -> Option<&'a dyn AstNode> {
         Some(match self {
-            HirNode::Script(x) => &x.node,
-            HirNode::Item(x) => x.node()?,
-            HirNode::Stmt(x) => x.node()?,
-            HirNode::IfStmt(x) => &x.node,
-            HirNode::Expr(x) => x.node()?,
-            HirNode::Block(x) => &x.node,
-            HirNode::ParamList(x) => &x.node,
-            HirNode::ArgList(x) => &x.node,
-            HirNode::VarDecl(x) => &x.node,
-            HirNode::Name(x) => &x.node,
-            HirNode::NameRef(x) => &x.node,
-            HirNode::StringShard(x) => x.node()?,
-            HirNode::Literal(x) => x.node()?,
+            HirNode::Script(x) => &x.hir(db).node,
+            HirNode::Item(x) => x.node(script_db)?,
+            HirNode::Stmt(x) => x.node(script_db)?,
+            HirNode::Expr(x) => x.node(script_db)?,
+            HirNode::Block(x) => x.node(script_db)?,
+            HirNode::VarDecl(x) => x.node(script_db)?,
+            HirNode::Name(x) => x.node(script_db)?,
+            HirNode::StringShard(x) => x.node(script_db)?,
         })
     }
 }
@@ -196,17 +88,17 @@ impl<'a> HirNode<'a> {
 macro_rules! hir_children {
     ($name:ident, $($stmts:stmt)*) => {
         impl $name {
-            #[allow(unused_macros)]
+            #[allow(unused_macros, dead_code)]
             pub fn children(&self) -> impl Iterator<Item = HirNode> {
                 macro_rules! child {
                     ($expr:ident) => {
-                        yield HirNode::from(&self.$expr)
+                        yield HirNode::from(self.$expr)
                     };
                 }
 
                 macro_rules! child_opt {
                     ($expr:ident) => {
-                        if let Some(child) = &self.$expr {
+                        if let Some(child) = self.$expr {
                             yield HirNode::from(child);
                         }
                     };
@@ -215,7 +107,7 @@ macro_rules! hir_children {
                 macro_rules! child_iter {
                     ($expr:ident) => {
                         for e in &self.$expr {
-                            yield HirNode::from(e);
+                            yield HirNode::from(*e);
                         }
                     };
                 }
@@ -231,10 +123,10 @@ macro_rules! hir_children {
     };
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct Script {
-    pub name: Option<Name>,
-    pub items: Vec<Item>,
+    pub name: Option<NameId>,
+    pub items: Vec<ItemId>,
     pub sym_table: SymbolTable,
     pub node: ast::Script,
 }
@@ -245,7 +137,7 @@ hir_children! {
     child_iter!(items)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum Item {
     FnDecl(FnDeclItem),
     BlockType(BlockTypeItem),
@@ -277,25 +169,25 @@ impl Item {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct FnDeclItem {
-    pub name: Option<Name>,
-    pub params: ParamList,
-    pub block: Block,
+    pub name: Option<NameId>,
+    pub params: Vec<VarDeclId>,
+    pub block: BlockId,
     pub node: ast::FnDeclItem,
 }
 
 hir_children! {
     FnDeclItem,
     child_opt!(name)
-    child!(params)
+    child_iter!(params)
     child!(block)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct BlockTypeItem {
     pub blocktype_kind: u8,
-    pub block: Block,
+    pub block: BlockId,
     pub node: ast::BlockTypeItem,
 }
 
@@ -304,7 +196,7 @@ hir_children! {
     child!(block)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum Stmt {
     For(ForStmt),
     ForEach(ForEachStmt),
@@ -314,7 +206,7 @@ pub(crate) enum Stmt {
     Return(ReturnStmt),
     Break(BreakStmt),
     Continue(ContinueStmt),
-    Block(Block),
+    Block(BlockId),
     Expr(ExprStmt),
 }
 
@@ -328,12 +220,15 @@ impl_from! {
     Return(ReturnStmt),
     Break(BreakStmt),
     Continue(ContinueStmt),
-    Block(Block),
+    Block(BlockId),
     Expr(ExprStmt),
 }
 
 impl Stmt {
-    pub fn children(&self) -> Box<dyn Iterator<Item = HirNode> + '_> {
+    pub fn children<'a>(
+        &'a self,
+        db: &'a ScriptDatabase,
+    ) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         match self {
             Stmt::For(x) => Box::new(x.children()),
             Stmt::ForEach(x) => Box::new(x.children()),
@@ -343,12 +238,12 @@ impl Stmt {
             Stmt::Return(x) => Box::new(x.children()),
             Stmt::Break(x) => Box::new(x.children()),
             Stmt::Continue(x) => Box::new(x.children()),
-            Stmt::Block(x) => Box::new(x.children()),
+            Stmt::Block(x) => Box::new(x.children(db)),
             Stmt::Expr(x) => Box::new(x.children()),
         }
     }
 
-    pub fn node(&self) -> Option<&dyn AstNode> {
+    pub fn node<'a>(&'a self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
         Some(match self {
             Stmt::For(x) => &x.node,
             Stmt::ForEach(x) => &x.node,
@@ -358,34 +253,34 @@ impl Stmt {
             Stmt::Return(x) => &x.node,
             Stmt::Break(x) => &x.node,
             Stmt::Continue(x) => &x.node,
-            Stmt::Block(x) => &x.node,
+            Stmt::Block(x) => return x.node(db),
             Stmt::Expr(x) => &x.node,
         })
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ForStmt {
-    pub initializer: Option<Expr>,
-    pub cond: Option<Expr>,
-    pub loop_expr: Option<Expr>,
-    pub block: Block,
+    pub init: Option<VarDeclId>,
+    pub cond: Option<ExprId>,
+    pub loop_expr: Option<ExprId>,
+    pub block: BlockId,
     pub node: ast::ForStmt,
 }
 
 hir_children! {
     ForStmt,
-    child_opt!(initializer)
+    child_opt!(init)
     child_opt!(cond)
     child_opt!(loop_expr)
     child!(block)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ForEachStmt {
-    pub var_decl: Rc<VarDecl>,
-    pub iterable: Expr,
-    pub block: Block,
+    pub var_decl: VarDeclId,
+    pub iterable: ExprId,
+    pub block: BlockId,
     pub node: ast::ForEachStmt,
 }
 
@@ -395,12 +290,12 @@ hir_children! {
     child!(iterable)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct IfStmt {
-    pub cond: Expr,
-    pub true_branch: Block,
-    pub false_branch: Option<Box<IfStmt>>,
-    pub else_branch: Option<Block>,
+    pub cond: ExprId,
+    pub true_branch: BlockId,
+    pub false_branch: Option<StmtId>,
+    pub else_branch: Option<BlockId>,
     pub node: ast::IfStmt,
 }
 
@@ -412,10 +307,10 @@ hir_children! {
     child_opt!(else_branch)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct WhileStmt {
-    pub cond: Expr,
-    pub block: Block,
+    pub cond: ExprId,
+    pub block: BlockId,
     pub node: ast::WhileStmt,
 }
 
@@ -425,9 +320,9 @@ hir_children! {
     child!(block)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct VarDeclStmt {
-    pub decl: Rc<VarDecl>,
+    pub decl: VarDeclId,
     pub node: ast::VarDeclStmt,
 }
 
@@ -436,9 +331,9 @@ hir_children! {
     child!(decl)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ReturnStmt {
-    pub expr: Option<Expr>,
+    pub expr: Option<ExprId>,
     pub node: ast::ReturnStmt,
 }
 
@@ -447,7 +342,7 @@ hir_children! {
     child_opt!(expr)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct BreakStmt {
     pub node: ast::BreakStmt,
 }
@@ -456,7 +351,7 @@ hir_children! {
     BreakStmt,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ContinueStmt {
     pub node: ast::ContinueStmt,
 }
@@ -465,9 +360,9 @@ hir_children! {
     ContinueStmt,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ExprStmt {
-    pub expr: Expr,
+    pub expr: ExprId,
     pub node: ast::ExprStmt,
 }
 
@@ -476,7 +371,7 @@ hir_children! {
     child!(expr)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum Expr {
     Missing,
     Bin(BinExpr),
@@ -516,9 +411,9 @@ impl Expr {
             Expr::Call(x) => Box::new(x.children()),
             Expr::Paren(x) => Box::new(x.children()),
             Expr::Lambda(x) => Box::new(x.children()),
-            Expr::NameRef(x) => Box::new(iter::once(x.into())),
+            Expr::NameRef(_) => Box::new(iter::empty()),
             Expr::Str(x) => Box::new(x.children()),
-            Expr::Lit(x) => Box::new(iter::once(x.into())),
+            Expr::Lit(_) => Box::new(iter::empty()),
         }
     }
 
@@ -537,30 +432,13 @@ impl Expr {
             Expr::Lit(x) => x.node()?,
         })
     }
-
-    pub fn type_(&self, workspace: &Workspace) -> Type {
-        match self {
-            Self::Missing => Type::Ambiguous,
-            Self::Bin(x) => x.type_.clone(),
-            Self::Ternary(x) => x.type_.clone(),
-            Self::Unary(x) => x.type_.clone(),
-            Self::Subscript(x) => x.type_.clone(),
-            Self::Call(x) => x.type_.clone(),
-            Self::Paren(x) => x.expr.type_(workspace),
-            Self::Lambda(x) => x.type_.clone(),
-            Self::NameRef(x) => workspace.resolve(x),
-            Self::Str(_) => Type::String,
-            Self::Lit(x) => x.type_(),
-        }
-    }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct BinExpr {
-    pub lhs: Box<Expr>,
+    pub lhs: ExprId,
     pub op: BinOpKind,
-    pub rhs: Box<Expr>,
-    pub type_: Type,
+    pub rhs: ExprId,
     pub node: ast::BinaryExpr,
 }
 
@@ -570,19 +448,18 @@ hir_children! {
     child!(rhs)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum BinOpKind {
     Plus,
     Minus,
     // TODO
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct TernaryExpr {
-    pub cond: Box<Expr>,
-    pub true_expr: Box<Expr>,
-    pub false_expr: Box<Expr>,
-    pub type_: Type,
+    pub cond: ExprId,
+    pub true_expr: ExprId,
+    pub false_expr: ExprId,
     pub node: ast::TernaryExpr,
 }
 
@@ -593,11 +470,10 @@ hir_children! {
     child!(false_expr)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct UnaryExpr {
     pub op: UnaryOpKind,
-    pub operand: Box<Expr>,
-    pub type_: Type,
+    pub operand: ExprId,
     pub node: ast::UnaryExpr,
 }
 
@@ -606,17 +482,16 @@ hir_children! {
     child!(operand)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum UnaryOpKind {
     Minus,
     // TODO
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct SubscriptExpr {
-    pub lhs: Box<Expr>,
-    pub subscript: Box<Expr>,
-    pub type_: Type,
+    pub lhs: ExprId,
+    pub subscript: ExprId,
     pub node: ast::SubscriptExpr,
 }
 
@@ -626,23 +501,22 @@ hir_children! {
     child!(subscript)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct CallExpr {
-    pub lhs: Box<Expr>,
-    pub args: ArgList,
-    pub type_: Type,
+    pub lhs: ExprId,
+    pub args: Vec<ExprId>,
     pub node: ast::CallExpr,
 }
 
 hir_children! {
     CallExpr,
     child!(lhs)
-    child!(args)
+    child_iter!(args)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct ParenExpr {
-    pub expr: Box<Expr>,
+    pub expr: ExprId,
     pub node: ast::ParenExpr,
 }
 
@@ -651,23 +525,22 @@ hir_children! {
     child!(expr)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct LambdaExpr {
-    pub params: ParamList,
-    pub block: Block,
-    pub type_: Type,
+    pub params: Vec<VarDeclId>,
+    pub block: BlockId,
     pub node: ast::LambdaExpr,
 }
 
 hir_children! {
     LambdaExpr,
-    child!(params)
+    child_iter!(params)
     child!(block)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct Block {
-    pub stmts: Vec<Stmt>,
+    pub stmts: Vec<StmtId>,
     pub sym_table: SymbolTable,
     pub node: ast::BlockStmt,
 }
@@ -677,55 +550,35 @@ hir_children! {
     child_iter!(stmts)
 }
 
-#[derive(Debug)]
-pub(crate) struct ParamList {
-    pub params: Vec<Rc<VarDecl>>,
-    pub node: ast::ParamList,
-}
-
-hir_children! {
-    ParamList,
-    child_iter!(params)
-}
-
-#[derive(Debug)]
-pub(crate) struct ArgList {
-    pub args: Vec<Expr>,
-    pub node: ast::ArgList,
-}
-
-hir_children! {
-    ArgList,
-    child_iter!(args)
-}
-
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct VarDecl {
     pub decl_type: Type,
-    pub name: Name,
+    pub name: NameId,
+    pub init: Option<ExprId>,
     pub node: ast::VarDecl,
 }
 
 hir_children! {
     VarDecl,
     child!(name)
+    child_opt!(init)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct Name {
     pub name: String,
     pub node: ast::Name,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct NameRef {
     pub name: String,
     pub node: ast::NameRef,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct StrExpr {
-    pub shards: Vec<StringShard>,
+    pub shards: Vec<StringShardId>,
     pub node: ast::StrExpr,
 }
 
@@ -734,22 +587,32 @@ hir_children! {
     child_iter!(shards)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum StringShard {
     Str { val: String, node: ast::StringShard },
-    Expr(Expr),
+    Expr(ExprId),
 }
 
 impl StringShard {
-    pub fn node(&self) -> Option<&dyn AstNode> {
+    pub fn children<'a>(
+        &'a self,
+        db: &'a ScriptDatabase,
+    ) -> Box<dyn Iterator<Item = HirNode> + 'a> {
+        match self {
+            StringShard::Str { .. } => Box::new(iter::empty()),
+            StringShard::Expr(x) => x.children(db),
+        }
+    }
+
+    pub fn node<'a>(&'a self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
         Some(match self {
             StringShard::Str { node, .. } => node,
-            StringShard::Expr(x) => x.node()?,
+            StringShard::Expr(x) => x.node(db)?,
         })
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) enum Literal {
     Number(NumberLiteral),
     Bool(BoolLiteral),
@@ -771,61 +634,14 @@ impl Literal {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct NumberLiteral {
     pub value: f32,
     pub node: ast::Literal,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct BoolLiteral {
     pub value: bool,
     pub node: ast::Literal,
-}
-
-#[derive(Debug)]
-pub(crate) struct SymbolTable {
-    pub map: HashMap<String, Symbol>,
-}
-
-impl SymbolTable {
-    pub fn new() -> Self {
-        Self { map: HashMap::new() }
-    }
-}
-
-#[derive(Debug)]
-pub(crate) enum Symbol {
-    Local(Rc<VarDecl>),
-    Global(Type),
-}
-
-#[derive(Debug, Clone)]
-pub(crate) enum Type {
-    Bool,
-    Number,
-    Ref,
-    String,
-    Array,
-    Function(Box<FunctionSignature>),
-    Script,
-    Ambiguous,
-}
-
-impl Type {
-    pub fn from_str(string: &str) -> Self {
-        match string {
-            "int" | "float" | "double" => Self::Ref,
-            "ref" => Self::Ref,
-            "string" => Self::String,
-            "array" => Self::Array,
-            _ => Self::Ambiguous,
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub(crate) struct FunctionSignature {
-    pub ret: Option<Type>,
-    pub params: Vec<Type>,
 }

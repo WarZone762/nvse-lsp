@@ -1,6 +1,7 @@
 #![feature(let_chains, coroutines, iter_from_coroutine, get_mut_unchecked, debug_closure_helpers)]
 
 mod ast;
+mod db;
 mod doc;
 mod features;
 mod hir;
@@ -12,10 +13,9 @@ mod tree_builder;
 use std::borrow::Cow;
 
 use ast::AstNode;
-use dashmap::DashMap;
+use db::Database;
 use doc::Doc;
 use features::*;
-use hir::Workspace;
 use serde::{Deserialize, Serialize};
 use tokio::sync::RwLock;
 use tower_lsp::{
@@ -36,49 +36,49 @@ async fn main() {
 #[derive(Debug)]
 struct Backend {
     client: Client,
-    docs: DashMap<Url, Doc>,
-    workspace: RwLock<Workspace>,
+    db: RwLock<Database>,
 }
-
-unsafe impl Send for Workspace {}
-unsafe impl Sync for Workspace {}
 
 impl Backend {
     pub fn new(client: Client) -> Self {
-        Self { client, docs: DashMap::new(), workspace: Workspace::new().into() }
+        Self { client, db: Database::new().into() }
     }
 
     pub async fn add_doc(&self, doc: TextDocumentItem) {
-        let doc = doc.into();
-        self.publish_diagnostics(&doc).await;
-        self.client.send_notification::<AstNotification>(AstNotificationParams::new(&doc)).await;
-        self.workspace.write().await.add_doc(&doc);
-        self.docs.insert(doc.uri.clone(), doc);
+        let mut db = self.db.write().await;
+        let doc = db.add_doc(doc);
+        self.publish_diagnostics(&db, doc).await;
+        self.client
+            .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
+            .await;
     }
 
-    pub async fn update_doc(&self, uri: Url, changes: Vec<TextDocumentContentChangeEvent>) {
-        if let Some(mut doc) = self.docs.get_mut(&uri) {
-            for change in changes {
-                doc.update_text(change.text);
-            }
-            self.publish_diagnostics(&doc).await;
-            self.client
-                .send_notification::<AstNotification>(AstNotificationParams::new(&doc))
-                .await;
-            self.workspace.write().await.add_doc(&doc);
-        } else {
-            self.client
-                .show_message(MessageType::ERROR, format!("unknown document {}", uri.as_str()))
-                .await;
+    pub async fn update_doc(
+        &self,
+        uri: Url,
+        changes: Vec<TextDocumentContentChangeEvent>,
+    ) -> Result<()> {
+        let mut db = self.db.write().await;
+
+        let doc = Self::doc(&db, &uri)?;
+        for change in changes {
+            db.update_doc_text(*doc, change.text)
         }
+        self.publish_diagnostics(&db, doc).await;
+        self.client
+            .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
+            .await;
+        Ok(())
     }
 
-    pub async fn publish_diagnostics(&self, doc: &Doc) {
-        self.client.publish_diagnostics(doc.uri.clone(), doc.diagnostics().collect(), None).await;
+    pub async fn publish_diagnostics(&self, db: &Database, doc: Doc) {
+        self.client
+            .publish_diagnostics(doc.meta(db).uri.clone(), doc.diagnostics(db).collect(), None)
+            .await;
     }
 
-    pub fn get_doc(&self, uri: &Url) -> Result<dashmap::mapref::one::Ref<Url, Doc>> {
-        self.docs.get(uri).ok_or_else(|| request_failed(format!("failed to get document {uri}")))
+    pub fn doc(db: &Database, uri: &Url) -> Result<Doc> {
+        db.doc(uri).ok_or_else(|| request_failed(format!("failed to get document {uri}")))
     }
 }
 
@@ -110,24 +110,28 @@ impl LanguageServer for Backend {
     }
 
     async fn did_change(&self, params: DidChangeTextDocumentParams) {
-        self.update_doc(params.text_document.uri, params.content_changes).await;
+        if let Err(err) = self.update_doc(params.text_document.uri, params.content_changes).await {
+            self.client.show_message(MessageType::ERROR, err.message).await;
+        }
     }
 
     async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {
+        let db = self.db.read().await;
         let pos_params = params.text_document_position_params;
-        let doc = self.get_doc(&pos_params.text_document.uri)?;
+        let doc = Self::doc(&db, &pos_params.text_document.uri)?;
 
-        Ok(doc.hover(pos_params.position))
+        Ok(doc.hover(&db, pos_params.position))
     }
 
     async fn semantic_tokens_full(
         &self,
         params: SemanticTokensParams,
     ) -> Result<Option<SemanticTokensResult>> {
-        let doc = self.get_doc(&params.text_document.uri)?;
+        let db = self.db.read().await;
+        let doc = Self::doc(&db, &params.text_document.uri)?;
 
         Ok(Some(SemanticTokensResult::Tokens(SemanticTokens {
-            data: doc.semantic_tokens(),
+            data: doc.semantic_tokens(&db),
             ..Default::default()
         })))
     }
@@ -160,7 +164,10 @@ struct AstNotificationParams {
 }
 
 impl AstNotificationParams {
-    pub fn new(doc: &Doc) -> Self {
-        Self { uri: doc.uri.clone(), ast: doc.tree.syntax().tree_string(&doc.text) }
+    pub fn new(db: &Database, doc: Doc) -> Self {
+        Self {
+            uri: doc.meta(db).uri.clone(),
+            ast: doc.hir(db).node.syntax().tree_string(doc.text(db)),
+        }
     }
 }

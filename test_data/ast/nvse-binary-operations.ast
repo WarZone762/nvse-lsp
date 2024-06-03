@@ -26,7 +26,8 @@ Script@0..3995
                     Whitespace@40..41 " "
                     StrExpr@41..60
                         QuoteDouble@41..42 "\""
-                        StringShard@42..59 "Binary Operations"
+                        StringShardLiteral@42..59
+                            StringShard@42..59 "Binary Operations"
                         QuoteDouble@59..60 "\""
                 Semicolon@60..61 ";"
             Whitespace@61..63 "\n\t"
@@ -41,7 +42,8 @@ Script@0..3995
                             BinaryExpr@70..105
                                 StrExpr@70..94
                                     QuoteDouble@70..71 "\""
-                                    StringShard@71..93 "Started running xNVSE "
+                                    StringShardLiteral@71..93
+                                        StringShard@71..93 "Started running xNVSE "
                                     QuoteDouble@93..94 "\""
                                 Whitespace@94..95 " "
                                 Plus@95..96 "+"
@@ -53,7 +55,8 @@ Script@0..3995
                             Whitespace@107..108 " "
                             StrExpr@108..122
                                 QuoteDouble@108..109 "\""
-                                StringShard@109..121 " unit tests."
+                                StringShardLiteral@109..121
+                                    StringShard@109..121 " unit tests."
                                 QuoteDouble@121..122 "\""
                         RightParen@122..123 ")"
                         RightParen@123..124 ")"
@@ -219,7 +222,8 @@ Script@0..3995
                     Whitespace@427..428 " "
                     StrExpr@428..434
                         QuoteDouble@428..429 "\""
-                        StringShard@429..433 "test"
+                        StringShardLiteral@429..433
+                            StringShard@429..433 "test"
                         QuoteDouble@433..434 "\""
                 Semicolon@434..435 ";"
             Whitespace@435..437 "\n\t"
@@ -237,7 +241,8 @@ Script@0..3995
                             Whitespace@452..453 " "
                             StrExpr@453..459
                                 QuoteDouble@453..454 "\""
-                                StringShard@454..458 "test"
+                                StringShardLiteral@454..458
+                                    StringShard@454..458 "test"
                                 QuoteDouble@458..459 "\""
                         RightParen@459..460 ")"
                 Semicolon@460..461 ";"
@@ -524,7 +529,8 @@ Script@0..3995
                     Whitespace@925..926 " "
                     StrExpr@926..932
                         QuoteDouble@926..927 "\""
-                        StringShard@927..931 "test"
+                        StringShardLiteral@927..931
+                            StringShard@927..931 "test"
                         QuoteDouble@931..932 "\""
                 Semicolon@932..933 ";"
             Whitespace@933..935 "\n\t"
@@ -537,7 +543,8 @@ Script@0..3995
                     Whitespace@943..944 " "
                     StrExpr@944..947
                         QuoteDouble@944..945 "\""
-                        StringShard@945..946 "2"
+                        StringShardLiteral@945..946
+                            StringShard@945..946 "2"
                         QuoteDouble@946..947 "\""
                 Semicolon@947..948 ";"
             Whitespace@948..950 "\n\t"
@@ -555,7 +562,8 @@ Script@0..3995
                             Whitespace@965..966 " "
                             StrExpr@966..973
                                 QuoteDouble@966..967 "\""
-                                StringShard@967..972 "test2"
+                                StringShardLiteral@967..972
+                                    StringShard@967..972 "test2"
                                 QuoteDouble@972..973 "\""
                         RightParen@973..974 ")"
                 Semicolon@974..975 ";"
@@ -1366,7 +1374,8 @@ Script@0..3995
                     Whitespace@2120..2121 " "
                     StrExpr@2121..2140
                         QuoteDouble@2121..2122 "\""
-                        StringShard@2122..2139 "This is my string"
+                        StringShardLiteral@2122..2139
+                            StringShard@2122..2139 "This is my string"
                         QuoteDouble@2139..2140 "\""
                 Semicolon@2140..2141 ";"
             Whitespace@2141..2143 "\n\t"
@@ -1408,7 +1417,8 @@ Script@0..3995
                             Whitespace@2273..2274 " "
                             StrExpr@2274..2280
                                 QuoteDouble@2274..2275 "\""
-                                StringShard@2275..2279 "This"
+                                StringShardLiteral@2275..2279
+                                    StringShard@2275..2279 "This"
                                 QuoteDouble@2279..2280 "\""
                         RightParen@2280..2281 ")"
                 Semicolon@2281..2282 ";"
@@ -1697,7 +1707,8 @@ Script@0..3995
                     Whitespace@2682..2683 " "
                     StrExpr@2683..2689
                         QuoteDouble@2683..2684 "\""
-                        StringShard@2684..2688 "test"
+                        StringShardLiteral@2684..2688
+                            StringShard@2684..2688 "test"
                         QuoteDouble@2688..2689 "\""
                 Semicolon@2689..2690 ";"
             Whitespace@2690..2692 "\n\t"
@@ -1716,7 +1727,8 @@ Script@0..3995
                         Whitespace@2707..2708 " "
                         StrExpr@2708..2711
                             QuoteDouble@2708..2709 "\""
-                            StringShard@2709..2710 "2"
+                            StringShardLiteral@2709..2710
+                                StringShard@2709..2710 "2"
                             QuoteDouble@2710..2711 "\""
                 Semicolon@2711..2712 ";"
             Whitespace@2712..2714 "\n\t"
@@ -1734,7 +1746,8 @@ Script@0..3995
                             Whitespace@2729..2730 " "
                             StrExpr@2730..2737
                                 QuoteDouble@2730..2731 "\""
-                                StringShard@2731..2736 "test2"
+                                StringShardLiteral@2731..2736
+                                    StringShard@2731..2736 "test2"
                                 QuoteDouble@2736..2737 "\""
                         RightParen@2737..2738 ")"
                 Semicolon@2738..2739 ";"
@@ -2674,7 +2687,8 @@ Script@0..3995
                             BinaryExpr@3937..3973
                                 StrExpr@3937..3962
                                     QuoteDouble@3937..3938 "\""
-                                    StringShard@3938..3961 "Finished running xNVSE "
+                                    StringShardLiteral@3938..3961
+                                        StringShard@3938..3961 "Finished running xNVSE "
                                     QuoteDouble@3961..3962 "\""
                                 Whitespace@3962..3963 " "
                                 Plus@3963..3964 "+"
@@ -2686,7 +2700,8 @@ Script@0..3995
                             Whitespace@3975..3976 " "
                             StrExpr@3976..3990
                                 QuoteDouble@3976..3977 "\""
-                                StringShard@3977..3989 " unit tests."
+                                StringShardLiteral@3977..3989
+                                    StringShard@3977..3989 " unit tests."
                                 QuoteDouble@3989..3990 "\""
                         RightParen@3990..3991 ")"
                         RightParen@3991..3992 ")"

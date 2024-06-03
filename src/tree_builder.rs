@@ -3,15 +3,18 @@ use std::rc::Rc;
 use tower_lsp::lsp_types::DiagnosticSeverity;
 
 use crate::{
+    ast::{self, AstNode},
     lexer::Lexer,
     parser::{parse, Event},
     syntax_node::{Node, NodeKind, NodeOrToken, Token, TokenKind},
 };
 
-pub(crate) fn parse_str(string: &str) -> (Rc<Node>, Vec<Diagnostic>) {
+pub(crate) fn parse_str(string: &str) -> (ast::Script, Vec<Diagnostic>) {
     let tokens = Lexer::new(string).collect::<Vec<_>>();
 
-    output_to_tree(process_events(parse(tokens.iter().map(|x| x.kind).collect())), tokens)
+    let (root, diagnostics) =
+        output_to_tree(process_events(parse(tokens.iter().map(|x| x.kind).collect())), tokens);
+    (AstNode::cast(root).expect("first node of a file is not a Script"), diagnostics)
 }
 
 pub(crate) fn output_to_tree(

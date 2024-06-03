@@ -243,7 +243,7 @@ mod test {
         path::{Path, PathBuf},
     };
 
-    use crate::tree_builder::parse_str;
+    use crate::{tree_builder::parse_str, AstNode};
 
     fn case_paths() -> impl Iterator<Item = (PathBuf, PathBuf)> {
         let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
@@ -294,7 +294,7 @@ mod test {
 
                 if !ast.exists() {
                     let text = fs::read_to_string(&case).unwrap();
-                    let mut tree = parse_str(&text).0.tree_string(&text);
+                    let mut tree = parse_str(&text).0.syntax().tree_string(&text);
                     tree.push('\n');
                     fs::write(&ast, tree).unwrap();
                     println!("Generated {ast:?}");
@@ -304,7 +304,7 @@ mod test {
                     .unwrap()
                     .replace("\\r\\n", "\\n")
                     .replace("\r\n", "\n");
-                let mut tree = parse_str(&text).0.tree_string(&text);
+                let mut tree = parse_str(&text).0.syntax().tree_string(&text);
                 tree.push('\n');
                 let must = fs::read_to_string(&ast)
                     .unwrap()

@@ -1,65 +1,28 @@
+use std::ops::Deref;
+
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    ast::{AstNode, Script},
-    hir::{self, LowerCtx, Workspace},
-    tree_builder::{self, parse_str},
+    db::{Database, FileId},
+    tree_builder::{self},
 };
 
-#[derive(Debug)]
-pub(crate) struct Doc {
-    pub uri: Url,
-    pub text: Box<str>,
-    pub tree: Script,
-    pub diagnostics: Vec<tree_builder::Diagnostic>,
-    pub version: i32,
-    pub language_id: String,
-}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) struct Doc(pub FileId);
 
-unsafe impl Send for Doc {}
-unsafe impl Sync for Doc {}
+impl Deref for Doc {
+    type Target = FileId;
 
-impl From<TextDocumentItem> for Doc {
-    fn from(value: TextDocumentItem) -> Self {
-        let text = value.text.into_boxed_str();
-        let (tree, diagnostics) = parse_str(&text);
-        Self {
-            uri: value.uri,
-            text,
-            tree: AstNode::cast(tree).unwrap(),
-            diagnostics,
-            version: value.version,
-            language_id: value.language_id,
-        }
+    fn deref(&self) -> &Self::Target {
+        &self.0
     }
 }
 
 impl Doc {
-    pub fn new(value: TextDocumentItem) -> Self {
-        let text = value.text.into_boxed_str();
-        let (tree, diagnostics) = parse_str(&text);
-        Self {
-            uri: value.uri,
-            text,
-            tree: AstNode::cast(tree).unwrap(),
-            diagnostics,
-            version: value.version,
-            language_id: value.language_id,
-        }
-    }
-
-    pub fn update_text(&mut self, new_text: String) {
-        let text = new_text.into_boxed_str();
-        let (tree, diagnostics) = parse_str(&text);
-        self.text = text;
-        self.tree = AstNode::cast(tree).unwrap();
-        self.diagnostics = diagnostics;
-    }
-
-    pub fn diagnostics(&self) -> impl Iterator<Item = Diagnostic> + '_ {
-        self.diagnostics.iter().map(|d| {
-            let start = self.pos_at(d.offset);
-            let end = self.pos_at(d.offset + d.len);
+    pub fn diagnostics<'a>(&'a self, db: &'a Database) -> impl Iterator<Item = Diagnostic> + 'a {
+        self.meta(db).diagnostics.iter().map(|d| {
+            let start = self.pos_at(db, d.offset);
+            let end = self.pos_at(db, d.offset + d.len);
             Diagnostic {
                 range: Range::new(start, end),
                 severity: Some(d.severity),
@@ -69,9 +32,9 @@ impl Doc {
         })
     }
 
-    pub fn offset_at(&self, mut pos: Position) -> u32 {
+    pub fn offset_at(&self, db: &Database, mut pos: Position) -> u32 {
         let mut offset = 0;
-        let mut chars = self.text.chars();
+        let mut chars = self.text(db).chars();
         while let Some(c) = chars.next()
             && pos.line != 0
         {
@@ -84,10 +47,10 @@ impl Doc {
         offset + pos.character
     }
 
-    pub fn pos_at(&self, offset: u32) -> Position {
+    pub fn pos_at(&self, db: &Database, offset: u32) -> Position {
         let (mut line, mut character) = (0, 0);
 
-        for (_, c) in self.text.chars().enumerate().take_while(|(i, _)| (*i as u32) < offset) {
+        for (_, c) in self.text(db).chars().enumerate().take_while(|(i, _)| (*i as u32) < offset) {
             if c == '\n' {
                 character = 0;
                 line += 1;
@@ -98,4 +61,12 @@ impl Doc {
 
         Position { line, character }
     }
+}
+
+#[derive(Debug)]
+pub(crate) struct DocMeta {
+    pub uri: Url,
+    pub language_id: String,
+    pub version: i32,
+    pub diagnostics: Vec<tree_builder::Diagnostic>,
 }

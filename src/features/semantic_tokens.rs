@@ -2,6 +2,7 @@ use tower_lsp::lsp_types::*;
 
 use crate::{
     ast::AstNode,
+    db::Database,
     syntax_node::{NodeKind, TokenKind},
     Doc,
 };
@@ -15,10 +16,10 @@ pub(crate) fn capabilities() -> SemanticTokensServerCapabilities {
 }
 
 impl Doc {
-    pub(crate) fn semantic_tokens(&self) -> Vec<SemanticToken> {
+    pub(crate) fn semantic_tokens(&self, db: &Database) -> Vec<SemanticToken> {
         let mut builder = SemanticTokenBuilder::new();
 
-        for t in self.tree.syntax().leafs() {
+        for t in self.hir(db).node.syntax().leafs() {
             let kind = if t
                 .parent()
                 .and_then(|x| {
@@ -35,14 +36,15 @@ impl Doc {
                 let Some(kind) = t.kind.to_semantic() else { continue };
                 kind
             };
-            let Position { mut line, character: mut pos } = self.pos_at(t.offset);
+            let Position { mut line, character: mut pos } = self.pos_at(db, t.offset);
 
-            for line_text in t.text(&self.text).split('\n') {
+            for line_text in t.text(self.text(db)).split('\n') {
                 builder.push(&kind, None, line, pos, line_text.len() as _);
                 if t.kind == TokenKind::StringShard {
                     for (i, c) in line_text.chars().enumerate() {
                         let i = i as u32;
-                        if t.text(&self.text).chars().nth(i.saturating_sub(1) as _) == Some('\\') {
+                        if t.text(self.text(db)).chars().nth(i.saturating_sub(1) as _) == Some('\\')
+                        {
                             continue;
                         }
                         if c == '\\' {

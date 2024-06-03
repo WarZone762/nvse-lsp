@@ -8,7 +8,7 @@ impl Node {
     }
 
     pub fn ancestors(self: Rc<Self>) -> impl Iterator<Item = Rc<Node>> {
-        std::iter::successors(Some(self), |x| x.parent())
+        std::iter::successors(self.parent(), |x| x.parent())
     }
 
     pub fn leafs(&self) -> impl Iterator<Item = &Token> {

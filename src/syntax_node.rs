@@ -65,8 +65,8 @@ impl NodeOrToken {
 
     pub unsafe fn parent_mut(&mut self) -> &mut Option<Weak<Node>> {
         match self {
-            Self::Node(x) => &mut Rc::get_mut_unchecked(x).parent,
-            Self::Token(x) => &mut Rc::get_mut_unchecked(x).parent,
+            Self::Node(x) => unsafe { &mut Rc::get_mut_unchecked(x).parent },
+            Self::Token(x) => unsafe { &mut Rc::get_mut_unchecked(x).parent },
         }
     }
 }

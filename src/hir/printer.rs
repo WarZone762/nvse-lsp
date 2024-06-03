@@ -1,15 +1,19 @@
+use db::{Database, FileId};
+
 use super::*;
 
 #[derive(Debug)]
 pub(crate) struct Printer<'a> {
-    workspace: &'a Workspace,
+    db: &'a db::Database,
+    script_db: &'a ScriptDatabase,
+    file_id: db::FileId,
     indent: usize,
     buf: String,
 }
 
 impl<'a> Printer<'a> {
-    pub fn new(workspace: &'a Workspace) -> Self {
-        Self { workspace, indent: 0, buf: String::new() }
+    pub fn new(file_id: db::FileId, db: &'a Database, script_db: &'a ScriptDatabase) -> Self {
+        Self { db, script_db, file_id, indent: 0, buf: String::new() }
     }
 
     pub fn push(&mut self, string: &str) {
@@ -27,6 +31,11 @@ impl<'a> Printer<'a> {
 
 pub(crate) trait Print {
     fn print(&self, p: &mut Printer);
+    fn print_str(&self, file_id: FileId, db: &Database) -> String {
+        let mut p = Printer::new(file_id, db, file_id.script_db(db));
+        self.print(&mut p);
+        p.finish()
+    }
 }
 
 impl<P: Print> Print for &P {
@@ -74,10 +83,10 @@ impl Print for Script {
     }
 }
 
-impl Print for Item {
+impl Print for ItemId {
     fn print(&self, p: &mut Printer) {
         p.push_indent();
-        match self {
+        match self.lookup(p.script_db) {
             Item::FnDecl(x) => x.print(p),
             Item::BlockType(x) => x.print(p),
             Item::VarDeclStmt(x) => x.print(p),
@@ -91,8 +100,9 @@ impl Print for FnDeclItem {
         if let Some(name) = &self.name {
             name.print(p);
         }
-        self.params.print(p);
-        p.push(" ");
+        p.push("(");
+        self.params.iter().print_delimited(p, ", ");
+        p.push(") ");
         self.block.print(p);
     }
 }
@@ -105,10 +115,10 @@ impl Print for BlockTypeItem {
     }
 }
 
-impl Print for Stmt {
+impl Print for StmtId {
     fn print(&self, p: &mut Printer) {
         p.push_indent();
-        match self {
+        match self.lookup(p.script_db) {
             Stmt::For(x) => x.print(p),
             Stmt::ForEach(x) => x.print(p),
             Stmt::If(x) => x.print(p),
@@ -126,7 +136,7 @@ impl Print for Stmt {
 impl Print for ForStmt {
     fn print(&self, p: &mut Printer) {
         p.push("for (");
-        if let Some(init) = &self.initializer {
+        if let Some(init) = &self.init {
             init.print(p);
         }
         p.push(";");
@@ -216,13 +226,13 @@ impl Print for ExprStmt {
     }
 }
 
-impl Print for Expr {
+impl Print for ExprId {
     fn print(&self, p: &mut Printer) {
         p.push("(");
-        self.type_(p.workspace).print(p);
+        self.type_(p.db, p.file_id).print(p);
         p.push(")");
         p.push("(");
-        match self {
+        match self.lookup(p.script_db) {
             Expr::Missing => p.push("?"),
             Expr::Bin(x) => x.print(p),
             Expr::Ternary(x) => x.print(p),
@@ -295,7 +305,9 @@ impl Print for SubscriptExpr {
 impl Print for CallExpr {
     fn print(&self, p: &mut Printer) {
         self.lhs.print(p);
-        self.args.print(p);
+        p.push("(");
+        self.args.iter().print_delimited(p, ", ");
+        p.push(")");
     }
 }
 
@@ -309,9 +321,9 @@ impl Print for ParenExpr {
 
 impl Print for LambdaExpr {
     fn print(&self, p: &mut Printer) {
-        p.push("fn ");
-        self.params.print(p);
-        p.push(" ");
+        p.push("fn (");
+        self.params.iter().print_delimited(p, ", ");
+        p.push(") ");
         self.block.print(p);
     }
 }
@@ -326,9 +338,9 @@ impl Print for StrExpr {
     }
 }
 
-impl Print for StringShard {
+impl Print for StringShardId {
     fn print(&self, p: &mut Printer) {
-        match self {
+        match self.lookup(p.script_db) {
             StringShard::Str { val, .. } => p.push(val),
             StringShard::Expr(x) => {
                 p.push("${");
@@ -348,36 +360,26 @@ impl Print for Literal {
     }
 }
 
-impl Print for ParamList {
+impl Print for VarDeclId {
     fn print(&self, p: &mut Printer) {
-        p.push("(");
-        self.params.iter().print_delimited(p, ", ");
-        p.push(")");
-    }
-}
-
-impl Print for ArgList {
-    fn print(&self, p: &mut Printer) {
-        p.push("(");
-        self.args.iter().print_delimited(p, ", ");
-        p.push(")");
-    }
-}
-
-impl Print for VarDecl {
-    fn print(&self, p: &mut Printer) {
-        self.decl_type.print(p);
+        let var_decl = self.lookup(p.script_db);
+        var_decl.decl_type.print(p);
         p.push(" ");
-        self.name.print(p);
+        var_decl.name.print(p);
+        if let Some(init) = &var_decl.init {
+            p.push(" = ");
+            init.print(p);
+        }
     }
 }
 
-impl Print for Block {
+impl Print for BlockId {
     fn print(&self, p: &mut Printer) {
+        let block = self.lookup(p.script_db);
         p.push("{\n");
         p.indent += 1;
-        self.sym_table.print(p);
-        self.stmts.iter().print_delimited(p, "\n");
+        block.sym_table.print(p);
+        block.stmts.iter().print_delimited(p, "\n");
         p.indent -= 1;
         p.push("\n");
         p.push_indent();
@@ -385,9 +387,9 @@ impl Print for Block {
     }
 }
 
-impl Print for Name {
+impl Print for NameId {
     fn print(&self, p: &mut Printer) {
-        p.push(&self.name);
+        p.push(&self.lookup(p.script_db).name);
     }
 }
 
@@ -411,7 +413,7 @@ impl Print for SymbolTable {
             p.push(k);
             p.push(": ");
             match v {
-                Symbol::Local(x) => x.decl_type.print(p),
+                Symbol::Local(x) => x.lookup(p.script_db).decl_type.print(p),
                 Symbol::Global(x) => x.print(p),
             }
             p.push(",\n");
@@ -424,19 +426,22 @@ impl Print for SymbolTable {
 
 impl Print for Type {
     fn print(&self, p: &mut Printer) {
-        p.push(match self {
-            Type::Bool => "bool",
-            Type::Number => "num",
-            Type::Ref => "ref",
-            Type::String => "str",
-            Type::Array => "arr",
+        match self {
+            Type::Bool => p.push("bool"),
+            Type::Number => p.push("num"),
+            Type::Ref => p.push("ref"),
+            Type::String => p.push("str"),
+            Type::Array(x) => {
+                p.push("arr<");
+                x.print(p);
+                p.push(">")
+            }
             Type::Function(x) => {
                 x.print(p);
-                return;
             }
-            Type::Script => "script",
-            Type::Ambiguous => "?",
-        })
+            Type::Script => p.push("script"),
+            Type::Ambiguous => p.push("?"),
+        }
     }
 }
 

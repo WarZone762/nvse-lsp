@@ -224,7 +224,7 @@ node! {
     NodeKind::ForStmt,
     token!(for_kw, TokenKind::For);
     token!(lparen, TokenKind::LeftParen);
-    child!(init_expr, Expr);
+    child!(init, VarDecl);
     token!(semi_1, TokenKind::Semicolon);
     child!(cond, Expr, 1);
     token!(semi_2, TokenKind::Semicolon, 1);
@@ -386,6 +386,8 @@ node! {
     NodeKind::VarDecl,
     token!(r#type, |x| x.kind.is_type());
     child!(name, Name);
+    token!(eq, TokenKind::Eq);
+    child!(init, Expr);
 }
 
 node! {

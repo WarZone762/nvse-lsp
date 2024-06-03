@@ -26,7 +26,8 @@ Script@0..348
                     Whitespace@41..42 " "
                     StrExpr@42..62
                         QuoteDouble@42..43 "\""
-                        StringShard@43..61 "Ternary Operations"
+                        StringShardLiteral@43..61
+                            StringShard@43..61 "Ternary Operations"
                         QuoteDouble@61..62 "\""
                 Semicolon@62..63 ";"
             Whitespace@63..65 "\n\t"
@@ -41,7 +42,8 @@ Script@0..348
                             BinaryExpr@72..107
                                 StrExpr@72..96
                                     QuoteDouble@72..73 "\""
-                                    StringShard@73..95 "Started running xNVSE "
+                                    StringShardLiteral@73..95
+                                        StringShard@73..95 "Started running xNVSE "
                                     QuoteDouble@95..96 "\""
                                 Whitespace@96..97 " "
                                 Plus@97..98 "+"
@@ -53,7 +55,8 @@ Script@0..348
                             Whitespace@109..110 " "
                             StrExpr@110..124
                                 QuoteDouble@110..111 "\""
-                                StringShard@111..123 " unit tests."
+                                StringShardLiteral@111..123
+                                    StringShard@111..123 " unit tests."
                                 QuoteDouble@123..124 "\""
                         RightParen@124..125 ")"
                         RightParen@125..126 ")"
@@ -174,7 +177,8 @@ Script@0..348
                             BinaryExpr@289..325
                                 StrExpr@289..314
                                     QuoteDouble@289..290 "\""
-                                    StringShard@290..313 "Finished running xNVSE "
+                                    StringShardLiteral@290..313
+                                        StringShard@290..313 "Finished running xNVSE "
                                     QuoteDouble@313..314 "\""
                                 Whitespace@314..315 " "
                                 Plus@315..316 "+"
@@ -186,7 +190,8 @@ Script@0..348
                             Whitespace@327..328 " "
                             StrExpr@328..342
                                 QuoteDouble@328..329 "\""
-                                StringShard@329..341 " unit tests."
+                                StringShardLiteral@329..341
+                                    StringShard@329..341 " unit tests."
                                 QuoteDouble@341..342 "\""
                         RightParen@342..343 ")"
                         RightParen@343..344 ")"
