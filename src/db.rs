@@ -1,6 +1,6 @@
 use std::{collections::HashMap, rc::Rc};
 
-use la_arena::{Arena, ArenaMap, Idx};
+use la_arena::{Arena, ArenaMap, Idx, RawIdx};
 use tower_lsp::lsp_types::{TextDocumentItem, Url};
 mod script;
 
@@ -65,6 +65,10 @@ impl Database {
     }
 
     pub fn add_doc(&mut self, doc: TextDocumentItem) -> Doc {
+        if let Some(old_doc) = self.doc(&doc.uri) {
+            self.update_doc_text(*old_doc, doc.text);
+            return old_doc;
+        }
         let TextDocumentItem { uri, language_id, version, text } = doc;
         let (root, diagnostics) = parse_str(&text);
         let meta = DocMeta { uri, language_id, version, diagnostics };
@@ -79,6 +83,18 @@ impl Database {
         self.doc_metas[file_id.0].diagnostics = diagnostics;
         self.text_map.insert(file_id.0, new_text.into_boxed_str());
         lower::lower(self, file_id, root);
+    }
+
+    pub fn analyze_workspace(&mut self) -> impl Iterator<Item = Doc> {
+        (0..self.doc_metas.len()).map(|id| {
+            let id = Idx::from_raw(RawIdx::from_u32(id as u32));
+            propagate::propagate(self, id.into());
+            Doc(id.into())
+        })
+
+        // for id in 0..self.doc_metas.len() {
+        //     propagate::propagate(self, Idx::from_raw(RawIdx::from_u32(id as
+        // u32)).into()) }
     }
 
     pub fn doc(&self, uri: &Url) -> Option<Doc> {

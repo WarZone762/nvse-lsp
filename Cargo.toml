@@ -11,12 +11,15 @@ panic = "abort"
 opt-level = 3
 
 [dependencies]
+anyhow = "1.0.86"
 dashmap = "5.5"
+futures = "0.3.30"
 la-arena = "0.3.1"
 lsp-types = "0.96"
 serde = { version = "1.0.203", features = ["derive"] }
 tokio = { version = "1.37", features = ["full"] }
 tower-lsp = "0.20"
+walkdir = "2.5.0"
 
 [dev-dependencies]
 similar-asserts = "1.5"

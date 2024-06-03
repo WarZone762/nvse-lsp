@@ -7,7 +7,7 @@ use crate::{
 
 pub(crate) mod lower;
 mod printer;
-mod propagate;
+pub(crate) mod propagate;
 pub(crate) mod ty;
 
 use db::*;
