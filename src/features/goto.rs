@@ -43,14 +43,12 @@ impl Doc {
         let uri = self.meta(db).uri.clone();
         let mut res = vec![];
 
-        let mut stack = vec![HirNode::Script(**self)];
-
-        while let Some(top) = stack.pop() {
-            if let HirNode::VarDecl(top) = top
-                && top == var_decl
+        for e in HirNode::Script(**self).dfs(db, script_db) {
+            if let HirNode::VarDecl(e) = e
+                && e == var_decl
             {
                 if incl_def {
-                    let name = top.lookup(script_db).name.lookup(script_db).node.syntax();
+                    let name = e.lookup(script_db).name.lookup(script_db).node.syntax();
                     let start = self.pos_at(db, name.offset);
                     let end = self.pos_at(db, name.end());
                     res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
@@ -58,10 +56,10 @@ impl Doc {
                 continue;
             }
 
-            if let Some(Symbol::Local(def)) = self.resolve(db, top)
+            if let Some(Symbol::Local(def)) = self.resolve(db, e)
                 && def == var_decl
             {
-                let name_ref = match top {
+                let name_ref = match e {
                     HirNode::Expr(x) => match x.lookup(script_db) {
                         Expr::NameRef(x) => x,
                         _ => continue,
@@ -74,8 +72,6 @@ impl Doc {
                 let start = self.pos_at(db, name_ref.offset);
                 let end = self.pos_at(db, name_ref.end());
                 res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
-            } else {
-                stack.extend(top.children(db, script_db));
             }
         }
 

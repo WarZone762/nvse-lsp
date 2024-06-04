@@ -25,7 +25,7 @@ macro_rules! impl_from {
     };
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum HirNode {
     Script(db::FileId),
     Item(ItemId),
@@ -50,6 +50,10 @@ impl_from! {
 }
 
 impl HirNode {
+    pub fn dfs<'a>(&self, db: &'a Database, script_db: &'a ScriptDatabase) -> Iter<'a> {
+        Iter::new(db, script_db, *self)
+    }
+
     pub fn children<'a>(
         &self,
         db: &'a db::Database,
@@ -82,6 +86,29 @@ impl HirNode {
             HirNode::Name(x) => x.node(script_db)?,
             HirNode::StringShard(x) => x.node(script_db)?,
         })
+    }
+}
+
+#[derive(Debug)]
+pub(crate) struct Iter<'a> {
+    stack: Vec<HirNode>,
+    db: &'a Database,
+    script_db: &'a ScriptDatabase,
+}
+
+impl<'a> Iter<'a> {
+    pub fn new(db: &'a Database, script_db: &'a ScriptDatabase, node: HirNode) -> Self {
+        Self { db, script_db, stack: vec![node] }
+    }
+}
+
+impl<'a> Iterator for Iter<'a> {
+    type Item = HirNode;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let top = self.stack.pop()?;
+        self.stack.extend(top.children(self.db, self.script_db));
+        Some(top)
     }
 }
 
