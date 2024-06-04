@@ -199,6 +199,7 @@ impl LanguageServer for Backend {
                 )),
                 definition_provider: Some(OneOf::Left(true)),
                 hover_provider: Some(HoverProviderCapability::Simple(true)),
+                references_provider: Some(OneOf::Left(true)),
                 semantic_tokens_provider: Some(semantic_tokens::capabilities()),
                 ..Default::default()
             },
@@ -244,6 +245,17 @@ impl LanguageServer for Backend {
         let doc = Self::doc(&db, &pos_params.text_document.uri)?;
 
         Ok(doc.goto_def(&db, pos_params.position))
+    }
+
+    async fn references(&self, params: ReferenceParams) -> Result<Option<Vec<Location>>> {
+        let db = self.db.read().await;
+        let doc = Self::doc(&db, &params.text_document_position.text_document.uri)?;
+
+        Ok(doc.refs(
+            &db,
+            params.text_document_position.position,
+            params.context.include_declaration,
+        ))
     }
 
     async fn semantic_tokens_full(
