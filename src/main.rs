@@ -82,6 +82,14 @@ impl Backend {
         .await;
         for (i, e) in files.iter().enumerate() {
             let path = e.path();
+
+            progress
+                .report(
+                    Some(format!("{}: {i} / {total}", path.display())),
+                    Some((i * 100 / total) as u32),
+                )
+                .await;
+
             match fs::read_to_string(path) {
                 Ok(text) => {
                     if text.starts_with("name")
@@ -107,13 +115,6 @@ impl Backend {
                         .await;
                 }
             }
-
-            progress
-                .report(
-                    Some(format!("{}: {i} / {total}", path.display())),
-                    Some((i * 100 / total) as u32),
-                )
-                .await;
         }
 
         progress
@@ -149,9 +150,10 @@ impl Backend {
         let doc = db.add_doc(doc);
         self.publish_diagnostics(&db, doc).await;
         for _ in db.analyze_workspace() {}
-        // self.client
-        //     .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
-        //     .await;
+        #[cfg(debug_assertions)]
+        self.client
+            .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
+            .await;
     }
 
     pub async fn update_doc(
@@ -166,6 +168,8 @@ impl Backend {
             db.update_doc_text(*doc, change.text)
         }
         self.publish_diagnostics(&db, doc).await;
+        for _ in db.analyze_workspace() {}
+        #[cfg(debug_assertions)]
         self.client
             .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
             .await;
@@ -321,7 +325,7 @@ struct AstNotification;
 impl Notification for AstNotification {
     type Params = AstNotificationParams;
 
-    const METHOD: &'static str = "geckscript-nvse/ast";
+    const METHOD: &'static str = "nvse-lsp/ast";
 }
 
 #[derive(Serialize, Deserialize)]

@@ -46,11 +46,7 @@ impl Database {
         }
 
         let script_db = file_id.script_db(self);
-        node.clone()
-            .ancestors()
-            .filter_map(|x| self.syntax_to_hir(file_id, x))
-            .flat_map(|x| x.children(self, script_db))
-            .find(|x| x.node(self, script_db).is_some_and(|x| *x.syntax() == node))
+        script_db.syntax_to_hir(self, file_id, node)
     }
 
     pub fn resolve(&self, file_id: FileId, name_ref: &NameRef) -> Option<&Symbol> {
@@ -91,10 +87,6 @@ impl Database {
             propagate::propagate(self, id.into());
             Doc(id.into())
         })
-
-        // for id in 0..self.doc_metas.len() {
-        //     propagate::propagate(self, Idx::from_raw(RawIdx::from_u32(id as
-        // u32)).into()) }
     }
 
     pub fn doc(&self, uri: &Url) -> Option<Doc> {

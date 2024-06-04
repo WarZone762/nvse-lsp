@@ -3,8 +3,10 @@ use std::ops::Deref;
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    db::{Database, FileId},
-    tree_builder::{self},
+    ast::{self, AstNode},
+    db::{Database, FileId, Lookup, VarDeclId},
+    hir::{ty::Symbol, Expr, HirNode},
+    tree_builder,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -30,6 +32,24 @@ impl Doc {
                 ..Default::default()
             }
         })
+    }
+
+    pub fn resolve(&self, db: &Database, node: HirNode) -> Option<Symbol> {
+        let script_db = self.script_db(db);
+
+        match node {
+            HirNode::Expr(x) => match x.lookup(script_db) {
+                Expr::NameRef(x) => db.resolve(**self, x).cloned(),
+                _ => None,
+            },
+            HirNode::Name(x) => {
+                match db.syntax_to_hir(**self, x.lookup(script_db).node.syntax().parent()?)? {
+                    HirNode::VarDecl(x) => Some(Symbol::Local(x)),
+                    _ => None,
+                }
+            }
+            _ => None,
+        }
     }
 
     pub fn offset_at(&self, db: &Database, mut pos: Position) -> u32 {

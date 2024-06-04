@@ -22,7 +22,6 @@ local function node_range()
         end_lnum = vim.fn.byte2line(e)
         end_col = e - vim.fn.line2byte(end_lnum)
     end)
-    print(s, e, lnum - 1, col, end_lnum - 1, end_col)
 
     return lnum - 1, col, end_lnum - 1, end_col + 1
 end
@@ -96,8 +95,8 @@ local M = {};
 function M.setup(opts)
     vim.filetype.add({
         extension = {
-            gek = "geckscript-nvse",
-            geck = "geckscript-nvse",
+            gek = "nvsescript",
+            geck = "nvsescript",
         }
     })
 
@@ -107,11 +106,11 @@ function M.setup(opts)
     local default_config = {
         default_config = {
             cmd = cmd,
-            filetypes = { "geckscript-nvse" },
+            filetypes = { "nvsescript" },
             root_dir = util.find_git_ancestor,
             single_file_support = true,
             handlers = {
-                ["geckscript-nvse/ast"] = function(err, result, ctx, config)
+                ["nvse-lsp/ast"] = function(err, result, ctx, config)
                     set_ast(result.uri, result.ast)
                 end
             }

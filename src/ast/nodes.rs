@@ -226,9 +226,9 @@ node! {
     token!(lparen, TokenKind::LeftParen);
     child!(init, VarDecl);
     token!(semi_1, TokenKind::Semicolon);
-    child!(cond, Expr, 1);
+    child!(cond, Expr);
     token!(semi_2, TokenKind::Semicolon, 1);
-    child!(loop_expr, Expr, 2);
+    child!(loop_expr, Expr, 1);
     token!(rparen, TokenKind::RightParen);
     child!(block, BlockStmt);
 }

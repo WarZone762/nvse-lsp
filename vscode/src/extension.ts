@@ -21,7 +21,7 @@ export function activate(context: ExtensionContext) {
   };
 
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ scheme: "file", language: "geckscript-nvse" }],
+    documentSelector: [{ scheme: "file", language: "nvsescript" }],
   };
 
   client = new LanguageClient(

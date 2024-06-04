@@ -1,7 +1,9 @@
+use std::{cell::UnsafeCell, collections::HashMap, rc::Rc};
+
 use ty::Type;
 
 use super::{Database, FileId, Lookup};
-use crate::{ast::AstNode, hir::*};
+use crate::{ast::AstNode, hir::*, syntax_node::Node};
 
 #[derive(Debug)]
 pub(crate) struct ScriptDatabase {
@@ -12,6 +14,8 @@ pub(crate) struct ScriptDatabase {
     pub var_decls: Vec<VarDecl>,
     pub names: Vec<Name>,
     pub str_shards: Vec<StringShard>,
+
+    pub syntax_to_hir_cache: UnsafeCell<HashMap<usize, HirNode>>,
 }
 
 impl ScriptDatabase {
@@ -24,7 +28,31 @@ impl ScriptDatabase {
             var_decls: vec![],
             names: vec![],
             str_shards: vec![],
+            syntax_to_hir_cache: UnsafeCell::new(HashMap::new()),
         }
+    }
+
+    pub fn syntax_to_hir(
+        &self,
+        db: &Database,
+        file_id: FileId,
+        syntax: Rc<Node>,
+    ) -> Option<HirNode> {
+        if let Some(hir_node) =
+            unsafe { (*self.syntax_to_hir_cache.get()).get(&(Rc::as_ptr(&syntax) as _)) }
+        {
+            return Some(*hir_node);
+        }
+
+        let hir_node = syntax
+            .clone()
+            .ancestors()
+            .filter_map(|x| db.syntax_to_hir(file_id, x))
+            .flat_map(|x| x.children(db, self))
+            .find(|x| x.node(db, self).is_some_and(|x| *x.syntax() == syntax))?;
+
+        unsafe { (*self.syntax_to_hir_cache.get()).insert(Rc::as_ptr(&syntax) as _, hir_node) };
+        Some(hir_node)
     }
 
     pub fn add_item(&mut self, item: Item) -> ItemId {
