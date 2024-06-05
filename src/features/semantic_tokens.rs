@@ -42,7 +42,7 @@ impl Doc {
             {
                 SemanticTokenType::PARAMETER
             } else if t.kind == TokenKind::RightBrace
-                && t.parent().is_some_and(|x| x.kind == NodeKind::StrExpr)
+                && t.parent().is_some_and(|x| x.kind == NodeKind::StringShardExpr)
             {
                 SemanticTokenTypeCustom::ESCAPE_SEQUENCE
             } else {

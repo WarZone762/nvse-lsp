@@ -5,7 +5,7 @@ use tower_lsp::lsp_types::*;
 use crate::{
     ast::{self, AstNode},
     db::{Database, FileId, Lookup, VarDeclId},
-    hir::{ty::Symbol, Expr, HirNode},
+    hir::{self, ty::Symbol, Expr, HirNode},
     tree_builder,
 };
 
@@ -50,6 +50,14 @@ impl Doc {
             }
             _ => None,
         }
+    }
+
+    pub fn references(&self, db: &Database, sym: Symbol) -> impl Iterator<Item = HirNode> {
+        let script_db = self.script_db(db);
+
+        HirNode::Script(**self)
+            .dfs(db, script_db)
+            .filter(move |x| self.resolve(db, *x).as_ref() == Some(&sym))
     }
 
     pub fn offset_at(&self, db: &Database, mut pos: Position) -> u32 {

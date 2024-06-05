@@ -34,31 +34,27 @@ impl Doc {
             self.hir(db).node.syntax().token_at_offset(self.offset_at(db, pos))?.parent()?,
         )?;
 
-        let var_decl = match self.resolve(db, node)? {
-            Symbol::Local(x) => x,
+        let sym = self.resolve(db, node)?;
+
+        let script_db = self.script_db(db);
+        let name = match sym {
+            Symbol::Local(x) => x.lookup(script_db).name,
             Symbol::Global(_) => return None,
         };
 
-        let script_db = self.script_db(db);
         let uri = self.meta(db).uri.clone();
         let mut res = vec![];
 
-        for e in HirNode::Script(**self).dfs(db, script_db) {
-            if let HirNode::VarDecl(e) = e
-                && e == var_decl
+        for e in self.references(db, sym) {
+            if let HirNode::Name(e) = e
+                && e == name
+                && incl_def
             {
-                if incl_def {
-                    let name = e.lookup(script_db).name.lookup(script_db).node.syntax();
-                    let start = self.pos_at(db, name.offset);
-                    let end = self.pos_at(db, name.end());
-                    res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
-                }
-                continue;
-            }
-
-            if let Some(Symbol::Local(def)) = self.resolve(db, e)
-                && def == var_decl
-            {
+                let name = e.lookup(script_db).node.syntax();
+                let start = self.pos_at(db, name.offset);
+                let end = self.pos_at(db, name.end());
+                res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
+            } else {
                 let name_ref = match e {
                     HirNode::Expr(x) => match x.lookup(script_db) {
                         Expr::NameRef(x) => x,

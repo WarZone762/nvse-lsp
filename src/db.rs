@@ -8,7 +8,7 @@ pub(crate) use script::*;
 use ty::{Symbol, Type};
 
 use crate::{
-    ast::AstNode,
+    ast::{self, AstNode},
     doc::{Doc, DocMeta},
     hir::*,
     syntax_node::Node,
@@ -37,6 +37,66 @@ impl Database {
             script_db_map: ArenaMap::new(),
             type_maps: ArenaMap::new(),
             globals: vec![],
+        }
+    }
+
+    pub fn script_to_hir(&self, file_id: FileId, node: &ast::Script) -> Option<FileId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Script(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn item_to_hir(&self, file_id: FileId, node: &ast::Item) -> Option<ItemId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Item(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn stmt_to_hir(&self, file_id: FileId, node: &ast::Stmt) -> Option<StmtId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Stmt(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn expr_to_hir(&self, file_id: FileId, node: &ast::Expr) -> Option<ExprId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Expr(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn var_decl_to_hir(&self, file_id: FileId, node: ast::VarDecl) -> Option<VarDeclId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::VarDecl(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn block_to_hir(&self, file_id: FileId, node: ast::BlockStmt) -> Option<BlockId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Block(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn name_to_hir(&self, file_id: FileId, node: ast::Name) -> Option<NameId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::Name(x) => Some(x),
+            _ => None,
+        }
+    }
+
+    pub fn str_shard_to_hir(
+        &self,
+        file_id: FileId,
+        node: ast::StringShard,
+    ) -> Option<StringShardId> {
+        match self.syntax_to_hir(file_id, node.syntax().clone())? {
+            HirNode::StringShard(x) => Some(x),
+            _ => None,
         }
     }
 
