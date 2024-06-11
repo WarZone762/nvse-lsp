@@ -42,12 +42,7 @@ impl Doc {
                 Expr::NameRef(x) => db.resolve(**self, x).cloned(),
                 _ => None,
             },
-            HirNode::Name(x) => {
-                match db.syntax_to_hir(**self, x.lookup(script_db).node.syntax().parent()?)? {
-                    HirNode::VarDecl(x) => Some(Symbol::Local(x)),
-                    _ => None,
-                }
-            }
+            HirNode::Name(x) => Some(Symbol::Local(x)),
             _ => None,
         }
     }
@@ -97,4 +92,11 @@ pub(crate) struct DocMeta {
     pub language_id: String,
     pub version: i32,
     pub diagnostics: Vec<tree_builder::Diagnostic>,
+    pub modified: bool,
+}
+
+impl DocMeta {
+    pub fn new(uri: Url, language_id: String) -> Self {
+        Self { uri, language_id, version: 0, diagnostics: vec![], modified: true }
+    }
 }

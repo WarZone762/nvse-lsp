@@ -371,6 +371,7 @@ tokens! {
     (is_type)
     "int" => IntType,
     "double" => DoubleType,
+    "float" => FloatType,
     "ref" => RefType,
     "string" => StringType,
     "array" => ArrayType,

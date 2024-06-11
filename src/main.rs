@@ -4,6 +4,7 @@ mod ast;
 mod db;
 mod doc;
 mod features;
+mod game_data;
 mod hir;
 mod lexer;
 mod parser;
@@ -148,8 +149,8 @@ impl Backend {
     pub async fn add_doc(&self, doc: TextDocumentItem) {
         let mut db = self.db.write().await;
         let doc = db.add_doc(doc);
-        self.publish_diagnostics(&db, doc).await;
         for _ in db.analyze_workspace() {}
+        self.publish_diagnostics(&db, doc).await;
         #[cfg(debug_assertions)]
         self.client
             .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
@@ -167,8 +168,8 @@ impl Backend {
         for change in changes {
             db.update_doc_text(*doc, change.text)
         }
-        self.publish_diagnostics(&db, doc).await;
         for _ in db.analyze_workspace() {}
+        self.publish_diagnostics(&db, doc).await;
         #[cfg(debug_assertions)]
         self.client
             .send_notification::<AstNotification>(AstNotificationParams::new(&db, doc))
@@ -197,6 +198,12 @@ impl LanguageServer for Backend {
                 text_document_sync: Some(TextDocumentSyncCapability::Kind(
                     TextDocumentSyncKind::FULL,
                 )),
+                completion_provider: Some(CompletionOptions {
+                    completion_item: Some(CompletionOptionsCompletionItem {
+                        label_details_support: Some(true),
+                    }),
+                    ..Default::default()
+                }),
                 definition_provider: Some(OneOf::Left(true)),
                 hover_provider: Some(HoverProviderCapability::Simple(true)),
                 references_provider: Some(OneOf::Left(true)),
@@ -227,6 +234,14 @@ impl LanguageServer for Backend {
         if let Err(err) = self.update_doc(params.text_document.uri, params.content_changes).await {
             self.client.show_message(MessageType::ERROR, err.message).await;
         }
+    }
+
+    async fn completion(&self, params: CompletionParams) -> Result<Option<CompletionResponse>> {
+        let db = self.db.read().await;
+        let pos_params = params.text_document_position;
+        let doc = Self::doc(&db, &pos_params.text_document.uri)?;
+
+        Ok(doc.completion(&db, pos_params.position))
     }
 
     async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {

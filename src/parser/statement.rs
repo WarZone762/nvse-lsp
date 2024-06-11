@@ -130,7 +130,22 @@ pub(crate) fn stmt_expr(p: &mut Parser) {
 
 pub(crate) fn stmt_var_decl(p: &mut Parser) {
     let m = p.start();
-    var_decl(p);
+
+    let var_decl_m = p.start();
+    if !p.cur().is_type() {
+        p.err_and_next("expected type");
+    }
+    p.next_any();
+    name(p);
+    while p.more() && p.opt(TokenKind::Comma) {
+        name(p);
+    }
+    if p.opt(TokenKind::Eq) {
+        expr(p);
+    }
+
+    var_decl_m.complete(p, NodeKind::VarDecl);
+
     p.expect(TokenKind::Semicolon);
     m.complete(p, NodeKind::VarDeclStmt);
 }

@@ -14,15 +14,15 @@ impl Doc {
             self.hir(db).node.syntax().token_at_offset(self.offset_at(db, pos))?.parent()?,
         )?;
 
-        let var_decl = match self.resolve(db, node)? {
+        let name = match self.resolve(db, node)? {
             Symbol::Local(x) => x,
             Symbol::Global(_) => return None,
         };
         let script_db = self.script_db(db);
-        let def_node = var_decl.lookup(script_db).name.lookup(script_db).node.syntax();
+        let name_node = name.lookup(script_db).node.syntax();
 
-        let start = self.pos_at(db, def_node.offset);
-        let end = self.pos_at(db, def_node.end());
+        let start = self.pos_at(db, name_node.offset);
+        let end = self.pos_at(db, name_node.end());
         let res = vec![Location { uri: self.meta(db).uri.clone(), range: Range::new(start, end) }];
 
         Some(GotoDefinitionResponse::Array(res))
@@ -38,7 +38,7 @@ impl Doc {
 
         let script_db = self.script_db(db);
         let name = match sym {
-            Symbol::Local(x) => x.lookup(script_db).name,
+            Symbol::Local(x) => x,
             Symbol::Global(_) => return None,
         };
 

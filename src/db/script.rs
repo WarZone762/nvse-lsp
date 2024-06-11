@@ -1,6 +1,6 @@
 use std::{cell::UnsafeCell, collections::HashMap, rc::Rc};
 
-use ty::Type;
+use ty::InferredType;
 
 use super::{Database, FileId, Lookup};
 use crate::{ast::AstNode, hir::*, syntax_node::Node};
@@ -100,7 +100,7 @@ pub(crate) struct ExprId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub(crate) struct BlockId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct VarDeclId(u32);
+pub(crate) struct VarDeclId(pub u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub(crate) struct NameId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -212,8 +212,12 @@ impl ExprId {
         self.lookup(db).node()
     }
 
-    pub fn type_(&self, db: &Database, file_id: FileId) -> Type {
-        db.type_maps.get(file_id.0).and_then(|x| x.get(self)).cloned().unwrap_or(Type::Ambiguous)
+    pub fn type_(&self, db: &Database, file_id: FileId) -> InferredType {
+        db.type_maps
+            .get(file_id.0)
+            .and_then(|x| x.get(self))
+            .cloned()
+            .unwrap_or(InferredType::any())
     }
 }
 
@@ -238,6 +242,14 @@ impl VarDeclId {
 }
 
 impl NameId {
+    pub fn type_<'a>(&self, db: &'a Database, file_id: FileId) -> InferredType {
+        db.name_type_maps
+            .get(file_id.0)
+            .and_then(|x| x.get(self))
+            .cloned()
+            .unwrap_or(InferredType::any())
+    }
+
     pub fn node<'a>(&self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
         Some(&self.lookup(db).node)
     }

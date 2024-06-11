@@ -5,7 +5,7 @@ use tower_lsp::lsp_types::{TextDocumentItem, Url};
 mod script;
 
 pub(crate) use script::*;
-use ty::{Symbol, Type};
+use ty::{InferredType, Symbol};
 
 use crate::{
     ast::{self, AstNode},
@@ -21,8 +21,9 @@ pub(crate) struct Database {
     pub text_map: ArenaMap<Idx<DocMeta>, Box<str>>,
     pub hir_map: ArenaMap<Idx<DocMeta>, Script>,
     pub script_db_map: ArenaMap<Idx<DocMeta>, ScriptDatabase>,
-    pub type_maps: ArenaMap<Idx<DocMeta>, HashMap<ExprId, Type>>,
-    pub globals: Vec<Symbol>,
+    pub type_maps: ArenaMap<Idx<DocMeta>, HashMap<ExprId, InferredType>>,
+    pub name_type_maps: ArenaMap<Idx<DocMeta>, HashMap<NameId, InferredType>>,
+    pub globals: HashMap<String, Symbol>,
 }
 
 unsafe impl Send for Database {}
@@ -36,7 +37,8 @@ impl Database {
             hir_map: ArenaMap::new(),
             script_db_map: ArenaMap::new(),
             type_maps: ArenaMap::new(),
-            globals: vec![],
+            name_type_maps: ArenaMap::new(),
+            globals: HashMap::new(),
         }
     }
 
@@ -111,13 +113,17 @@ impl Database {
 
     pub fn resolve(&self, file_id: FileId, name_ref: &NameRef) -> Option<&Symbol> {
         let script_db = file_id.script_db(self);
-        name_ref.node.syntax().clone().ancestors().find_map(|x| {
-            match self.syntax_to_hir(file_id, x)? {
+        name_ref
+            .node
+            .syntax()
+            .clone()
+            .ancestors()
+            .find_map(|x| match self.syntax_to_hir(file_id, x)? {
                 HirNode::Block(x) => x.lookup(script_db).sym_table.map.get(&name_ref.name),
                 HirNode::Script(x) => x.hir(self).sym_table.map.get(&name_ref.name),
                 _ => None,
-            }
-        })
+            })
+            .or_else(|| self.globals.get(&name_ref.name))
     }
 
     pub fn add_doc(&mut self, doc: TextDocumentItem) -> Doc {
@@ -126,8 +132,10 @@ impl Database {
             return old_doc;
         }
         let TextDocumentItem { uri, language_id, version, text } = doc;
+        let mut meta = DocMeta::new(uri, language_id);
+        meta.version = version;
         let (root, diagnostics) = parse_str(&text);
-        let meta = DocMeta { uri, language_id, version, diagnostics };
+        meta.diagnostics = diagnostics;
         let id = FileId(self.doc_metas.alloc(meta));
         self.text_map.insert(id.0, text.into_boxed_str());
         lower::lower(self, id, root);
@@ -137,6 +145,7 @@ impl Database {
     pub fn update_doc_text(&mut self, file_id: FileId, new_text: String) {
         let (root, diagnostics) = parse_str(&new_text);
         self.doc_metas[file_id.0].diagnostics = diagnostics;
+        self.doc_metas[file_id.0].modified = true;
         self.text_map.insert(file_id.0, new_text.into_boxed_str());
         lower::lower(self, file_id, root);
     }
@@ -144,7 +153,11 @@ impl Database {
     pub fn analyze_workspace(&mut self) -> impl Iterator<Item = Doc> {
         (0..self.doc_metas.len()).map(|id| {
             let id = Idx::from_raw(RawIdx::from_u32(id as u32));
-            propagate::propagate(self, id.into());
+            if self.doc_metas[id].modified {
+                let store = infer::infer(self, id.into());
+                store.apply(self, id.into());
+                self.doc_metas[id].modified = false;
+            }
             Doc(id.into())
         })
     }

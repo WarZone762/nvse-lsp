@@ -3,11 +3,12 @@ use std::{collections::HashMap, iter, rc::Rc};
 use crate::{
     ast::{self, AstNode},
     db::{self, Lookup},
+    syntax_node::TokenKind,
 };
 
+pub(crate) mod infer;
 pub(crate) mod lower;
-mod printer;
-pub(crate) mod propagate;
+pub(crate) mod printer;
 pub(crate) mod ty;
 
 use db::*;
@@ -456,7 +457,7 @@ impl Expr {
             Expr::Lambda(x) => &x.node,
             Expr::NameRef(x) => &x.node,
             Expr::Str(x) => &x.node,
-            Expr::Lit(x) => x.node()?,
+            Expr::Lit(x) => x.node(),
         })
     }
 }
@@ -475,11 +476,77 @@ hir_children! {
     child!(rhs)
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum BinOpKind {
     Plus,
     Minus,
-    // TODO
+    Asterisk,
+    Slash,
+    Percent,
+    Circumflex,
+    PlusEq,
+    MinusEq,
+    AsteriskEq,
+    SlashEq,
+    PercentEq,
+    CircumflexEq,
+    Vbar,
+    VbarEq,
+    Ampersand,
+    AmpersandEq,
+    Eq,
+    Eq2,
+    Lt,
+    LtEq,
+    Gt,
+    GtEq,
+    ExclamationEq,
+    Vbar2,
+    Ampersand2,
+    Lt2,
+    Gt2,
+    Colon,
+    Colon2,
+    Dot,
+    Unknown,
+}
+
+impl BinOpKind {
+    pub fn from_token(string: TokenKind) -> Self {
+        match string {
+            TokenKind::Plus => Self::Plus,
+            TokenKind::Minus => Self::Minus,
+            TokenKind::Star => Self::Asterisk,
+            TokenKind::Slash => Self::Slash,
+            TokenKind::Mod => Self::Percent,
+            TokenKind::Pow => Self::Circumflex,
+            TokenKind::PlusEq => Self::PlusEq,
+            TokenKind::MinusEq => Self::MinusEq,
+            TokenKind::StarEq => Self::AsteriskEq,
+            TokenKind::SlashEq => Self::SlashEq,
+            TokenKind::ModEq => Self::PercentEq,
+            TokenKind::PowEq => Self::CircumflexEq,
+            TokenKind::BitwiseOr => Self::Vbar,
+            TokenKind::BitwiseOrEq => Self::VbarEq,
+            TokenKind::BitwiseAnd => Self::Ampersand,
+            TokenKind::BitwiseAndEq => Self::AmpersandEq,
+            TokenKind::Eq => Self::Eq,
+            TokenKind::EqEq => Self::Eq2,
+            TokenKind::Less => Self::Lt,
+            TokenKind::LessEq => Self::LtEq,
+            TokenKind::Greater => Self::Gt,
+            TokenKind::GreaterEq => Self::GtEq,
+            TokenKind::BangEq => Self::ExclamationEq,
+            TokenKind::LogicOr => Self::Vbar2,
+            TokenKind::LogicAnd => Self::Ampersand2,
+            TokenKind::Lt2 => Self::Lt2,
+            TokenKind::Gt2 => Self::Gt2,
+            TokenKind::Colon => Self::Colon,
+            TokenKind::Colon2 => Self::Colon2,
+            TokenKind::Dot => Self::Dot,
+            _ => Self::Unknown,
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -509,7 +576,7 @@ hir_children! {
     child!(operand)
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum UnaryOpKind {
     Minus,
     // TODO
@@ -579,7 +646,7 @@ hir_children! {
 
 #[derive(Debug, Clone)]
 pub(crate) struct VarDecl {
-    pub decl_type: Type,
+    pub decl_type: VarDeclType,
     pub name: NameId,
     pub init: Option<ExprId>,
     pub node: ast::VarDecl,
@@ -589,6 +656,31 @@ hir_children! {
     VarDecl,
     child!(name)
     child_opt!(init)
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum VarDeclType {
+    Int,
+    Double,
+    Float,
+    Ref,
+    String,
+    Array,
+    Unknown,
+}
+
+impl From<TokenKind> for VarDeclType {
+    fn from(value: TokenKind) -> Self {
+        match value {
+            TokenKind::IntType => Self::Int,
+            TokenKind::DoubleType => Self::Double,
+            TokenKind::FloatType => Self::Float,
+            TokenKind::RefType => Self::Ref,
+            TokenKind::StringType => Self::String,
+            TokenKind::ArrayType => Self::Array,
+            _ => Self::Unknown,
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -646,17 +738,17 @@ pub(crate) enum Literal {
 }
 
 impl Literal {
-    pub fn node(&self) -> Option<&dyn AstNode> {
-        Some(match self {
+    pub fn node(&self) -> &impl AstNode {
+        match self {
             Literal::Number(x) => &x.node,
             Literal::Bool(x) => &x.node,
-        })
+        }
     }
 
-    pub fn type_(&self) -> Type {
+    pub fn type_(&self) -> InferredType {
         match self {
-            Literal::Number(_) => Type::Number,
-            Literal::Bool(_) => Type::Bool,
+            Literal::Number(_) => InferredType::new(Type::Number),
+            Literal::Bool(_) => InferredType::new(Type::Bool),
         }
     }
 }

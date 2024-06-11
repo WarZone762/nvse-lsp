@@ -18,6 +18,10 @@ impl Node {
     pub fn token_at_offset(&self, offset: u32) -> Option<&Token> {
         self.leafs().find(|x| x.offset <= offset && offset < x.offset + x.len)
     }
+
+    pub fn nearest_token(&self, offset: u32) -> Option<&Token> {
+        self.leafs().take_while(|x| x.offset <= offset).last()
+    }
 }
 
 #[derive(Debug)]

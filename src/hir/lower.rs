@@ -168,8 +168,7 @@ impl<'a> LowerCtx<'a> {
     fn expr_bin(&mut self, node: ast::BinaryExpr) -> BinExpr {
         BinExpr {
             lhs: self.expr(node.lhs()),
-            // TODO
-            op: BinOpKind::Plus,
+            op: node.op().map(|x| BinOpKind::from_token(x.kind)).unwrap_or(BinOpKind::Unknown),
             rhs: self.expr(node.rhs()),
             node,
         }
@@ -239,20 +238,19 @@ impl<'a> LowerCtx<'a> {
 
     fn var_decl(&mut self, node: Option<ast::VarDecl>) -> Option<VarDeclId> {
         let var_decl = VarDecl {
-            decl_type: Type::from_str(self.token_text(node.as_ref()?.r#type().as_ref()?)),
+            decl_type: VarDeclType::from(node.as_ref()?.r#type()?.kind),
             name: self.name(node.as_ref()?.name())?,
             init: node.as_ref()?.init().map(|x| self.expr(Some(x))),
             node: node?,
         };
         let name = var_decl.name.lookup(&self.script_db).name.clone();
-        let id = self.script_db.add_var_decl(var_decl);
         self.sym_tbl_stack
             .last_mut()
             .expect("LowerCtx::var_decl: symbol table stack empty")
             .map
-            .insert(name, Symbol::Local(id));
+            .insert(name, Symbol::Local(var_decl.name));
 
-        Some(id)
+        Some(self.script_db.add_var_decl(var_decl))
     }
 
     fn name(&mut self, node: Option<ast::Name>) -> Option<NameId> {
