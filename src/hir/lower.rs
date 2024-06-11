@@ -272,7 +272,7 @@ impl<'a> LowerCtx<'a> {
             ast::StringShard::Literal(x) => {
                 StringShard::Str { val: self.token_text(x.token()?.as_ref()).into(), node }
             }
-            ast::StringShard::Expr(x) => StringShard::Expr(self.expr(x.expr())),
+            ast::StringShard::Expr(x) => StringShard::Expr { expr: self.expr(x.expr()), node },
         };
         Some(self.script_db.add_str_shard(str_shard))
     }

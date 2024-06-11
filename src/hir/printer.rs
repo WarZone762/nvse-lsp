@@ -454,9 +454,9 @@ impl Print for StringShardId {
     fn print<'a>(&self, p: &mut impl Printer<'a>) {
         match p.lookup(*self) {
             StringShard::Str { val, .. } => p.push(val),
-            StringShard::Expr(x) => {
+            StringShard::Expr { expr, .. } => {
                 p.push("${");
-                x.print(p);
+                expr.print(p);
                 p.push("}");
             }
         }

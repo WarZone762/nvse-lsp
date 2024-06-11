@@ -4,10 +4,7 @@ use crate::{
     ast::AstNode,
     db::{Database, Lookup},
     doc::Doc,
-    hir::{
-        printer::{HirPrinter, Print},
-        ty::Symbol,
-    },
+    hir::ty::Symbol,
 };
 
 impl Doc {

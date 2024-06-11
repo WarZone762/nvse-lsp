@@ -709,24 +709,21 @@ hir_children! {
 #[derive(Debug, Clone)]
 pub(crate) enum StringShard {
     Str { val: String, node: ast::StringShard },
-    Expr(ExprId),
+    Expr { expr: ExprId, node: ast::StringShard },
 }
 
 impl StringShard {
-    pub fn children<'a>(
-        &'a self,
-        db: &'a ScriptDatabase,
-    ) -> Box<dyn Iterator<Item = HirNode> + 'a> {
+    pub fn children<'a>(&'a self) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         match self {
             StringShard::Str { .. } => Box::new(iter::empty()),
-            StringShard::Expr(x) => x.children(db),
+            StringShard::Expr { expr, .. } => Box::new(iter::once((*expr).into())),
         }
     }
 
-    pub fn node<'a>(&'a self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
+    pub fn node<'a>(&'a self) -> Option<&'a dyn AstNode> {
         Some(match self {
             StringShard::Str { node, .. } => node,
-            StringShard::Expr(x) => x.node(db)?,
+            StringShard::Expr { node, .. } => node,
         })
     }
 }

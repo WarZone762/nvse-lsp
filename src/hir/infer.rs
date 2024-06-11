@@ -135,8 +135,8 @@ impl<'a> InferCtx<'a> {
                 for shard in &x.shards {
                     match shard.lookup(self.script_db) {
                         StringShard::Str { .. } => (),
-                        StringShard::Expr(x) => {
-                            self.expr(store, *x);
+                        StringShard::Expr { expr, .. } => {
+                            self.expr(store, *expr);
                         }
                     }
                 }
@@ -447,27 +447,3 @@ pub(crate) enum Constraint {
 
 pub(crate) type TypeVar = Idx<Vec<Idx<Constraint>>>;
 pub(crate) type ConstraintId = Idx<Constraint>;
-
-#[cfg(test)]
-mod test {
-    use printer::{HirPrinter, Print};
-    use tower_lsp::lsp_types::{TextDocumentItem, Url};
-
-    use super::*;
-
-    #[test]
-    fn a() {
-        let mut db = Database::new();
-        let doc = db.add_doc(TextDocumentItem {
-            uri: Url::parse("file://test").unwrap(),
-            language_id: "NVSEScript".into(),
-            version: 0,
-            text: include_str!("../../test_data/cases/c6.gek").into(),
-            // text: include_str!("../../test_data/cases/test.gek").into(),
-        });
-
-        for _ in db.analyze_workspace() {}
-
-        println!("{}", doc.hir(&db).print_str(HirPrinter::new(*doc, &db, doc.script_db(&db))));
-    }
-}

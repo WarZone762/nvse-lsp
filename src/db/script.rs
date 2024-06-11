@@ -242,7 +242,7 @@ impl VarDeclId {
 }
 
 impl NameId {
-    pub fn type_<'a>(&self, db: &'a Database, file_id: FileId) -> InferredType {
+    pub fn type_(&self, db: &Database, file_id: FileId) -> InferredType {
         db.name_type_maps
             .get(file_id.0)
             .and_then(|x| x.get(self))
@@ -257,10 +257,10 @@ impl NameId {
 
 impl StringShardId {
     pub fn children<'a>(&self, db: &'a ScriptDatabase) -> Box<dyn Iterator<Item = HirNode> + 'a> {
-        Box::new(self.lookup(db).children(db))
+        Box::new(self.lookup(db).children())
     }
 
     pub fn node<'a>(&self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
-        self.lookup(db).node(db)
+        self.lookup(db).node()
     }
 }
