@@ -92,11 +92,10 @@ impl<'a> InferCtx<'a> {
         let tv = self.expr(store, node.cond);
         store.concrete_type(tv, Type::Bool);
         self.block(store, node.true_branch);
-        if let Some(false_branch) = &node.false_branch {
-            self.stmt(store, *false_branch);
-        }
-        if let Some(else_branch) = &node.else_branch {
-            self.block(store, *else_branch);
+        match &node.false_branch {
+            Some(ElseBranch::Block(x)) => self.block(store, *x),
+            Some(ElseBranch::If(x)) => self.stmt(store, *x),
+            None => (),
         }
     }
 

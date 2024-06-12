@@ -157,6 +157,7 @@ node! {
     NodeKind::Script,
     token!(name_token, TokenKind::Name);
     child!(name, Name);
+    token!(semi, TokenKind::Semicolon);
     children!(items, Item);
 }
 
@@ -202,7 +203,9 @@ enum_! {
 node! {
     BlockStmt,
     NodeKind::BlockStmt,
+    token!(lbrack, TokenKind::LeftBrace);
     children!(stmts, Stmt);
+    token!(rbrack, TokenKind::RightBrace);
 }
 
 node! {
@@ -254,8 +257,31 @@ node! {
     token!(rparen, TokenKind::RightParen);
     child!(true_branch, BlockStmt);
     token!(else_kw, TokenKind::Else);
-    child!(false_branch, IfStmt);
-    child!(else_branch, BlockStmt, 1);
+}
+
+impl IfStmt {
+    pub fn false_branch(&self) -> Option<ElseBranch> {
+        self.syntax_node
+            .children
+            .iter()
+            .find_map(|x| match x {
+                NodeOrToken::Node(x) => Some(ElseBranch::IfStmt(IfStmt::cast(x.clone())?)),
+                NodeOrToken::Token(_) => None,
+            })
+            .or_else(|| {
+                self.syntax_node
+                    .children
+                    .iter()
+                    .filter_map(|x| Some(ElseBranch::Block(BlockStmt::cast(x.node()?.clone())?)))
+                    .nth(1)
+            })
+    }
+}
+
+enum_! {
+    ElseBranch,
+    Block(BlockStmt),
+    IfStmt(IfStmt),
 }
 
 node! {
@@ -348,9 +374,7 @@ node! {
     CallExpr,
     NodeKind::CallExpr,
     child!(lhs, Expr);
-    token!(lparen, TokenKind::LeftParen);
     child!(args, ArgList);
-    token!(rparen, TokenKind::RightParen);
 }
 
 node! {
@@ -372,13 +396,17 @@ node! {
 node! {
     ParamList,
     NodeKind::ParamList,
+    token!(lparen, TokenKind::LeftParen);
     children!(params, VarDecl);
+    token!(rparen, TokenKind::RightParen);
 }
 
 node! {
     ArgList,
     NodeKind::ArgList,
+    token!(lparen, TokenKind::LeftParen);
     children!(args, Expr);
+    token!(rparen, TokenKind::RightParen);
 }
 
 node! {

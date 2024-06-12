@@ -322,8 +322,7 @@ hir_children! {
 pub(crate) struct IfStmt {
     pub cond: ExprId,
     pub true_branch: BlockId,
-    pub false_branch: Option<StmtId>,
-    pub else_branch: Option<BlockId>,
+    pub false_branch: Option<ElseBranch>,
     pub node: ast::IfStmt,
 }
 
@@ -332,7 +331,21 @@ hir_children! {
     child!(cond)
     child!(true_branch)
     child_opt!(false_branch)
-    child_opt!(else_branch)
+}
+
+#[derive(Debug, Clone, Copy)]
+pub(crate) enum ElseBranch {
+    Block(BlockId),
+    If(StmtId),
+}
+
+impl From<ElseBranch> for HirNode {
+    fn from(value: ElseBranch) -> Self {
+        match value {
+            ElseBranch::Block(x) => x.into(),
+            ElseBranch::If(x) => x.into(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

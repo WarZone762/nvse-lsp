@@ -1,4 +1,12 @@
-#![feature(let_chains, coroutines, iter_from_coroutine, get_mut_unchecked, debug_closure_helpers)]
+#![feature(
+    coroutines,
+    debug_closure_helpers,
+    get_mut_unchecked,
+    iter_from_coroutine,
+    iter_map_windows,
+    ptr_as_ref_unchecked,
+    let_chains
+)]
 
 mod ast;
 mod db;
@@ -205,6 +213,7 @@ impl LanguageServer for Backend {
                     ..Default::default()
                 }),
                 definition_provider: Some(OneOf::Left(true)),
+                document_formatting_provider: Some(OneOf::Left(true)),
                 hover_provider: Some(HoverProviderCapability::Simple(true)),
                 references_provider: Some(OneOf::Left(true)),
                 rename_provider: Some(OneOf::Left(true)),
@@ -242,6 +251,23 @@ impl LanguageServer for Backend {
         let doc = Self::doc(&db, &pos_params.text_document.uri)?;
 
         Ok(doc.completion(&db, pos_params.position))
+    }
+
+    async fn formatting(&self, params: DocumentFormattingParams) -> Result<Option<Vec<TextEdit>>> {
+        let db = self.db.read().await;
+        let doc = Self::doc(&db, &params.text_document.uri)?;
+
+        let res = doc.format(&db, params.options);
+
+        drop(db);
+        self.update_doc(params.text_document.uri, vec![TextDocumentContentChangeEvent {
+            text: res[0].new_text.clone(),
+            range: None,
+            range_length: None,
+        }])
+        .await?;
+
+        Ok(Some(res))
     }
 
     async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {

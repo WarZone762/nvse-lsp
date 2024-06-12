@@ -252,13 +252,22 @@ impl Print for IfStmt {
         self.cond.print(p);
         p.push(") ");
         self.true_branch.print(p);
-        if let Some(false_branch) = &self.false_branch {
-            p.push(" else ");
-            false_branch.print(p);
+        match &self.false_branch {
+            Some(x) => {
+                p.push(" ");
+                x.print(p);
+            }
+            None => (),
         }
-        if let Some(else_branch) = &self.else_branch {
-            p.push(" else ");
-            else_branch.print(p);
+    }
+}
+
+impl Print for ElseBranch {
+    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+        p.push("else ");
+        match self {
+            ElseBranch::Block(x) => x.print(p),
+            ElseBranch::If(x) => x.print(p),
         }
     }
 }

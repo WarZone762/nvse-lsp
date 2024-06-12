@@ -37,35 +37,36 @@ Script@0..3995
                         Identifier@63..68 "print"
                     ArgList@68..124
                         LeftParen@68..69 "("
-                        LeftParen@69..70 "("
-                        BinaryExpr@70..122
-                            BinaryExpr@70..105
-                                StrExpr@70..94
-                                    QuoteDouble@70..71 "\""
-                                    StringShardLiteral@71..93
-                                        StringShard@71..93 "Started running xNVSE "
-                                    QuoteDouble@93..94 "\""
-                                Whitespace@94..95 " "
-                                Plus@95..96 "+"
-                                Whitespace@96..97 " "
-                                NameRef@97..105
-                                    Identifier@97..105 "testName"
-                            Whitespace@105..106 " "
-                            Plus@106..107 "+"
-                            Whitespace@107..108 " "
-                            StrExpr@108..122
-                                QuoteDouble@108..109 "\""
-                                StringShardLiteral@109..121
-                                    StringShard@109..121 " unit tests."
-                                QuoteDouble@121..122 "\""
-                        RightParen@122..123 ")"
+                        ParenExpr@69..123
+                            LeftParen@69..70 "("
+                            BinaryExpr@70..122
+                                BinaryExpr@70..105
+                                    StrExpr@70..94
+                                        QuoteDouble@70..71 "\""
+                                        StringShardLiteral@71..93
+                                            StringShard@71..93 "Started running xNVSE "
+                                        QuoteDouble@93..94 "\""
+                                    Whitespace@94..95 " "
+                                    Plus@95..96 "+"
+                                    Whitespace@96..97 " "
+                                    NameRef@97..105
+                                        Identifier@97..105 "testName"
+                                Whitespace@105..106 " "
+                                Plus@106..107 "+"
+                                Whitespace@107..108 " "
+                                StrExpr@108..122
+                                    QuoteDouble@108..109 "\""
+                                    StringShardLiteral@109..121
+                                        StringShard@109..121 " unit tests."
+                                    QuoteDouble@121..122 "\""
+                            RightParen@122..123 ")"
                         RightParen@123..124 ")"
                 Semicolon@124..125 ";"
             Whitespace@125..128 "\n\t\n"
-            Comment@128..154 "//== Assignment operators\n"
-            Whitespace@154..155 "\n"
-            Comment@155..171 "// \"=\" operator\n"
-            Whitespace@171..172 "\t"
+            Comment@128..153 "//== Assignment operators"
+            Whitespace@153..155 "\n\n"
+            Comment@155..170 "// \"=\" operator"
+            Whitespace@170..172 "\n\t"
             VarDeclStmt@172..186
                 VarDecl@172..185
                     IntType@172..175 "int"
@@ -96,8 +97,8 @@ Script@0..3995
                         RightParen@205..206 ")"
                 Semicolon@206..207 ";"
             Whitespace@207..208 " "
-            Comment@208..240 "// also tests equality operator\n"
-            Whitespace@240..243 "\t\n\t"
+            Comment@208..239 "// also tests equality operator"
+            Whitespace@239..243 "\n\t\n\t"
             VarDeclStmt@243..271
                 VarDecl@243..270
                     ArrayType@243..248 "array"
@@ -133,20 +134,21 @@ Script@0..3995
                             Whitespace@285..286 " "
                             EqEq@286..288 "=="
                             Whitespace@288..289 " "
-                            LeftParen@289..290 "("
-                            CallExpr@290..303
-                                NameRef@290..297
-                                    Identifier@290..297 "ar_List"
-                                ArgList@297..303
-                                    LeftParen@297..298 "("
-                                    Literal@298..299
-                                        Number@298..299 "1"
-                                    Comma@299..300 ","
-                                    Whitespace@300..301 " "
-                                    Literal@301..302
-                                        Number@301..302 "2"
-                                    RightParen@302..303 ")"
-                            RightParen@303..304 ")"
+                            ParenExpr@289..304
+                                LeftParen@289..290 "("
+                                CallExpr@290..303
+                                    NameRef@290..297
+                                        Identifier@290..297 "ar_List"
+                                    ArgList@297..303
+                                        LeftParen@297..298 "("
+                                        Literal@298..299
+                                            Number@298..299 "1"
+                                        Comma@299..300 ","
+                                        Whitespace@300..301 " "
+                                        Literal@301..302
+                                            Number@301..302 "2"
+                                        RightParen@302..303 ")"
+                                RightParen@303..304 ")"
                         RightParen@304..305 ")"
                 Semicolon@305..306 ";"
             Whitespace@306..308 "\n\t"
@@ -162,25 +164,26 @@ Script@0..3995
                             Whitespace@320..321 " "
                             BangEq@321..323 "!="
                             Whitespace@323..324 " "
-                            LeftParen@324..325 "("
-                            CallExpr@325..338
-                                NameRef@325..332
-                                    Identifier@325..332 "ar_List"
-                                ArgList@332..338
-                                    LeftParen@332..333 "("
-                                    Literal@333..334
-                                        Number@333..334 "1"
-                                    Comma@334..335 ","
-                                    Whitespace@335..336 " "
-                                    Literal@336..337
-                                        Number@336..337 "3"
-                                    RightParen@337..338 ")"
-                            RightParen@338..339 ")"
+                            ParenExpr@324..339
+                                LeftParen@324..325 "("
+                                CallExpr@325..338
+                                    NameRef@325..332
+                                        Identifier@325..332 "ar_List"
+                                    ArgList@332..338
+                                        LeftParen@332..333 "("
+                                        Literal@333..334
+                                            Number@333..334 "1"
+                                        Comma@334..335 ","
+                                        Whitespace@335..336 " "
+                                        Literal@336..337
+                                            Number@336..337 "3"
+                                        RightParen@337..338 ")"
+                                RightParen@338..339 ")"
                         RightParen@339..340 ")"
                 Semicolon@340..341 ";"
             Whitespace@341..342 " "
-            Comment@342..361 "// test inequality\n"
-            Whitespace@361..364 "\t\n\t"
+            Comment@342..360 "// test inequality"
+            Whitespace@360..364 "\n\t\n\t"
             VarDeclStmt@364..383
                 VarDecl@364..382
                     RefType@364..367 "ref"
@@ -277,8 +280,8 @@ Script@0..3995
                         RightParen@505..506 ")"
                 Semicolon@506..507 ";"
             Whitespace@507..511 "\n\t\n\t"
-            Comment@511..554 "// Ensure rounding down works for integers\n"
-            Whitespace@554..555 "\t"
+            Comment@511..553 "// Ensure rounding down works for integers"
+            Whitespace@553..555 "\n\t"
             ExprStmt@555..567
                 BinaryExpr@555..566
                     NameRef@555..560
@@ -307,8 +310,8 @@ Script@0..3995
                         RightParen@586..587 ")"
                 Semicolon@587..588 ";"
             Whitespace@588..592 "\n\t\n\t"
-            Comment@592..631 "// try setting to Ambiguous-type value\n"
-            Whitespace@631..632 "\t"
+            Comment@592..630 "// try setting to Ambiguous-type value"
+            Whitespace@630..632 "\n\t"
             ExprStmt@632..648
                 BinaryExpr@632..647
                     NameRef@632..637
@@ -318,14 +321,16 @@ Script@0..3995
                     Whitespace@639..640 " "
                     UnaryExpr@640..647
                         Star@640..641 "*"
-                        LeftParen@641..642 "("
-                        UnaryExpr@642..646
-                            BitwiseAnd@642..643 "&"
-                            LeftParen@643..644 "("
-                            Literal@644..645
-                                Number@644..645 "1"
-                            RightParen@645..646 ")"
-                        RightParen@646..647 ")"
+                        ParenExpr@641..647
+                            LeftParen@641..642 "("
+                            UnaryExpr@642..646
+                                BitwiseAnd@642..643 "&"
+                                ParenExpr@643..646
+                                    LeftParen@643..644 "("
+                                    Literal@644..645
+                                        Number@644..645 "1"
+                                    RightParen@645..646 ")"
+                            RightParen@646..647 ")"
                 Semicolon@647..648 ";"
             Whitespace@648..650 "\n\t"
             ExprStmt@650..669
@@ -345,8 +350,8 @@ Script@0..3995
                         RightParen@667..668 ")"
                 Semicolon@668..669 ";"
             Whitespace@669..673 "\n\t\n\t"
-            Comment@673..697 "// Try on array element\n"
-            Whitespace@697..698 "\t"
+            Comment@673..696 "// Try on array element"
+            Whitespace@696..698 "\n\t"
             ExprStmt@698..720
                 BinaryExpr@698..719
                     NameRef@698..703
@@ -396,25 +401,26 @@ Script@0..3995
                             Whitespace@749..750 " "
                             EqEq@750..752 "=="
                             Whitespace@752..753 " "
-                            LeftParen@753..754 "("
-                            CallExpr@754..767
-                                NameRef@754..761
-                                    Identifier@754..761 "ar_List"
-                                ArgList@761..767
-                                    LeftParen@761..762 "("
-                                    Literal@762..763
-                                        Number@762..763 "1"
-                                    Comma@763..764 ","
-                                    Whitespace@764..765 " "
-                                    Literal@765..766
-                                        Number@765..766 "4"
-                                    RightParen@766..767 ")"
-                            RightParen@767..768 ")"
+                            ParenExpr@753..768
+                                LeftParen@753..754 "("
+                                CallExpr@754..767
+                                    NameRef@754..761
+                                        Identifier@754..761 "ar_List"
+                                    ArgList@761..767
+                                        LeftParen@761..762 "("
+                                        Literal@762..763
+                                            Number@762..763 "1"
+                                        Comma@763..764 ","
+                                        Whitespace@764..765 " "
+                                        Literal@765..766
+                                            Number@765..766 "4"
+                                        RightParen@766..767 ")"
+                                RightParen@767..768 ")"
                         RightParen@768..769 ")"
                 Semicolon@769..770 ";"
             Whitespace@770..773 "\n\t\n"
-            Comment@773..790 "// \"+=\" operator\n"
-            Whitespace@790..791 "\t"
+            Comment@773..789 "// \"+=\" operator"
+            Whitespace@789..791 "\n\t"
             ExprStmt@791..801
                 BinaryExpr@791..800
                     NameRef@791..796
@@ -503,20 +509,21 @@ Script@0..3995
                             Whitespace@893..894 " "
                             EqEq@894..896 "=="
                             Whitespace@896..897 " "
-                            LeftParen@897..898 "("
-                            CallExpr@898..911
-                                NameRef@898..905
-                                    Identifier@898..905 "ar_List"
-                                ArgList@905..911
-                                    LeftParen@905..906 "("
-                                    Literal@906..907
-                                        Number@906..907 "1"
-                                    Comma@907..908 ","
-                                    Whitespace@908..909 " "
-                                    Literal@909..910
-                                        Number@909..910 "6"
-                                    RightParen@910..911 ")"
-                            RightParen@911..912 ")"
+                            ParenExpr@897..912
+                                LeftParen@897..898 "("
+                                CallExpr@898..911
+                                    NameRef@898..905
+                                        Identifier@898..905 "ar_List"
+                                    ArgList@905..911
+                                        LeftParen@905..906 "("
+                                        Literal@906..907
+                                            Number@906..907 "1"
+                                        Comma@907..908 ","
+                                        Whitespace@908..909 " "
+                                        Literal@909..910
+                                            Number@909..910 "6"
+                                        RightParen@910..911 ")"
+                                RightParen@911..912 ")"
                         RightParen@912..913 ")"
                 Semicolon@913..914 ";"
             Whitespace@914..918 "\n\t\n\t"
@@ -568,8 +575,8 @@ Script@0..3995
                         RightParen@973..974 ")"
                 Semicolon@974..975 ";"
             Whitespace@975..978 "\n\t\n"
-            Comment@978..995 "// \"-=\" operator\n"
-            Whitespace@995..996 "\t"
+            Comment@978..994 "// \"-=\" operator"
+            Whitespace@994..996 "\n\t"
             ExprStmt@996..1006
                 BinaryExpr@996..1005
                     NameRef@996..1001
@@ -660,27 +667,28 @@ Script@0..3995
                             Whitespace@1097..1098 " "
                             EqEq@1098..1100 "=="
                             Whitespace@1100..1101 " "
-                            LeftParen@1101..1102 "("
-                            CallExpr@1102..1116
-                                NameRef@1102..1109
-                                    Identifier@1102..1109 "ar_List"
-                                ArgList@1109..1116
-                                    LeftParen@1109..1110 "("
-                                    Literal@1110..1111
-                                        Number@1110..1111 "1"
-                                    Comma@1111..1112 ","
-                                    Whitespace@1112..1113 " "
-                                    UnaryExpr@1113..1115
-                                        Minus@1113..1114 "-"
-                                        Literal@1114..1115
-                                            Number@1114..1115 "2"
-                                    RightParen@1115..1116 ")"
-                            RightParen@1116..1117 ")"
+                            ParenExpr@1101..1117
+                                LeftParen@1101..1102 "("
+                                CallExpr@1102..1116
+                                    NameRef@1102..1109
+                                        Identifier@1102..1109 "ar_List"
+                                    ArgList@1109..1116
+                                        LeftParen@1109..1110 "("
+                                        Literal@1110..1111
+                                            Number@1110..1111 "1"
+                                        Comma@1111..1112 ","
+                                        Whitespace@1112..1113 " "
+                                        UnaryExpr@1113..1115
+                                            Minus@1113..1114 "-"
+                                            Literal@1114..1115
+                                                Number@1114..1115 "2"
+                                        RightParen@1115..1116 ")"
+                                RightParen@1116..1117 ")"
                         RightParen@1117..1118 ")"
                 Semicolon@1118..1119 ";"
             Whitespace@1119..1122 "\n\t\n"
-            Comment@1122..1139 "// \"*=\" operator\n"
-            Whitespace@1139..1140 "\t"
+            Comment@1122..1138 "// \"*=\" operator"
+            Whitespace@1138..1140 "\n\t"
             ExprStmt@1140..1150
                 BinaryExpr@1140..1149
                     NameRef@1140..1145
@@ -769,25 +777,26 @@ Script@0..3995
                             Whitespace@1240..1241 " "
                             EqEq@1241..1243 "=="
                             Whitespace@1243..1244 " "
-                            LeftParen@1244..1245 "("
-                            CallExpr@1245..1258
-                                NameRef@1245..1252
-                                    Identifier@1245..1252 "ar_List"
-                                ArgList@1252..1258
-                                    LeftParen@1252..1253 "("
-                                    Literal@1253..1254
-                                        Number@1253..1254 "1"
-                                    Comma@1254..1255 ","
-                                    Whitespace@1255..1256 " "
-                                    Literal@1256..1257
-                                        Number@1256..1257 "8"
-                                    RightParen@1257..1258 ")"
-                            RightParen@1258..1259 ")"
+                            ParenExpr@1244..1259
+                                LeftParen@1244..1245 "("
+                                CallExpr@1245..1258
+                                    NameRef@1245..1252
+                                        Identifier@1245..1252 "ar_List"
+                                    ArgList@1252..1258
+                                        LeftParen@1252..1253 "("
+                                        Literal@1253..1254
+                                            Number@1253..1254 "1"
+                                        Comma@1254..1255 ","
+                                        Whitespace@1255..1256 " "
+                                        Literal@1256..1257
+                                            Number@1256..1257 "8"
+                                        RightParen@1257..1258 ")"
+                                RightParen@1258..1259 ")"
                         RightParen@1259..1260 ")"
                 Semicolon@1260..1261 ";"
             Whitespace@1261..1264 "\n\t\n"
-            Comment@1264..1281 "// \"/=\" operator\n"
-            Whitespace@1281..1282 "\t"
+            Comment@1264..1280 "// \"/=\" operator"
+            Whitespace@1280..1282 "\n\t"
             ExprStmt@1282..1292
                 BinaryExpr@1282..1291
                     NameRef@1282..1287
@@ -876,25 +885,26 @@ Script@0..3995
                             Whitespace@1382..1383 " "
                             EqEq@1383..1385 "=="
                             Whitespace@1385..1386 " "
-                            LeftParen@1386..1387 "("
-                            CallExpr@1387..1400
-                                NameRef@1387..1394
-                                    Identifier@1387..1394 "ar_List"
-                                ArgList@1394..1400
-                                    LeftParen@1394..1395 "("
-                                    Literal@1395..1396
-                                        Number@1395..1396 "1"
-                                    Comma@1396..1397 ","
-                                    Whitespace@1397..1398 " "
-                                    Literal@1398..1399
-                                        Number@1398..1399 "2"
-                                    RightParen@1399..1400 ")"
-                            RightParen@1400..1401 ")"
+                            ParenExpr@1386..1401
+                                LeftParen@1386..1387 "("
+                                CallExpr@1387..1400
+                                    NameRef@1387..1394
+                                        Identifier@1387..1394 "ar_List"
+                                    ArgList@1394..1400
+                                        LeftParen@1394..1395 "("
+                                        Literal@1395..1396
+                                            Number@1395..1396 "1"
+                                        Comma@1396..1397 ","
+                                        Whitespace@1397..1398 " "
+                                        Literal@1398..1399
+                                            Number@1398..1399 "2"
+                                        RightParen@1399..1400 ")"
+                                RightParen@1400..1401 ")"
                         RightParen@1401..1402 ")"
                 Semicolon@1402..1403 ";"
             Whitespace@1403..1406 "\n\t\n"
-            Comment@1406..1423 "// \"^=\" operator\n"
-            Whitespace@1423..1424 "\t"
+            Comment@1406..1422 "// \"^=\" operator"
+            Whitespace@1422..1424 "\n\t"
             ExprStmt@1424..1434
                 BinaryExpr@1424..1433
                     NameRef@1424..1429
@@ -983,25 +993,26 @@ Script@0..3995
                             Whitespace@1524..1525 " "
                             EqEq@1525..1527 "=="
                             Whitespace@1527..1528 " "
-                            LeftParen@1528..1529 "("
-                            CallExpr@1529..1542
-                                NameRef@1529..1536
-                                    Identifier@1529..1536 "ar_List"
-                                ArgList@1536..1542
-                                    LeftParen@1536..1537 "("
-                                    Literal@1537..1538
-                                        Number@1537..1538 "1"
-                                    Comma@1538..1539 ","
-                                    Whitespace@1539..1540 " "
-                                    Literal@1540..1541
-                                        Number@1540..1541 "4"
-                                    RightParen@1541..1542 ")"
-                            RightParen@1542..1543 ")"
+                            ParenExpr@1528..1543
+                                LeftParen@1528..1529 "("
+                                CallExpr@1529..1542
+                                    NameRef@1529..1536
+                                        Identifier@1529..1536 "ar_List"
+                                    ArgList@1536..1542
+                                        LeftParen@1536..1537 "("
+                                        Literal@1537..1538
+                                            Number@1537..1538 "1"
+                                        Comma@1538..1539 ","
+                                        Whitespace@1539..1540 " "
+                                        Literal@1540..1541
+                                            Number@1540..1541 "4"
+                                        RightParen@1541..1542 ")"
+                                RightParen@1542..1543 ")"
                         RightParen@1543..1544 ")"
                 Semicolon@1544..1545 ";"
             Whitespace@1545..1548 "\n\t\n"
-            Comment@1548..1565 "// \"%=\" operator\n"
-            Whitespace@1565..1566 "\t"
+            Comment@1548..1564 "// \"%=\" operator"
+            Whitespace@1564..1566 "\n\t"
             ExprStmt@1566..1576
                 BinaryExpr@1566..1575
                     NameRef@1566..1571
@@ -1090,25 +1101,26 @@ Script@0..3995
                             Whitespace@1666..1667 " "
                             EqEq@1667..1669 "=="
                             Whitespace@1669..1670 " "
-                            LeftParen@1670..1671 "("
-                            CallExpr@1671..1684
-                                NameRef@1671..1678
-                                    Identifier@1671..1678 "ar_List"
-                                ArgList@1678..1684
-                                    LeftParen@1678..1679 "("
-                                    Literal@1679..1680
-                                        Number@1679..1680 "1"
-                                    Comma@1680..1681 ","
-                                    Whitespace@1681..1682 " "
-                                    Literal@1682..1683
-                                        Number@1682..1683 "0"
-                                    RightParen@1683..1684 ")"
-                            RightParen@1684..1685 ")"
+                            ParenExpr@1670..1685
+                                LeftParen@1670..1671 "("
+                                CallExpr@1671..1684
+                                    NameRef@1671..1678
+                                        Identifier@1671..1678 "ar_List"
+                                    ArgList@1678..1684
+                                        LeftParen@1678..1679 "("
+                                        Literal@1679..1680
+                                            Number@1679..1680 "1"
+                                        Comma@1680..1681 ","
+                                        Whitespace@1681..1682 " "
+                                        Literal@1682..1683
+                                            Number@1682..1683 "0"
+                                        RightParen@1683..1684 ")"
+                                RightParen@1684..1685 ")"
                         RightParen@1685..1686 ")"
                 Semicolon@1686..1687 ";"
             Whitespace@1687..1690 "\n\t\n"
-            Comment@1690..1707 "// \"&=\" operator\n"
-            Whitespace@1707..1708 "\t"
+            Comment@1690..1706 "// \"&=\" operator"
+            Whitespace@1706..1708 "\n\t"
             ExprStmt@1708..1718
                 BinaryExpr@1708..1717
                     NameRef@1708..1713
@@ -1197,25 +1209,26 @@ Script@0..3995
                             Whitespace@1808..1809 " "
                             EqEq@1809..1811 "=="
                             Whitespace@1811..1812 " "
-                            LeftParen@1812..1813 "("
-                            CallExpr@1813..1826
-                                NameRef@1813..1820
-                                    Identifier@1813..1820 "ar_List"
-                                ArgList@1820..1826
-                                    LeftParen@1820..1821 "("
-                                    Literal@1821..1822
-                                        Number@1821..1822 "1"
-                                    Comma@1822..1823 ","
-                                    Whitespace@1823..1824 " "
-                                    Literal@1824..1825
-                                        Number@1824..1825 "0"
-                                    RightParen@1825..1826 ")"
-                            RightParen@1826..1827 ")"
+                            ParenExpr@1812..1827
+                                LeftParen@1812..1813 "("
+                                CallExpr@1813..1826
+                                    NameRef@1813..1820
+                                        Identifier@1813..1820 "ar_List"
+                                    ArgList@1820..1826
+                                        LeftParen@1820..1821 "("
+                                        Literal@1821..1822
+                                            Number@1821..1822 "1"
+                                        Comma@1822..1823 ","
+                                        Whitespace@1823..1824 " "
+                                        Literal@1824..1825
+                                            Number@1824..1825 "0"
+                                        RightParen@1825..1826 ")"
+                                RightParen@1826..1827 ")"
                         RightParen@1827..1828 ")"
                 Semicolon@1828..1829 ";"
             Whitespace@1829..1832 "\n\t\n"
-            Comment@1832..1849 "// \"|=\" operator\n"
-            Whitespace@1849..1850 "\t"
+            Comment@1832..1848 "// \"|=\" operator"
+            Whitespace@1848..1850 "\n\t"
             ExprStmt@1850..1860
                 BinaryExpr@1850..1859
                     NameRef@1850..1855
@@ -1304,27 +1317,28 @@ Script@0..3995
                             Whitespace@1950..1951 " "
                             EqEq@1951..1953 "=="
                             Whitespace@1953..1954 " "
-                            LeftParen@1954..1955 "("
-                            CallExpr@1955..1968
-                                NameRef@1955..1962
-                                    Identifier@1955..1962 "ar_List"
-                                ArgList@1962..1968
-                                    LeftParen@1962..1963 "("
-                                    Literal@1963..1964
-                                        Number@1963..1964 "1"
-                                    Comma@1964..1965 ","
-                                    Whitespace@1965..1966 " "
-                                    Literal@1966..1967
-                                        Number@1966..1967 "6"
-                                    RightParen@1967..1968 ")"
-                            RightParen@1968..1969 ")"
+                            ParenExpr@1954..1969
+                                LeftParen@1954..1955 "("
+                                CallExpr@1955..1968
+                                    NameRef@1955..1962
+                                        Identifier@1955..1962 "ar_List"
+                                    ArgList@1962..1968
+                                        LeftParen@1962..1963 "("
+                                        Literal@1963..1964
+                                            Number@1963..1964 "1"
+                                        Comma@1964..1965 ","
+                                        Whitespace@1965..1966 " "
+                                        Literal@1966..1967
+                                            Number@1966..1967 "6"
+                                        RightParen@1967..1968 ")"
+                                RightParen@1968..1969 ")"
                         RightParen@1969..1970 ")"
                 Semicolon@1970..1971 ";"
             Whitespace@1971..1974 "\n\t\n"
-            Comment@1974..1997 "//== Logical operators\n"
-            Whitespace@1997..1998 "\n"
-            Comment@1998..2015 "// \"&&\" operator\n"
-            Whitespace@2015..2016 "\t"
+            Comment@1974..1996 "//== Logical operators"
+            Whitespace@1996..1998 "\n\n"
+            Comment@1998..2014 "// \"&&\" operator"
+            Whitespace@2014..2016 "\n\t"
             ExprStmt@2016..2037
                 CallExpr@2016..2036
                     NameRef@2016..2022
@@ -1342,8 +1356,8 @@ Script@0..3995
                         RightParen@2035..2036 ")"
                 Semicolon@2036..2037 ";"
             Whitespace@2037..2039 "\n\n"
-            Comment@2039..2056 "// \"||\" operator\n"
-            Whitespace@2056..2057 "\t"
+            Comment@2039..2055 "// \"||\" operator"
+            Whitespace@2055..2057 "\n\t"
             ExprStmt@2057..2079
                 CallExpr@2057..2078
                     NameRef@2057..2063
@@ -1361,10 +1375,10 @@ Script@0..3995
                         RightParen@2077..2078 ")"
                 Semicolon@2078..2079 ";"
             Whitespace@2079..2082 "\n\t\n"
-            Comment@2082..2102 "//== Slice and pair\n"
-            Whitespace@2102..2103 "\t"
-            Comment@2103..2112 "// Slice\n"
-            Whitespace@2112..2113 "\t"
+            Comment@2082..2101 "//== Slice and pair"
+            Whitespace@2101..2103 "\n\t"
+            Comment@2103..2111 "// Slice"
+            Whitespace@2111..2113 "\n\t"
             ExprStmt@2113..2141
                 BinaryExpr@2113..2140
                     NameRef@2113..2118
@@ -1401,8 +1415,8 @@ Script@0..3995
                         RightBracket@2174..2175 "]"
                 Semicolon@2175..2176 ";"
             Whitespace@2176..2177 " "
-            Comment@2177..2250 "// returns \"This\" the easy way (the first four characters in the string)\n"
-            Whitespace@2250..2251 "\t"
+            Comment@2177..2249 "// returns \"This\" the easy way (the first four characters in the string)"
+            Whitespace@2249..2251 "\n\t"
             ExprStmt@2251..2282
                 CallExpr@2251..2281
                     NameRef@2251..2257
@@ -1423,8 +1437,8 @@ Script@0..3995
                         RightParen@2280..2281 ")"
                 Semicolon@2281..2282 ";"
             Whitespace@2282..2285 "\n\n\t"
-            Comment@2285..2293 "// Pair\n"
-            Whitespace@2293..2294 "\t"
+            Comment@2285..2292 "// Pair"
+            Whitespace@2292..2294 "\n\t"
             ExprStmt@2294..2321
                 BinaryExpr@2294..2320
                     NameRef@2294..2299
@@ -1466,33 +1480,34 @@ Script@0..3995
                             Whitespace@2335..2336 " "
                             EqEq@2336..2338 "=="
                             Whitespace@2338..2339 " "
-                            LeftParen@2339..2340 "("
-                            CallExpr@2340..2358
-                                NameRef@2340..2346
-                                    Identifier@2340..2346 "ar_Map"
-                                ArgList@2346..2358
-                                    LeftParen@2346..2347 "("
-                                    BinaryExpr@2347..2351
-                                        Literal@2347..2348
-                                            Number@2347..2348 "1"
-                                        Colon2@2348..2350 "::"
-                                        Literal@2350..2351
-                                            Number@2350..2351 "2"
-                                    Comma@2351..2352 ","
-                                    Whitespace@2352..2353 " "
-                                    BinaryExpr@2353..2357
-                                        Literal@2353..2354
-                                            Number@2353..2354 "2"
-                                        Colon2@2354..2356 "::"
-                                        Literal@2356..2357
-                                            Number@2356..2357 "3"
-                                    RightParen@2357..2358 ")"
-                            RightParen@2358..2359 ")"
+                            ParenExpr@2339..2359
+                                LeftParen@2339..2340 "("
+                                CallExpr@2340..2358
+                                    NameRef@2340..2346
+                                        Identifier@2340..2346 "ar_Map"
+                                    ArgList@2346..2358
+                                        LeftParen@2346..2347 "("
+                                        BinaryExpr@2347..2351
+                                            Literal@2347..2348
+                                                Number@2347..2348 "1"
+                                            Colon2@2348..2350 "::"
+                                            Literal@2350..2351
+                                                Number@2350..2351 "2"
+                                        Comma@2351..2352 ","
+                                        Whitespace@2352..2353 " "
+                                        BinaryExpr@2353..2357
+                                            Literal@2353..2354
+                                                Number@2353..2354 "2"
+                                            Colon2@2354..2356 "::"
+                                            Literal@2356..2357
+                                                Number@2356..2357 "3"
+                                        RightParen@2357..2358 ")"
+                                RightParen@2358..2359 ")"
                         RightParen@2359..2360 ")"
                 Semicolon@2360..2361 ";"
             Whitespace@2361..2364 "\n\t\n"
-            Comment@2364..2387 "//== Other Comparators\n"
-            Whitespace@2387..2388 "\t"
+            Comment@2364..2386 "//== Other Comparators"
+            Whitespace@2386..2388 "\n\t"
             ExprStmt@2388..2400
                 BinaryExpr@2388..2399
                     NameRef@2388..2393
@@ -1572,10 +1587,10 @@ Script@0..3995
                         RightParen@2486..2487 ")"
                 Semicolon@2487..2488 ";"
             Whitespace@2488..2491 "\n\t\n"
-            Comment@2491..2512 "//== Other operators\n"
-            Whitespace@2512..2514 "\t\n"
-            Comment@2514..2530 "// \"+\" operator\n"
-            Whitespace@2530..2531 "\t"
+            Comment@2491..2511 "//== Other operators"
+            Whitespace@2511..2514 "\n\t\n"
+            Comment@2514..2529 "// \"+\" operator"
+            Whitespace@2529..2531 "\n\t"
             ExprStmt@2531..2541
                 BinaryExpr@2531..2540
                     NameRef@2531..2536
@@ -1681,20 +1696,21 @@ Script@0..3995
                             Whitespace@2650..2651 " "
                             EqEq@2651..2653 "=="
                             Whitespace@2653..2654 " "
-                            LeftParen@2654..2655 "("
-                            CallExpr@2655..2668
-                                NameRef@2655..2662
-                                    Identifier@2655..2662 "ar_List"
-                                ArgList@2662..2668
-                                    LeftParen@2662..2663 "("
-                                    Literal@2663..2664
-                                        Number@2663..2664 "1"
-                                    Comma@2664..2665 ","
-                                    Whitespace@2665..2666 " "
-                                    Literal@2666..2667
-                                        Number@2666..2667 "6"
-                                    RightParen@2667..2668 ")"
-                            RightParen@2668..2669 ")"
+                            ParenExpr@2654..2669
+                                LeftParen@2654..2655 "("
+                                CallExpr@2655..2668
+                                    NameRef@2655..2662
+                                        Identifier@2655..2662 "ar_List"
+                                    ArgList@2662..2668
+                                        LeftParen@2662..2663 "("
+                                        Literal@2663..2664
+                                            Number@2663..2664 "1"
+                                        Comma@2664..2665 ","
+                                        Whitespace@2665..2666 " "
+                                        Literal@2666..2667
+                                            Number@2666..2667 "6"
+                                        RightParen@2667..2668 ")"
+                                RightParen@2668..2669 ")"
                         RightParen@2669..2670 ")"
                 Semicolon@2670..2671 ";"
             Whitespace@2671..2675 "\n\t\n\t"
@@ -1752,8 +1768,8 @@ Script@0..3995
                         RightParen@2737..2738 ")"
                 Semicolon@2738..2739 ";"
             Whitespace@2739..2742 "\n\t\n"
-            Comment@2742..2758 "// \"-\" operator\n"
-            Whitespace@2758..2759 "\t"
+            Comment@2742..2757 "// \"-\" operator"
+            Whitespace@2757..2759 "\n\t"
             ExprStmt@2759..2769
                 BinaryExpr@2759..2768
                     NameRef@2759..2764
@@ -1861,27 +1877,28 @@ Script@0..3995
                             Whitespace@2877..2878 " "
                             EqEq@2878..2880 "=="
                             Whitespace@2880..2881 " "
-                            LeftParen@2881..2882 "("
-                            CallExpr@2882..2896
-                                NameRef@2882..2889
-                                    Identifier@2882..2889 "ar_List"
-                                ArgList@2889..2896
-                                    LeftParen@2889..2890 "("
-                                    Literal@2890..2891
-                                        Number@2890..2891 "1"
-                                    Comma@2891..2892 ","
-                                    Whitespace@2892..2893 " "
-                                    UnaryExpr@2893..2895
-                                        Minus@2893..2894 "-"
-                                        Literal@2894..2895
-                                            Number@2894..2895 "2"
-                                    RightParen@2895..2896 ")"
-                            RightParen@2896..2897 ")"
+                            ParenExpr@2881..2897
+                                LeftParen@2881..2882 "("
+                                CallExpr@2882..2896
+                                    NameRef@2882..2889
+                                        Identifier@2882..2889 "ar_List"
+                                    ArgList@2889..2896
+                                        LeftParen@2889..2890 "("
+                                        Literal@2890..2891
+                                            Number@2890..2891 "1"
+                                        Comma@2891..2892 ","
+                                        Whitespace@2892..2893 " "
+                                        UnaryExpr@2893..2895
+                                            Minus@2893..2894 "-"
+                                            Literal@2894..2895
+                                                Number@2894..2895 "2"
+                                        RightParen@2895..2896 ")"
+                                RightParen@2896..2897 ")"
                         RightParen@2897..2898 ")"
                 Semicolon@2898..2899 ";"
             Whitespace@2899..2902 "\n\t\n"
-            Comment@2902..2918 "// \"*\" operator\n"
-            Whitespace@2918..2919 "\t"
+            Comment@2902..2917 "// \"*\" operator"
+            Whitespace@2917..2919 "\n\t"
             ExprStmt@2919..2929
                 BinaryExpr@2919..2928
                     NameRef@2919..2924
@@ -1987,25 +2004,26 @@ Script@0..3995
                             Whitespace@3036..3037 " "
                             EqEq@3037..3039 "=="
                             Whitespace@3039..3040 " "
-                            LeftParen@3040..3041 "("
-                            CallExpr@3041..3054
-                                NameRef@3041..3048
-                                    Identifier@3041..3048 "ar_List"
-                                ArgList@3048..3054
-                                    LeftParen@3048..3049 "("
-                                    Literal@3049..3050
-                                        Number@3049..3050 "1"
-                                    Comma@3050..3051 ","
-                                    Whitespace@3051..3052 " "
-                                    Literal@3052..3053
-                                        Number@3052..3053 "8"
-                                    RightParen@3053..3054 ")"
-                            RightParen@3054..3055 ")"
+                            ParenExpr@3040..3055
+                                LeftParen@3040..3041 "("
+                                CallExpr@3041..3054
+                                    NameRef@3041..3048
+                                        Identifier@3041..3048 "ar_List"
+                                    ArgList@3048..3054
+                                        LeftParen@3048..3049 "("
+                                        Literal@3049..3050
+                                            Number@3049..3050 "1"
+                                        Comma@3050..3051 ","
+                                        Whitespace@3051..3052 " "
+                                        Literal@3052..3053
+                                            Number@3052..3053 "8"
+                                        RightParen@3053..3054 ")"
+                                RightParen@3054..3055 ")"
                         RightParen@3055..3056 ")"
                 Semicolon@3056..3057 ";"
             Whitespace@3057..3060 "\n\t\n"
-            Comment@3060..3076 "// \"/\" operator\n"
-            Whitespace@3076..3077 "\t"
+            Comment@3060..3075 "// \"/\" operator"
+            Whitespace@3075..3077 "\n\t"
             ExprStmt@3077..3087
                 BinaryExpr@3077..3086
                     NameRef@3077..3082
@@ -2111,25 +2129,26 @@ Script@0..3995
                             Whitespace@3194..3195 " "
                             EqEq@3195..3197 "=="
                             Whitespace@3197..3198 " "
-                            LeftParen@3198..3199 "("
-                            CallExpr@3199..3212
-                                NameRef@3199..3206
-                                    Identifier@3199..3206 "ar_List"
-                                ArgList@3206..3212
-                                    LeftParen@3206..3207 "("
-                                    Literal@3207..3208
-                                        Number@3207..3208 "1"
-                                    Comma@3208..3209 ","
-                                    Whitespace@3209..3210 " "
-                                    Literal@3210..3211
-                                        Number@3210..3211 "2"
-                                    RightParen@3211..3212 ")"
-                            RightParen@3212..3213 ")"
+                            ParenExpr@3198..3213
+                                LeftParen@3198..3199 "("
+                                CallExpr@3199..3212
+                                    NameRef@3199..3206
+                                        Identifier@3199..3206 "ar_List"
+                                    ArgList@3206..3212
+                                        LeftParen@3206..3207 "("
+                                        Literal@3207..3208
+                                            Number@3207..3208 "1"
+                                        Comma@3208..3209 ","
+                                        Whitespace@3209..3210 " "
+                                        Literal@3210..3211
+                                            Number@3210..3211 "2"
+                                        RightParen@3211..3212 ")"
+                                RightParen@3212..3213 ")"
                         RightParen@3213..3214 ")"
                 Semicolon@3214..3215 ";"
             Whitespace@3215..3218 "\n\t\n"
-            Comment@3218..3234 "// \"^\" operator\n"
-            Whitespace@3234..3235 "\t"
+            Comment@3218..3233 "// \"^\" operator"
+            Whitespace@3233..3235 "\n\t"
             ExprStmt@3235..3245
                 BinaryExpr@3235..3244
                     NameRef@3235..3240
@@ -2235,25 +2254,26 @@ Script@0..3995
                             Whitespace@3352..3353 " "
                             EqEq@3353..3355 "=="
                             Whitespace@3355..3356 " "
-                            LeftParen@3356..3357 "("
-                            CallExpr@3357..3370
-                                NameRef@3357..3364
-                                    Identifier@3357..3364 "ar_List"
-                                ArgList@3364..3370
-                                    LeftParen@3364..3365 "("
-                                    Literal@3365..3366
-                                        Number@3365..3366 "1"
-                                    Comma@3366..3367 ","
-                                    Whitespace@3367..3368 " "
-                                    Literal@3368..3369
-                                        Number@3368..3369 "4"
-                                    RightParen@3369..3370 ")"
-                            RightParen@3370..3371 ")"
+                            ParenExpr@3356..3371
+                                LeftParen@3356..3357 "("
+                                CallExpr@3357..3370
+                                    NameRef@3357..3364
+                                        Identifier@3357..3364 "ar_List"
+                                    ArgList@3364..3370
+                                        LeftParen@3364..3365 "("
+                                        Literal@3365..3366
+                                            Number@3365..3366 "1"
+                                        Comma@3366..3367 ","
+                                        Whitespace@3367..3368 " "
+                                        Literal@3368..3369
+                                            Number@3368..3369 "4"
+                                        RightParen@3369..3370 ")"
+                                RightParen@3370..3371 ")"
                         RightParen@3371..3372 ")"
                 Semicolon@3372..3373 ";"
             Whitespace@3373..3376 "\n\t\n"
-            Comment@3376..3392 "// \"%\" operator\n"
-            Whitespace@3392..3393 "\t"
+            Comment@3376..3391 "// \"%\" operator"
+            Whitespace@3391..3393 "\n\t"
             ExprStmt@3393..3403
                 BinaryExpr@3393..3402
                     NameRef@3393..3398
@@ -2359,25 +2379,26 @@ Script@0..3995
                             Whitespace@3510..3511 " "
                             EqEq@3511..3513 "=="
                             Whitespace@3513..3514 " "
-                            LeftParen@3514..3515 "("
-                            CallExpr@3515..3528
-                                NameRef@3515..3522
-                                    Identifier@3515..3522 "ar_List"
-                                ArgList@3522..3528
-                                    LeftParen@3522..3523 "("
-                                    Literal@3523..3524
-                                        Number@3523..3524 "1"
-                                    Comma@3524..3525 ","
-                                    Whitespace@3525..3526 " "
-                                    Literal@3526..3527
-                                        Number@3526..3527 "0"
-                                    RightParen@3527..3528 ")"
-                            RightParen@3528..3529 ")"
+                            ParenExpr@3514..3529
+                                LeftParen@3514..3515 "("
+                                CallExpr@3515..3528
+                                    NameRef@3515..3522
+                                        Identifier@3515..3522 "ar_List"
+                                    ArgList@3522..3528
+                                        LeftParen@3522..3523 "("
+                                        Literal@3523..3524
+                                            Number@3523..3524 "1"
+                                        Comma@3524..3525 ","
+                                        Whitespace@3525..3526 " "
+                                        Literal@3526..3527
+                                            Number@3526..3527 "0"
+                                        RightParen@3527..3528 ")"
+                                RightParen@3528..3529 ")"
                         RightParen@3529..3530 ")"
                 Semicolon@3530..3531 ";"
             Whitespace@3531..3534 "\n\t\n"
-            Comment@3534..3550 "// \"&\" operator\n"
-            Whitespace@3550..3551 "\t"
+            Comment@3534..3549 "// \"&\" operator"
+            Whitespace@3549..3551 "\n\t"
             ExprStmt@3551..3561
                 BinaryExpr@3551..3560
                     NameRef@3551..3556
@@ -2483,25 +2504,26 @@ Script@0..3995
                             Whitespace@3668..3669 " "
                             EqEq@3669..3671 "=="
                             Whitespace@3671..3672 " "
-                            LeftParen@3672..3673 "("
-                            CallExpr@3673..3686
-                                NameRef@3673..3680
-                                    Identifier@3673..3680 "ar_List"
-                                ArgList@3680..3686
-                                    LeftParen@3680..3681 "("
-                                    Literal@3681..3682
-                                        Number@3681..3682 "1"
-                                    Comma@3682..3683 ","
-                                    Whitespace@3683..3684 " "
-                                    Literal@3684..3685
-                                        Number@3684..3685 "0"
-                                    RightParen@3685..3686 ")"
-                            RightParen@3686..3687 ")"
+                            ParenExpr@3672..3687
+                                LeftParen@3672..3673 "("
+                                CallExpr@3673..3686
+                                    NameRef@3673..3680
+                                        Identifier@3673..3680 "ar_List"
+                                    ArgList@3680..3686
+                                        LeftParen@3680..3681 "("
+                                        Literal@3681..3682
+                                            Number@3681..3682 "1"
+                                        Comma@3682..3683 ","
+                                        Whitespace@3683..3684 " "
+                                        Literal@3684..3685
+                                            Number@3684..3685 "0"
+                                        RightParen@3685..3686 ")"
+                                RightParen@3686..3687 ")"
                         RightParen@3687..3688 ")"
                 Semicolon@3688..3689 ";"
             Whitespace@3689..3692 "\n\t\n"
-            Comment@3692..3708 "// \"|\" operator\n"
-            Whitespace@3708..3709 "\t"
+            Comment@3692..3707 "// \"|\" operator"
+            Whitespace@3707..3709 "\n\t"
             ExprStmt@3709..3719
                 BinaryExpr@3709..3718
                     NameRef@3709..3714
@@ -2607,42 +2629,44 @@ Script@0..3995
                             Whitespace@3826..3827 " "
                             EqEq@3827..3829 "=="
                             Whitespace@3829..3830 " "
-                            LeftParen@3830..3831 "("
-                            CallExpr@3831..3844
-                                NameRef@3831..3838
-                                    Identifier@3831..3838 "ar_List"
-                                ArgList@3838..3844
-                                    LeftParen@3838..3839 "("
-                                    Literal@3839..3840
-                                        Number@3839..3840 "1"
-                                    Comma@3840..3841 ","
-                                    Whitespace@3841..3842 " "
-                                    Literal@3842..3843
-                                        Number@3842..3843 "6"
-                                    RightParen@3843..3844 ")"
-                            RightParen@3844..3845 ")"
+                            ParenExpr@3830..3845
+                                LeftParen@3830..3831 "("
+                                CallExpr@3831..3844
+                                    NameRef@3831..3838
+                                        Identifier@3831..3838 "ar_List"
+                                    ArgList@3838..3844
+                                        LeftParen@3838..3839 "("
+                                        Literal@3839..3840
+                                            Number@3839..3840 "1"
+                                        Comma@3840..3841 ","
+                                        Whitespace@3841..3842 " "
+                                        Literal@3842..3843
+                                            Number@3842..3843 "6"
+                                        RightParen@3843..3844 ")"
+                                RightParen@3844..3845 ")"
                         RightParen@3845..3846 ")"
                 Semicolon@3846..3847 ";"
             Whitespace@3847..3850 "\n\t\n"
-            Comment@3850..3878 "//== Binary shift operators\n"
-            Whitespace@3878..3880 "\n\t"
+            Comment@3850..3877 "//== Binary shift operators"
+            Whitespace@3877..3880 "\n\n\t"
             ExprStmt@3880..3902
                 CallExpr@3880..3901
                     NameRef@3880..3886
                         Identifier@3880..3886 "assert"
                     ArgList@3886..3901
                         LeftParen@3886..3887 "("
-                        LeftParen@3887..3888 "("
-                        BinaryExpr@3888..3900
-                            BinaryExpr@3888..3894
-                                Literal@3888..3889
-                                    Number@3888..3889 "1"
-                                Whitespace@3889..3890 " "
-                                Lt2@3890..3892 "<<"
-                                Whitespace@3892..3893 " "
-                                Literal@3893..3894
-                                    Number@3893..3894 "2"
-                            RightParen@3894..3895 ")"
+                        BinaryExpr@3887..3900
+                            ParenExpr@3887..3895
+                                LeftParen@3887..3888 "("
+                                BinaryExpr@3888..3894
+                                    Literal@3888..3889
+                                        Number@3888..3889 "1"
+                                    Whitespace@3889..3890 " "
+                                    Lt2@3890..3892 "<<"
+                                    Whitespace@3892..3893 " "
+                                    Literal@3893..3894
+                                        Number@3893..3894 "2"
+                                RightParen@3894..3895 ")"
                             Whitespace@3895..3896 " "
                             EqEq@3896..3898 "=="
                             Whitespace@3898..3899 " "
@@ -2657,17 +2681,18 @@ Script@0..3995
                         Identifier@3904..3910 "assert"
                     ArgList@3910..3925
                         LeftParen@3910..3911 "("
-                        LeftParen@3911..3912 "("
-                        BinaryExpr@3912..3924
-                            BinaryExpr@3912..3918
-                                Literal@3912..3913
-                                    Number@3912..3913 "4"
-                                Whitespace@3913..3914 " "
-                                Gt2@3914..3916 ">>"
-                                Whitespace@3916..3917 " "
-                                Literal@3917..3918
-                                    Number@3917..3918 "2"
-                            RightParen@3918..3919 ")"
+                        BinaryExpr@3911..3924
+                            ParenExpr@3911..3919
+                                LeftParen@3911..3912 "("
+                                BinaryExpr@3912..3918
+                                    Literal@3912..3913
+                                        Number@3912..3913 "4"
+                                    Whitespace@3913..3914 " "
+                                    Gt2@3914..3916 ">>"
+                                    Whitespace@3916..3917 " "
+                                    Literal@3917..3918
+                                        Number@3917..3918 "2"
+                                RightParen@3918..3919 ")"
                             Whitespace@3919..3920 " "
                             EqEq@3920..3922 "=="
                             Whitespace@3922..3923 " "
@@ -2682,28 +2707,29 @@ Script@0..3995
                         Identifier@3930..3935 "print"
                     ArgList@3935..3992
                         LeftParen@3935..3936 "("
-                        LeftParen@3936..3937 "("
-                        BinaryExpr@3937..3990
-                            BinaryExpr@3937..3973
-                                StrExpr@3937..3962
-                                    QuoteDouble@3937..3938 "\""
-                                    StringShardLiteral@3938..3961
-                                        StringShard@3938..3961 "Finished running xNVSE "
-                                    QuoteDouble@3961..3962 "\""
-                                Whitespace@3962..3963 " "
-                                Plus@3963..3964 "+"
-                                Whitespace@3964..3965 " "
-                                NameRef@3965..3973
-                                    Identifier@3965..3973 "testName"
-                            Whitespace@3973..3974 " "
-                            Plus@3974..3975 "+"
-                            Whitespace@3975..3976 " "
-                            StrExpr@3976..3990
-                                QuoteDouble@3976..3977 "\""
-                                StringShardLiteral@3977..3989
-                                    StringShard@3977..3989 " unit tests."
-                                QuoteDouble@3989..3990 "\""
-                        RightParen@3990..3991 ")"
+                        ParenExpr@3936..3991
+                            LeftParen@3936..3937 "("
+                            BinaryExpr@3937..3990
+                                BinaryExpr@3937..3973
+                                    StrExpr@3937..3962
+                                        QuoteDouble@3937..3938 "\""
+                                        StringShardLiteral@3938..3961
+                                            StringShard@3938..3961 "Finished running xNVSE "
+                                        QuoteDouble@3961..3962 "\""
+                                    Whitespace@3962..3963 " "
+                                    Plus@3963..3964 "+"
+                                    Whitespace@3964..3965 " "
+                                    NameRef@3965..3973
+                                        Identifier@3965..3973 "testName"
+                                Whitespace@3973..3974 " "
+                                Plus@3974..3975 "+"
+                                Whitespace@3975..3976 " "
+                                StrExpr@3976..3990
+                                    QuoteDouble@3976..3977 "\""
+                                    StringShardLiteral@3977..3989
+                                        StringShard@3977..3989 " unit tests."
+                                    QuoteDouble@3989..3990 "\""
+                            RightParen@3990..3991 ")"
                         RightParen@3991..3992 ")"
                 Semicolon@3992..3993 ";"
             Whitespace@3993..3994 "\n"

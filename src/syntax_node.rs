@@ -71,7 +71,7 @@ impl NodeOrToken {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub(crate) enum NodeOrTokenRef<'a> {
     Node(&'a Node),
     Token(&'a Token),
@@ -92,8 +92,27 @@ impl<'a> NodeOrTokenRef<'a> {
         }
     }
 
-    pub fn foo(&self) {
-        todo!()
+    pub fn offset(&self) -> u32 {
+        match self {
+            NodeOrTokenRef::Node(x) => x.offset,
+            NodeOrTokenRef::Token(x) => x.offset,
+        }
+    }
+
+    pub fn end(&self) -> u32 {
+        match self {
+            NodeOrTokenRef::Node(x) => x.end(),
+            NodeOrTokenRef::Token(x) => x.end(),
+        }
+    }
+
+    pub fn parent(&self) -> Option<&'a Node> {
+        match self {
+            NodeOrTokenRef::Node(x) => unsafe { Some(Rc::as_ptr(&x.parent()?).as_ref_unchecked()) },
+            NodeOrTokenRef::Token(x) => unsafe {
+                Some(Rc::as_ptr(&x.parent()?).as_ref_unchecked())
+            },
+        }
     }
 }
 
@@ -117,6 +136,7 @@ impl<'a> From<&'a Token> for NodeOrTokenRef<'a> {
         Self::Token(value)
     }
 }
+
 pub(crate) struct Node {
     pub kind: NodeKind,
     pub offset: u32,
@@ -150,6 +170,8 @@ impl PartialEq for Node {
         self.kind == other.kind && self.offset == other.offset
     }
 }
+
+impl Eq for Node {}
 
 impl Node {
     pub fn new(kind: NodeKind, offset: u32) -> Self {

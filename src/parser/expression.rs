@@ -81,10 +81,11 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
         TokenKind::QuoteDouble => expr_str(p),
         TokenKind::Identifier => name_ref(p),
         TokenKind::LeftParen => {
+            let m = p.start();
             p.next_any();
-            let m = expr(p)?;
+            expr(p);
             p.expect(TokenKind::RightParen);
-            m
+            m.complete(p, NodeKind::ParenExpr)
         }
         TokenKind::Fn => expr_fn(p),
         _ => {

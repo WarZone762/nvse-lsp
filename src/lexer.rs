@@ -109,8 +109,7 @@ impl<'a> Lexer<'a> {
         self.next_char();
         self.next_char();
         while let Some(c) = self.peek(0) {
-            if c == '\n' {
-                self.next_char();
+            if c == '\n' || c == '\r' {
                 break;
             }
             self.next_char();
@@ -275,7 +274,7 @@ mod test {
     #[test]
     fn comment() {
         fn test(string: &str) {
-            test_str(string, || TokenKind::Comment);
+            test_str(string.trim_end_matches('\n'), || TokenKind::Comment);
         }
 
         test("//");

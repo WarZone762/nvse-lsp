@@ -37,33 +37,34 @@ Script@0..776
                         Identifier@62..67 "print"
                     ArgList@67..123
                         LeftParen@67..68 "("
-                        LeftParen@68..69 "("
-                        BinaryExpr@69..121
-                            BinaryExpr@69..104
-                                StrExpr@69..93
-                                    QuoteDouble@69..70 "\""
-                                    StringShardLiteral@70..92
-                                        StringShard@70..92 "Started running xNVSE "
-                                    QuoteDouble@92..93 "\""
-                                Whitespace@93..94 " "
-                                Plus@94..95 "+"
-                                Whitespace@95..96 " "
-                                NameRef@96..104
-                                    Identifier@96..104 "testName"
-                            Whitespace@104..105 " "
-                            Plus@105..106 "+"
-                            Whitespace@106..107 " "
-                            StrExpr@107..121
-                                QuoteDouble@107..108 "\""
-                                StringShardLiteral@108..120
-                                    StringShard@108..120 " unit tests."
-                                QuoteDouble@120..121 "\""
-                        RightParen@121..122 ")"
+                        ParenExpr@68..122
+                            LeftParen@68..69 "("
+                            BinaryExpr@69..121
+                                BinaryExpr@69..104
+                                    StrExpr@69..93
+                                        QuoteDouble@69..70 "\""
+                                        StringShardLiteral@70..92
+                                            StringShard@70..92 "Started running xNVSE "
+                                        QuoteDouble@92..93 "\""
+                                    Whitespace@93..94 " "
+                                    Plus@94..95 "+"
+                                    Whitespace@95..96 " "
+                                    NameRef@96..104
+                                        Identifier@96..104 "testName"
+                                Whitespace@104..105 " "
+                                Plus@105..106 "+"
+                                Whitespace@106..107 " "
+                                StrExpr@107..121
+                                    QuoteDouble@107..108 "\""
+                                    StringShardLiteral@108..120
+                                        StringShard@108..120 " unit tests."
+                                    QuoteDouble@120..121 "\""
+                            RightParen@121..122 ")"
                         RightParen@122..123 ")"
                 Semicolon@123..124 ";"
             Whitespace@124..127 "\n\n\t"
-            Comment@127..155 "// Increment/decrement by 1\n"
-            Whitespace@155..156 "\t"
+            Comment@127..154 "// Increment/decrement by 1"
+            Whitespace@154..156 "\n\t"
             VarDeclStmt@156..166
                 VarDecl@156..165
                     IntType@156..159 "int"
@@ -96,8 +97,8 @@ Script@0..776
                         RightParen@183..184 ")"
                 Semicolon@184..185 ";"
             Whitespace@185..186 " "
-            Comment@186..241 "// incrementation should happen after the check occurs\n"
-            Whitespace@241..242 "\t"
+            Comment@186..240 "// incrementation should happen after the check occurs"
+            Whitespace@240..242 "\n\t"
             ExprStmt@242..259
                 CallExpr@242..258
                     NameRef@242..248
@@ -134,8 +135,8 @@ Script@0..776
                         RightParen@274..275 ")"
                 Semicolon@275..276 ";"
             Whitespace@276..280 "\n\t\n\t"
-            Comment@280..305 "// Stringize/ Numericize\n"
-            Whitespace@305..306 "\t"
+            Comment@280..304 "// Stringize/ Numericize"
+            Whitespace@304..306 "\n\t"
             VarDeclStmt@306..329
                 VarDecl@306..328
                     StringType@306..312 "string"
@@ -229,8 +230,8 @@ Script@0..776
                         RightParen@422..423 ")"
                 Semicolon@423..424 ";"
             Whitespace@424..428 "\n\t\n\t"
-            Comment@428..443 "// Box / Unbox\n"
-            Whitespace@443..444 "\t"
+            Comment@428..442 "// Box / Unbox"
+            Whitespace@442..444 "\n\t"
             VarDeclStmt@444..461
                 VarDecl@444..460
                     ArrayType@444..449 "array"
@@ -258,16 +259,17 @@ Script@0..776
                             Whitespace@475..476 " "
                             EqEq@476..478 "=="
                             Whitespace@478..479 " "
-                            LeftParen@479..480 "("
-                            CallExpr@480..490
-                                NameRef@480..487
-                                    Identifier@480..487 "ar_List"
-                                ArgList@487..490
-                                    LeftParen@487..488 "("
-                                    Literal@488..489
-                                        Number@488..489 "1"
-                                    RightParen@489..490 ")"
-                            RightParen@490..491 ")"
+                            ParenExpr@479..491
+                                LeftParen@479..480 "("
+                                CallExpr@480..490
+                                    NameRef@480..487
+                                        Identifier@480..487 "ar_List"
+                                    ArgList@487..490
+                                        LeftParen@487..488 "("
+                                        Literal@488..489
+                                            Number@488..489 "1"
+                                        RightParen@489..490 ")"
+                                RightParen@490..491 ")"
                         RightParen@491..492 ")"
                 Semicolon@492..493 ";"
             Whitespace@493..495 "\n\t"
@@ -312,8 +314,8 @@ Script@0..776
                         Number@529..530 "2"
                 Semicolon@530..531 ";"
             Whitespace@531..532 " "
-            Comment@532..555 "// reset, just in case\n"
-            Whitespace@555..556 "\t"
+            Comment@532..554 "// reset, just in case"
+            Whitespace@554..556 "\n\t"
             ExprStmt@556..569
                 BinaryExpr@556..568
                     NameRef@556..557
@@ -330,8 +332,8 @@ Script@0..776
                         RightBracket@567..568 "]"
                 Semicolon@568..569 ";"
             Whitespace@569..570 " "
-            Comment@570..583 "// Subscript\n"
-            Whitespace@583..584 "\t"
+            Comment@570..582 "// Subscript"
+            Whitespace@582..584 "\n\t"
             ExprStmt@584..599
                 CallExpr@584..598
                     NameRef@584..590
@@ -349,8 +351,8 @@ Script@0..776
                         RightParen@597..598 ")"
                 Semicolon@598..599 ";"
             Whitespace@599..603 "\n\t\n\t"
-            Comment@603..628 "// Subscript for strings\n"
-            Whitespace@628..629 "\t"
+            Comment@603..627 "// Subscript for strings"
+            Whitespace@627..629 "\n\t"
             ExprStmt@629..645
                 BinaryExpr@629..644
                     NameRef@629..636
@@ -390,8 +392,8 @@ Script@0..776
                         RightParen@671..672 ")"
                 Semicolon@672..673 ";"
             Whitespace@673..677 "\n\t\n\t"
-            Comment@677..692 "// Logical Not\n"
-            Whitespace@692..693 "\t"
+            Comment@677..691 "// Logical Not"
+            Whitespace@691..693 "\n\t"
             ExprStmt@693..708
                 CallExpr@693..707
                     NameRef@693..699
@@ -411,28 +413,29 @@ Script@0..776
                         Identifier@711..716 "print"
                     ArgList@716..773
                         LeftParen@716..717 "("
-                        LeftParen@717..718 "("
-                        BinaryExpr@718..771
-                            BinaryExpr@718..754
-                                StrExpr@718..743
-                                    QuoteDouble@718..719 "\""
-                                    StringShardLiteral@719..742
-                                        StringShard@719..742 "Finished running xNVSE "
-                                    QuoteDouble@742..743 "\""
-                                Whitespace@743..744 " "
-                                Plus@744..745 "+"
-                                Whitespace@745..746 " "
-                                NameRef@746..754
-                                    Identifier@746..754 "testName"
-                            Whitespace@754..755 " "
-                            Plus@755..756 "+"
-                            Whitespace@756..757 " "
-                            StrExpr@757..771
-                                QuoteDouble@757..758 "\""
-                                StringShardLiteral@758..770
-                                    StringShard@758..770 " unit tests."
-                                QuoteDouble@770..771 "\""
-                        RightParen@771..772 ")"
+                        ParenExpr@717..772
+                            LeftParen@717..718 "("
+                            BinaryExpr@718..771
+                                BinaryExpr@718..754
+                                    StrExpr@718..743
+                                        QuoteDouble@718..719 "\""
+                                        StringShardLiteral@719..742
+                                            StringShard@719..742 "Finished running xNVSE "
+                                        QuoteDouble@742..743 "\""
+                                    Whitespace@743..744 " "
+                                    Plus@744..745 "+"
+                                    Whitespace@745..746 " "
+                                    NameRef@746..754
+                                        Identifier@746..754 "testName"
+                                Whitespace@754..755 " "
+                                Plus@755..756 "+"
+                                Whitespace@756..757 " "
+                                StrExpr@757..771
+                                    QuoteDouble@757..758 "\""
+                                    StringShardLiteral@758..770
+                                        StringShard@758..770 " unit tests."
+                                    QuoteDouble@770..771 "\""
+                            RightParen@771..772 ")"
                         RightParen@772..773 ")"
                 Semicolon@773..774 ";"
             Whitespace@774..775 "\n"

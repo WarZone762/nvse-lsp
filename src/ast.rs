@@ -1,6 +1,6 @@
 use std::{marker::PhantomData, rc::Rc};
 
-use crate::syntax_node::{Node, NodeKind, NodeOrToken, Token, TokenKind};
+use crate::syntax_node::{Node, NodeKind, NodeOrToken, NodeOrTokenRef, Token, TokenKind};
 
 #[allow(dead_code)]
 mod nodes;
@@ -24,6 +24,22 @@ pub(crate) trait AstToken {
     fn syntax(&self) -> &Token;
 }
 
+pub(crate) trait AsSyntax {
+    fn as_syntax(&self) -> NodeOrTokenRef<'_>;
+}
+
+impl<T: AstNode> AsSyntax for &T {
+    fn as_syntax(&self) -> NodeOrTokenRef<'_> {
+        NodeOrTokenRef::Node(self.syntax())
+    }
+}
+
+impl AsSyntax for &Token {
+    fn as_syntax(&self) -> NodeOrTokenRef<'_> {
+        NodeOrTokenRef::Token(self)
+    }
+}
+
 #[derive(Debug)]
 pub(crate) struct AstChildren<'a, N> {
     inner: std::slice::Iter<'a, NodeOrToken>,
@@ -45,4 +61,10 @@ impl<N: AstNode> Iterator for AstChildren<'_, N> {
             NodeOrToken::Token(_) => None,
         })
     }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.inner.size_hint()
+    }
 }
+
+impl<N: AstNode> ExactSizeIterator for AstChildren<'_, N> {}

@@ -120,11 +120,11 @@ impl<'a> LowerCtx<'a> {
         Some(IfStmt {
             cond: self.expr(node.cond()),
             true_branch: self.block(node.true_branch())?,
-            false_branch: node.false_branch().and_then(|x| {
-                let stmt = self.stmt_if(x)?;
-                Some(self.script_db.add_stmt(stmt.into()))
-            }),
-            else_branch: node.else_branch().and_then(|x| self.block(Some(x))),
+            false_branch: match node.false_branch() {
+                Some(ast::ElseBranch::Block(x)) => self.block(Some(x)).map(ElseBranch::Block),
+                Some(ast::ElseBranch::IfStmt(x)) => self.stmt(ast::Stmt::If(x)).map(ElseBranch::If),
+                None => None,
+            },
             node,
         })
     }
