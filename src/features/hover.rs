@@ -14,8 +14,8 @@ impl Doc {
         let script_db = self.script_db(db);
 
         let string = match self.resolve(db, node)? {
-            Symbol::Local(x) => {
-                x.type_(db, **self).narrowest.to_string_with_name(&x.lookup(script_db).name, 0)
+            Symbol::Local(file_id, x) => {
+                x.type_(db, file_id).narrowest.to_string_with_name(&x.lookup(script_db).name, 0)
             }
             Symbol::Global(x) => x.narrowest.to_string_with_name(token.text(self.text(db)), 0),
         };

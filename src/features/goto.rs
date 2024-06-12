@@ -14,16 +14,16 @@ impl Doc {
             self.hir(db).node.syntax().token_at_offset(self.offset_at(db, pos))?.parent()?,
         )?;
 
-        let name = match self.resolve(db, node)? {
-            Symbol::Local(x) => x,
+        let (doc, name) = match self.resolve(db, node)? {
+            Symbol::Local(file_id, x) => (Doc(file_id), x),
             Symbol::Global(_) => return None,
         };
-        let script_db = self.script_db(db);
+        let script_db = doc.script_db(db);
         let name_node = name.lookup(script_db).node.syntax();
 
-        let start = self.pos_at(db, name_node.offset);
-        let end = self.pos_at(db, name_node.end());
-        let res = vec![Location { uri: self.meta(db).uri.clone(), range: Range::new(start, end) }];
+        let start = doc.pos_at(db, name_node.offset);
+        let end = doc.pos_at(db, name_node.end());
+        let res = vec![Location { uri: doc.meta(db).uri.clone(), range: Range::new(start, end) }];
 
         Some(GotoDefinitionResponse::Array(res))
     }
@@ -37,22 +37,22 @@ impl Doc {
         let sym = self.resolve(db, node)?;
 
         let script_db = self.script_db(db);
-        let name = match sym {
-            Symbol::Local(x) => x,
+        let (doc, name) = match sym {
+            Symbol::Local(file_id, x) => (Doc(file_id), x),
             Symbol::Global(_) => return None,
         };
 
-        let uri = self.meta(db).uri.clone();
+        let uri = doc.meta(db).uri.clone();
         let mut res = vec![];
 
-        for e in self.references(db, sym) {
+        for e in doc.references(db, sym) {
             if let HirNode::Name(e) = e
                 && e == name
                 && incl_def
             {
                 let name = e.lookup(script_db).node.syntax();
-                let start = self.pos_at(db, name.offset);
-                let end = self.pos_at(db, name.end());
+                let start = doc.pos_at(db, name.offset);
+                let end = doc.pos_at(db, name.end());
                 res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
             } else {
                 let name_ref = match e {
@@ -65,8 +65,8 @@ impl Doc {
                 .node
                 .syntax();
 
-                let start = self.pos_at(db, name_ref.offset);
-                let end = self.pos_at(db, name_ref.end());
+                let start = doc.pos_at(db, name_ref.offset);
+                let end = doc.pos_at(db, name_ref.end());
                 res.push(Location { uri: uri.clone(), range: Range::new(start, end) });
             }
         }

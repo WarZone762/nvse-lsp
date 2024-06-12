@@ -42,7 +42,7 @@ impl Doc {
                 Expr::NameRef(x) => db.resolve(**self, x).cloned(),
                 _ => None,
             },
-            HirNode::Name(x) => Some(Symbol::Local(x)),
+            HirNode::Name(x) => Some(Symbol::Local(**self, x)),
             _ => None,
         }
     }

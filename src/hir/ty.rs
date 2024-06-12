@@ -1,13 +1,11 @@
 use std::collections::HashMap;
 
-use anyhow::bail;
 use itertools::{EitherOrBoth, Itertools};
 
 use super::{
-    infer::{Constraint, TypeVar, TypeVarStore},
-    NameId, VarDeclType,
+    infer::{Constraint, TypeVar},
+    FileId, NameId, VarDeclType,
 };
-use crate::hir::printer::{Print, SimplePrinter};
 
 #[derive(Debug, Clone)]
 pub(crate) struct SymbolTable {
@@ -22,7 +20,7 @@ impl SymbolTable {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum Symbol {
-    Local(NameId),
+    Local(FileId, NameId),
     Global(InferredType),
 }
 
@@ -147,14 +145,14 @@ impl Type {
                 if x.fields.is_empty() {
                     "{}".into()
                 } else {
-                    let indent_str = "\n    ".repeat(indent + 1);
+                    let indent_str = format!("\n{}", "    ".repeat(indent + 1));
                     format!(
-                        "{{{indent_str}{}{}}}",
-                        "\n    ".repeat(indent),
+                        "{{{indent_str}{}\n{}}}",
                         x.fields
                             .iter()
                             .map(|(k, v)| format!("{k}: {}", v.to_string(indent + 1)))
                             .join(&indent_str),
+                        "    ".repeat(indent),
                     )
                 }
             }
@@ -354,12 +352,10 @@ impl Type {
             (Self::Record(a), Self::Record(b)) => {
                 for (k, _) in a.fields.iter().chain(b.fields.iter()) {
                     match (a.get(k), b.get(k)) {
-                        (Some(x), None) | (None, Some(x)) => {
-                            x.unify(&Type::Void, store);
-                        }
                         (Some(a), Some(b)) => {
                             a.unify(b, store);
                         }
+                        (Some(_), None) | (None, Some(_)) => (),
                         _ => unreachable!(),
                     }
                 }

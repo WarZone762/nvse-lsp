@@ -21,7 +21,7 @@ impl Doc {
 
         for (name, sym) in self.collect_visible_symbols(db, &hir_node) {
             let ty = match sym {
-                Symbol::Local(x) => x.type_(db, **self).narrowest,
+                Symbol::Local(file_id, x) => x.type_(db, file_id).narrowest,
                 Symbol::Global(x) => x.narrowest,
             };
             items.push(CompletionItem {

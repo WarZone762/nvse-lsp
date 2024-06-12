@@ -10,6 +10,9 @@ pub(crate) fn lower(db: &mut db::Database, file_id: db::FileId, script: ast::Scr
     let mut ctx = LowerCtx::new(db, file_id);
     let script = ctx.script(script);
     let script_db = ctx.finish();
+    if let Some(name) = &script.name {
+        db.globals.insert(name.lookup(&script_db).name.clone(), Symbol::Local(file_id, *name));
+    }
     db.hir_map.insert(file_id.0, script);
     db.script_db_map.insert(file_id.0, script_db);
 }
@@ -248,7 +251,7 @@ impl<'a> LowerCtx<'a> {
             .last_mut()
             .expect("LowerCtx::var_decl: symbol table stack empty")
             .map
-            .insert(name, Symbol::Local(var_decl.name));
+            .insert(name, Symbol::Local(self.file_id, var_decl.name));
 
         Some(self.script_db.add_var_decl(var_decl))
     }

@@ -548,7 +548,7 @@ impl Print for SymbolTable {
             p.push(k);
             p.push(": ");
             match v {
-                Symbol::Local(x) => p.name_type(*x).print(p),
+                Symbol::Local(_, x) => p.name_type(*x).print(p),
                 Symbol::Global(x) => x.print(p),
             }
             p.push(",\n");

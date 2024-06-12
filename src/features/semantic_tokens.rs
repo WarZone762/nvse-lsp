@@ -32,10 +32,13 @@ impl Doc {
             } else if t
                 .parent()
                 .and_then(|x| match self.resolve(db, db.syntax_to_hir(**self, x)?)? {
-                    Symbol::Local(x) => Some(
-                        x.lookup(self.script_db(db)).node.syntax().parent()?.kind
-                            == NodeKind::ParamList,
-                    ),
+                    Symbol::Local(file_id, x) => {
+                        let doc = Doc(file_id);
+                        Some(
+                            x.lookup(doc.script_db(db)).node.syntax().parent()?.kind
+                                == NodeKind::ParamList,
+                        )
+                    }
                     _ => None,
                 })
                 .is_some_and(|x| x)

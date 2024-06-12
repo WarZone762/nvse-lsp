@@ -158,13 +158,27 @@ impl<'a> InferCtx<'a> {
     }
 
     fn expr_bin(&self, store: &mut TypeVarStore, node: &BinExpr) -> TypeVar {
-        let lhs = self.expr(store, node.lhs);
-        let rhs = self.expr(store, node.rhs);
-        store.assignable(lhs, rhs);
-        let tv = store.type_var();
-        store.assignable(tv, lhs);
-        store.assignable(tv, rhs);
-        tv
+        if node.op == BinOpKind::Dot
+            && let Expr::NameRef(name) = node.rhs.lookup(self.script_db)
+        {
+            let lhs = self.expr(store, node.lhs);
+            let rhs = self.expr(store, node.rhs);
+
+            store.assignable_to_type(
+                lhs,
+                Type::Record(Record { fields: vec![(name.name.clone(), Type::TypeVar(rhs))] }),
+            );
+
+            rhs
+        } else {
+            let lhs = self.expr(store, node.lhs);
+            let rhs = self.expr(store, node.rhs);
+            store.assignable(lhs, rhs);
+            let tv = store.type_var();
+            store.assignable(tv, lhs);
+            store.assignable(tv, rhs);
+            tv
+        }
     }
 
     fn expr_ternary(&self, store: &mut TypeVarStore, node: &TernaryExpr) -> TypeVar {
@@ -228,11 +242,13 @@ impl<'a> InferCtx<'a> {
 
     fn resolve(&self, store: &mut TypeVarStore, name_ref: &NameRef) -> TypeVar {
         match self.db.resolve(self.file_id, name_ref) {
-            Some(Symbol::Local(name)) => store.name_map.get(name).copied().unwrap_or_else(|| {
-                let tv = store.type_var();
-                store.name_map.insert(*name, tv);
-                tv
-            }),
+            Some(Symbol::Local(_, name)) => {
+                store.name_map.get(name).copied().unwrap_or_else(|| {
+                    let tv = store.type_var();
+                    store.name_map.insert(*name, tv);
+                    tv
+                })
+            }
             _ => store.globals_map.get(&name_ref.name).copied().unwrap_or_else(|| {
                 let tv = store.type_var();
                 store.globals_map.insert(name_ref.name.clone(), tv);
