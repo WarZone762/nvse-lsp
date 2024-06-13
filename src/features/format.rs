@@ -477,8 +477,8 @@ impl<'a> Formatter<'a> {
                         self.comments_between(x.r#type().as_deref(), x.name().as_ref()),
                         self.name(x.name().as_ref()),
                         self.comments_between(x.name().as_ref(), x.eq().as_deref()),
-                        self.expr(Some(init)),
                         self.comments_between(x.eq().as_deref(), Some(init)),
+                        self.expr(Some(init)),
                     )
                 } else {
                     format!(
@@ -523,7 +523,7 @@ impl<'a> Formatter<'a> {
             let text_before = &self.text()[last_end as usize..comment.offset as usize];
 
             if text_before.contains('\n') {
-                buf.push_str(text_before);
+                buf.push_str(text_before.trim_end_matches(' '));
                 buf.push_str(&self.indent_str());
                 buf.push_str(comment.text(self.text()));
             } else {

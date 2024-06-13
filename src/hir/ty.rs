@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use anyhow::bail;
 use itertools::{EitherOrBoth, Itertools};
 
 use super::{
@@ -31,10 +32,6 @@ pub(crate) struct InferredType {
 }
 
 impl InferredType {
-    pub fn new(widest: Type) -> Self {
-        Self { widest, narrowest: Type::Never }
-    }
-
     pub fn inferred(narrowest: Type) -> Self {
         Self { widest: Type::Any, narrowest }
     }
@@ -44,19 +41,50 @@ impl InferredType {
     }
 
     pub fn any() -> Self {
-        Self { widest: Type::Any, narrowest: Type::Never }
+        Self { widest: Type::Any, narrowest: Type::Empty }
     }
 
-    pub fn merge(&mut self, other: &mut Self) -> anyhow::Result<()> {
-        // if !self.widest.is_subtype(&other.widest) &&
-        // !other.widest.is_subtype(&self.widest) {     bail!(
-        //         "cannot assign '{}' to '{}'",
-        //         other.print_str(SimplePrinter::new()),
-        //         self.print_str(SimplePrinter::new()),
-        //     );
-        // }
+    pub fn bool() -> Self {
+        Self::concrete(Type::Bool)
+    }
 
-        let merged = self.narrowest.merge(&other.narrowest);
+    pub fn number() -> Self {
+        Self::concrete(Type::Number)
+    }
+
+    pub fn string() -> Self {
+        Self::concrete(Type::String)
+    }
+
+    pub fn from_decl_type(decl_type: VarDeclType) -> Self {
+        match decl_type {
+            VarDeclType::Int => Self::concrete(Type::Number),
+            VarDeclType::Double => Self::concrete(Type::Number),
+            VarDeclType::Float => Self::concrete(Type::Number),
+            VarDeclType::Ref => Self::concrete(Type::Ref),
+            VarDeclType::String => Self::concrete(Type::String),
+            VarDeclType::Array => Self {
+                widest: Type::Map(Box::new((Type::Any, Type::Any))),
+                narrowest: Type::Map(Box::new((Type::Empty, Type::Empty))),
+            },
+            VarDeclType::Unknown => Self::concrete(Type::Any),
+        }
+    }
+
+    pub fn union(
+        &mut self,
+        other: &mut Self,
+        constraints: &mut HashMap<TypeVar, Vec<Constraint>>,
+    ) -> anyhow::Result<()> {
+        if !self.widest.is_subtype(&other.widest) && !other.widest.is_subtype(&self.widest) {
+            bail!(
+                "cannot assign '{}' to '{}'",
+                other.widest.to_string(0),
+                self.widest.to_string(0),
+            );
+        }
+
+        let merged = self.narrowest.union(&other.narrowest, constraints);
         if merged.is_subtype(&self.widest) {
             self.narrowest = merged.clone();
         }
@@ -89,8 +117,8 @@ pub(crate) enum Type {
     Record(Record),
     Union(Vec<Type>),
     Any,
-    Never,
-    TypeVar(TypeVar),
+    Empty,
+    Var(TypeVar),
 }
 
 impl From<VarDeclType> for Type {
@@ -106,87 +134,13 @@ impl From<VarDeclType> for Type {
 }
 
 impl Type {
-    pub fn from_str(string: &str) -> Self {
-        match string {
-            "int" | "float" | "double" => Self::Number,
-            "ref" => Self::Ref,
-            "string" => Self::String,
-            "array" => Self::Map((Type::Never, Type::Never).into()),
-            _ => Self::Any,
-        }
-    }
-
-    pub fn to_string(&self, indent: usize) -> String {
-        match self {
-            Type::Void => "void".into(),
-            Type::Bool => "bool".into(),
-            Type::Number => "number".into(),
-            Type::Ref => "ref".into(),
-            Type::String => "string".into(),
-            Type::Map(x) => {
-                if x.0 == Type::Number {
-                    format!("array<{}>", x.1.to_string(indent))
-                } else {
-                    format!("map<{}, {}>", x.0.to_string(indent), x.1.to_string(indent))
-                }
-            }
-            Type::Function(x) => {
-                if x.ret == Type::Void {
-                    format!("fn({})", x.params.iter().map(|x| x.to_string(indent)).join(", "))
-                } else {
-                    format!(
-                        "fn({}) -> {}",
-                        x.params.iter().map(|x| x.to_string(indent)).join(", "),
-                        x.ret.to_string(indent)
-                    )
-                }
-            }
-            Type::Record(x) => {
-                if x.fields.is_empty() {
-                    "{}".into()
-                } else {
-                    let indent_str = format!("\n{}", "    ".repeat(indent + 1));
-                    format!(
-                        "{{{indent_str}{}\n{}}}",
-                        x.fields
-                            .iter()
-                            .map(|(k, v)| format!("{k}: {}", v.to_string(indent + 1)))
-                            .join(&indent_str),
-                        "    ".repeat(indent),
-                    )
-                }
-            }
-            Type::Union(x) => x.iter().map(|x| x.to_string(indent)).join(" | "),
-            Type::Any => "any".into(),
-            Type::Never => "unknown".into(),
-            Type::TypeVar(x) => format!("T{}", x.into_raw().into_u32()),
-        }
-    }
-
-    pub fn to_string_with_name(&self, name: &str, indent: usize) -> String {
-        match self {
-            Type::Function(x) => {
-                if x.ret == Type::Void {
-                    format!(
-                        "fn {name}({})",
-                        x.params.iter().map(|x| x.to_string(indent)).join(", ")
-                    )
-                } else {
-                    format!(
-                        "fn {name}({}) -> {}",
-                        x.params.iter().map(|x| x.to_string(indent)).join(", "),
-                        x.ret.to_string(indent)
-                    )
-                }
-            }
-            x => format!("{} {name}", x.to_string(indent)),
-        }
-    }
-
     pub fn is_subtype(&self, other: &Self) -> bool {
         match (self, other) {
-            (Self::Never, _) => true,
+            (Self::Empty, _) => true,
             (_, Self::Any) => true,
+            (Self::Bool, Self::Number) => true,
+            (Self::Ref, Self::Number) => true,
+            (Self::Number, Self::Ref) => true,
             (Self::Map(a), Self::Map(b)) => a.0.is_subtype(&b.0) && a.1.is_subtype(&b.1),
             (Self::Function(a), Self::Function(b)) => {
                 a.ret.is_subtype(&b.ret)
@@ -201,20 +155,26 @@ impl Type {
         }
     }
 
-    pub fn merge(&self, other: &Self) -> Self {
+    pub fn union(&self, other: &Self, constraints: &mut HashMap<TypeVar, Vec<Constraint>>) -> Self {
         match (self, other) {
-            (Self::Never, x) | (x, Self::Never) => x.clone(),
+            (Self::Empty, x) | (x, Self::Empty) => x.clone(),
             (_, Self::Any) | (Self::Any, _) => Self::Any,
-            (Self::Map(a), Self::Map(b)) => Self::Map(Box::new((a.0.merge(&b.0), a.1.merge(&b.1)))),
+            (Self::Number, Self::Bool) | (Self::Bool, Self::Number) => Self::Number,
+            (Self::Number, Self::Ref) | (Self::Ref, Self::Number) => Self::Number,
+            (Self::Map(a), Self::Map(b)) => {
+                Self::Map(Box::new((a.0.union(&b.0, constraints), a.1.union(&b.1, constraints))))
+            }
             (Self::Function(a), Self::Function(b)) => Self::Function(Box::new(FunctionSignature {
-                ret: a.ret.merge(&b.ret),
+                ret: a.ret.union(&b.ret, constraints),
                 params: a
                     .params
                     .iter()
                     .zip_longest(b.params.iter())
                     .map(|x| match x {
-                        EitherOrBoth::Both(a, b) => a.merge(b),
-                        EitherOrBoth::Left(x) | EitherOrBoth::Right(x) => x.merge(&Type::Void),
+                        EitherOrBoth::Both(a, b) => a.union(b, constraints),
+                        EitherOrBoth::Left(x) | EitherOrBoth::Right(x) => {
+                            x.union(&Self::Void, constraints)
+                        }
                     })
                     .collect(),
             })),
@@ -222,25 +182,38 @@ impl Type {
                 let mut rec = a.clone();
                 for (k, v) in &b.fields {
                     if let Some(field) = rec.get_mut(k) {
-                        *field = field.merge(v);
+                        *field = field.union(v, constraints);
                     } else {
                         rec.fields.push((k.clone(), v.clone()));
                     }
                 }
                 Self::Record(rec)
             }
-            (a @ Self::Union(_), Self::Union(b)) => b.iter().fold(a.clone(), |acc, x| acc.merge(x)),
+            (a @ Self::Union(_), Self::Union(b)) => {
+                b.iter().fold(a.clone(), |acc, x| acc.union(x, constraints))
+            }
             (Self::Union(a), b) | (b, Self::Union(a)) => {
-                if matches!(b, Type::TypeVar(_)) {
+                if matches!(b, Self::Var(_)) {
                     return b.clone();
                 }
                 let mut arr = a.clone();
                 if let Some(e) = arr.iter_mut().find(|x| b.can_merge(x)) {
-                    *e = b.merge(e);
+                    *e = b.union(e, constraints);
                 } else if !arr.iter().any(|x| b.is_subtype(x)) {
                     arr.push(b.clone());
                 }
                 Self::Union(arr)
+            }
+            (Self::Var(a), Self::Var(b)) => {
+                let c = Constraint::Assignable(*a, *b);
+                constraints.entry(*a).or_default().push(c.clone());
+                constraints.entry(*b).or_default().push(c);
+                self.clone()
+            }
+            (Self::Var(a), b) | (b, Self::Var(a)) => {
+                let c = Constraint::AssignableToType(b.clone());
+                constraints.entry(*a).or_default().push(c);
+                self.clone()
             }
             (a, b) if a == b => a.clone(),
             (a, b) => Self::Union(vec![a.clone(), b.clone()]),
@@ -248,14 +221,7 @@ impl Type {
     }
 
     pub fn can_merge(&self, other: &Self) -> bool {
-        matches!(
-            (self, other),
-            // (Self::Map(_), Self::Map(_))
-            //     | (Self::Function(_), Self::Function(_))
-            //     | (Self::Record(_), Self::Record(_))
-            //     | (Self::Union(_), Self::Union(_))
-            (Self::Union(_), Self::Union(_))
-        )
+        matches!((self, other), (Self::Union(_), Self::Union(_)))
     }
 
     pub fn replace_type_vars(
@@ -267,26 +233,29 @@ impl Type {
         limit += 1;
         if limit > 256 {
             println!("inferrence recursion limit reached");
-            *self = Type::Any;
+            *self = Self::Any;
             return;
         }
         match self {
-            Type::Map(x) => {
+            Self::Map(x) => {
                 x.0.replace_type_vars(type_map, limit, tv_stack);
                 x.1.replace_type_vars(type_map, limit, tv_stack);
             }
-            Type::Function(x) => {
+            Self::Function(x) => {
                 x.ret.replace_type_vars(type_map, limit, tv_stack);
+                if matches!(x.ret, Self::Var(_)) {
+                    x.ret = Self::Void;
+                }
                 for param in &mut x.params {
                     param.replace_type_vars(type_map, limit, tv_stack);
                 }
             }
-            Type::Record(x) => {
+            Self::Record(x) => {
                 for (_, v) in x.fields.iter_mut() {
                     v.replace_type_vars(type_map, limit, tv_stack);
                 }
             }
-            Type::Union(x) => {
+            Self::Union(x) => {
                 for e in &mut *x {
                     e.replace_type_vars(type_map, limit, tv_stack);
                 }
@@ -315,9 +284,9 @@ impl Type {
                     new
                 }
             }
-            Type::TypeVar(x) => {
+            Self::Var(x) => {
                 if tv_stack.contains(x) {
-                    *self = Type::Any;
+                    *self = Self::Any;
                     return;
                 }
                 if let Some(mut ty) = type_map.get(x).cloned() {
@@ -332,45 +301,71 @@ impl Type {
         }
     }
 
-    pub fn unify(&self, other: &Self, store: &mut HashMap<TypeVar, Vec<Constraint>>) {
-        match (self, other) {
-            (Self::Map(a), Self::Map(b)) => {
-                a.0.unify(&b.0, store);
-                a.1.unify(&b.1, store);
-            }
-            (Self::Function(a), Self::Function(b)) => {
-                a.ret.unify(&b.ret, store);
-                for x in a.params.iter().zip_longest(b.params.iter()) {
-                    match x {
-                        EitherOrBoth::Both(a, b) => a.unify(b, store),
-                        EitherOrBoth::Left(x) | EitherOrBoth::Right(x) => {
-                            x.unify(&Type::Void, store)
-                        }
-                    }
+    pub fn to_string(&self, indent: usize) -> String {
+        match self {
+            Self::Void => "void".into(),
+            Self::Bool => "bool".into(),
+            Self::Number => "number".into(),
+            Self::Ref => "ref".into(),
+            Self::String => "string".into(),
+            Self::Map(x) => {
+                if x.0 == Self::Number {
+                    format!("array<{}>", x.1.to_string(indent))
+                } else {
+                    format!("map<{}, {}>", x.0.to_string(indent), x.1.to_string(indent))
                 }
             }
-            (Self::Record(a), Self::Record(b)) => {
-                for (k, _) in a.fields.iter().chain(b.fields.iter()) {
-                    match (a.get(k), b.get(k)) {
-                        (Some(a), Some(b)) => {
-                            a.unify(b, store);
-                        }
-                        (Some(_), None) | (None, Some(_)) => (),
-                        _ => unreachable!(),
-                    }
+            Self::Function(x) => {
+                if x.ret == Self::Void {
+                    format!("fn({})", x.params.iter().map(|x| x.to_string(indent)).join(", "))
+                } else {
+                    format!(
+                        "fn({}) -> {}",
+                        x.params.iter().map(|x| x.to_string(indent)).join(", "),
+                        x.ret.to_string(indent)
+                    )
                 }
             }
-            (Self::Union(_), Self::Union(_)) => (), // TODO
-            (Self::TypeVar(a), Self::TypeVar(b)) => {
-                let c = Constraint::Assignable(*a, *b);
-                store.entry(*a).or_default().push(c.clone());
-                store.entry(*b).or_default().push(c);
+            Self::Record(x) => {
+                if x.fields.is_empty() {
+                    "{}".into()
+                } else {
+                    let indent_str = format!("\n{}", "    ".repeat(indent + 1));
+                    format!(
+                        "{{{indent_str}{}\n{}}}",
+                        x.fields
+                            .iter()
+                            .map(|(k, v)| format!("{k}: {}", v.to_string(indent + 1)))
+                            .join(&indent_str),
+                        "    ".repeat(indent),
+                    )
+                }
             }
-            (Self::TypeVar(a), b) | (b, Self::TypeVar(a)) => {
-                let c = Constraint::AssignableToType(b.clone());
-                store.entry(*a).or_default().push(c);
+            Self::Union(x) => x.iter().map(|x| x.to_string(indent)).join(" | "),
+            Self::Any => "any".into(),
+            Self::Empty => "any".into(),
+            // Self::Var(x) => format!("T{}", x.into_raw().into_u32()),
+            Self::Var(_) => "any".into(),
+        }
+    }
+
+    pub fn to_string_with_name(&self, name: &str, indent: usize) -> String {
+        match self {
+            Self::Function(x) => {
+                if x.ret == Self::Void {
+                    format!(
+                        "fn {name}({})",
+                        x.params.iter().map(|x| x.to_string(indent)).join(", ")
+                    )
+                } else {
+                    format!(
+                        "fn {name}({}) -> {}",
+                        x.params.iter().map(|x| x.to_string(indent)).join(", "),
+                        x.ret.to_string(indent)
+                    )
+                }
             }
-            _ => (),
+            x => format!("{} {name}", x.to_string(indent)),
         }
     }
 }

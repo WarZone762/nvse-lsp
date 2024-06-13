@@ -2,69 +2,8 @@ use db::Database;
 
 use super::*;
 
-pub(crate) trait Printer<'a> {
-    fn lookup<L: Lookup<DB = ScriptDatabase>>(&self, node: L) -> &'a L::Output;
-    fn type_(&self, expr: ExprId) -> InferredType;
-    fn name_type(&self, name: NameId) -> InferredType;
-    fn push(&mut self, string: &str);
-    fn indent_level(&self) -> usize;
-    fn indent(&mut self);
-    fn unindent(&mut self);
-    fn finish(self) -> String;
-
-    fn push_indent(&mut self) {
-        self.push(&"    ".repeat(self.indent_level()));
-    }
-}
-
-#[derive(Debug)]
-pub(crate) struct SimplePrinter {
-    buf: String,
-    indent: usize,
-}
-
-impl SimplePrinter {
-    pub fn new() -> Self {
-        Self { buf: String::new(), indent: 0 }
-    }
-}
-
-impl Printer<'static> for SimplePrinter {
-    fn lookup<L: Lookup<DB = ScriptDatabase>>(&self, _node: L) -> &'static L::Output {
-        unimplemented!()
-    }
-
-    fn type_(&self, _expr: ExprId) -> InferredType {
-        unimplemented!()
-    }
-
-    fn name_type(&self, name: NameId) -> InferredType {
-        unimplemented!()
-    }
-
-    fn push(&mut self, string: &str) {
-        self.buf.push_str(string);
-    }
-
-    fn indent_level(&self) -> usize {
-        self.indent
-    }
-
-    fn indent(&mut self) {
-        self.indent += 1;
-    }
-
-    fn unindent(&mut self) {
-        self.indent -= 1;
-    }
-
-    fn finish(self) -> String {
-        self.buf
-    }
-}
-
 #[derive(Debug, Clone)]
-pub(crate) struct HirPrinter<'a> {
+pub(crate) struct Printer<'a> {
     db: &'a db::Database,
     script_db: &'a ScriptDatabase,
     file_id: db::FileId,
@@ -72,31 +11,17 @@ pub(crate) struct HirPrinter<'a> {
     buf: String,
 }
 
-impl<'a> HirPrinter<'a> {
+impl<'a> Printer<'a> {
     pub fn new(file_id: db::FileId, db: &'a Database, script_db: &'a ScriptDatabase) -> Self {
         Self { db, script_db, file_id, indent: 0, buf: String::new() }
-    }
-}
-
-impl<'a> Printer<'a> for HirPrinter<'a> {
-    fn lookup<L: Lookup<DB = ScriptDatabase>>(&self, node: L) -> &'a L::Output {
-        node.lookup(self.script_db)
-    }
-
-    fn type_(&self, expr: ExprId) -> InferredType {
-        expr.type_(self.db, self.file_id)
-    }
-
-    fn name_type(&self, name: NameId) -> InferredType {
-        name.type_(&self.db, self.file_id)
     }
 
     fn push(&mut self, string: &str) {
         self.buf.push_str(string);
     }
 
-    fn indent_level(&self) -> usize {
-        self.indent
+    fn push_indent(&mut self) {
+        self.buf.push_str(&"    ".repeat(self.indent));
     }
 
     fn indent(&mut self) {
@@ -113,31 +38,31 @@ impl<'a> Printer<'a> for HirPrinter<'a> {
 }
 
 pub(crate) trait Print {
-    fn print<'a>(&self, p: &mut impl Printer<'a>);
-    fn print_str<'a>(&self, mut p: impl Printer<'a>) -> String {
+    fn print(&self, p: &mut Printer<'_>);
+    fn print_str(&self, mut p: Printer<'_>) -> String {
         self.print(&mut p);
         p.finish()
     }
 }
 
 impl<P: Print> Print for &P {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         Print::print(*self, p);
     }
 }
 
 impl<P: Print> Print for Rc<P> {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         Rc::as_ref(self).print(p);
     }
 }
 
 pub(crate) trait PrintDelim {
-    fn print_delimited<'a>(self, p: &mut impl Printer<'a>, delim: &str);
+    fn print_delimited(self, p: &mut Printer<'_>, delim: &str);
 }
 
 impl<I: IntoIterator<Item = P>, P: Print> PrintDelim for I {
-    fn print_delimited<'a>(self, p: &mut impl Printer<'a>, delim: &str) {
+    fn print_delimited(self, p: &mut Printer<'_>, delim: &str) {
         let mut is_first = true;
         for e in self.into_iter() {
             if is_first {
@@ -151,7 +76,7 @@ impl<I: IntoIterator<Item = P>, P: Print> PrintDelim for I {
 }
 
 impl Print for Script {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("name ");
         if let Some(name) = &self.name {
             name.print(p);
@@ -166,9 +91,9 @@ impl Print for Script {
 }
 
 impl Print for ItemId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push_indent();
-        match p.lookup(*self) {
+        match self.lookup(p.script_db) {
             Item::FnDecl(x) => x.print(p),
             Item::BlockType(x) => x.print(p),
             Item::VarDeclStmt(x) => x.print(p),
@@ -178,7 +103,7 @@ impl Print for ItemId {
 }
 
 impl Print for FnDeclItem {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("fn ");
         if let Some(name) = &self.name {
             name.print(p);
@@ -191,7 +116,7 @@ impl Print for FnDeclItem {
 }
 
 impl Print for BlockTypeItem {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push(&self.blocktype_kind.to_string());
         p.push(" ");
         self.block.print(p);
@@ -199,9 +124,9 @@ impl Print for BlockTypeItem {
 }
 
 impl Print for StmtId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push_indent();
-        match p.lookup(*self) {
+        match self.lookup(p.script_db) {
             Stmt::For(x) => x.print(p),
             Stmt::ForEach(x) => x.print(p),
             Stmt::If(x) => x.print(p),
@@ -217,7 +142,7 @@ impl Print for StmtId {
 }
 
 impl Print for ForStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("for (");
         if let Some(init) = &self.init {
             init.print(p);
@@ -236,7 +161,7 @@ impl Print for ForStmt {
 }
 
 impl Print for ForEachStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("for (");
         self.var_decl.print(p);
         p.push(" : ");
@@ -247,7 +172,7 @@ impl Print for ForEachStmt {
 }
 
 impl Print for IfStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("if (");
         self.cond.print(p);
         p.push(") ");
@@ -263,7 +188,7 @@ impl Print for IfStmt {
 }
 
 impl Print for ElseBranch {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("else ");
         match self {
             ElseBranch::Block(x) => x.print(p),
@@ -273,7 +198,7 @@ impl Print for ElseBranch {
 }
 
 impl Print for WhileStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("while (");
         self.cond.print(p);
         p.push(") ");
@@ -282,14 +207,14 @@ impl Print for WhileStmt {
 }
 
 impl Print for VarDeclStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.decl.print(p);
         p.push(";")
     }
 }
 
 impl Print for ReturnStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("return");
         if let Some(expr) = &self.expr {
             p.push(" ");
@@ -300,31 +225,31 @@ impl Print for ReturnStmt {
 }
 
 impl Print for BreakStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("break;");
     }
 }
 
 impl Print for ContinueStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("continue;");
     }
 }
 
 impl Print for ExprStmt {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.expr.print(p);
         p.push(";");
     }
 }
 
 impl Print for ExprId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("(");
-        p.type_(*self).print(p);
+        self.type_(p.db, p.file_id);
         p.push(")");
         p.push("(");
-        match p.lookup(*self) {
+        match self.lookup(p.script_db) {
             Expr::Missing => p.push("?"),
             Expr::Bin(x) => x.print(p),
             Expr::Ternary(x) => x.print(p),
@@ -342,7 +267,7 @@ impl Print for ExprId {
 }
 
 impl Print for BinExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.lhs.print(p);
         p.push(" ");
         self.op.print(p);
@@ -352,7 +277,7 @@ impl Print for BinExpr {
 }
 
 impl Print for BinOpKind {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         match self {
             BinOpKind::Plus => p.push("+"),
             BinOpKind::Minus => p.push("-"),
@@ -390,7 +315,7 @@ impl Print for BinOpKind {
 }
 
 impl Print for TernaryExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.cond.print(p);
         p.push(" ? ");
         self.true_expr.print(p);
@@ -400,14 +325,14 @@ impl Print for TernaryExpr {
 }
 
 impl Print for UnaryExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.op.print(p);
         self.operand.print(p);
     }
 }
 
 impl Print for UnaryOpKind {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         match self {
             UnaryOpKind::Minus => p.push("-"),
         }
@@ -415,7 +340,7 @@ impl Print for UnaryOpKind {
 }
 
 impl Print for SubscriptExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.lhs.print(p);
         p.push("[");
         self.subscript.print(p);
@@ -424,7 +349,7 @@ impl Print for SubscriptExpr {
 }
 
 impl Print for CallExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.lhs.print(p);
         p.push("(");
         self.args.iter().print_delimited(p, ", ");
@@ -433,7 +358,7 @@ impl Print for CallExpr {
 }
 
 impl Print for ParenExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("(");
         self.expr.print(p);
         p.push(")");
@@ -441,7 +366,7 @@ impl Print for ParenExpr {
 }
 
 impl Print for LambdaExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("fn (");
         self.params.iter().print_delimited(p, ", ");
         p.push(") ");
@@ -450,7 +375,7 @@ impl Print for LambdaExpr {
 }
 
 impl Print for StrExpr {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push("\"");
         for shard in &self.shards {
             shard.print(p);
@@ -460,8 +385,8 @@ impl Print for StrExpr {
 }
 
 impl Print for StringShardId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
-        match p.lookup(*self) {
+    fn print(&self, p: &mut Printer<'_>) {
+        match self.lookup(p.script_db) {
             StringShard::Str { val, .. } => p.push(val),
             StringShard::Expr { expr, .. } => {
                 p.push("${");
@@ -473,7 +398,7 @@ impl Print for StringShardId {
 }
 
 impl Print for Literal {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push(&match self {
             Literal::Number(x) => x.value.to_string(),
             Literal::Bool(x) => x.value.to_string(),
@@ -482,8 +407,8 @@ impl Print for Literal {
 }
 
 impl Print for VarDeclId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
-        let var_decl = p.lookup(*self);
+    fn print(&self, p: &mut Printer<'_>) {
+        let var_decl = self.lookup(p.script_db);
         var_decl.decl_type.print(p);
         p.push(" ");
         var_decl.name.print(p);
@@ -495,7 +420,7 @@ impl Print for VarDeclId {
 }
 
 impl Print for VarDeclType {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         match self {
             VarDeclType::Int => p.push("int"),
             VarDeclType::Double => p.push("double"),
@@ -509,8 +434,8 @@ impl Print for VarDeclType {
 }
 
 impl Print for BlockId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
-        let block = p.lookup(*self);
+    fn print(&self, p: &mut Printer<'_>) {
+        let block = self.lookup(p.script_db);
         p.push("{\n");
         p.indent();
         block.sym_table.print(p);
@@ -523,19 +448,19 @@ impl Print for BlockId {
 }
 
 impl Print for NameId {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
-        p.push(&p.lookup(*self).name);
+    fn print(&self, p: &mut Printer<'_>) {
+        p.push(&self.lookup(p.script_db).name);
     }
 }
 
 impl Print for NameRef {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         p.push(&self.name);
     }
 }
 
 impl Print for SymbolTable {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         if self.map.is_empty() {
             return;
         }
@@ -548,7 +473,7 @@ impl Print for SymbolTable {
             p.push(k);
             p.push(": ");
             match v {
-                Symbol::Local(_, x) => p.name_type(*x).print(p),
+                Symbol::Local(_, x) => x.type_(p.db, p.file_id).print(p),
                 Symbol::Global(x) => x.print(p),
             }
             p.push(",\n");
@@ -560,13 +485,13 @@ impl Print for SymbolTable {
 }
 
 impl Print for InferredType {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
+    fn print(&self, p: &mut Printer<'_>) {
         self.narrowest.print(p);
     }
 }
 
 impl Print for Type {
-    fn print<'a>(&self, p: &mut impl Printer<'a>) {
-        p.push(&self.to_string(p.indent_level()));
+    fn print(&self, p: &mut Printer<'_>) {
+        p.push(&self.to_string(p.indent));
     }
 }

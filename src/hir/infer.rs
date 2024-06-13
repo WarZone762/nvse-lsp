@@ -74,7 +74,7 @@ impl<'a> InferCtx<'a> {
         }
         if let Some(cond) = &node.cond {
             let tv = self.expr(store, *cond);
-            store.concrete_type(tv, Type::Bool);
+            store.concrete_type(tv, InferredType::bool());
         }
         if let Some(loop_expr) = &node.loop_expr {
             self.expr(store, *loop_expr);
@@ -90,7 +90,7 @@ impl<'a> InferCtx<'a> {
 
     fn stmt_if(&self, store: &mut TypeVarStore, node: &IfStmt) {
         let tv = self.expr(store, node.cond);
-        store.concrete_type(tv, Type::Bool);
+        store.concrete_type(tv, InferredType::bool());
         self.block(store, node.true_branch);
         match &node.false_branch {
             Some(ElseBranch::Block(x)) => self.block(store, *x),
@@ -101,7 +101,7 @@ impl<'a> InferCtx<'a> {
 
     fn stmt_while(&self, store: &mut TypeVarStore, node: &WhileStmt) {
         let tv = self.expr(store, node.cond);
-        store.concrete_type(tv, Type::Bool);
+        store.concrete_type(tv, InferredType::bool());
         self.block(store, node.block);
     }
 
@@ -112,7 +112,7 @@ impl<'a> InferCtx<'a> {
             store.name_map.insert(var_decl.name, tv);
             tv
         });
-        store.concrete_type(name_tv, var_decl.decl_type.into());
+        store.concrete_type(name_tv, InferredType::from_decl_type(var_decl.decl_type));
         if let Some(init) = &var_decl.init {
             let tv = self.expr(store, *init);
             store.assignable(name_tv, tv);
@@ -140,14 +140,14 @@ impl<'a> InferCtx<'a> {
                     }
                 }
                 let tv = store.type_var();
-                store.concrete_type(tv, Type::String);
+                store.concrete_type(tv, InferredType::string());
                 tv
             }
             Expr::Lit(x) => {
                 let tv = store.type_var();
                 store.concrete_type(tv, match x {
-                    Literal::Number(_) => Type::Number,
-                    Literal::Bool(_) => Type::Bool,
+                    Literal::Number(_) => InferredType::number(),
+                    Literal::Bool(_) => InferredType::bool(),
                 });
                 tv
             }
@@ -166,7 +166,7 @@ impl<'a> InferCtx<'a> {
 
             store.assignable_to_type(
                 lhs,
-                Type::Record(Record { fields: vec![(name.name.clone(), Type::TypeVar(rhs))] }),
+                Type::Record(Record { fields: vec![(name.name.clone(), Type::Var(rhs))] }),
             );
 
             rhs
@@ -183,7 +183,7 @@ impl<'a> InferCtx<'a> {
 
     fn expr_ternary(&self, store: &mut TypeVarStore, node: &TernaryExpr) -> TypeVar {
         let cond = self.expr(store, node.cond);
-        store.concrete_type(cond, Type::Bool);
+        store.concrete_type(cond, InferredType::bool());
         let true_expr = self.expr(store, node.true_expr);
         let false_expr = self.expr(store, node.false_expr);
         store.assignable(true_expr, false_expr);
@@ -196,21 +196,20 @@ impl<'a> InferCtx<'a> {
     fn expr_subscript(&self, store: &mut TypeVarStore, node: &SubscriptExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
         let subscript = self.expr(store, node.subscript);
+        let tv = store.type_var();
+        store.assignable(subscript, tv);
         let value = store.type_var();
-        store.assignable_to_type(
-            lhs,
-            Type::Map(Box::new((Type::TypeVar(subscript), Type::TypeVar(value)))),
-        );
+        store.assignable_to_type(lhs, Type::Map(Box::new((Type::Var(tv), Type::Var(value)))));
         value
     }
 
     fn expr_call(&self, store: &mut TypeVarStore, node: &CallExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
-        let args = node.args.iter().map(|x| Type::TypeVar(self.expr(store, *x))).collect();
+        let args = node.args.iter().map(|x| Type::Var(self.expr(store, *x))).collect();
         let tv = store.type_var();
         store.assignable_to_type(
             lhs,
-            Type::Function(Box::new(FunctionSignature { ret: Type::TypeVar(tv), params: args })),
+            Type::Function(Box::new(FunctionSignature { ret: Type::Var(tv), params: args })),
         );
         tv
     }
@@ -220,7 +219,7 @@ impl<'a> InferCtx<'a> {
             .params
             .iter()
             .map(|x| {
-                Type::TypeVar(
+                Type::Var(
                     store.name_map.get(&x.lookup(self.script_db).name).copied().unwrap_or_else(
                         || {
                             let tv = store.type_var();
@@ -235,7 +234,7 @@ impl<'a> InferCtx<'a> {
         let ret = store.type_var();
         store.assignable_to_type(
             tv,
-            Type::Function(Box::new(FunctionSignature { ret: Type::TypeVar(ret), params })),
+            Type::Function(Box::new(FunctionSignature { ret: Type::Var(ret), params })),
         );
         ret
     }
@@ -286,7 +285,7 @@ impl TypeVarStore {
         self.constraints.alloc(c)
     }
 
-    pub fn concrete_type(&mut self, tv: TypeVar, ty: Type) {
+    pub fn concrete_type(&mut self, tv: TypeVar, ty: InferredType) {
         let c = self.constraint(Constraint::ConcreteType(ty));
         self.type_vars[tv].push(c);
     }
@@ -314,11 +313,14 @@ impl TypeVarStore {
                     Constraint::ConcreteType(x) => Some(x),
                     _ => None,
                 }) {
-                    if let Some(x) = type_map.get(&tv).cloned() {
-                        x.narrowest.unify(c, &mut constraint_map);
+                    if let Some(mut x) = type_map.get_mut(&tv).cloned() {
+                        match x.union(&mut c.clone(), &mut constraint_map) {
+                            Ok(_) => (),
+                            Err(x) => println!("{x}"),
+                        }
                         type_map.insert(tv, x);
                     } else {
-                        type_map.insert(tv, InferredType::concrete(c.clone()));
+                        type_map.insert(tv, c.clone());
                     }
                 }
             }
@@ -352,7 +354,7 @@ impl TypeVarStore {
                             match (type_map.get(lhs).cloned(), type_map.get(rhs).cloned()) {
                                 (None, Some(mut b)) => {
                                     let mut ty = InferredType::any();
-                                    match ty.merge(&mut b) {
+                                    match ty.union(&mut b, &mut constraint_map) {
                                         Ok(_) => {
                                             type_map.insert(*lhs, ty);
                                         }
@@ -361,7 +363,7 @@ impl TypeVarStore {
                                 }
                                 (Some(mut a), None) => {
                                     let mut ty = InferredType::any();
-                                    match ty.merge(&mut a) {
+                                    match ty.union(&mut a, &mut constraint_map) {
                                         Ok(_) => {
                                             type_map.insert(*rhs, ty);
                                         }
@@ -369,8 +371,7 @@ impl TypeVarStore {
                                     }
                                 }
                                 (Some(mut a), Some(mut b)) => {
-                                    a.narrowest.unify(&b.narrowest, &mut constraint_map);
-                                    match a.merge(&mut b) {
+                                    match a.union(&mut b, &mut constraint_map) {
                                         Ok(_) => {
                                             type_map.insert(*lhs, a.clone());
                                             type_map.insert(*rhs, b);
@@ -383,8 +384,10 @@ impl TypeVarStore {
                         }
                         Constraint::AssignableToType(ty) => {
                             if let Some(mut x) = type_map.get(&tv).cloned() {
-                                x.narrowest.unify(ty, &mut constraint_map);
-                                match x.merge(&mut InferredType::inferred(ty.clone())) {
+                                match x.union(
+                                    &mut InferredType::inferred(ty.clone()),
+                                    &mut constraint_map,
+                                ) {
                                     Ok(_) => {
                                         type_map.insert(tv, x);
                                     }
@@ -426,28 +429,22 @@ impl TypeVarStore {
         }
 
         for (k, v) in self.globals_map {
-            let ty = type_map
-                .get(&v)
-                .cloned()
-                .unwrap_or_else(|| InferredType::concrete(Type::TypeVar(v)));
+            let ty =
+                type_map.get(&v).cloned().unwrap_or_else(|| InferredType::concrete(Type::Var(v)));
             db.globals.insert(k, Symbol::Global(ty.clone()));
         }
 
         db.name_type_maps.insert(file_id.0, HashMap::new());
         for (k, v) in self.name_map {
-            let ty = type_map
-                .get(&v)
-                .cloned()
-                .unwrap_or_else(|| InferredType::concrete(Type::TypeVar(v)));
+            let ty =
+                type_map.get(&v).cloned().unwrap_or_else(|| InferredType::concrete(Type::Var(v)));
             db.name_type_maps[file_id.0].insert(k, ty);
         }
 
         db.type_maps.insert(file_id.0, HashMap::new());
         for (k, v) in self.expr_map {
-            let ty = type_map
-                .get(&v)
-                .cloned()
-                .unwrap_or_else(|| InferredType::concrete(Type::TypeVar(v)));
+            let ty =
+                type_map.get(&v).cloned().unwrap_or_else(|| InferredType::concrete(Type::Var(v)));
             db.type_maps[file_id.0].insert(k, ty);
         }
     }
@@ -455,7 +452,7 @@ impl TypeVarStore {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum Constraint {
-    ConcreteType(Type),
+    ConcreteType(InferredType),
     Assignable(TypeVar, TypeVar),
     AssignableToType(Type),
 }

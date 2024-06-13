@@ -733,7 +733,7 @@ impl StringShard {
         }
     }
 
-    pub fn node<'a>(&'a self) -> Option<&'a dyn AstNode> {
+    pub fn node(&self) -> Option<&dyn AstNode> {
         Some(match self {
             StringShard::Str { node, .. } => node,
             StringShard::Expr { node, .. } => node,
@@ -752,13 +752,6 @@ impl Literal {
         match self {
             Literal::Number(x) => &x.node,
             Literal::Bool(x) => &x.node,
-        }
-    }
-
-    pub fn type_(&self) -> InferredType {
-        match self {
-            Literal::Number(_) => InferredType::new(Type::Number),
-            Literal::Bool(_) => InferredType::new(Type::Bool),
         }
     }
 }

@@ -3,9 +3,8 @@ use std::ops::Deref;
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    ast::{self, AstNode},
-    db::{Database, FileId, Lookup, VarDeclId},
-    hir::{self, ty::Symbol, Expr, HirNode},
+    db::{Database, FileId, Lookup},
+    hir::{ty::Symbol, Expr, HirNode},
     tree_builder,
 };
 
