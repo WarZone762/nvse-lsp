@@ -163,7 +163,7 @@ impl Print for ForStmt {
 impl Print for ForEachStmt {
     fn print(&self, p: &mut Printer<'_>) {
         p.push("for (");
-        self.var_decl.print(p);
+        self.pat.print(p);
         p.push(" : ");
         self.iterable.print(p);
         p.push(") ");
@@ -429,6 +429,19 @@ impl Print for VarDeclType {
             VarDeclType::String => p.push("string"),
             VarDeclType::Array => p.push("array"),
             VarDeclType::Unknown => p.push("unknown"),
+        }
+    }
+}
+
+impl Print for Pat {
+    fn print(&self, p: &mut Printer<'_>) {
+        match self {
+            Pat::VarDecl(x) => x.print(p),
+            Pat::Arr(x) => {
+                for pat in x {
+                    pat.print(p);
+                }
+            }
         }
     }
 }

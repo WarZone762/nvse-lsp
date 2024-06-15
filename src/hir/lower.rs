@@ -112,7 +112,7 @@ impl<'a> LowerCtx<'a> {
 
     fn stmt_for_each(&mut self, node: ast::ForEachStmt) -> Option<ForEachStmt> {
         Some(ForEachStmt {
-            var_decl: self.var_decl(node.var_decl())?,
+            pat: self.pat(node.pat())?,
             iterable: self.expr(node.iterable()),
             block: self.block(node.block())?,
             node,
@@ -237,6 +237,15 @@ impl<'a> LowerCtx<'a> {
             node: node?,
         };
         Some(self.script_db.add_block(block))
+    }
+
+    fn pat(&mut self, node: Option<ast::Pat>) -> Option<Pat> {
+        Some(match node? {
+            ast::Pat::VarDecl(x) => Pat::VarDecl(self.var_decl(Some(x))?),
+            ast::Pat::Arr(x) => {
+                Pat::Arr(x.patts().map(|x| self.pat(Some(x))).collect::<Option<_>>()?)
+            }
+        })
     }
 
     fn var_decl(&mut self, node: Option<ast::VarDecl>) -> Option<VarDeclId> {

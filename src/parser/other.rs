@@ -74,6 +74,29 @@ pub(crate) fn param_list(p: &mut Parser) {
     m.complete(p, NodeKind::ParamList);
 }
 
+pub(crate) fn pat(p: &mut Parser) {
+    match p.cur() {
+        x if x.is_type() => var_decl(p),
+        TokenKind::LeftBracket => pat_arr(p),
+        _ => p.err_and_next("expected a type or '['"),
+    }
+}
+
+pub(crate) fn pat_arr(p: &mut Parser) {
+    let m = p.start();
+
+    p.next(TokenKind::LeftBracket);
+    while p.more() && !p.at(TokenKind::RightBracket) {
+        pat(p);
+        if p.at(TokenKind::RightBracket) || !p.expect(TokenKind::Comma) {
+            break;
+        }
+    }
+    p.expect(TokenKind::RightBracket);
+
+    m.complete(p, NodeKind::PatArr);
+}
+
 pub(crate) fn var_decl(p: &mut Parser) {
     let m = p.start();
     if !p.cur().is_type() {

@@ -15,7 +15,7 @@ pub(crate) struct ScriptDatabase {
     pub names: Vec<Name>,
     pub str_shards: Vec<StringShard>,
 
-    pub syntax_to_hir_cache: UnsafeCell<HashMap<usize, HirNode>>,
+    pub syntax_to_hir_cache: UnsafeCell<HashMap<usize, Option<HirNode>>>,
 }
 
 impl ScriptDatabase {
@@ -41,7 +41,7 @@ impl ScriptDatabase {
         if let Some(hir_node) =
             unsafe { (*self.syntax_to_hir_cache.get()).get(&(Rc::as_ptr(&syntax) as _)) }
         {
-            return Some(*hir_node);
+            return *hir_node;
         }
 
         let hir_node = syntax
@@ -49,10 +49,10 @@ impl ScriptDatabase {
             .ancestors()
             .filter_map(|x| db.syntax_to_hir(file_id, x))
             .flat_map(|x| x.children(db, self))
-            .find(|x| x.node(db, self).is_some_and(|x| *x.syntax() == syntax))?;
+            .find(|x| x.node(db, self).is_some_and(|x| *x.syntax() == syntax));
 
         unsafe { (*self.syntax_to_hir_cache.get()).insert(Rc::as_ptr(&syntax) as _, hir_node) };
-        Some(hir_node)
+        hir_node
     }
 
     pub fn add_item(&mut self, item: Item) -> ItemId {

@@ -194,22 +194,16 @@ impl<'a> Formatter<'a> {
 
     fn stmt_for_each(&mut self, stmt_for_each: &ast::ForEachStmt) -> String {
         format!(
-            "for{} ({}{}{} :{} {}{}){} {}",
+            "for{} ({}{}{} in{} {}{}){} {}",
             self.comments_between(
                 stmt_for_each.for_kw().as_deref(),
                 stmt_for_each.lparen().as_deref(),
             ),
+            self.comments_between(stmt_for_each.lparen().as_deref(), stmt_for_each.pat().as_ref(),),
+            self.pat(stmt_for_each.pat().as_ref()),
+            self.comments_between(stmt_for_each.pat().as_ref(), stmt_for_each.in_kw().as_deref(),),
             self.comments_between(
-                stmt_for_each.lparen().as_deref(),
-                stmt_for_each.var_decl().as_ref(),
-            ),
-            self.var_decl(stmt_for_each.var_decl().as_ref()),
-            self.comments_between(
-                stmt_for_each.var_decl().as_ref(),
-                stmt_for_each.col().as_deref(),
-            ),
-            self.comments_between(
-                stmt_for_each.col().as_deref(),
+                stmt_for_each.in_kw().as_deref(),
                 stmt_for_each.iterable().as_ref(),
             ),
             self.expr(stmt_for_each.iterable().as_ref()),
@@ -467,6 +461,23 @@ impl<'a> Formatter<'a> {
             .unwrap_or_default()
     }
 
+    fn pat(&mut self, pat: Option<&ast::Pat>) -> String {
+        pat.map(|x| match x {
+            ast::Pat::VarDecl(x) => self.var_decl(Some(x)),
+            ast::Pat::Arr(x) => self.pat_arr(x),
+        })
+        .unwrap_or_default()
+    }
+
+    fn pat_arr(&mut self, pat_arr: &ast::PatArr) -> String {
+        format!(
+            "[{}{}{}]",
+            self.comments_between(pat_arr.lsqbrack().as_deref(), pat_arr.patts().next().as_ref()),
+            pat_arr.patts().map(|x| self.pat(Some(&x))).join(", "),
+            self.comments_between(pat_arr.patts().last().as_ref(), pat_arr.rsqbrack().as_deref()),
+        )
+    }
+
     fn var_decl(&mut self, var_decl: Option<&ast::VarDecl>) -> String {
         var_decl
             .map(|x| {
@@ -565,6 +576,9 @@ impl<'a> Formatter<'a> {
     }
 
     fn newlines_between(&self, start: u32, end: u32) -> String {
+        if end < start {
+            return "".into();
+        }
         "\n".repeat(
             self.text()
                 .chars()

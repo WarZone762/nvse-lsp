@@ -306,16 +306,29 @@ hir_children! {
 
 #[derive(Debug, Clone)]
 pub(crate) struct ForEachStmt {
-    pub var_decl: VarDeclId,
+    pub pat: Pat,
     pub iterable: ExprId,
     pub block: BlockId,
     pub node: ast::ForEachStmt,
 }
 
-hir_children! {
-    ForEachStmt,
-    child!(var_decl)
-    child!(iterable)
+impl ForEachStmt {
+    pub fn children(&self) -> impl Iterator<Item = HirNode> {
+        std::iter::from_coroutine(
+            #[coroutine]
+            || {
+                match self.pat {
+                    Pat::VarDecl(x) => yield HirNode::from(x),
+                    Pat::Arr(_) => {
+                        for child in self.pat.children() {
+                            yield child;
+                        }
+                    }
+                }
+                yield HirNode::from(self.iterable);
+            },
+        )
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -655,6 +668,28 @@ pub(crate) struct Block {
 hir_children! {
     Block,
     child_iter!(stmts)
+}
+
+#[derive(Debug, Clone)]
+pub(crate) enum Pat {
+    VarDecl(VarDeclId),
+    Arr(Vec<Pat>),
+}
+
+impl Pat {
+    pub fn children(&self) -> Box<dyn Iterator<Item = HirNode> + '_> {
+        match self {
+            Pat::VarDecl(_) => Box::new(iter::empty()),
+            Pat::Arr(x) => Box::new(x.iter().flat_map(|x| x.children())),
+        }
+    }
+
+    pub fn node<'a>(&self, script_db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
+        Some(match self {
+            Pat::VarDecl(x) => x.node(script_db)?,
+            Pat::Arr(_) => return None,
+        })
+    }
 }
 
 #[derive(Debug, Clone)]

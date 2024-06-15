@@ -63,7 +63,15 @@ impl<N: AstNode> Iterator for AstChildren<'_, N> {
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
-        self.inner.size_hint()
+        let len = self
+            .inner
+            .clone()
+            .filter(|x| match x {
+                NodeOrToken::Node(x) => N::can_cast(x.kind),
+                NodeOrToken::Token(_) => false,
+            })
+            .count();
+        (len, Some(len))
     }
 }
 

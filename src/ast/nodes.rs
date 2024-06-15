@@ -241,8 +241,8 @@ node! {
     NodeKind::ForEachStmt,
     token!(for_kw, TokenKind::For);
     token!(lparen, TokenKind::LeftParen);
-    child!(var_decl, VarDecl);
-    token!(col, TokenKind::Colon);
+    child!(pat, Pat);
+    token!(in_kw, TokenKind::In);
     child!(iterable, Expr, 1);
     token!(rparen, TokenKind::RightParen);
     child!(block, BlockStmt);
@@ -407,6 +407,20 @@ node! {
     token!(lparen, TokenKind::LeftParen);
     children!(args, Expr);
     token!(rparen, TokenKind::RightParen);
+}
+
+enum_! {
+    Pat,
+    VarDecl(VarDecl),
+    Arr(PatArr),
+}
+
+node! {
+    PatArr,
+    NodeKind::PatArr,
+    token!(lsqbrack, TokenKind::LeftBracket);
+    children!(patts, Pat);
+    token!(rsqbrack, TokenKind::RightBracket);
 }
 
 node! {

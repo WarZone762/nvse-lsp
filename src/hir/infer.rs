@@ -90,7 +90,7 @@ impl<'a> InferCtx<'a> {
     }
 
     fn stmt_for_each(&self, store: &mut TypeVarStore, node: &ForEachStmt) {
-        self.var_decl(store, node.var_decl);
+        self.pat(store, &node.pat);
         self.expr(store, node.iterable);
         self.block(store, node.block);
     }
@@ -110,6 +110,17 @@ impl<'a> InferCtx<'a> {
         let tv = self.expr(store, node.cond);
         store.concrete_type(tv, InferredType::bool());
         self.block(store, node.block);
+    }
+
+    fn pat(&self, store: &mut TypeVarStore, node: &Pat) {
+        match node {
+            Pat::VarDecl(x) => self.var_decl(store, *x),
+            Pat::Arr(x) => {
+                for pat in x {
+                    self.pat(store, pat)
+                }
+            }
+        }
     }
 
     fn var_decl(&self, store: &mut TypeVarStore, node: VarDeclId) {
