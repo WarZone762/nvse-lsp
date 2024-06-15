@@ -1,0 +1,3458 @@
+[
+  {
+    "name": "ModNumericGameSetting",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15507,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ModNumericINISetting",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15508,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetPlayerCanPickpocketEquippedItems",
+    "alias": "SetPCCanStealEqItems",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15509,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Toggles the ability to pickpocket equipped items"
+  },
+  {
+    "name": "GetPlayerCanPickpocketEquippedItems",
+    "alias": "GetPCCanStealEqItems",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15510,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Checks if the player can pickpocket equipped items"
+  },
+  {
+    "name": "GetPCHasSleepWaitOverride",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15511,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns whether or not the player has a Sleep/Wait prevention override"
+  },
+  {
+    "name": "SetPCHasSleepWaitOverride",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15512,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets whether or not the player has a Sleep/Wait prevention override"
+  },
+  {
+    "name": "ShowingOffDisable",
+    "alias": "DisableIFYouDidntNotice",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15513,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Does the same thing as vanilla Disable. For showing off!"
+  },
+  {
+    "name": "ShowingOffEnable",
+    "alias": "EnableIFYouDidntNotice",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15514,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Does the same thing as vanilla Enable. For showing off!"
+  },
+  {
+    "name": "GetNumActorsInRangeFromRef",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15515,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns the amount of actors that are a certain distance nearby to the calling reference"
+  },
+  {
+    "name": "GetNumCombatActorsFromActor",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15516,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns the amount of actors that are allies/targets to the calling actor, with optional filters"
+  },
+  {
+    "name": "IsWeaponMelee",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "item",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15517,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns 1 if the weapon's base form is of one of the three weapon types belonging to melee-range weapons"
+  },
+  {
+    "name": "IsEquippedWeaponMelee",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15518,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if the calling actor's equipped weapon's base form is of one of the three weapon types belonging to melee-range weapons"
+  },
+  {
+    "name": "IsWeaponRanged",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "item",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15519,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns 1 if the weapon's base form is one of the weapon types belonging to NON melee-range weapons"
+  },
+  {
+    "name": "IsEquippedWeaponRanged",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15520,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if the calling actor's equipped weapon's base form is one of the weapon types belonging to NON melee-range weapons"
+  },
+  {
+    "name": "GetChallengeProgress",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15521,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns the progress made on a challenge"
+  },
+  {
+    "name": "ConditionPrint",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15522,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns 1, and prints a message to console. Meant for testing if previous conditions passed"
+  },
+  {
+    "name": "MessageExAltShowoff",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "format string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15523,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNumQueuedCornerMessages",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15524,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetCreatureTurningSpeed",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15525,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetCreatureTurningSpeed",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15526,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCreatureFootWeight",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15527,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetCreatureFootWeight",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15528,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCreatureReach",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15529,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCreatureBaseScale",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15530,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DumpFormList",
+    "alias": "FListDump",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15531,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ListAddArray_OLD",
+    "alias": "AddArrayToFormList_OLD",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "index",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15532,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "ListAddList",
+    "alias": "AddFormListToFormList",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": false
+      },
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "index",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15533,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsAnimPlayingExCond",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15534,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Same as IsAnimPlayingEx, but available as a condition. Had to cut the variationFlags filter"
+  },
+  {
+    "name": "GetNumCompassHostiles",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15535,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns the amount of hostile actors on compass, w/ optional filters"
+  },
+  {
+    "name": "AuxStringMapArrayGetSize",
+    "alias": "AuxStringMapSize",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15536,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetValueType",
+    "alias": "AuxStringMapGetValueType",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15537,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetFloat",
+    "alias": "AuxStringMapGetFlt",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15538,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetRef",
+    "alias": "AuxStringMapGetRef",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 15539,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetString",
+    "alias": "AuxStringMapGetStr",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 15540,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetFirst",
+    "alias": "AuxStringMapFirst",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15541,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetNext",
+    "alias": "AuxStringMapNext",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15542,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetKeys",
+    "alias": "AuxStringMapKeys",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15543,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetAll",
+    "alias": "AuxStringMapGetAll",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15544,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayGetAsArray",
+    "alias": "AuxStringMapGetAsArr",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15545,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArraySetFromArray",
+    "alias": "AuxStringMapSetFromArr",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15546,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArraySetFloat",
+    "alias": "AuxStringMapSetFlt",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Double",
+        "name": "double",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15547,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArraySetRef",
+    "alias": "AuxStringMapSetRef",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15548,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArraySetString",
+    "alias": "AuxStringMapSetStr",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15549,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayEraseKey",
+    "alias": "AuxStringMapEraseKey",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15550,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayValidateValues",
+    "alias": "AuxStringMapValidateVals",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15551,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxStringMapArrayDestroy",
+    "alias": "AuxStringMapDestroy",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15552,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRadiationExtraData",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15553,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetRadiationExtraData",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15554,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlayerHasNightVisionActive",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15555,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "PlayerIsDrinkingPlacedWater",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15556,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetIsPCAMurderer",
+    "alias": "YoureAMurderer",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15557,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsNight",
+    "alias": "BloodyTears",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15558,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns true if it's night according to the current (or specified) climate"
+  },
+  {
+    "name": "IsLimbCrippled",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15559,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "If no args are passed / arg is -1, returns true if actor has any crippled limbs. Otherwise, checks if the specified limb is crippled"
+  },
+  {
+    "name": "GetNumCrippledLimbs",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15560,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCrippledLimbsAsBitMask",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15561,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetNumBrokenEquippedItems",
+    "alias": "GetNumBrokenEq",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15562,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquippedItemsAsBitMask",
+    "alias": "GetOccupiedEquipSlots",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15563,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquippedWeaponType",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15564,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetBaseEquippedWeight",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15565,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCalculatedEquippedWeight",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15566,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Accounts for perk effects + weapon mods"
+  },
+  {
+    "name": "GetCalculatedMaxCarryWeight",
+    "alias": "GetMaxCarryWeightPerkModified",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15567,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Accounts for GetMaxCarryWeight perk entry"
+  },
+  {
+    "name": "GetShowOffDebugMode",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15568,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetShowOffDebugMode",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15569,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set to 1 to enable debug prints for certain ShowOff functions"
+  },
+  {
+    "name": "UnequipItems",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15570,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquippedItems",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15571,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsBaseForm",
+    "alias": "IsBasedForm",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15572,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRandomizerSeed",
+    "alias": "SetSeed",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15573,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetSeedUsingForm",
+    "alias": "SetFormSeed",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15574,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRandomizerSeed",
+    "alias": "GetSeed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15575,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RandSeeded",
+    "alias": "GenerateSeededRandomNumber",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15576,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRandomPercentSeeded",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15577,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsReferenceCloned",
+    "alias": "IsRefrCloned",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15578,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Checks if the reference's modIndex is 0xFF"
+  },
+  {
+    "name": "AdvanceSeed",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15579,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Discards would-be generated numbers to advance in the seed generation pattern"
+  },
+  {
+    "name": "IsTemporaryReference",
+    "alias": "IsTempRefr",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15580,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Checks if the reference does not persist in the savegame"
+  },
+  {
+    "name": "GetPCHasScriptedFastTravelOverride",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15581,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns whether or not the player is restricted by EnableFastTravel"
+  },
+  {
+    "name": "GetPCCanFastTravel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15582,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetWeaponHasFlag",
+    "alias": "WeaponHasFlag",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ObjectID",
+        "name": "object",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15583,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorHasBaseFlag",
+    "alias": "ActorHasBaseFlag",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15584,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveAllItemsShowOff",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Container",
+        "name": "container reference",
+        "optional": true
+      },
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15585,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ForceWeaponJamAnim",
+    "alias": "ForceJamAnim",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15586,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DisableAlt",
+    "alias": "SnigOff",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15587,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Ignores the EnableParent limitation"
+  },
+  {
+    "name": "EnableAlt",
+    "alias": "SnigOn",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15588,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Ignores the EnableParent limitation"
+  },
+  {
+    "name": "GetCalculatedSkillPoints",
+    "alias": "GetCalculatedSkillPointsEarnedPerLevel",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15589,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Gets the amount of skill points the player would get for their current level"
+  },
+  {
+    "name": "GetLevelUpMenuPoints",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15590,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ToggleQuestMessages",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15591,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCalculatedPerkPoints",
+    "alias": "GetCalculatedPerkPointsEarnedPerLevel",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15592,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Gets the amount of perk points the player would get for their current level"
+  },
+  {
+    "name": "GetLevelUpMenuCurrentPage",
+    "alias": "GetLevelUpMenuPage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15593,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLevelUpMenuCurrentPage",
+    "alias": "SetLevelUpMenuPage",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15594,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowPerkMenu",
+    "alias": "IfIDecideToGoWithYourFunctionWhatAreThePerks",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15595,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Opens the Level-Up menu to the Perk-menu page, and prevents going back to Skills tab"
+  },
+  {
+    "name": "ShowSkillMenu",
+    "alias": "ShowSkillsMenu",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15596,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Opens the Level-Up menu to the Skills page, and sets that this is the last page (no visiting perks)"
+  },
+  {
+    "name": "GetLevelUpMenuUnspentPoints",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15597,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLevelUpMenuCanExitEarly",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15598,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLevelUpMenuPoints",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15599,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "CreateFolder",
+    "alias": "CreateDirectoryA",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15600,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetExplosionRefSource",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15601,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetExplosionRefRadius",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15602,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Accounts for AdjustExplosionRadius perk entry point"
+  },
+  {
+    "name": "SetExplosionRefRadius",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15603,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetExplosionRefSource",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "actor reference",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15604,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetActorValueDamage",
+    "alias": "GetAVDamage",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "actor value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15605,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns the damage modifier applied to the actor's AV"
+  },
+  {
+    "name": "GetPipboyRadioVoiceEntryData",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15606,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetEquippedItemRefs",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15607,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetNoEquipShowOff",
+    "alias": "SetNoEquipSO",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "script",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15608,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets whether or not there's a prevention for an item baseform from being activated from an actor's inventory"
+  },
+  {
+    "name": "GetNoEquipShowOff",
+    "alias": "GetNoEquipSO",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Ambiguous",
+    "opcode": 15609,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns whether or not there's a prevention for an item baseform from being activated from an actor's inventory"
+  },
+  {
+    "name": "SetShowOffOnCornerMessageEventHandler",
+    "alias": "SetOnCornerMessageEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15610,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIngestibleConsumeSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 15611,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetIngestibleConsumeSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15612,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetFactionCombatReactionTemp",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "faction1",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "faction2",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "setAllyOrEnemy (int)",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "F1toF2Flag (int)",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "F2toF1Flag (int)",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15613,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets the combat reaction between two factions. Unlike SetAlly/SetEnemy, isn't savebaked"
+  },
+  {
+    "name": "GetEquippedItemRefForItem",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 15614,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Returns the equipped inv ref for the base item if that base item is equipped"
+  },
+  {
+    "name": "SetAllyTemp",
+    "alias": "SetAllyShowOff",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "faction1",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "faction2",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "F1toF2Flag (int)",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "F2toF1Flag (int)",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15615,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets the combat reaction between two factions to something friendly. Unlike SetAlly, isn't savebaked"
+  },
+  {
+    "name": "SetEnemyTemp",
+    "alias": "SetEnemyShowOff",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "faction1",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "faction2",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "F1toF2Flag (int)",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "F2toF1Flag (int)",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15616,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets the combat reaction between two factions to enemy/neutral status. Unlike SetEnemy, isn't savebaked"
+  },
+  {
+    "name": "TopicInfoGetResponseStrings",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15617,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TopicInfoSetResponseStrings_OLD",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15618,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "TopicInfoSetNthResponseString",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15619,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetItemCanHaveHealth",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15620,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns 1 if the item form can be given health data, 0 otherwise"
+  },
+  {
+    "name": "SayTo_GetSpeakingActor",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15621,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SayTo_GetTopic",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15622,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SayTo_GetTopicInfo",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15623,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SayTo_GetQuest",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15624,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "FormListRemoveForm",
+    "alias": "RemoveFormFromFormList",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "form list",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15625,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetZoneRespawns",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15626,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns if an Encounter Zone has the NoRespawn flag set or not"
+  },
+  {
+    "name": "ClearCinematicTextQueue",
+    "alias": "ClearQuestMessageQueue",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15627,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCellEncounterZone",
+    "alias": "GetCellZone",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 15628,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowPauseMenu",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15629,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveFormFromLeveledList",
+    "alias": "SorryYoureNotOnTheListAnymore",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15630,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeaponFlag",
+    "alias": "SetWeaponHasFlag",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ObjectID",
+        "name": "object",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15631,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetOwnershipTemp",
+    "alias": "ImGoingToBorrowThis",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15632,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "A mix of SetOwnership and SetCellOwnership, but non-savebaked"
+  },
+  {
+    "name": "IsActorAlt",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15633,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Same as IsActor but accepts an optional baseform"
+  },
+  {
+    "name": "ApplyEasing",
+    "alias": "Ease",
+    "params": [
+      {
+        "type": "Double",
+        "name": "double",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15634,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Applies the chosen easing function to a progress value (situtated between 0 and 1)"
+  },
+  {
+    "name": "Matrix_IsMatrix_OLD",
+    "alias": "Mat_IsMat_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15635,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Matrix3x3_GetQuaternion_OLD",
+    "alias": "Mat_GetQuat_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15636,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Quaternion_GetMatrix_OLD",
+    "alias": "Quat_GetMat_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15637,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Matrix_Transpose_OLD",
+    "alias": "Mat_T_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15638,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Matrix_Dump_OLD",
+    "alias": "Mat_Dump_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15639,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Matrix_ApplyOperationWithScalar_OLD",
+    "alias": "Mat_ApplyOpWithScal_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Double",
+        "name": "double",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15640,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "Matrix_ApplyOperationWithMatrix_OLD",
+    "alias": "Mat_ApplyOpWithMat_OLD",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15641,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "ReadFromJSONFile",
+    "alias": "ReadFromJSON",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "Number",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Bool",
+        "name": "bool",
+        "optional": true
+      }
+    ],
+    "retType": "Ambiguous",
+    "opcode": 15642,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "WriteToJSONFile",
+    "alias": "WriteToJSON",
+    "params": [
+      {
+        "type": "AnyType",
+        "name": "elem",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "Number",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Bool",
+        "name": "bool",
+        "optional": true
+      },
+      {
+        "type": "Bool",
+        "name": "bool",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15643,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ListAddArray",
+    "alias": "AddArrayToFormList",
+    "params": [
+      {
+        "type": "Form",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "Number",
+        "name": "index",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15644,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Matrix_IsMatrix",
+    "alias": "Mat_IsMat",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15645,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Checks if an array is convertible to a matrix"
+  },
+  {
+    "name": "Matrix3x3_GetQuaternion",
+    "alias": "Mat_GetQuat",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15646,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns a quaternion from a 3x3 matrix"
+  },
+  {
+    "name": "Quaternion_GetMatrix",
+    "alias": "Quat_GetMat",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15647,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns a 3x3 rotation matrix from a quaternion array"
+  },
+  {
+    "name": "Matrix_Transpose",
+    "alias": "Mat_T",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15648,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns the transpose of the array matrix"
+  },
+  {
+    "name": "Matrix_Dump",
+    "alias": "Mat_Dump",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15649,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Dumps the matrix array in console, in matrix notation"
+  },
+  {
+    "name": "Matrix_ApplyOperationWithScalar",
+    "alias": "Mat_ApplyOpWithScal",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Number",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15650,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns the matrix affected by an operation by a scalar"
+  },
+  {
+    "name": "Matrix_ApplyOperationWithMatrix",
+    "alias": "Mat_ApplyOpWithMat",
+    "params": [
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15651,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns the matrix operation result between two matrix arrays"
+  },
+  {
+    "name": "TopicInfoSetResponseStrings",
+    "params": [
+      {
+        "type": "Form",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Array",
+        "name": "array",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15652,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCalculatedItemValue",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "Object",
+        "name": "target item",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15653,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Returns the item's value, affected by condition and any attached weapon mods (and extra)"
+  },
+  {
+    "name": "SetINIValue_Cached",
+    "alias": "SetINIValC",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "StringOrNumber",
+        "name": "float or string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15654,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetINIFloatOrCreate_Cached",
+    "alias": "GetINIFltOrCreateC",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "Number",
+        "name": "float",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15655,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetINIStringOrCreate_Cached",
+    "alias": "GetINIStrOrCreateC",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 15656,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetINIFloatOrDefault_Cached",
+    "alias": "GetINIFloat_Cached",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "Number",
+        "name": "float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15657,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetINIStringOrDefault_Cached",
+    "alias": "GetINIString_Cached",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 15658,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "HasINISetting_Cached",
+    "alias": "HasINISettingC",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15659,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearFileCacheShowOff",
+    "alias": "CloseFileSO",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Number",
+        "name": "num",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15660,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SaveCachedIniFile",
+    "alias": "SaveCachedIni",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15661,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ReloadIniCache",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15662,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ResetInteriorAlt",
+    "alias": "IWantThisRoomCleanRightNow",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "cell",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15663,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetEnableParent",
+    "alias": "SetParentRef",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15664,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquippedWeapon",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15665,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquippedWeaponRef",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15666,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetCalculatedAPCost",
+    "alias": "GetCalculatedWeaponAttackAPCost",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15667,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPosArray",
+    "params": [],
+    "retType": "Array",
+    "opcode": 15668,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Returns an array of the 3 axis positions of a reference"
+  },
+  {
+    "name": "GetCompassTargets",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 15669,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLiveEffectMagnitudeModifier",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15670,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsOutsideMainThread",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15671,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLiveEffectBaseTrait",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15672,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorValueName",
+    "alias": "GetAVName",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "actor value",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 15673,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetINIInteger_Cached",
+    "alias": "SetINIIntC",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Number",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15674,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetAddedItemRefShowOff",
+    "alias": "GetAddedItemRefSO",
+    "params": [],
+    "retType": "Form",
+    "opcode": 15675,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIsPlayerOverencumbered",
+    "alias": "IsPCOverencumbered",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 15676,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "An alternative to SUP's IsPlayerOverencumbered"
+  },
+  {
+    "name": "RefillPlayerAmmo",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15677,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AuxTimerStart",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Double",
+        "name": "double",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15678,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Starts an auxvar timer on a form, or can restart it if exists already"
+  },
+  {
+    "name": "AuxTimerStop",
+    "alias": "AuxTimerErase",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15679,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Stops/erases an auxvar timer on a form"
+  },
+  {
+    "name": "AuxTimerPaused",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15680,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets/Sets if an auxvar timer is paused"
+  },
+  {
+    "name": "AuxTimerTimeElapsed",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15681,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets how much time passed since timer started (limited by the original countdown time)"
+  },
+  {
+    "name": "AuxTimerTimeToCountdown",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15682,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets the original countdown time"
+  },
+  {
+    "name": "AuxTimerTimeLeft",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15683,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets the time left for the countdown, -1 if it does not exist"
+  },
+  {
+    "name": "SetOnAuxTimerStartHandler",
+    "alias": "SetOnTimerStartHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "script",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15684,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetOnAuxTimerStopHandler",
+    "alias": "SetOnTimerStopHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "script",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15685,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearShowoffSavedData",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15686,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetAmmoName",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15687,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetAmmoName",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 15688,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "KillAllHostiles",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "actor reference",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15689,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsAiming",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15690,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsBlockingOrAiming",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15691,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetOnAuxTimerUpdateHandler",
+    "alias": "SetOnTimerUpdateHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "script",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15692,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetItemHotkeyIconPath",
+    "params": [
+      {
+        "type": "Form",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15693,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetItemHotkeyIconPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 15694,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetExplosionHitDamage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 15695,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetExplosionHitDamage",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15696,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsJumping",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 15697,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "FreezeAmmoRegen",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15698,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCalculatedActorSpread",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 15699,
+    "isCondFunc": false,
+    "reqRef": true
+  }
+]

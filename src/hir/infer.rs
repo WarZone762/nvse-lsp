@@ -3,6 +3,7 @@ use itertools::Itertools;
 use la_arena::{Arena, Idx};
 
 use super::*;
+use crate::game_data::{Form, FormType, GlobalsDatabaseId};
 
 pub(crate) fn infer(db: &mut Database, file_id: FileId) -> TypeVarStore {
     let ctx = InferCtx::new(db, file_id);
@@ -25,6 +26,12 @@ impl<'a> InferCtx<'a> {
     }
 
     fn script(&self, store: &mut TypeVarStore, node: &Script) {
+        if let Some(name) = node.name {
+            let tv = store.type_var();
+            store
+                .concrete_type(tv, InferredType::concrete(Type::Form(Form::Other(FormType::SCPT))));
+            store.name_map.insert(name, tv);
+        }
         for item in &node.items {
             self.item(store, *item);
         }
@@ -248,11 +255,21 @@ impl<'a> InferCtx<'a> {
                     tv
                 })
             }
-            _ => store.globals_map.get(&name_ref.name).copied().unwrap_or_else(|| {
-                let tv = store.type_var();
-                store.globals_map.insert(name_ref.name.clone(), tv);
-                tv
-            }),
+            Some(Symbol::Global(gdb, _)) => {
+                store.globals_map.get(&name_ref.name).copied().map(|x| x.0).unwrap_or_else(|| {
+                    let tv = store.type_var();
+                    store.globals_map.insert(name_ref.name.clone(), (tv, *gdb));
+                    tv
+                })
+            }
+            None => {
+                store.globals_map.get(&name_ref.name).copied().map(|x| x.0).unwrap_or_else(|| {
+                    let tv = store.type_var();
+                    let gdb = self.db.globals_db("Scriptrunner").unwrap();
+                    store.globals_map.insert(name_ref.name.clone(), (tv, gdb));
+                    tv
+                })
+            }
         }
     }
 }
@@ -262,7 +279,7 @@ pub(crate) struct TypeVarStore {
     type_vars: Arena<Vec<Idx<Constraint>>>,
     expr_map: HashMap<ExprId, TypeVar>,
     name_map: HashMap<NameId, TypeVar>,
-    globals_map: HashMap<String, TypeVar>,
+    globals_map: HashMap<String, (TypeVar, GlobalsDatabaseId)>,
     constraints: Arena<Constraint>,
 }
 
@@ -428,10 +445,17 @@ impl TypeVarStore {
             }
         }
 
-        for (k, v) in self.globals_map {
-            let ty =
+        for (k, (v, gdb)) in self.globals_map {
+            let mut ty =
                 type_map.get(&v).cloned().unwrap_or_else(|| InferredType::concrete(Type::Var(v)));
-            db.globals.insert(k, Symbol::Global(ty.clone()));
+            if let Some(old_ty) = db[gdb].globals.get_mut(&k) {
+                if let Err(x) = old_ty.union(&mut ty, &mut constraint_map) {
+                    println!("{x}")
+                }
+            } else {
+                db[gdb].add_global(k.clone(), ty);
+            }
+            db.globals.insert(k.clone(), Symbol::Global(gdb, k));
         }
 
         db.name_type_maps.insert(file_id.0, HashMap::new());

@@ -1,0 +1,91 @@
+[
+  {
+    "name": "GetMoveFlags",
+    "params": [],
+    "retType": "Float",
+    "opcode": 8498,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetSneaking",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8499,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "OverridePlayerMovementAnimMult",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8500,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetControllerRunThreshold",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8501,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetSmoothIronsightsValue",
+    "alias": "GSIV",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "mode",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "tolerp",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8502,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetSmoothIronsightsValue",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "mode",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8503,
+    "isCondFunc": false,
+    "reqRef": false
+  }
+]

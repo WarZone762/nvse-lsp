@@ -1,15 +1,20 @@
-use std::{collections::HashMap, rc::Rc};
+use std::{
+    collections::HashMap,
+    ops::{Index, IndexMut},
+    rc::Rc,
+};
 
 use la_arena::{Arena, ArenaMap, Idx, RawIdx};
 use tower_lsp::lsp_types::{TextDocumentItem, Url};
 mod script;
 
 pub(crate) use script::*;
-use ty::{InferredType, Symbol};
+use ty::{InferredType, Symbol, Type};
 
 use crate::{
     ast::{self, AstNode},
     doc::{Doc, DocMeta},
+    game_data::{FnData, FormData, GlobalsDatabase, GlobalsDatabaseId},
     hir::*,
     syntax_node::Node,
     tree_builder::parse_str,
@@ -19,11 +24,16 @@ use crate::{
 pub(crate) struct Database {
     pub doc_metas: Arena<DocMeta>,
     pub text_map: ArenaMap<Idx<DocMeta>, Box<str>>,
+
     pub hir_map: ArenaMap<Idx<DocMeta>, Script>,
     pub script_db_map: ArenaMap<Idx<DocMeta>, ScriptDatabase>,
+
     pub type_maps: ArenaMap<Idx<DocMeta>, HashMap<ExprId, InferredType>>,
     pub name_type_maps: ArenaMap<Idx<DocMeta>, HashMap<NameId, InferredType>>,
+
     pub globals: HashMap<String, Symbol>,
+    pub globals_dbs: Arena<GlobalsDatabase>,
+    pub globals_db_name_map: HashMap<String, GlobalsDatabaseId>,
 }
 
 unsafe impl Send for Database {}
@@ -31,7 +41,7 @@ unsafe impl Sync for Database {}
 
 impl Database {
     pub fn new() -> Self {
-        Self {
+        let mut this = Self {
             doc_metas: Arena::new(),
             text_map: ArenaMap::new(),
             hir_map: ArenaMap::new(),
@@ -39,7 +49,13 @@ impl Database {
             type_maps: ArenaMap::new(),
             name_type_maps: ArenaMap::new(),
             globals: HashMap::new(),
-        }
+            globals_dbs: Arena::new(),
+            globals_db_name_map: HashMap::new(),
+        };
+
+        this.add_globals_db("Scriptrunner");
+
+        this
     }
 
     pub fn script_to_hir(&self, file_id: FileId, node: &ast::Script) -> Option<FileId> {
@@ -126,6 +142,66 @@ impl Database {
             .or_else(|| self.globals.get(&name_ref.name))
     }
 
+    pub fn load_json(&mut self) {
+        macro_rules! load {
+            ($name:literal) => {
+                let data = include_str!(concat!("../resources/forms/", $name, ".json"));
+                let forms = serde_json::from_str::<Vec<FormData>>(data).unwrap();
+
+                let db = self.add_globals_db($name);
+                for f in forms {
+                    let edid = f.edid.clone();
+                    self[db].add_global(edid.clone(), InferredType::concrete(Type::Form(f.into())));
+                    self.globals.insert(edid.clone(), Symbol::Global(db, edid));
+                }
+            };
+        }
+
+        load!("FalloutNV.esm");
+        load!("DeadMoney.esm");
+        load!("HonestHearts.esm");
+        load!("OldWorldBlues.esm");
+        load!("LonesomeRoad.esm");
+        load!("GunRunnersArsenal.esm");
+        load!("CaravanPack.esm");
+        load!("ClassicPack.esm");
+        load!("MercenaryPack.esm");
+        load!("TribalPack.esm");
+
+        load!("Fallout3.esm");
+        load!("Anchorage.esm");
+        load!("ThePitt.esm");
+        load!("BrokenSteel.esm");
+        load!("PointLookout.esm");
+        load!("Zeta.esm");
+        load!("TaleOfTwoWastelands.esm");
+        load!("YUPTTW.esm");
+
+        macro_rules! load_fns {
+            ($name:literal) => {
+                let data = include_str!(concat!("../resources/functions/", $name, ".json"));
+                let forms = serde_json::from_str::<Vec<FnData>>(data).unwrap();
+
+                let db = self.add_globals_db($name);
+                for f in forms {
+                    let name = f.name.clone();
+                    self[db].add_global(name.clone(), f.into());
+                    self.globals.insert(name.clone(), Symbol::Global(db, name));
+                }
+            };
+        }
+
+        load_fns!("Base game");
+        load_fns!("JIP LN NVSE");
+        load_fns!("JohnnyGuitarNVSE");
+        load_fns!("kNVSE");
+        load_fns!("lStewieAl's Tweaks");
+        load_fns!("MCM Extensions");
+        load_fns!("NVSE");
+        load_fns!("ShowOffNVSE Plugin");
+        load_fns!("ttw_nvse");
+    }
+
     pub fn add_doc(&mut self, doc: TextDocumentItem) -> Doc {
         if let Some(old_doc) = self.doc(&doc.uri) {
             self.update_doc_text(*old_doc, doc.text);
@@ -142,6 +218,16 @@ impl Database {
         Doc(id)
     }
 
+    pub fn add_globals_db(&mut self, name: &str) -> GlobalsDatabaseId {
+        let db = GlobalsDatabaseId(self.globals_dbs.alloc(GlobalsDatabase::new(name.into())));
+        self.globals_db_name_map.insert(name.into(), db);
+        db
+    }
+
+    pub fn globals_db(&self, name: &str) -> Option<GlobalsDatabaseId> {
+        self.globals_db_name_map.get(name).copied()
+    }
+
     pub fn update_doc_text(&mut self, file_id: FileId, new_text: String) {
         let (root, diagnostics) = parse_str(&new_text);
         self.doc_metas[file_id.0].diagnostics = diagnostics;
@@ -151,6 +237,10 @@ impl Database {
     }
 
     pub fn analyze_workspace(&mut self) -> impl Iterator<Item = Doc> {
+        let gdb = self.globals_db("Scriptrunner").unwrap();
+        for (k, _) in self.globals_dbs[gdb.0].globals.drain() {
+            self.globals.remove(&k);
+        }
         (0..self.doc_metas.len()).map(|id| {
             let id = Idx::from_raw(RawIdx::from_u32(id as u32));
             if self.doc_metas[id].modified {
@@ -164,6 +254,20 @@ impl Database {
 
     pub fn doc(&self, uri: &Url) -> Option<Doc> {
         Some(Doc(self.doc_metas.iter().find(|(_, x)| x.uri == *uri)?.0.into()))
+    }
+}
+
+impl Index<GlobalsDatabaseId> for Database {
+    type Output = GlobalsDatabase;
+
+    fn index(&self, index: GlobalsDatabaseId) -> &Self::Output {
+        &self.globals_dbs[index.0]
+    }
+}
+
+impl IndexMut<GlobalsDatabaseId> for Database {
+    fn index_mut(&mut self, index: GlobalsDatabaseId) -> &mut Self::Output {
+        &mut self.globals_dbs[index.0]
     }
 }
 

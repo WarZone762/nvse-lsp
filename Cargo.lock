@@ -401,6 +401,7 @@ dependencies = [
  "la-arena",
  "lsp-types 0.96.0",
  "serde",
+ "serde_json",
  "similar-asserts",
  "tokio",
  "tower-lsp",

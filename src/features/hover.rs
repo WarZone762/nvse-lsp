@@ -11,13 +11,19 @@ impl Doc {
     pub fn hover(&self, db: &Database, pos: Position) -> Option<Hover> {
         let token = self.hir(db).node.syntax().token_at_offset(self.offset_at(db, pos))?;
         let node = db.syntax_to_hir(**self, token.parent()?)?;
-        let script_db = self.script_db(db);
 
         let string = match self.resolve(db, node)? {
-            Symbol::Local(file_id, x) => {
-                x.type_(db, file_id).narrowest.to_string_with_name(&x.lookup(script_db).name, 0)
-            }
-            Symbol::Global(x) => x.narrowest.to_string_with_name(token.text(self.text(db)), 0),
+            Symbol::Local(file_id, x) => x
+                .type_(db, file_id)
+                .narrowest
+                .to_string_with_name(&x.lookup(file_id.script_db(db)).name, 0),
+            Symbol::Global(gdb, name) => gdb
+                .lookup(db)
+                .globals
+                .get(&name)
+                .unwrap()
+                .narrowest
+                .to_string_with_name(token.text(self.text(db)), 0),
         };
 
         Some(Hover {

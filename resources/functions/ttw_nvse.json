@@ -1,0 +1,90 @@
+[
+  {
+    "name": "TTW_ShowGeneProjector",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14336,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "EmptyCommand",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14337,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "EmptyCommand",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14338,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "EmptyCommand",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14339,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "EmptyCommand",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14340,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "|DEPRECATED|"
+  },
+  {
+    "name": "TTW_CRC32",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14341,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TTW_GetPlugins",
+    "params": [],
+    "retType": "Array",
+    "opcode": 14342,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TTW_GetEquippedWeaponSkill",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14343,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "TTW_EnableRadioFix",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14344,
+    "isCondFunc": false,
+    "reqRef": false
+  }
+]

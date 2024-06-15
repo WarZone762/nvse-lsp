@@ -1,0 +1,31 @@
+[
+  {
+    "type": "QUST",
+    "edid": "VPreorderCaravan",
+    "script": "VPreorderCaravanSCRIPT"
+  },
+  {
+    "edid": "PreorderMessageInventoryCaravan",
+    "type": "MESG"
+  },
+  {
+    "edid": "WeapPreordCaravanShotgun",
+    "type": "WEAP"
+  },
+  {
+    "edid": "1stPreordCaravanShotgun",
+    "type": "STAT"
+  },
+  {
+    "edid": "PreordArmorLeather",
+    "type": "ARMO"
+  },
+  {
+    "edid": "VPreorderCaravanSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "1stPreordCaravanShotgunTexture",
+    "type": "TXST"
+  }
+]

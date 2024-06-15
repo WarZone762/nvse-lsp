@@ -246,7 +246,7 @@ impl Print for ExprStmt {
 impl Print for ExprId {
     fn print(&self, p: &mut Printer<'_>) {
         p.push("(");
-        self.type_(p.db, p.file_id);
+        self.type_(p.db, p.file_id).print(p);
         p.push(")");
         p.push("(");
         match self.lookup(p.script_db) {
@@ -474,7 +474,7 @@ impl Print for SymbolTable {
             p.push(": ");
             match v {
                 Symbol::Local(_, x) => x.type_(p.db, p.file_id).print(p),
-                Symbol::Global(x) => x.print(p),
+                Symbol::Global(gdb, name) => gdb.lookup(p.db).globals.get(name).unwrap().print(p),
             }
             p.push(",\n");
         }

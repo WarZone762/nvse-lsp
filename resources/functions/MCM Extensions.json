@@ -1,0 +1,449 @@
+[
+  {
+    "name": "GetModINISetting",
+    "alias": "GetModINI",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8640,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets INI setting"
+  },
+  {
+    "name": "SetModINISetting",
+    "alias": "SetModINI",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8641,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets INI setting"
+  },
+  {
+    "name": "GetMCMFloat",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Child",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Grandchild",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Setting",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8642,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets MCM float value"
+  },
+  {
+    "name": "SetMCMFloat",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Child",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Grandchild",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Setting",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Value",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8643,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets MCM float value"
+  },
+  {
+    "name": "SetMCMString",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Child",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Grandchild",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Setting",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "format string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8644,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets MCM string value"
+  },
+  {
+    "name": "SetMCMFloatMass",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Child",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Min",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Setting",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Value",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8645,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets multiple MCM float values"
+  },
+  {
+    "name": "SetMCMStringMass",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Child",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Min",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Setting",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "format string",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "variable",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8646,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets multiple MCM string values"
+  },
+  {
+    "name": "SetMCMModList",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Mod Number",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Enable",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Index",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Index2",
+        "optional": true
+      },
+      {
+        "type": "Object",
+        "name": "Name Ref",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8647,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets ModList info"
+  },
+  {
+    "name": "GetMCMListWidth",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 8648,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Gets ModList width"
+  }
+]

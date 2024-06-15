@@ -1,0 +1,23 @@
+[
+  {
+    "type": "QUST",
+    "edid": "VPreorderTribal",
+    "script": "VPreorderTribalSCRIPT"
+  },
+  {
+    "edid": "PreorderMessageInventoryTribal",
+    "type": "MESG"
+  },
+  {
+    "edid": "WeapPreordMachete",
+    "type": "WEAP"
+  },
+  {
+    "edid": "PreordArmorTribalRaiding",
+    "type": "ARMO"
+  },
+  {
+    "edid": "VPreorderTribalSCRIPT",
+    "type": "SCPT"
+  }
+]

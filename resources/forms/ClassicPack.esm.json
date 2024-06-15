@@ -1,0 +1,80 @@
+[
+  {
+    "type": "QUST",
+    "edid": "VPreorderClassic",
+    "script": "VPreorderClassicSCRIPT"
+  },
+  {
+    "type": "QUST",
+    "edid": "PreordVault13CanteenQuest",
+    "script": "PreordVault13CanteenScript"
+  },
+  {
+    "edid": "PreordVault13Canteen",
+    "type": "MESG"
+  },
+  {
+    "edid": "PreorderMessageInventoryClassic",
+    "type": "MESG"
+  },
+  {
+    "edid": "WeapPreord10mmPistol",
+    "type": "WEAP"
+  },
+  {
+    "edid": "1stPreord10mmPistolAllMods",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolExtendedMag",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolExtendedMagLaserSight",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolLaserSight",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolSilenced",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolSilencedExtendedMag",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmPistolSilencedLaserSight",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPreord10mmpistolTexture",
+    "type": "STAT"
+  },
+  {
+    "edid": "PreordVaultCanteen",
+    "type": "MISC"
+  },
+  {
+    "edid": "PreordArmorVault13Armored",
+    "type": "ARMO"
+  },
+  {
+    "edid": "PreordVault13CanteenHeal",
+    "type": "SPEL"
+  },
+  {
+    "edid": "VPreorderClassicSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "PreordVault13CanteenScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "1stPreord10mmPistol",
+    "type": "TXST"
+  }
+]

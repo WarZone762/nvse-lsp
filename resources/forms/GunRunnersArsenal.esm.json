@@ -1,0 +1,2711 @@
+[
+  {
+    "type": "QUST",
+    "edid": "NVDLC05MQ00",
+    "script": "NVDLC05MQ00SCRIPT"
+  },
+  {
+    "edid": "TestMentats",
+    "type": "CELL"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueVanGraffsREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueMickAndRalphREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueGunRunnersREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueCliffBriscoeREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueBrotherhoodREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerVanGraffsREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerMickAndRalphREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerLaceyREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerJohnsonNashREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerGunRunnersREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerDaleBartonREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerCliffBriscoeREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerChetREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerBrotherhoodREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainerBoomersREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainer188NCRREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorContainer188AlexanderREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVDLC05VendorChestsCell",
+    "type": "CELL"
+  },
+  {
+    "edid": "VendorContainerAlexanderREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "VendortronContainerREF",
+    "type": "REFR"
+  },
+  {
+    "edid": "NVVendorChestsCell",
+    "type": "CELL"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectFlechetteDTReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMagnumDTReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMagnumDamageBonus",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMagnumConditionPenalty",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMatchDamageBonus",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMatchSpreadReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectJSPConditionPenalty",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectJSPDamageBonus",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectJHPDamageBonus",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectJHPDTPenalty",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectOptimizedConditionPenalty",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectOptimizedDamageBonus",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectOptimizedDTBypass",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectJSPDTReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectFatMansTinyTotsSpreadIncrease",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectMissileHiveSpreadIncrease",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectFlechetteDAMReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectDragonsBreathDAMReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05AmmoEffectPulseSlugDAMReduction",
+    "type": "AMEF"
+  },
+  {
+    "edid": "NVDLC05ChallengeMasterOfTheArsenal",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeNyahSee",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeHistoricalPropriety",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeDeathclawProHunter",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeTalkAboutOwned",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeWhiteLineNightmare",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeOverkill",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeYouDontBelong",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeNeNeNeNe",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeCuriosAndRelics",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeAgainstAllTyrants",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeArmedForBear",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeASlaveObeys",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeTheSameCouldBeSaid",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeCrackerjackTiming",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeManMachineInterface",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeVault13sRevenge",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeBenefitOrAHazard",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeSicSemperTyrannis",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeEvenAGodKingCanBleed",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05ChallengeDyinAintMuchOfALiving",
+    "type": "CHAL"
+  },
+  {
+    "edid": "NVDLC05RecipeElectronChargePackOptimized",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeMicroFusionCellOptimized",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeSmallEnergyCellOptimized",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeFlamerFuelOptimized",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe556mmHandLoad",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe9mmHandLoad",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe5mmHandLoad",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeFatMine",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeMFCGrenade",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeMFCCluster",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeNukaGrenade",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeTimeBombHighYield",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipePowderChargeEfficient",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeBottlecapMineEfficient",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05RecipeTinGrenade",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe20Ga30BuckMagnum",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe12Ga40BuckMagnum",
+    "type": "RCPE"
+  },
+  {
+    "edid": "NVDLC05Recipe127mmHandLoad",
+    "type": "RCPE"
+  },
+  {
+    "edid": "ModTestSuppress",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVTriBeamLaserRifleHighCapTerminal",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVTriBeamLaserRifleHDCapacitors",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVTriBeamLaserRifleFocusOptics",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVRipperHeavyDutyChain",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVRipperCarbideTeeth",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPowerFistPortedChambers",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPowerFistHighCapValves",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPowerFistChromedTubes",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaPistolRecycler",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaPistolMagneticAccelerator",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaPistolHighEnergyIonizer",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaDefenderSheathStabilizer",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaDefenderScope",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVPlasmaDefenderHighCapTerminal",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVLaserPistolRecycler",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVLaserPistolFocusOptics",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVLaserPistolCombatSights",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVKatanaProtectiveSheath",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVKatanaBalancedGrip",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVKatanaAuthenticBlade",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVHuntingRevolverSixShotCylinder",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVHuntingRevolverMatchBarrel",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVChainsawHeavyDutyChain",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVChainsawCarbideTeeth",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVChainsawAlloyFrame",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVBaseballBatNails",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVBaseballBatMapleBody",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVBaseballBatCorkCore",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAssaultCarbineLightBolt",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAssaultCarbineForgedReceiver",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAssaultCarbineExtendedMags",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAntiMaterielRifleSuppressor",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAntiMaterielRifleCustomBolt",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNVAntiMaterielRifleCarbonFiberParts",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV25mmGrenadeAPWUpgradedInternals",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV25mmGrenadeAPWLongBarrel",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV25mmGrenadeAPWExpandedDrum",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV127mmSMGSuppressor",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV127mmSMGStackedMagazine",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05ModNV127mmSMGLaserSight",
+    "type": "IMOD"
+  },
+  {
+    "edid": "NVDLC05LoadMessage02",
+    "type": "MESG"
+  },
+  {
+    "edid": "NVDLC05LoadMessage01",
+    "type": "MESG"
+  },
+  {
+    "edid": "NVDLC05ARMAMantisKing",
+    "type": "ARMA"
+  },
+  {
+    "edid": "ARMABallisticFistUnique",
+    "type": "ARMA"
+  },
+  {
+    "edid": "ARMANVDLC05GreasePowerfist",
+    "type": "ARMA"
+  },
+  {
+    "edid": "MPSNVDLC05FlamerFlame01",
+    "type": "ADDN"
+  },
+  {
+    "edid": "NVDLC05MadBomber",
+    "type": "PERK"
+  },
+  {
+    "edid": "NVDLC05AmmoListFatMan",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05RepairPlasmaDefenderCustom",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05RepairKatana",
+    "type": "FLST"
+  },
+  {
+    "edid": "WeaponNVDLC05GreasePowerfist",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeDyinAintMuchOfALivingEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeEvenAGodKingCanBleedWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeBenefitOrAHazardWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeVault13sRevengeWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeManMachineInterfaceWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeManMachineInterfaceEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeCrackerjackTimingWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeCrackerjackTimingEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeTheSameCouldBeSaidWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeASlaveObeysWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeAgainstAllTyrantsWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeArmedForBearWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeArmedForBearEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeAgainstAllTyrantsEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeCuriosAndRelicsWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeYouDontBelongWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeNyahSeeFamiliesList",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeOverkillWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeDeathclawProHunterWeaponList",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeDeathclawProHunterEnemies",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeTalkAboutOwnedMaria",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeTalkAboutOwnedBennys",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeWhiteLineNightmareRaiders",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeWhiteLineNightmareWeapons",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeHistoricalProprietyList",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05ChallengeMasterOfTheArsenalWeaponsList",
+    "type": "FLST"
+  },
+  {
+    "edid": "WeaponNVDLC05BallisticFistUnique",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05WeaponMantisKingGauntletList",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoListFlamerFuel",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList127mm",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoListElectronChargePack",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoListMicroFusionCell",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoListSmallEnergyCell",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList40mmGrenade",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList25mmGrenade",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoListMissile",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList5mm",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList556mm",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList50MG",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList9mm",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList12Ga",
+    "type": "FLST"
+  },
+  {
+    "edid": "AmmoList20Ga",
+    "type": "FLST"
+  },
+  {
+    "edid": "WeaponPowerfist",
+    "type": "FLST"
+  },
+  {
+    "edid": "NVDLC05FatMineExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC0525mmGrenadeExplosionPlasma",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC0540mmGrenadeExplosionPlasma",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC0540mmGrenadeExplosionPulse",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC0525mmGrenadeExplosionPulse",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC0550MGExplosiveExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05FatManBigKidExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05FatManLowYieldExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05MissileExplosionHive",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05GrenadeTinExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "GrenadeNukaFireBurst",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05FatManTinyTotsExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05TwoStepGoodbyeExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05MineMFCGrenaderExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05MineMFCClusterExplosion2",
+    "type": "EXPL"
+  },
+  {
+    "edid": "NVDLC05TimeBombHighYieldExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "TimeBombExplosion",
+    "type": "EXPL"
+  },
+  {
+    "edid": "VFreeformNellisTopic003",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VDialogueHiddenValleyHVTorresTopic000",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VFreeformFreesideVFSMickTopic020",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VFreeformFreesideVFSMickTopic008",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VFreeformFreesideVFSGloriaVanGraffTopic000",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VFreeformFreesideVFSRalphTopic000",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VFreeformFreesideVFSMickTopic000",
+    "type": "DIAL"
+  },
+  {
+    "edid": "VDialogueEastVegas1EGunRunnerProtectronTopic001",
+    "type": "DIAL"
+  },
+  {
+    "edid": "188AlexanderSeeInventory",
+    "type": "DIAL"
+  },
+  {
+    "edid": "CliffBriscoeOpenStore",
+    "type": "DIAL"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomCliffBriscoe66",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomCliffBriscoeB66",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMain33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo188GR",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallA",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallB",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallC",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapList188GR",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWExpandedDrum50A",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWLongBarrel50A",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWUpgradedInternals50A",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMain",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomAltEnergy",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomAlt",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModEnergyPistols66Chet",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModEnergyBriscoe66",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomDaleBartonA",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomDaleBarton50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomJohnsonNash50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomJohnsonNashA",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomLacey75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomLaceyA",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMickAndRalphA",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMickAndRalph75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomRare",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomAltSmallC33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomAltSmallB33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomAltSmallA33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallA33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallB33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandomMainSmallC33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoFatMansTinyTots50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansTinyTots75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListGunRunners",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListMickAndRalph",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListCliffBriscoe",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListVanGraffs",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListDaleBarton75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListBoomers",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListChet",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapListLacey",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapList188NCR",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModTriBeamLaserRifleHighCapTerminal33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModTriBeamLaserRifleHDCapacitors33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModTriBeamLaserRifleFocusOptics33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModRipperHeavyDutyChain33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModRipperCarbideTeeth33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPowerFistPortedChambers33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPowerFistHighCapValves33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPowerFistChromedTubes33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaPistolRecycler33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaPistolMagneticAccelerator33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaPistolHighEnergyIonizer33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaDefenderSheathStabilizer33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaDefenderScope33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModPlasmaDefenderHighCapTerminal33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModLaserPistolRecycler33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModLaserPistolFocusOptics33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModLaserPistolCombatSights33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModKatanaProtectiveSheath33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModKatanaBalancedGrip33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModKatanaAuthenticBlade33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModHuntingRevolverSixShotCylinder33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModHuntingRevolverMatchBarrel33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModChainsawHeavyDutyChain33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModChainsawCarbideTeeth33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModChainsawAlloyFrame33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModBaseballBatNails33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModBaseballBatMapleBody33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModBaseballBatCorkCore33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAssaultCarbineLightBolt33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAssaultCarbineForgedReceiver33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAssaultCarbineExtendedMags33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAntiMaterielRifleSuppressor33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAntiMaterielRifleCustomBolt33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05ModAntiMaterielRifleCarbonFiberParts33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWUpgradedInternals33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWLongBarrel33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod25mmGrenadeAPWExpandedDrum33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod127mmSMGSuppressor33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod127mmSMGStackedMagazine33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Mod127mmSMGLaserSight33",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05WeapLaserPistolCustom50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05WeapPlasmaDefenderCustom50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05WeapTriBeamLaserRifleCustom50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05WeapPlasmaPistolCustom50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorModRandom",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorWeapRandom",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo25mmGrenadePulse50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo40mmGrenadePlasma50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoFatMansBigKid50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo20Ga30Buck50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo12Ga40Buck50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo12GaDragonsBreath50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo12GaFlechette50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo12GaPulseSlug50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo20GaPulseSlug50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo25mmGrenadePlasma50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo25mmGrenadeTimed50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo40mmGrenadePulse50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo50MGExplosive50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoFatMansLowYield50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoFatMansTimed50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoMissileHive50",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoRandom",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoBoomers",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoBrotherhood",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoJohnsonNash",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoChet",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoVanGraffs",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoLacey",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoCliffBriscoe",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoGunRunners",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmo188NCR",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05VendorAmmoMickAndRalph",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05AmmoMissileHive75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansTimed75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansLowYield75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansBigKid75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo50MGExplosive75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo40mmGrenadePulse75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo40mmGrenadePlasma75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadeTimed75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadePulse75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadePlasma75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo20GaPulseSlug75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo20Ga30Buck75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaPulseSlug75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaFlechette75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaDragonsBreath75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05Ammo12Ga40Buck75",
+    "type": "LVLI"
+  },
+  {
+    "edid": "NVDLC05GrenadeNukaProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05MFCGrenadeProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05CleansingFlameProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05FatMineProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05TinGrenadeProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05DragonsBreathBBProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0525mmGrenadeProjectilePlasma",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0540mmGrenadeProjectilePlasma",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0540mmGrenadeProjectilePulse",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0525mmGrenadeProjectilePulse",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0525mmGrenadeProjectileTimed",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05FatManProjectileTimed",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0550MGExplosivetProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05FatManBigKid",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05FatManLowYield",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05MissileProjectileHive",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0512GaPulseSlugProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0520GaPulseSlugProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC0512GaFlechetteProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05FatManTinyTots",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05MFCMineClusterProjectile2",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05TimeBombHighYieldProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "TimeBombProjectile",
+    "type": "PROJ"
+  },
+  {
+    "edid": "NVDLC05Ammo50MGExplosive",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo20GaPulseSlug",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaPulseSlug",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaFlechette",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo12GaDragonsBreath",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo20Ga30Buck",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo12Ga40Buck",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo12Ga40BuckMagnum",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo20Ga30BuckMagnum",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoMissileHive",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansLowYield",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansTimed",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansBigKid",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadeTimed",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadePulse",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo25mmGrenadePlasma",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo40mmGrenadePulse",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo40mmGrenadePlasma",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo556mmMatchHandLoad",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo9mmJHPHandLoad",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo5mmJSPHandLoad",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoSmallEnergyCellOptimized",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoMicroFusionCellOptimized",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoElectronChargePackOptimized",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoFlamerFuelOptimized",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05AmmoFatMansTinyTots",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05Ammo127mmJHPHandLoad",
+    "type": "AMMO"
+  },
+  {
+    "edid": "NVDLC05WeapFatmanCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "ModTest",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapMineMFCCluster",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapGrenadeMFC",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapRipperCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapPowerFistCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapPlasmaPistolCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVTriBeamLaserRifleCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVPlasmaDefenderCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVHuntingRevolverCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVChainsawCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVAssaultCarbineCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVAntiMaterielRifleCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNV127mmSubmachineGunCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapLaserPistolCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapBaseballBatCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05Weap25mmGrenadeAPWCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapGrenadeNuka",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapKatanaCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapMineFat",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapGrenadeTin",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNV556mmPistolCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVBattleRifleCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVTimeBombCustom",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapPowerFistUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapShishkebabUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVBrushGunUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05Weap10mmSubmachineGunUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapHuntingRifleUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapFlamerUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVPlasmaCasterUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVBallisticFistUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVMantisGauntletUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVRebarClubUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVLightMachineGunUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNV127mmPistolUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapFatmanUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapGatlingLaserUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "NVDLC05WeapNVRechargerPistolUnique",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVDLC05Faderator",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVChainsaw",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNV127mmSubmachineGun",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVRechargerRifle",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVTriBeamLaserRifle",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVAssaultCarbine",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVAntiMaterielRifle",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapNVHuntingRevolver",
+    "type": "WEAP"
+  },
+  {
+    "edid": "Weap10mmPistol",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapRipper",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapPowerFist",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapPlasmaPistol",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapGrenadeFrag",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapFatman",
+    "type": "WEAP"
+  },
+  {
+    "edid": "WeapBaseballBat",
+    "type": "WEAP"
+  },
+  {
+    "edid": "1stPersonNVDLC05Katana",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonHyperchargerPistol",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonFatmanUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonGatlingLaserUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmpistolUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod12",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod13",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonTriBeamLaserMod123",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod12",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod13",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmSMGMod123",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaAB",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaSheath",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaABSheath",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05NukaGrenade",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonThatGunUniquered",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonThisMachinenonunique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVHuntingRevolverCustomMod1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVHuntingRevolverCustomMod3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVHuntingRevolverCustomMod13",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderDoubleCell",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderSheath",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderScope",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderDoubleCellScope",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderDoubleCellSheath",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderScopeSheath",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderDCellSheathScope",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPerson25mmGrenadeAPWCustom",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPerson25mmGrenadeAPWCustom01",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPerson25mmGrenadeAPWCustom02",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPerson25mmGrenadeAPWCustom12",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05mfcMineCluster",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom12",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom13",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVChainsawCustom123",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05mfcGrenade",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAssualtCarbineReciever",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAssualtCarbineRecieverMags",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom12",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom13",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustom123",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonNVPlasmaCasterUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stpersonHuntingRifleUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPerson10mmSubmachineGunUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05UniqueBrushGun",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom1",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom2",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom3",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom12",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom13",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom123",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustom23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonMineMiniNuke",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod1",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod3",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod12",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod13",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod23",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleMod123",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05BallisticFistUnique",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05TinGrenade",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05RipperCustom1",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05RipperCustom12",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05RipperCustom2",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonAssualtCarbineMags",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05Focus",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05Recycler",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05RecyclerFocus",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05RecyclerOptics",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05FocusOptics",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05RecyclerOpticsFocus",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05Optics",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaBG",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaBGAB",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaSheathBG",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05KatanaSheathBGAB",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidChrome",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidValves",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidValvesChrome",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidChambersChrome",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidValvesChambers",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidValvesChambersChrome",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNVDLC05PowerFistRigidChambers",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonNvdlc05gehenna",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC051stPersonChainsawMain",
+    "type": "STAT"
+  },
+  {
+    "edid": "1stPersonPlasmadefenderNVDLC05",
+    "type": "STAT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueMickAndRalph",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerMickAndRalph",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerCliffBriscoe",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueCliffBriscoe",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerLacey",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainer188NCR",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerVanGraffs",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueVanGraffs",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerChet",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerJohnsonNash",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerDaleBarton",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerGunrunners",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerBoomers",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerBrotherhood",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueBrotherhood",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainerUniqueGunrunners",
+    "type": "CONT"
+  },
+  {
+    "edid": "VLootSackVendorWastelandT2Mojave",
+    "type": "CONT"
+  },
+  {
+    "edid": "VLootSackVendorWatelandT3RSAid",
+    "type": "CONT"
+  },
+  {
+    "edid": "VLootSackVendorWastelandT2RSPros",
+    "type": "CONT"
+  },
+  {
+    "edid": "VLootSackVendorWastelandT3RS",
+    "type": "CONT"
+  },
+  {
+    "edid": "VLootSackVendorWastelandT2RS",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05VendorContainer188GR",
+    "type": "CONT"
+  },
+  {
+    "edid": "NVDLC05EstherBonusActorEffect",
+    "type": "SPEL"
+  },
+  {
+    "edid": "NVDLC05TwoStepGoodbyeFXSpell",
+    "type": "SPEL"
+  },
+  {
+    "edid": "NVDLC05DragonsBreathActorEffect",
+    "type": "SPEL"
+  },
+  {
+    "edid": "NVDLC05DummyKatana",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05EnchCleansingFlameEffect",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05EMP40mm",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05EMP25mm",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummyEsther",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummyTwoStepGoodbye",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummyChainsaw",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummyPowerFistUnique",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummyNukaBreaker",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05EnchGehennaEffect",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05DummySleepytyme",
+    "type": "ENCH"
+  },
+  {
+    "edid": "NVDLC05GloriaVanGraffGRAContainerSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05DragonsBreathEffectScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05FlamerShaderEffectSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeYouDontBelongInThisWorldScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeWhiteLineNightmareScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeVault13sRevengeScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeTheSameCouldBeSaidOfAllReligiousWeaponsScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeTalkAboutOwnedScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeSicSemperTyrannisScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeOverkillScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeNeNeNeNeScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeManMachineInterfaceScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeCuriosAndRelicsScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeHistoricalProprietyScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeEvenAGodKingCanBleedScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeDyinAintMuchOfALivingScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeDeathclawProHunterScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeCrackerjackTimingScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeBenefitOrAHazardScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeASlaveObeysScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeArmedForBearScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeAgainstAllTyrantsScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeNyahSeeScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05TwoStepGoodbyeEffectSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05EstherWeaponSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05ChallengeMasterOfTheArsenalSCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05MQ00SCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05PulseSlugScript",
+    "type": "SCPT"
+  },
+  {
+    "edid": "NVDLC05DummyNVSilent",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05FlamerShaderEffect",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05DummyNVFasterAttack",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05DummyNVIgnoresDRDT",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05DummyNVTwoStepExplosion",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05DummyNVRedCriticalDamage",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05TwoStepGoodbyeEffect",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05EstherBaseEffectName",
+    "type": "MGEF"
+  },
+  {
+    "edid": "NVDLC05FXExplosionNukaGrenade",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05Wpn25mmGrenLauncher3d",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05Wpn25GrenLnchFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNRipperFireLPM",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WpnSleepytymeFire2d",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WpnSleepytymeFire3d",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNGatlingLaserFireLPM",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaCasterFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaRechargerFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaRechargerFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPistolLaserFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPistolLaserFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPistolPlasmaFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaDefenderFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaDefenderFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPistolPlasmaFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNPlasmaCasterFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNBozarFire2D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05WPNBozarFire3D",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05FXMissileHiveFlyBy",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05FXMissileTinyTot",
+    "type": "SOUN"
+  },
+  {
+    "edid": "NVDLC05VendortronFaction",
+    "type": "FACT"
+  },
+  {
+    "edid": "NVDLC05BoomerVendorFaction",
+    "type": "FACT"
+  },
+  {
+    "edid": "NVDLC051stHyperchargerPistol",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatana",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatanaAB",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatanaSheathAB",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatanaSheath",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05NukaGrenadeTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonThatGunUnique",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonThisMachineuniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPerson25mmGrenadeAPWCustomTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonnv127mmSubmachinegunTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonnv127mmSubmachinegunLaserTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonnv127mmSubmachinegunSilencerTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonNVHuntingRevolverTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPerson1AssualtCarbineModsTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonBaseballBatCustomTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonNV127mmPistolUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonFatmanUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonFatmanUnique2Texture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonFatmanUniqueShieldTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonGatlingLaserUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonGatlingLaserUniqueBackpackTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonNVPlasmaCasterUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonNVPlasmaCasterUniqueBladeTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonHuntingRifleUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPerson10mmSubmachineGunTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPerson10mmSubmachineGunExtMagTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPerson10mmSubmachineGunUniqueTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05UniqueBrushGunSaddleTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05UniqueBrushGunTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05UniqueBrushGunExtraTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05PlasmaPistolCustomTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonAntiMaterialRifleTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05BallisticfistTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05TinGrenadeTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05RipperHeavyChainTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonLaserPistolNVDLC05Mods",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatanaBG",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stPersonKatanaBGAB",
+    "type": "TXST"
+  },
+  {
+    "edid": "1stPersonNVDLC05GehennaTexture",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stpersonChainsawCustomTextureSwap",
+    "type": "TXST"
+  },
+  {
+    "edid": "NVDLC051stpersonChainsawOriginalTextureSwap",
+    "type": "TXST"
+  }
+]

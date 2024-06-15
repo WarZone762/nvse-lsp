@@ -1,0 +1,163 @@
+[
+  {
+    "name": "ForcePlayIdle",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14624,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetWeaponAnimationPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "weapon",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "first person",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "enable",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "animation path",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14625,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetActorAnimationPath",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "first person",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "enable",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "animation path",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "poll condition",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "condition",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14626,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "PlayAnimationPath",
+    "params": [
+      {
+        "type": "String",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "first person",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14627,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ForceStopIdle",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14628,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "kNVSEReset",
+    "params": [],
+    "retType": "Float",
+    "opcode": 14629,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "PlayGroupAlt",
+    "params": [
+      {
+        "type": "AnimationGroup",
+        "name": "anim group",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "play immediately",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14630,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "CreateIdleAnimForm",
+    "params": [
+      {
+        "type": "String",
+        "name": "path",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "type",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 14631,
+    "isCondFunc": false,
+    "reqRef": false
+  }
+]

@@ -16,7 +16,7 @@ impl Doc {
 
         let (doc, name) = match self.resolve(db, node)? {
             Symbol::Local(file_id, x) => (Doc(file_id), x),
-            Symbol::Global(_) => return None,
+            Symbol::Global(..) => return None,
         };
         let script_db = doc.script_db(db);
         let name_node = name.lookup(script_db).node.syntax();
@@ -39,7 +39,7 @@ impl Doc {
         let script_db = self.script_db(db);
         let (doc, name) = match sym {
             Symbol::Local(file_id, x) => (Doc(file_id), x),
-            Symbol::Global(_) => return None,
+            Symbol::Global(..) => return None,
         };
 
         let uri = doc.meta(db).uri.clone();

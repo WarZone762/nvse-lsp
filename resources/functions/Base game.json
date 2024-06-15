@@ -1,0 +1,8794 @@
+[
+  {
+    "name": "UnusedFunction0",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4096,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDistance",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4097,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "AddItem",
+    "params": [
+      {
+        "type": "InvObjectOrFormList",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4098,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetEssential",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "Actor Base",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4099,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Rotate",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Speed",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4100,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetLocked",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4101,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPos",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4102,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetPos",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4103,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetAngle",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4104,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetAngle",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4105,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetStartingPos",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4106,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetStartingAngle",
+    "params": [
+      {
+        "type": "Axis",
+        "name": "Axis",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4107,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetSecondsPassed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4108,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "Activate",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4109,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetActorValue",
+    "alias": "GetAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4110,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Get an actor value. [player.getav luck]"
+  },
+  {
+    "name": "SetActorValue",
+    "alias": "SetAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4111,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Set an actor value. [player.setav luck, 75]"
+  },
+  {
+    "name": "ModActorValue",
+    "alias": "ModAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4112,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Modify an actor value. [player.modav luck, -10]"
+  },
+  {
+    "name": "SetAtStart",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4113,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetCurrentTime",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4114,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "PlayGroup",
+    "params": [
+      {
+        "type": "AnimationGroup",
+        "name": "Animation Group",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flags",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4115,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "IE: PlayGroup SEQNAME 1"
+  },
+  {
+    "name": "LoopGroup",
+    "params": [
+      {
+        "type": "AnimationGroup",
+        "name": "Animation Group",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flags",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4116,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SkipAnim",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4117,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StartCombat",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4118,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StopCombat",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4119,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetScale",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4120,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsMoving",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4121,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Is the actor moving?"
+  },
+  {
+    "name": "IsTurning",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4122,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Is the actor turning?"
+  },
+  {
+    "name": "GetLineOfSight",
+    "alias": "GetLOS",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4123,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "AddSpell",
+    "params": [
+      {
+        "type": "SpellItem",
+        "name": "Spell Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4124,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveSpell",
+    "params": [
+      {
+        "type": "SpellItem",
+        "name": "Spell Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4125,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "Cast",
+    "params": [
+      {
+        "type": "MagicItem",
+        "name": "Magic Item",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4126,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetButtonPressed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4127,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetInSameCell",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4128,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "Enable",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4129,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "Disable",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4130,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDisabled",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4131,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "MenuMode",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4132,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "PlaceAtMe",
+    "params": [
+      {
+        "type": "Object",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Distance",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Direction",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 4133,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlaySound",
+    "params": [
+      {
+        "type": "Sound",
+        "name": "Sound",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4134,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Play a 2D sound. (Optional: 1 to indicate a system sound, 0 otherwise"
+  },
+  {
+    "name": "GetDisease",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4135,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVampire",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4136,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetClothingValue",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4137,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SameFaction",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4138,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SameRace",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4139,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SameSex",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4140,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetDetected",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4141,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetDead",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4142,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetItemCount",
+    "params": [
+      {
+        "type": "InvObjectOrFormList",
+        "name": "ObjectID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4143,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetGold",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4144,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetSleeping",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4145,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetTalkedToPC",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4146,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "Say",
+    "params": [
+      {
+        "type": "Topic",
+        "name": "Topic",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "ActorBase",
+        "name": "Actor Base",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4147,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SayTo",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "Topic",
+        "name": "Topic",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4148,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetScriptVariable",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "VariableName",
+        "name": "Variable Name",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4149,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "StartQuest",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4150,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopQuest",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4151,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetQuestRunning",
+    "alias": "GetQR",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4152,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetStage",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "QuestStage",
+        "name": "Stage",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4153,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetStage",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4154,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetStageDone",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "QuestStage",
+        "name": "Stage",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4155,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetFactionRankDifference",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4156,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetAlarmed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4157,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsRaining",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4158,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetAttacked",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4159,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsCreature",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4160,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetLockLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4161,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetShouldAttack",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4162,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetInCell",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4163,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsClass",
+    "params": [
+      {
+        "type": "Class",
+        "name": "Class",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4164,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsRace",
+    "params": [
+      {
+        "type": "Race",
+        "name": "Race",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4165,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsSex",
+    "params": [
+      {
+        "type": "Sex",
+        "name": "Sex",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4166,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetInFaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4167,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsID",
+    "params": [
+      {
+        "type": "Object",
+        "name": "ObjectID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4168,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFactionRank",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4169,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetGlobalValue",
+    "params": [
+      {
+        "type": "Global",
+        "name": "Global",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4170,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsSnowing",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4171,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetDisposition",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4172,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetRandomPercent",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4173,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "StreamMusic",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4174,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetQuestVariable",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "VariableName",
+        "name": "Variable Name",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4175,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4176,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetArmorRating",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4177,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveItem",
+    "params": [
+      {
+        "type": "InvObjectOrFormList",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4178,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ModDisposition",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4179,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDeadCount",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "Actor Base",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4180,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ShowMap",
+    "params": [
+      {
+        "type": "MapMarker",
+        "name": "Map Marker",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4181,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StartConversation",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      },
+      {
+        "type": "Topic",
+        "name": "Topic",
+        "optional": true
+      },
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      },
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4182,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Start a conversation [Bob.StartConversation Joe, SecretTopic]"
+  },
+  {
+    "name": "Drop",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4183,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddTopic",
+    "params": [
+      {
+        "type": "Topic",
+        "name": "Topic",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4184,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowMessage",
+    "params": [
+      {
+        "type": "Message",
+        "name": "Message",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4185,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetAlert",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4186,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsAlerted",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4187,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "Look",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4188,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StopLook",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4189,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "EvaluatePackage",
+    "alias": "evp",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4190,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SendAssaultAlarm",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": true
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4191,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "EnablePlayerControls",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4192,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "7 optional (0/1) values. movement|pipboy|fighting|pov|looking|rollover|sneaking ex: 1 0 0 1 0 0 0"
+  },
+  {
+    "name": "DisablePlayerControls",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4193,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "7 optional (0/1) values. movement|pipboy|fighting|pov|looking|rollover|sneaking ex: 1 0 0 1 0 0 0"
+  },
+  {
+    "name": "GetPlayerControlsDisabled",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4194,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "7 optional (0/1) values. movement|pipboy|fighting|pov|looking|rollover|sneaking ex: 1 0 0 1 0 0 0"
+  },
+  {
+    "name": "GetHeadingAngle",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4195,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "PickIdle",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4196,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsWeaponOut",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4197,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsTorchOut",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4198,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsShieldOut",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4199,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "CreateDetectionEvent",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4200,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsActionRef",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4201,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsFacingUp",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4202,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetKnockedState",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4203,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetWeaponAnimType",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4204,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsWeaponSkillType",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4205,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCurrentAIPackage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4206,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsWaiting",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4207,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsIdlePlaying",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4208,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "CompleteQuest",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4209,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Lock",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4210,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnLock",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4211,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetMinorCrimeCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4212,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetMajorCrimeCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4213,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetActorAggroRadiusViolated",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4214,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCrimeKnown",
+    "params": [
+      {
+        "type": "CrimeType",
+        "name": "Crime Type",
+        "optional": false
+      },
+      {
+        "type": "Actor",
+        "name": "Criminal",
+        "optional": false
+      },
+      {
+        "type": "Actor",
+        "name": "Victim",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4215,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetEnemy",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4216,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetAlly",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4217,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCrime",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "CrimeType",
+        "name": "Crime Type",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4218,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsGreetingPlayer",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4219,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "StartMisterSandMan",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4220,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsGuard",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4221,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "StartCannibal",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4222,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "HasBeenEaten",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4223,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFatiguePercentage",
+    "alias": "GetFatigue",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4224,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPCIsClass",
+    "params": [
+      {
+        "type": "Class",
+        "name": "Class",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4225,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCIsRace",
+    "params": [
+      {
+        "type": "Race",
+        "name": "Race",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4226,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCIsSex",
+    "params": [
+      {
+        "type": "Sex",
+        "name": "Sex",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4227,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCInFaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4228,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SameFactionAsPC",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4229,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SameRaceAsPC",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4230,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SameSexAsPC",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4231,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsReference",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4232,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetFactionRank",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4233,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ModFactionRank",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4234,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "KillActor",
+    "alias": "kill",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4235,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ResurrectActor",
+    "alias": "resurrect",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4236,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsTalking",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4237,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetWalkSpeed",
+    "alias": "GetWalk",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4238,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCurrentAIProcedure",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4239,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetTrespassWarningLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4240,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsTrespassing",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4241,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsInMyOwnedCell",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4242,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetWindSpeed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4243,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetCurrentWeatherPercent",
+    "alias": "getweatherpct",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4244,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetIsCurrentWeather",
+    "alias": "getweather",
+    "params": [
+      {
+        "type": "WeatherID",
+        "name": "Weather ID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4245,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsContinuingPackagePCNear",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4246,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "AddScriptPackage",
+    "params": [
+      {
+        "type": "AIPackage",
+        "name": "Package",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4247,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveScriptPackage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4248,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "CanHaveFlames",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4249,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "HasFlames",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4250,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "AddFlames",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4251,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveFlames",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4252,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetOpenState",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4253,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "MoveToMarker",
+    "alias": "MoveTo",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4254,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetSitting",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4255,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFurnitureMarkerID",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4256,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsCurrentPackage",
+    "params": [
+      {
+        "type": "AIPackage",
+        "name": "Package",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4257,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsCurrentFurnitureRef",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4258,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsCurrentFurnitureObj",
+    "params": [
+      {
+        "type": "Furniture",
+        "name": "Furniture",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4259,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetSize",
+    "alias": "CSize",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4260,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Shrink/Grow an actor. [player.shrink 0.0 or radius]"
+  },
+  {
+    "name": "RemoveMe",
+    "params": [
+      {
+        "type": "Container",
+        "name": "Container",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4261,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DropMe",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4262,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetFactionReaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4263,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetFactionReaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4264,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ModFactionReaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4265,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetDayOfWeek",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4266,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IgnoreCrime",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4267,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetTalkedToPCParam",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4268,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveAllItems",
+    "params": [
+      {
+        "type": "Container",
+        "name": "Container",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Ownership Added",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "No Message Flag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4269,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "WakeUpPC",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4270,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsPCSleeping",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4271,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsPCAMurderer",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4272,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetCombatStyle",
+    "alias": "setcs",
+    "params": [
+      {
+        "type": "CombatStyle",
+        "name": "Combat Style",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4273,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlaySound3D",
+    "params": [
+      {
+        "type": "Sound",
+        "name": "Sound",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4274,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SelectPlayerSpell",
+    "alias": "spspell",
+    "params": [
+      {
+        "type": "SpellItem",
+        "name": "Spell Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4275,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetDetectionLevel",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4276,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsActorDetected",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4277,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetEquipped",
+    "params": [
+      {
+        "type": "InvObjectOrFormList",
+        "name": "ObjectID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4278,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "Wait",
+    "params": [
+      {
+        "type": "AIPackage",
+        "name": "Package",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4279,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StopWaiting",
+    "params": [
+      {
+        "type": "AIPackage",
+        "name": "Package",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4280,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsSwimming",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4281,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ScriptEffectElapsedSeconds",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4282,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCellPublicFlag",
+    "alias": "setpublic",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4283,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set public flag on cell. [setpublic MyCell 1]"
+  },
+  {
+    "name": "GetPCSleepHours",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4284,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCSleepHours",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4285,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetAmountSoldStolen",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4286,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ModAmountSoldStolen",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4287,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIgnoreCrime",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4288,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCExpelled",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4289,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCExpelled",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4290,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCFactionMurder",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4291,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCFactionMurder",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4292,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCEnemyofFaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4293,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCEnemyofFaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4294,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCFactionAttack",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4295,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCFactionAttack",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4296,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UnusedFunction21",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4297,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction22",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4298,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDestroyed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4299,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetDestroyed",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4300,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetActionRef",
+    "alias": "getAR",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4301,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetSelf",
+    "alias": "this",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4302,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetContainer",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4303,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetForceRun",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4304,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetForceRun",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4305,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetForceSneak",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4306,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetForceSneak",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4307,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AdvancePCSkill",
+    "alias": "AdvSkill",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4308,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AdvancePCLevel",
+    "alias": "AdvLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4309,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "HasMagicEffect",
+    "params": [
+      {
+        "type": "MagicEffect",
+        "name": "Magic Effect",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4310,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetDefaultOpen",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4311,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if this object is open by default"
+  },
+  {
+    "name": "SetDefaultOpen",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4312,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "A value of 1 will make the object open by default"
+  },
+  {
+    "name": "ShowClassMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4313,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowRaceMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4314,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetAnimAction",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4315,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Return the actors current anim action"
+  },
+  {
+    "name": "ShowNameMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4316,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetOpenState",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4317,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "A value of 1 will make the object open"
+  },
+  {
+    "name": "UnusedFunction26",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4318,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsSpellTarget",
+    "params": [
+      {
+        "type": "MagicItem",
+        "name": "Magic Item",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4319,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSMode",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4320,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPersuasionNumber",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4321,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetSandman",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4322,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCannibal",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4323,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsClassDefault",
+    "params": [
+      {
+        "type": "Class",
+        "name": "Class",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4324,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetClassDefaultMatch",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4325,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetInCellParam",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4326,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetInChargen",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4327,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "A value of 1 will be in chargen"
+  },
+  {
+    "name": "GetCombatTarget",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4328,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetPackageTarget",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4329,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowSpellMaking",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4330,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetVatsTargetHeight",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4331,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetGhost",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4332,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "A value of 1 will make the NPC act as a 'ghost'"
+  },
+  {
+    "name": "GetIsGhost",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4333,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if the actor is acting as a 'ghost'"
+  },
+  {
+    "name": "EquipItem",
+    "alias": "EquipObject",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "MessageFlag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4334,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnequipItem",
+    "alias": "UnEquipObject",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "MessageFlag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4335,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetClass",
+    "params": [
+      {
+        "type": "Class",
+        "name": "Class",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4336,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetUnconscious",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4337,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "A value of 1 will be unconscious"
+  },
+  {
+    "name": "GetUnconscious",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4338,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if is unconscious"
+  },
+  {
+    "name": "SetRestrained",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4339,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "A value of 1 will be restrained"
+  },
+  {
+    "name": "GetRestrained",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4340,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Returns 1 if is restrained"
+  },
+  {
+    "name": "ForceFlee",
+    "alias": "Flee",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": true
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4341,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Forces a actor to flee if destination or cell is passed in uses them"
+  },
+  {
+    "name": "GetIsUsedItem",
+    "params": [
+      {
+        "type": "NonFormList",
+        "name": "ObjectID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4342,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetIsUsedItemType",
+    "params": [
+      {
+        "type": "FormType",
+        "name": "Form Type",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4343,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "UnusedFunction9",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4344,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction10",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4345,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction11",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4346,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction12",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4347,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction13",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4348,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction14",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4349,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsPlayableRace",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4350,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetOffersServicesNow",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4351,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetGameSetting",
+    "alias": "GetGS",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4352,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopCombatAlarmOnActor",
+    "alias": "SCAOnActor",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4353,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetUsedItemLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4354,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetUsedItemActivate",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4355,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeather",
+    "alias": "sw",
+    "params": [
+      {
+        "type": "WeatherID",
+        "name": "Weather ID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4356,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Sets the active weather to the specified type"
+  },
+  {
+    "name": "ForceTakeCover",
+    "alias": "TakeCover",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4357,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Forces a actor to move away from the target actor for a period of time"
+  },
+  {
+    "name": "ModBarterGold",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4358,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetBarterGold",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4359,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetBarterGold",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4360,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsTimePassing",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4361,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsPleasant",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4362,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsCloudy",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4363,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "TrapUpdate",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4364,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetQuestObject",
+    "params": [
+      {
+        "type": "Object",
+        "name": "Object",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4365,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ForceActorValue",
+    "alias": "ForceAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4366,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Does modav XXX (value - getav XXX). [player.forceav luck 25]"
+  },
+  {
+    "name": "ModPCSkill",
+    "alias": "ModPCS",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4367,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Modify the Players Skill. [modpcs Blunt, 10]"
+  },
+  {
+    "name": "ModPCAttribute",
+    "alias": "ModPCA",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4368,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Modify an actor value. [modpca luck, 10]"
+  },
+  {
+    "name": "EnableFastTravel",
+    "alias": "EnableFast",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4369,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetArmorRatingUpperBody",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4370,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetParentRef",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4371,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlayBink",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4372,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBaseActorValue",
+    "alias": "GetBaseAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4373,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Get a base actor value. [player.getbaseav luck]"
+  },
+  {
+    "name": "IsOwner",
+    "params": [
+      {
+        "type": "Owner",
+        "name": "Owner",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4374,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Get the ownership of the ref"
+  },
+  {
+    "name": "SetOwnership",
+    "params": [
+      {
+        "type": "Owner",
+        "name": "Owner",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4375,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsCellOwner",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "Owner",
+        "name": "Owner",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4376,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Get the ownership of the ref"
+  },
+  {
+    "name": "SetCellOwnership",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "Owner",
+        "name": "Owner",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4377,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsHorseStolen",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4378,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetCellFullName",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "Message",
+        "name": "Message",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4379,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetActorFullName",
+    "params": [
+      {
+        "type": "Message",
+        "name": "Message",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4380,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsLeftUp",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4381,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsSneaking",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4382,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsRunning",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4383,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFriendHit",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4384,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsInCombat",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4385,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetPackDuration",
+    "alias": "SPDur",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4386,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlayMagicShaderVisuals",
+    "alias": "PMS",
+    "params": [
+      {
+        "type": "EffectShader",
+        "name": "Effect Shader ID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Time",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4387,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlayMagicEffectVisuals",
+    "alias": "PME",
+    "params": [
+      {
+        "type": "MagicEffect",
+        "name": "Magic Effect",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Time",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4388,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StopMagicShaderVisuals",
+    "alias": "SMS",
+    "params": [
+      {
+        "type": "EffectShader",
+        "name": "Effect Shader ID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4389,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StopMagicEffectVisuals",
+    "alias": "SME",
+    "params": [
+      {
+        "type": "MagicEffect",
+        "name": "Magic Effect",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4390,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ResetInterior",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4391,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsAnimPlaying",
+    "params": [
+      {
+        "type": "AnimationGroup",
+        "name": "Animation Group",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4392,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetActorAlpha",
+    "alias": "SAA",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4393,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "EnableLinkedPathPoints",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4394,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DisableLinkedPathPoints",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4395,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsInInterior",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4396,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ForceWeather",
+    "alias": "fw",
+    "params": [
+      {
+        "type": "WeatherID",
+        "name": "Weather ID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4397,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Forces the active weather to the specified type, without transition"
+  },
+  {
+    "name": "ToggleActorsAI",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4398,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsActorsAIOff",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4399,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsWaterObject",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4400,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Water condition used for drinking animation"
+  },
+  {
+    "name": "UnusedFunction15",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4401,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsActorUsingATorch",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4402,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetLevel",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4403,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ResetFallDamageTimer",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4404,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsXBox",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4405,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetInWorldspace",
+    "params": [
+      {
+        "type": "WorldSpace",
+        "name": "WorldSpace",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4406,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ModPCMiscStat",
+    "alias": "ModPCMS",
+    "params": [
+      {
+        "type": "MiscStat",
+        "name": "Miscellaneous Stat",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4407,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPCMiscStat",
+    "alias": "GetPCMS",
+    "params": [
+      {
+        "type": "MiscStat",
+        "name": "Miscellaneous Stat",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4408,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsActorEvil",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4409,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsActorAVictim",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4410,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetTotalPersuasionNumber",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4411,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetScale",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4412,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Set the scale of an object"
+  },
+  {
+    "name": "ModScale",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4413,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Modify the scale of an object"
+  },
+  {
+    "name": "GetIdleDoneOnce",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4414,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "KillAllActors",
+    "alias": "killall",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4415,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNoRumors",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4416,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetNoRumors",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4417,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "Dispel",
+    "params": [
+      {
+        "type": "MagicItem",
+        "name": "Magic Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4418,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "WhichServiceMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4419,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "TriggerHitShader",
+    "alias": "ths",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4420,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "FunctionUnused16",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4421,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Reset3DState",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4422,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsRidingHorse",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4423,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "DispelAllSpells",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4424,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction17",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4425,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddAchievement",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4426,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DuplicateAllItems",
+    "params": [
+      {
+        "type": "Container",
+        "name": "Container",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Ownership Added",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4427,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsInDangerousWater",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4428,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "EssentialDeathReload",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4429,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetShowQuestItems",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4430,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DuplicateNPCStats",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4431,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ResetHealth",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4432,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetIgnoreFriendlyHits",
+    "alias": "sifh",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4433,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Set whether an actor should ignore friendly hits (0-no, 1-yes)"
+  },
+  {
+    "name": "GetIgnoreFriendlyHits",
+    "alias": "gifh",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4434,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "See if an actor is ignoring friendly hits"
+  },
+  {
+    "name": "IsPlayersLastRiddenHorse",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4435,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetActorRefraction",
+    "alias": "sar",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4436,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetItemValue",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4437,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetRigidBodyMass",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4438,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowViewerStrings",
+    "alias": "svs",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4439,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ReleaseWeatherOverride",
+    "alias": "rwo",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4440,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetAllReachable",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4441,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetAllVisible",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4442,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetNoAvoidance",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4443,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SendTrespassAlarm",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4444,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetSceneIsComplex",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4445,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Autosave",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4446,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StartMasterFileSeekData",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4447,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DumpMasterFileSeekData",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4448,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsActor",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4449,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsEssential",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4450,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "PreloadMagicEffect",
+    "params": [
+      {
+        "type": "MagicEffect",
+        "name": "Magic Effect",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4451,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowDialogSubtitles",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4452,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UnusedFunction27",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4453,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsPlayerMovingIntoNewSpace",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4454,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "UnusedFunction28",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4455,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction29",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4456,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetTimeDead",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4457,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPlayerHasLastRiddenHorse",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4458,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetLinkedRef",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4459,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DamageObject",
+    "alias": "do",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4460,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsChild",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4461,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction1",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4462,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetLastPlayerAction",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4463,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsPlayerActionActive",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4464,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetTalkingActivatorActor",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4465,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsTalkingActivatorActor",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4466,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ShowBarterMenu",
+    "alias": "sbm",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4467,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsInList",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "Form List",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4468,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "UnusedFunction18",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4469,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddPerk",
+    "params": [
+      {
+        "type": "Perk",
+        "name": "Perk",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Alt",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4470,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RewardXP",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4471,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowHackingMiniGame",
+    "alias": "shmg",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4472,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowSurgeryMenu",
+    "alias": "ssmg",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4473,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowRepairMenu",
+    "alias": "srm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4474,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "FunctionUnused19",
+    "alias": "unused",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4475,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddNote",
+    "alias": "AN",
+    "params": [
+      {
+        "type": "Note",
+        "name": "Note",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4476,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveNote",
+    "alias": "RN",
+    "params": [
+      {
+        "type": "Note",
+        "name": "Note",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4477,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetHasNote",
+    "alias": "GetN",
+    "params": [
+      {
+        "type": "Note",
+        "name": "Note",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4478,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "AddToFaction",
+    "alias": "Addfac",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4479,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveFromFaction",
+    "alias": "Removefac",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4480,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DamageActorValue",
+    "alias": "DamageAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4481,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Damage an actor value"
+  },
+  {
+    "name": "RestoreActorValue",
+    "alias": "RestoreAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4482,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Restore an actor value"
+  },
+  {
+    "name": "TriggerHUDShudder",
+    "alias": "hudsh",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4483,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Trigger shudder effect on HUD.  Params=Intensity/Duration"
+  },
+  {
+    "name": "SetDisposition",
+    "alias": "SetDisp",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4484,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Sets the dispostion with modifiers"
+  },
+  {
+    "name": "ShowComputersInterface",
+    "alias": "sci",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4485,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetGlobalTimeMultiplier",
+    "alias": "sgtm",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4486,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetHitLocation",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4487,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "What BGSBodyPart::LIMB_ENUM was hit. -1 = none, 0 = torso, ..."
+  },
+  {
+    "name": "IsPC1stPerson",
+    "alias": "pc1st",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4488,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Is the player playing in 1st person mode?"
+  },
+  {
+    "name": "PurgeCellBuffers",
+    "alias": "pcb",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4489,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Forcibly unloads all unattached cells in cell buffers"
+  },
+  {
+    "name": "PushActorAway",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4490,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetActorsAI",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4491,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ClearOwnership",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4492,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetCauseofDeath",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4493,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "What killed the actor"
+  },
+  {
+    "name": "IsLimbGone",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4494,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Is BGSBodyPart::LIMB_ENUM been dismembered"
+  },
+  {
+    "name": "IsWeaponInList",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "Form List",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4495,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Is the current weapon in the form list"
+  },
+  {
+    "name": "PlayIdle",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4496,
+    "isCondFunc": false,
+    "reqRef": true,
+    "desc": "Play this idle on the current actor"
+  },
+  {
+    "name": "ApplyImageSpaceModifier",
+    "alias": "imod",
+    "params": [
+      {
+        "type": "ImageSpaceModifier",
+        "name": "Imagespace Modifier ID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4497,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Adds an imagespace modifier to the active list"
+  },
+  {
+    "name": "RemoveImageSpaceModifier",
+    "alias": "rimod",
+    "params": [
+      {
+        "type": "ImageSpaceModifier",
+        "name": "Imagespace Modifier ID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4498,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Removes an imagespace modifier from the active list"
+  },
+  {
+    "name": "HasFriendDisposition",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4499,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "FunctionUnused20",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4500,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "FriendDispositionBoost",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4501,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetCellImageSpace",
+    "params": [
+      {
+        "type": "Cell",
+        "name": "Cell",
+        "optional": false
+      },
+      {
+        "type": "ImageSpace",
+        "name": "ImageSpace",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4502,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowChargenMenu",
+    "alias": "scgm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4503,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetVATSValue",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4504,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsKiller",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4505,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsKillerObject",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "Form List",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4506,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFactionCombatReaction",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      },
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4507,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "UseWeapon",
+    "params": [
+      {
+        "type": "Object",
+        "name": "Weapon",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "Location",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "Target",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "NumAttacks",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "CrouchToReload",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "HoldFire",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "AlwaysHit",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "DoNoDamage",
+        "optional": true
+      },
+      {
+        "type": "ObjectRef",
+        "name": "TargetLocation",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4508,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "EvaluateSpellConditions",
+    "alias": "esc",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4509,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ToggleMotionBlur",
+    "alias": "tmb",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4510,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Toggle Motion Blur for the selected reference"
+  },
+  {
+    "name": "Exists",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4511,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetGroupMemberCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4512,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetGroupTargetCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4513,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetObjectiveCompleted",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "ObjectiveIndex",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "State",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4514,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set objective completion status: 0-Off, 1-On"
+  },
+  {
+    "name": "SetObjectiveDisplayed",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "ObjectiveIndex",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "State",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4515,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set objective displayed status: 0-Off, 1-On"
+  },
+  {
+    "name": "GetObjectiveCompleted",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "ObjectiveIndex",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4516,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Get objective completion status: 0-Off, 1-On"
+  },
+  {
+    "name": "GetObjectiveDisplayed",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "ObjectiveIndex",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4517,
+    "isCondFunc": true,
+    "reqRef": false,
+    "desc": "Get objective displayed status: 0-Off, 1-On"
+  },
+  {
+    "name": "SetImageSpace",
+    "params": [
+      {
+        "type": "ImageSpace",
+        "name": "ImageSpace",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4518,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "PipboyRadio",
+    "alias": "prad",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4519,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Control the Pipboy radio. Enable, Disable, Tune"
+  },
+  {
+    "name": "RemovePerk",
+    "params": [
+      {
+        "type": "Perk",
+        "name": "Perk",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Alt",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4520,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DisableAllActors",
+    "alias": "DisAA",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4521,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsFormType",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4522,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsVoiceType",
+    "params": [
+      {
+        "type": "unk2E",
+        "name": "VoiceType",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4523,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPlantedExplosive",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4524,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "CompleteAllObjectives",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4525,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Complete all of a quest's objectives"
+  },
+  {
+    "name": "IsActorTalkingThroughActivator",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4526,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetHealthPercentage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4527,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetAudioMultithreading",
+    "alias": "SAM",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4528,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIsObjectType",
+    "params": [
+      {
+        "type": "FormType",
+        "name": "Form Type",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4529,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ShowChargenMenuParams",
+    "alias": "scgmp",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4530,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetDialogueEmotion",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4531,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetDialogueEmotionValue",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4532,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ExitGame",
+    "alias": "exit",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4533,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIsCreatureType",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4534,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetMerchantContainer",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4535,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveMerchantContainer",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4536,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowWarning",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4537,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "EnterTrigger",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4538,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "MarkForDelete",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4539,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddItemHealthPercent",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Health Percent",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Flag",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4540,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "PlaceAtMeHealthPercent",
+    "params": [
+      {
+        "type": "Object",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Health Percent",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Distance",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Direction",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 4541,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetInZone",
+    "params": [
+      {
+        "type": "EncounterZone",
+        "name": "EncounterZone",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4542,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "DisableNavMesh",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4543,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Disable navmesh by FormID"
+  },
+  {
+    "name": "EnableNavMesh",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4544,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Enable navmesh by FormID"
+  },
+  {
+    "name": "HasPerk",
+    "params": [
+      {
+        "type": "Perk",
+        "name": "Perk",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Alt",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4545,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetFactionRelation",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4546,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsLastIdlePlayed",
+    "params": [
+      {
+        "type": "IdleForm",
+        "name": "Idle Form",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4547,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetNPCRadio",
+    "alias": "snr",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4548,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Enable/Disable NPC radio playback: 0-Off, 1-On "
+  },
+  {
+    "name": "SetPlayerTeammate",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4549,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetPlayerTeammate",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4550,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPlayerTeammateCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4551,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "OpenTeammateContainer",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4552,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ClearFactionPlayerEnemyFlag",
+    "params": [
+      {
+        "type": "Faction",
+        "name": "Faction",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4553,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearActorsFactionsPlayerEnemyFlag",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4554,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetActorCrimePlayerEnemy",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4555,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetActorFactionPlayerEnemy",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4556,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetPlayerTagSkill",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Amount",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4557,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsPlayerTagSkill",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4558,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetPlayerGrabbedRef",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4559,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsPlayerGrabbedRef",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4560,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "PlaceLeveledActorAtMe",
+    "params": [
+      {
+        "type": "Object",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "LevelModifier",
+        "optional": true
+      },
+      {
+        "type": "EncounterZone",
+        "name": "ForcedZone",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 4561,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UnusedFunction",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4562,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowLockpickMenu",
+    "alias": "slpm",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4563,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBroadcastState",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4564,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetBroadcastState",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4565,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "StartRadioConversation",
+    "params": [
+      {
+        "type": "Topic",
+        "name": "Topic",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4566,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDestructionStage",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4567,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ClearDestruction",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4568,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "CastImmediateOnSelf",
+    "alias": "cios",
+    "params": [
+      {
+        "type": "MagicItem",
+        "name": "Magic Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4569,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsAlignment",
+    "params": [
+      {
+        "type": "Alignment",
+        "name": "Alignment",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4570,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ResetQuest",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4571,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetQuestDelay",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4572,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ForceActiveQuest",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4573,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetThreatRatio",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4574,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "MatchFaceGeometry",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4575,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsUsedItemEquipType",
+    "params": [
+      {
+        "type": "EquipType",
+        "name": "EquipType",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4576,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetPlayerName",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4577,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "FireWeapon",
+    "params": [
+      {
+        "type": "Object",
+        "name": "Weapon",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4578,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowTutorialMenu",
+    "params": [
+      {
+        "type": "Message",
+        "name": "Message",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4579,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AgeRace",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4580,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "MatchRace",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4581,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetPCYoung",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4582,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SexChange",
+    "params": [
+      {
+        "type": "Sex",
+        "name": "Sex",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4583,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowSPECIALBookMenu",
+    "alias": "ssbm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4584,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetConcussed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4585,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetZoneRespawns",
+    "params": [
+      {
+        "type": "EncounterZone",
+        "name": "EncounterZone",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4586,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetVATSTarget",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4587,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetMapMarkerVisible",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4588,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ResetInventory",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4589,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowSPECIALBookMenuParams",
+    "alias": "ssbmp",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4590,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPermanentActorValue",
+    "alias": "GetPermAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "Actor Value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4591,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Get an actor value ignoring temporary modifiers. [player.getav luck]"
+  },
+  {
+    "name": "GetKillingBlowLimb",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4592,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "Which BGSBodyPart::LIMB_ENUM received the killing blow"
+  },
+  {
+    "name": "ShowBarberMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4593,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowPlasticSurgeonMenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4594,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TriggerLODApocalypse",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4595,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWeaponHealthPerc",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4596,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetWeaponHealthPerc",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4597,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ModWeaponHealthPerc",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4598,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetRadiationLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4599,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ShowAllMapMarkers",
+    "alias": "tmm",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4600,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Shows/hides map markers (1 shows, 0 hides)(1 travel(default), 0 no travel)(1 all, 0 all but hidden(default))"
+  },
+  {
+    "name": "ShowChargenMenuModValues",
+    "alias": "scgmod",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4601,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ResetAI",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4602,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetRumble",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4603,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Creates rumble in the controller (left motor) (right motor) (duration)"
+  },
+  {
+    "name": "SetNoActivationSound",
+    "params": [
+      {
+        "type": "Sound",
+        "name": "Sound",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4604,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set the sound to play when activation fails (Sound)"
+  },
+  {
+    "name": "ClearNoActivationSound",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4605,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Clear the activation failure sound"
+  },
+  {
+    "name": "GetLastHitCritical",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4606,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "PlayMusic",
+    "params": [
+      {
+        "type": "SoundFile",
+        "name": "Music",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4607,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLocationSpecificLoadScreensOnly",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4608,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ResetPipboyManager",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4609,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetPCToddler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4610,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCombatTarget",
+    "params": [
+      {
+        "type": "Actor",
+        "name": "Actor",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4611,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "RewardKarma",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4612,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TriggerScreenBlood",
+    "alias": "tsb",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4613,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Trigger screen blood"
+  },
+  {
+    "name": "GetVATSRightAreaFree",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4614,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSLeftAreaFree",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4615,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSBackAreaFree",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4616,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSFrontAreaFree",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4617,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetIsLockBroken",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4618,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "IsPS3",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4619,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsWin32",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4620,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetVATSRightTargetVisible",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4621,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSLeftTargetVisible",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4622,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSBackTargetVisible",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4623,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetVATSFrontTargetVisible",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "TESObjectREFR",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4624,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "AttachAshPile",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4625,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetCriticalStage",
+    "params": [
+      {
+        "type": "CriticalStage",
+        "name": "CriticalStage",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4626,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsInCriticalStage",
+    "params": [
+      {
+        "type": "CriticalStage",
+        "name": "CriticalStage",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4627,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveFromAllFactions",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4628,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetXPForNextLevel",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4629,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ShowLockpickMenuDebug",
+    "alias": "slpmd",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4630,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ForceSave",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4631,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetSPECIALPoints",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4632,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddSPECIALPoints",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4633,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetTagSkills",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4634,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddTagSkills",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4635,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Sin",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4636,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Cos",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4637,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Tan",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4638,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Sqrt",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4639,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Log",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4640,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Abs",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4641,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetQuestCompleted",
+    "alias": "GetQC",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4642,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ForceTerminalBack",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4643,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "PipBoyRadioOff",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4644,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AutoDisplayObjectives",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4645,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsGoreDisabled",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4646,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "FadeSFX",
+    "alias": "FSFX",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4647,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetMinimalUse",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4648,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetPCCanUsePowerArmor",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4649,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowQuestStages",
+    "alias": "SQS",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "Quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4650,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetSpellUsageNum",
+    "params": [
+      {
+        "type": "MagicItem",
+        "name": "Magic Item",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4651,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "ForceRadioStationUpdate",
+    "alias": "FRSU",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4652,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorsInHigh",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4653,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "HasLoaded3D",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4654,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "DisableAllMines",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4655,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLastExtDoorActivated",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4656,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "KillQuestUpdates",
+    "alias": "KQU",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4657,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsImageSpaceActive",
+    "params": [
+      {
+        "type": "ImageSpaceModifier",
+        "name": "Imagespace Modifier ID",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4658,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddFormToFormList",
+    "params": [
+      {
+        "type": "FormList",
+        "name": "Form List",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Any Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4659,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddNPCToLeveledList",
+    "params": [
+      {
+        "type": "LeveledChar",
+        "name": "Leveled Character",
+        "optional": false
+      },
+      {
+        "type": "LeveledOrBaseChar",
+        "name": "NPC or Leveled Character",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Level",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4660,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddCreatureToLeveledList",
+    "params": [
+      {
+        "type": "LeveledCreature",
+        "name": "Leveled Creature",
+        "optional": false
+      },
+      {
+        "type": "LeveledOrBaseCreature",
+        "name": "Creature or Leveled Creature",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Level",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4661,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddItemToLeveledList",
+    "params": [
+      {
+        "type": "LeveledItem",
+        "name": "Leveled Item",
+        "optional": false
+      },
+      {
+        "type": "ObjectID",
+        "name": "Object ID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Level",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Health Percent",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4662,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemapWaterType",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4663,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetReputation",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4664,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddReputation",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4665,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveReputation",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4666,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddReputationExact",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4667,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveReputationExact",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4668,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetReputation",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4669,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetReputationPct",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4670,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetReputationThreshold",
+    "params": [
+      {
+        "type": "Reputation",
+        "name": "Reputation",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4671,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "TriggerScreenSplatter",
+    "alias": "tssp",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4672,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Trigger screen splatter"
+  },
+  {
+    "name": "ClearScreenSplatter",
+    "alias": "cssp",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4673,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Clear screen splatter"
+  },
+  {
+    "name": "SetScreenSplatterTexture",
+    "alias": "sspt",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4674,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set screen splatter texture"
+  },
+  {
+    "name": "SetScreenSplatterFade",
+    "alias": "sspf",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4675,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set screen splatter fade time"
+  },
+  {
+    "name": "ShowLoveTesterMenu",
+    "alias": "sltm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4676,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowLoveTesterMenuParams",
+    "alias": "sltmp",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4677,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCameraFOV",
+    "alias": "FOV",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4678,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Change the camera's field of view (in deg): default 75"
+  },
+  {
+    "name": "ShowTraitSelectMenu",
+    "alias": "stsm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4679,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetSecuritronExpression",
+    "alias": "setsecexp",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4680,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveAllTypedItems",
+    "params": [
+      {
+        "type": "Container",
+        "name": "Container",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Ownership Added",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "No Message Flag",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Type",
+        "optional": true
+      },
+      {
+        "type": "FormList",
+        "name": "Holdout List",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4681,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsHardcore",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4682,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "SetHardcore",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4683,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ToggleDemigodMode",
+    "alias": "TDM",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4684,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DetonatePlacedExplosives",
+    "alias": "dpe",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4685,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetOwnerLastTarget",
+    "alias": "golt",
+    "params": [],
+    "retType": "Form",
+    "opcode": 4686,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "MoveToMarkerWithFade",
+    "alias": "MoveToFade",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4687,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowRecipeMenu",
+    "alias": "craft",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4688,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ShowSlotMachineMenu",
+    "alias": "sslm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4689,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowSlotMachineMenuParams",
+    "alias": "sslmp",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Min Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Winnings",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4690,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowBlackJackMenu",
+    "alias": "sbjm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4691,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowBlackJackMenuParams",
+    "alias": "sbjmp",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Min Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Winnings",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4692,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowRouletteMenu",
+    "alias": "srm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4693,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowRouletteMenuParams",
+    "alias": "srmp",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Min Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Bet",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Max Winnings",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4694,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCodeRedeemed",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4695,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RedeemCode",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4696,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetForceHitReaction",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4697,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ShowCaravanMenu",
+    "alias": "crvn",
+    "params": [
+      {
+        "type": "CaravanDeck",
+        "name": "Caravan Deck",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "AI TYPE",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "BET PERCENTAGE",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4698,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AddCardToPlayer",
+    "alias": "addcard",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4699,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetCasinoWinningsLevel",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4700,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCasinoWinningsLevel",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Winning Level",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4701,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UnlockChallenge",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "Challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4702,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ChallengeLocked",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "Challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4703,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "IsPlayerInRegion",
+    "params": [
+      {
+        "type": "Region",
+        "name": "Region",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4704,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCasinoCheatLevel",
+    "alias": "casinocheat",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4705,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCasinoWinningStage",
+    "params": [
+      {
+        "type": "Casino",
+        "name": "Casino",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4706,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "PlaceAtReticle",
+    "params": [
+      {
+        "type": "Object",
+        "name": "ObjectID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "MinDistance",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "MaxDistance",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4707,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Put an object at the reticle location"
+  },
+  {
+    "name": "PlayerInRegion",
+    "params": [
+      {
+        "type": "Region",
+        "name": "Region",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4708,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "ObjectUnderReticle",
+    "params": [
+      {
+        "type": "Float",
+        "name": "MinDistance",
+        "optional": true
+      },
+      {
+        "type": "Float",
+        "name": "MaxDistance",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 4709,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Return the object under the reticle"
+  },
+  {
+    "name": "GetChallengeCompleted",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "Challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4710,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "RevokeCode",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4711,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ShowTraitMenu",
+    "alias": "traitmenu",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4712,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SwapTextureOnRef",
+    "alias": "SwapTexture",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ObjectReferenceID",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4713,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DisableHardcoreTracking",
+    "alias": "babby",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4714,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsAlwaysHardcore",
+    "alias": "behemoth",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4715,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveRecurringFromChallenge",
+    "alias": "rrfc",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "Challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4716,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ResetXP",
+    "alias": "resetxp",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4717,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetDLCCount",
+    "alias": "dlccount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4718,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Returns how many DLC packages are installed"
+  },
+  {
+    "name": "IsDLCInstalled",
+    "alias": "hasdlc",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 4719,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Query if a particular DLC package is installed by file name or friendly display name.  Takes one string as a parameter"
+  },
+  {
+    "name": "EnableLoadingMenu",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4720,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Enable or disables the loading menu"
+  },
+  {
+    "name": "IsLoadingMenuEnabled",
+    "alias": "LoadMenuCheck",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4721,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Checks if the loading menu is open"
+  },
+  {
+    "name": "IsActorRefEssential",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4722,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Is an actor reference essential"
+  },
+  {
+    "name": "SetActorRefEssential",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4723,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set actor reference to essential"
+  },
+  {
+    "name": "IsNoHumanGoreExe",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 4724,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Is this exe build with no gore"
+  },
+  {
+    "name": "IncrementScriptedChallenge",
+    "params": [
+      {
+        "type": "Challenge",
+        "name": "Challenge",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4725,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Increment a scripted challenge"
+  },
+  {
+    "name": "PersistentRefCount",
+    "alias": "prc",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4726,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Count Persistent References"
+  },
+  {
+    "name": "AlwaysShowActorSubtitles",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4727,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set actor to always show subtitles"
+  },
+  {
+    "name": "SetRadioToDialogueOnlyMode",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4728,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Set radio to dialogue only mode"
+  },
+  {
+    "name": "ShowSleepWaitMenu",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4729,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Show sleep wait menu"
+  },
+  {
+    "name": "GetContainerInventoryCount",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4730,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Get number of items in a container"
+  },
+  {
+    "name": "SystemSave",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4731,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Init a System Save"
+  },
+  {
+    "name": "PrintTrackedCells",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4732,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Prints cell load and unload counts"
+  },
+  {
+    "name": "ClearTrackedCells",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4733,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Clears all cell tracking data"
+  },
+  {
+    "name": "EnableCellTracking",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 4734,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "Enables or disables cell tracking"
+  },
+  {
+    "name": "GetInCharGen",
+    "params": [],
+    "retType": "Float",
+    "opcode": 4735,
+    "isCondFunc": false,
+    "reqRef": false,
+    "desc": "A value of 1 will be in chargen"
+  }
+]

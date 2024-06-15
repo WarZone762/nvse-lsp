@@ -1,0 +1,31 @@
+[
+  {
+    "type": "QUST",
+    "edid": "VPreorderMercenary",
+    "script": "VPreorderMercenarySCRIPT"
+  },
+  {
+    "edid": "PreorderMessageInventoryMercenary",
+    "type": "MESG"
+  },
+  {
+    "edid": "WeapPreordGrenadeRifle",
+    "type": "WEAP"
+  },
+  {
+    "edid": "1stPreordGrenadeRifle",
+    "type": "STAT"
+  },
+  {
+    "edid": "PreordArmorMetal",
+    "type": "ARMO"
+  },
+  {
+    "edid": "VPreorderMercenarySCRIPT",
+    "type": "SCPT"
+  },
+  {
+    "edid": "1stPreordGrenadeRifleTexture",
+    "type": "TXST"
+  }
+]

@@ -1,11 +1,15 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Display};
 
 use anyhow::bail;
 use itertools::{EitherOrBoth, Itertools};
 
 use super::{
     infer::{Constraint, TypeVar},
-    FileId, NameId, VarDeclType,
+    Database, FileId, NameId, VarDeclType,
+};
+use crate::{
+    db::Lookup,
+    game_data::{Form, GlobalsDatabaseId},
 };
 
 #[derive(Debug, Clone)]
@@ -22,7 +26,7 @@ impl SymbolTable {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum Symbol {
     Local(FileId, NameId),
-    Global(InferredType),
+    Global(GlobalsDatabaseId, String),
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -52,8 +56,19 @@ impl InferredType {
         Self::concrete(Type::Number)
     }
 
+    pub fn ref_() -> Self {
+        Self::concrete(Type::Ref)
+    }
+
     pub fn string() -> Self {
         Self::concrete(Type::String)
+    }
+
+    pub fn array() -> Self {
+        Self {
+            widest: Type::Map(Box::new((Type::Number, Type::Any))),
+            narrowest: Type::Map(Box::new((Type::Number, Type::Empty))),
+        }
     }
 
     pub fn from_decl_type(decl_type: VarDeclType) -> Self {
@@ -112,6 +127,7 @@ pub(crate) enum Type {
     Number,
     Ref,
     String,
+    Form(Form),
     Map(Box<(Type, Type)>),
     Function(Box<FunctionSignature>),
     Record(Record),
@@ -308,6 +324,7 @@ impl Type {
             Self::Number => "number".into(),
             Self::Ref => "ref".into(),
             Self::String => "string".into(),
+            Self::Form(x) => x.to_string(),
             Self::Map(x) => {
                 if x.0 == Self::Number {
                     format!("array<{}>", x.1.to_string(indent))

@@ -65,6 +65,7 @@ impl Backend {
 
     pub async fn load_folder(&self, path: impl AsRef<Path>) {
         let mut db = self.db.write().await;
+        db.load_json();
         let files = walkdir::WalkDir::new(path)
             .into_iter()
             .filter_map(|x| x.ok())

@@ -10,27 +10,46 @@ use crate::{
         ty::{Symbol, Type},
         HirNode,
     },
+    syntax_node::TokenKind,
 };
 
 impl Doc {
     pub fn completion(&self, db: &Database, pos: Position) -> Option<CompletionResponse> {
-        let token = self.hir(db).node.syntax().nearest_token(self.offset_at(db, pos))?;
+        let root = self.hir(db);
+        let offset = self.offset_at(db, pos);
+        let token = root.node.syntax().nearest_token(offset)?;
         let hir_node = db.syntax_to_hir(**self, token.parent()?)?;
 
         let mut items = vec![];
 
-        for (name, sym) in self.collect_visible_symbols(db, &hir_node) {
-            let ty = match sym {
-                Symbol::Local(file_id, x) => x.type_(db, file_id).narrowest,
-                Symbol::Global(x) => x.narrowest,
+        let offset = offset.saturating_sub(1);
+        let prev_token = root.node.syntax().token_at_offset(offset);
+        let prev_text = prev_token
+            .filter(|x| x.kind == TokenKind::Identifier)
+            .map(|x| &x.text(self.text(db))[..(offset - x.offset + 1) as usize]);
+
+        for (name, sym) in self.collect_visible_symbols(db, &hir_node, prev_text) {
+            let (ty, detail) = match sym {
+                Symbol::Local(file_id, x) => {
+                    let ty = x.type_(db, file_id).narrowest;
+                    let detail = ty.to_string_with_name(&name, 0);
+                    (ty, detail)
+                }
+                Symbol::Global(gdb, name) => {
+                    let ty = gdb.lookup(db).globals.get(&name).unwrap().narrowest.clone();
+                    let detail =
+                        format!("{}\n\nFrom: {}", ty.to_string_with_name(&name, 0), db[gdb].name);
+                    (ty, detail)
+                }
             };
             items.push(CompletionItem {
                 kind: Some(match ty {
                     Type::Function(_) => CompletionItemKind::FUNCTION,
                     Type::Record(_) => CompletionItemKind::STRUCT,
+                    Type::Form(_) => CompletionItemKind::CONSTANT,
                     _ => CompletionItemKind::VARIABLE,
                 }),
-                detail: Some(ty.to_string_with_name(&name, 0)),
+                detail: Some(detail),
                 label: name,
                 ..Default::default()
             })
@@ -39,7 +58,12 @@ impl Doc {
         Some(CompletionResponse::List(CompletionList { is_incomplete: false, items }))
     }
 
-    fn collect_visible_symbols(&self, db: &Database, hir_node: &HirNode) -> Vec<(String, Symbol)> {
+    fn collect_visible_symbols(
+        &self,
+        db: &Database,
+        hir_node: &HirNode,
+        starts_with: Option<&str>,
+    ) -> Vec<(String, Symbol)> {
         let script_db = self.script_db(db);
 
         let mut symbols = vec![];
@@ -62,7 +86,12 @@ impl Doc {
             }
         }
 
-        symbols.extend(db.globals.clone());
+        symbols.extend(
+            db.globals
+                .iter()
+                .filter(|x| x.0.starts_with(starts_with.unwrap_or("")))
+                .map(|(k, v)| (k.clone(), v.clone())),
+        );
 
         symbols
     }

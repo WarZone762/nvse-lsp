@@ -1,0 +1,4656 @@
+[
+  {
+    "name": "JGLegacyWorldToScreen",
+    "params": [
+      {
+        "type": "String",
+        "name": "X_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Y_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Z_Out",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "HandleMode",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "Object Ref",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12544,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ToggleLevelUpMenu",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12545,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsLevelUpMenuEnabled",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 12546,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBaseEffectAV",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12547,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBaseEffectArchetype",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12548,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCellVisited",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 12549,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCellExpired",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 12550,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "MD5File",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12551,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SHA1File",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12552,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TogglePipBoy",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12553,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCalculatedWeaponDPS",
+    "params": [
+      {
+        "type": "ObjectID",
+        "name": "item",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12554,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetInteriorLightingTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12555,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetInteriorLightingTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12556,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPixelFromBMP",
+    "params": [
+      {
+        "type": "String",
+        "name": "filename",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "R_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "G_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "B_Out",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "INT",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "INT",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12557,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWorldSpaceMapTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12558,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Jump",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12559,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetCameraShake",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12560,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopVATSCam",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12561,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIMODAnimatable",
+    "params": [
+      {
+        "type": "ImageSpaceModifier",
+        "name": "IMOD",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12562,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetIMODAnimatable",
+    "params": [
+      {
+        "type": "ImageSpaceModifier",
+        "name": "IMOD",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12563,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetEditorID",
+    "alias": "GetEdID",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 12564,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetJohnnyPatch",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12565,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetVelEx",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12566,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UwUDelete",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12567,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMediaSetTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12568,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetMediaSetTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12569,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMediaSetTraitString",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12570,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetMediaSetTraitString",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12571,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMediaSetTraitSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12572,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetMediaSetTraitSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12573,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWeapon1stPersonModel",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12574,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeapon1stPersonModel",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12575,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBufferedCellsAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12576,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTimePlayed",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12577,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorValueModifierAlt",
+    "alias": "GetAVModAlt",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "AV",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12578,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AsmBreak",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12579,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RefAddr",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12580,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMusicTypePath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12581,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMusicTypeDB",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12582,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetMusicTypeDB",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12583,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "EditorIDToFormID",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12584,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRegionWeatherOverride",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12585,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRegionWeatherOverride",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12586,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRegionWeatherPriority",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12587,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRegionWeatherPriority",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12588,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsWeatherInRegion",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 12589,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveRegionWeather",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12590,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddRegionWeather",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "WeatherID",
+        "name": "Weather ID",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Global",
+        "name": "Global",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12591,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRegionWeathers",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12592,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearRegionWeathers",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12593,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopSoundAlt",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12594,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemovePrimitive",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12595,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetPrimitiveType",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12596,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetBaseScale",
+    "alias": "GetBasedScale",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12597,
+    "isCondFunc": true,
+    "reqRef": true
+  },
+  {
+    "name": "GetCustomMapMarker",
+    "params": [],
+    "retType": "Form",
+    "opcode": 12598,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UnsetAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "actor value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12599,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "UnforceAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "actor value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12600,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ToggleNthPipboyLight",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12601,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetBipedIconPathAlt",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12602,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFacegenModelFlag",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12603,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetFacegenModelFlag",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12604,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRaceBodyModelPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12605,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetEquipType",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12606,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFactionMembers",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12607,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRaceHeadModelPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12608,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetDefaultHeapSize",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12609,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Get3DDistanceBetweenNiNodes",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "ref",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "ref",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12610,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Get3DDistanceToNiNode",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12611,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "Get3DDistanceFromHitToNiNode",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12612,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetVector3DDistance",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12613,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLinearVelocity",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "X_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Y_Out",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Z_Out",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12614,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetLifeState",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12615,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetRaceFlag",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12616,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRaceFlag",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12617,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetContainerSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12618,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetContainerSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12619,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnDyingEventHandler",
+    "alias": "SetOnDyingEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12620,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnStartQuestEventHandler",
+    "alias": "SetOnStartQuestEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12621,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnStopQuestEventHandler",
+    "alias": "SetOnStopQuestEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12622,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DisableMuzzleFlashLights",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12623,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCustomMapMarkerIcon",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12624,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCreatureCombatSkill",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "base actor",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12625,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetExplosionSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12626,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetProjectileSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12627,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeaponWorldModelPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12628,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Clamp",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12629,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Remap",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12630,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Lerp",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12631,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnySeenDataEventHandler",
+    "alias": "SetSeenDataEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12632,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnLimbGoneEventHandler",
+    "alias": "SetOnLimbGoneEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12633,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "Sign",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12634,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddTerminalMenuItem",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12635,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTerminalMenuItemText",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12636,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetTerminalMenuItemText",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12637,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTerminalMenuItemNote",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12638,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetTerminalMenuItemNote",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12639,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTerminalMenuItemSubmenu",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12640,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetTerminalMenuItemSubmenu",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12641,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRunSpeed",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12642,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DisableMenuArrowKeys",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12643,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "EnableMenuArrowKeys",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12644,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetQuestFailed",
+    "alias": "GetQF",
+    "params": [
+      {
+        "type": "Quest",
+        "name": "quest",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12645,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnChallengeCompleteEventHandler",
+    "alias": "SetOnChallengeCompleteEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12646,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTerminalMenuItemCount",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12647,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPipBoyMode",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12648,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWeaponVATSTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12649,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeaponVATSTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12650,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveTerminalMenuItem",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12651,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWorldSpaceMapTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12652,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFormOverrideIndex",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12653,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnCrosshairEventHandler",
+    "alias": "SetOnCrosshairEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12654,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetSequenceAnimGroup",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12655,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "QueueObjectiveText",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12656,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "QueueCinematicText",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12657,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ar_SortEditor",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12658,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetUIUpdateSound",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12659,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorValueAlt",
+    "alias": "GetAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12660,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ModActorValueAlt",
+    "alias": "ModAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12661,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetActorValueAlt",
+    "alias": "SetAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12662,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ForceActorValueAlt",
+    "alias": "ForceAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12663,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DamageActorValueAlt",
+    "alias": "DamageAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12664,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RestoreActorValueAlt",
+    "alias": "RestoreAVAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12665,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "HighlightBodyPartAlt",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12666,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "DeactivateAllHighlightsAlt",
+    "params": [
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12667,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetJohnnyOnCompleteQuestEventHandler",
+    "alias": "SetOnCompleteQuestEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12668,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnFailQuestEventHandler",
+    "alias": "SetOnFailQuestEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12669,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsDLLLoaded",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "1/0",
+    "opcode": 12670,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnSettingsUpdateEventHandler",
+    "alias": "SetOnSettingsUpdateEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12671,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetQuestDelay",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12672,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNearestCompassHostileDirection",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12673,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNearestCompassHostile",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12674,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RefreshIdle",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12675,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetNoteRead",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12676,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetDisablePlayerControlsHUDVisibilityFlags",
+    "alias": "SetDPCHUDFlags",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12677,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCameraTranslation",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12678,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCompassHostile",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 12679,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetMessageIconPath",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12680,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMessageIconPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 12681,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ExitGameAlt",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12682,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ToggleCombatMusic",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12683,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsCombatMusicEnabled",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 12684,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnAddPerkEventHandler",
+    "alias": "SetOnAddPerkEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12685,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnRemovePerkEventHandler",
+    "alias": "SetOnRemovePerkEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12686,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "IsHostilesNearby",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 12687,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ModNthTempEffectTimeLeft",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12688,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetWeaponWorldModelPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12689,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBodyPartTraitString",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12690,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetActorEffectType",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12691,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTextureWidth",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12692,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTextureHeight",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12693,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTextureFormat",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12694,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetTextureMipMapCount",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12695,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCalculatedSpread",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12696,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SendStealingAlarm",
+    "params": [
+      {
+        "type": "ObjectRef",
+        "name": "target",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12697,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "ApplyWeaponPoison",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12698,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetTalkingActivatorActor",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12699,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPlayerKarmaTitle",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "String",
+    "opcode": 12700,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetCompassHostiles",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12701,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ToggleDisableSaves",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12702,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetJohnnyOnRenderUpdateEventHandler",
+    "alias": "SetOnRenderUpdateEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "optionalFlags",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12703,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "WorldToScreen",
+    "params": [
+      {
+        "type": "ScriptVar",
+        "name": "X_Out",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Y_Out",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Z_Out",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "HandleMode",
+        "optional": false
+      },
+      {
+        "type": "ObjectRef",
+        "name": "Object Ref",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12704,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFaceGenNthProperty",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "target",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Property Type",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Property",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12705,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetFaceGenNthProperty",
+    "params": [
+      {
+        "type": "ActorBase",
+        "name": "target",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Property Type",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Property",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12706,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "FaceGenRefreshAppearance",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12707,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SendTrespassAlarmAlt",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12708,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "IsCrimeOrEnemy",
+    "params": [],
+    "retType": "1/0",
+    "opcode": 12709,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetAvailablePerks",
+    "params": [],
+    "retType": "Array",
+    "opcode": 12710,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetThresholdedActorValue",
+    "alias": "GetThresholdAV",
+    "params": [
+      {
+        "type": "ActorValue",
+        "name": "actor value",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12711,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetEffectShaderTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12712,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetEffectShaderTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12713,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetEffectShaderTexturePath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12714,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetEffectShaderTexturePath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12715,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetSystemColor",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12716,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RGBtoHSV",
+    "params": [
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12717,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "HSVtoRGB",
+    "params": [
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12718,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLocationSpecificLoadScreensOnly",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12719,
+    "isCondFunc": true,
+    "reqRef": false
+  },
+  {
+    "name": "GetArmorAltTextures",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12720,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIdleMarkerTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12721,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetIdleMarkerAnimations",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12722,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetIdleMarkerTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12723,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetIdleMarkerAnimation",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12724,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetIdleMarkerAnimations",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12725,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWeaponAltTextures",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12726,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRefActivationPromptOverride",
+    "alias": "GetXATO",
+    "params": [],
+    "retType": "String",
+    "opcode": 12727,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetRefActivationPromptOverride",
+    "alias": "SetXATO",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12728,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetTerminalMenuItemFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12729,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetTerminalMenuItemFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12730,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLocationName",
+    "params": [],
+    "retType": "String",
+    "opcode": 12731,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetRegionMapName",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "String",
+    "opcode": 12732,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRegionMapName",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12733,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetRGBColor",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12734,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPlayingEffectShaders",
+    "params": [],
+    "retType": "Array",
+    "opcode": 12735,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetBookFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12736,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetBookFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12737,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetBookSkill",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12738,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetBookSkill",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12739,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetOnActorValueChangeEventHandler",
+    "alias": "SetJohnnyOnActorValueChangeEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12740,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RefreshTerminalMenu",
+    "alias": "rtm",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12741,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetRefEncounterZone",
+    "alias": "SetRefZone",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12742,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "GetRefEncounterZone",
+    "alias": "GetRefZone",
+    "params": [],
+    "retType": "Form",
+    "opcode": 12743,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetCellEncounterZone",
+    "alias": "SetCellZone",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12744,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWorldspaceEncounterZone",
+    "alias": "SetWorldZone",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12745,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetWorldspaceEncounterZone",
+    "alias": "GetWorldZone",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12746,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "UpdateCrosshairPrompt",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12747,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLightingTemplateTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12748,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLightingTemplateTraitNumeric",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12749,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLightingTemplateCell",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12750,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetLightingTemplateCell",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12751,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RemoveScopeModelPath",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12752,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNthRegionWeatherType",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12753,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNthRegionWeatherChance",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12754,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetNthRegionWeatherGlobal",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Form",
+    "opcode": 12755,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "PlaySoundFile",
+    "params": [
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12756,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopSoundFile",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12757,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "StopSoundLooping",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12758,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetSystemColorAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12759,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetCustomReputationChangeIcon",
+    "alias": "scrci",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12760,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetArmorAltTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12761,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetWeaponAltTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12762,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearWeaponAltTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12763,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ClearArmorAltTexture",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12764,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AddNavmeshObstacle",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12765,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RemoveNavmeshObstacle",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12766,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RollCredits",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12767,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFactionFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12768,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetFactionFlags",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12769,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetLandTextureUnderFeet",
+    "params": [],
+    "retType": "Form",
+    "opcode": 12770,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "SetOnProcessLevelChangeEventHandler",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "setOrRemove",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "Script",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "flags",
+        "optional": true
+      },
+      {
+        "type": "AnyForm",
+        "name": "Form",
+        "optional": true
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12771,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetExtraMiscStat",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12772,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "ModExtraMiscStat",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12773,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetMoonPhase",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12774,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetFormRecipesAlt",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12775,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "RewardKarmaAlt",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12776,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPackedPlayerFOV",
+    "params": [
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": false
+      },
+      {
+        "type": "ScriptVar",
+        "name": "Script Var",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12777,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DialogResponseAddRelatedTopic",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "Dialog Response",
+        "optional": false
+      },
+      {
+        "type": "Topic",
+        "name": "Dialog Topic",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "Integer",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12778,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "DialogResponseRelatedGetAll",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": true
+      }
+    ],
+    "retType": "Array",
+    "opcode": 12779,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetPlayerCamFOV",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12780,
+    "isCondFunc": true,
+    "reqRef": true,
+    "desc": "0"
+  },
+  {
+    "name": "ShowBarberMenuEx",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "index",
+        "optional": false
+      },
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12781,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "InitExtraMiscStat",
+    "params": [
+      {
+        "type": "String",
+        "name": "string",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12782,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "TriggerScreenSplatterEx",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "Count",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Duration",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Size mult",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Opacity mult",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Alpha Texture",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Color Texture",
+        "optional": false
+      },
+      {
+        "type": "String",
+        "name": "Flare Texture",
+        "optional": false
+      },
+      {
+        "type": "Integer",
+        "name": "No fade",
+        "optional": true
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12783,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetViewmodelClipDistance",
+    "params": [
+      {
+        "type": "Float",
+        "name": "float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12784,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "GetViewmodelClipDistance",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12785,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "SetBlockTransform",
+    "params": [
+      {
+        "type": "String",
+        "name": "Block name",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "X",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Y",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Z",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "W",
+        "optional": false
+      },
+      {
+        "type": "<unknown>",
+        "name": "Is Rotation",
+        "optional": false
+      },
+      {
+        "type": "<unknown>",
+        "name": "World Data",
+        "optional": false
+      },
+      {
+        "type": "<unknown>",
+        "name": "Update",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12786,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "RefAddrxData",
+    "params": [
+      {
+        "type": "String",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12787,
+    "isCondFunc": false,
+    "reqRef": false
+  },
+  {
+    "name": "AudioMarkerGetController",
+    "params": [],
+    "retType": "Float",
+    "opcode": 12788,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AudioMarkerSetController",
+    "params": [
+      {
+        "type": "AnyForm",
+        "name": "form",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12789,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AudioMarkerGetProperty",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12790,
+    "isCondFunc": false,
+    "reqRef": true
+  },
+  {
+    "name": "AudioMarkerSetProperty",
+    "params": [
+      {
+        "type": "Integer",
+        "name": "int",
+        "optional": false
+      },
+      {
+        "type": "Float",
+        "name": "Float",
+        "optional": false
+      }
+    ],
+    "retType": "Float",
+    "opcode": 12791,
+    "isCondFunc": false,
+    "reqRef": true
+  }
+]
