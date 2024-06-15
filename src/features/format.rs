@@ -110,11 +110,22 @@ impl<'a> Formatter<'a> {
         let indent = self.indent_str();
         match stmt {
             ast::Stmt::Block(x) => format!("\n{indent}{}", self.block(Some(x))),
-            ast::Stmt::VarDecl(x) => format!(
-                "\n{indent}{}{};",
-                self.var_decl(x.var_decl().as_ref()),
-                self.comments_between(x.var_decl().as_ref(), x.semi().as_deref(),),
-            ),
+            ast::Stmt::VarDecl(x) => {
+                if x.export().is_some() {
+                    format!(
+                        "\n{indent}export{} {}{};",
+                        self.comments_between(x.export().as_deref(), x.var_decl().as_ref()),
+                        self.var_decl(x.var_decl().as_ref()),
+                        self.comments_between(x.var_decl().as_ref(), x.semi().as_deref(),),
+                    )
+                } else {
+                    format!(
+                        "\n{indent}{}{};",
+                        self.var_decl(x.var_decl().as_ref()),
+                        self.comments_between(x.var_decl().as_ref(), x.semi().as_deref(),),
+                    )
+                }
+            }
             ast::Stmt::Expr(x) => format!(
                 "\n{indent}{}{};",
                 self.expr(x.expr().as_ref()),

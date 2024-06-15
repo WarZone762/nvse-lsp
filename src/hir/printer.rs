@@ -164,7 +164,7 @@ impl Print for ForEachStmt {
     fn print(&self, p: &mut Printer<'_>) {
         p.push("for (");
         self.pat.print(p);
-        p.push(" : ");
+        p.push(" in ");
         self.iterable.print(p);
         p.push(") ");
         self.block.print(p);
@@ -208,6 +208,9 @@ impl Print for WhileStmt {
 
 impl Print for VarDeclStmt {
     fn print(&self, p: &mut Printer<'_>) {
+        if self.export {
+            p.push("export ");
+        }
         self.decl.print(p);
         p.push(";")
     }
@@ -438,9 +441,9 @@ impl Print for Pat {
         match self {
             Pat::VarDecl(x) => x.print(p),
             Pat::Arr(x) => {
-                for pat in x {
-                    pat.print(p);
-                }
+                p.push("[");
+                x.print_delimited(p, ", ");
+                p.push("]");
             }
         }
     }

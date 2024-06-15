@@ -317,15 +317,11 @@ impl ForEachStmt {
         std::iter::from_coroutine(
             #[coroutine]
             || {
-                match self.pat {
-                    Pat::VarDecl(x) => yield HirNode::from(x),
-                    Pat::Arr(_) => {
-                        for child in self.pat.children() {
-                            yield child;
-                        }
-                    }
+                for child in self.pat.children() {
+                    yield child;
                 }
                 yield HirNode::from(self.iterable);
+                yield HirNode::from(self.block);
             },
         )
     }
@@ -376,6 +372,7 @@ hir_children! {
 
 #[derive(Debug, Clone)]
 pub(crate) struct VarDeclStmt {
+    pub export: bool,
     pub decl: VarDeclId,
     pub node: ast::VarDeclStmt,
 }
@@ -679,16 +676,9 @@ pub(crate) enum Pat {
 impl Pat {
     pub fn children(&self) -> Box<dyn Iterator<Item = HirNode> + '_> {
         match self {
-            Pat::VarDecl(_) => Box::new(iter::empty()),
+            Pat::VarDecl(x) => Box::new(iter::once(HirNode::from(*x))),
             Pat::Arr(x) => Box::new(x.iter().flat_map(|x| x.children())),
         }
-    }
-
-    pub fn node<'a>(&self, script_db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
-        Some(match self {
-            Pat::VarDecl(x) => x.node(script_db)?,
-            Pat::Arr(_) => return None,
-        })
     }
 }
 

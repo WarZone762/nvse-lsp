@@ -93,7 +93,11 @@ impl<'a> LowerCtx<'a> {
     }
 
     fn stmt_var_decl(&mut self, node: ast::VarDeclStmt) -> Option<VarDeclStmt> {
-        Some(VarDeclStmt { decl: self.var_decl(node.var_decl())?, node })
+        Some(VarDeclStmt {
+            export: node.export().is_some(),
+            decl: self.var_decl(node.var_decl())?,
+            node,
+        })
     }
 
     fn stmt_expr(&mut self, node: ast::ExprStmt) -> Option<ExprStmt> {

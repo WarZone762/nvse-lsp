@@ -25,7 +25,7 @@ pub(crate) fn stmt(p: &mut Parser) {
             p.next_any();
             m.complete(p, NodeKind::EmptyStmt);
         }
-        x if x.is_type() => stmt_var_decl(p),
+        x if x.is_type() || p.at(TokenKind::Export) => stmt_var_decl(p),
         _ => stmt_expr(p),
     }
 }
@@ -126,6 +126,7 @@ pub(crate) fn stmt_expr(p: &mut Parser) {
 pub(crate) fn stmt_var_decl(p: &mut Parser) {
     let m = p.start();
 
+    p.opt(TokenKind::Export);
     let var_decl_m = p.start();
     if !p.cur().is_type() {
         p.err_and_next("expected type");

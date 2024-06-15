@@ -1,16 +1,13 @@
-use std::{collections::HashMap, fmt::Display};
+use std::collections::HashMap;
 
 use anyhow::bail;
 use itertools::{EitherOrBoth, Itertools};
 
 use super::{
     infer::{Constraint, TypeVar},
-    Database, FileId, NameId, VarDeclType,
+    FileId, NameId, VarDeclType,
 };
-use crate::{
-    db::Lookup,
-    game_data::{Form, GlobalsDatabaseId},
-};
+use crate::game_data::{Form, GlobalsDatabaseId};
 
 #[derive(Debug, Clone)]
 pub(crate) struct SymbolTable {
@@ -358,7 +355,15 @@ impl Type {
                     )
                 }
             }
-            Self::Union(x) => x.iter().map(|x| x.to_string(indent)).join(" | "),
+            Self::Union(x) => {
+                if x.len() == 2
+                    && let Some(other) = x.iter().find(|x| *x != &Type::Void)
+                {
+                    format!("{}?", other.to_string(indent))
+                } else {
+                    x.iter().map(|x| x.to_string(indent)).join(" | ")
+                }
+            }
             Self::Any => "any".into(),
             Self::Empty => "any".into(),
             // Self::Var(x) => format!("T{}", x.into_raw().into_u32()),

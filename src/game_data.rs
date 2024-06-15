@@ -1,6 +1,6 @@
 use std::{collections::HashMap, fmt::Display};
 
-use la_arena::{Arena, Idx};
+use la_arena::Idx;
 use serde::{Deserialize, Serialize};
 
 use crate::{

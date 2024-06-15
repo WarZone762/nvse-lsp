@@ -382,6 +382,7 @@ tokens! {
     "return" => Return,
     "for" => For,
     "in" => In,
+    "export" => Export,
     BlockType("block type"),
     "name" => Name,
     "continue" => Continue,

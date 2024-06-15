@@ -237,6 +237,7 @@ impl<'a> InferCtx<'a> {
             .params
             .iter()
             .map(|x| {
+                self.var_decl(store, *x);
                 Type::Var(
                     store.name_map.get(&x.lookup(self.script_db).name).copied().unwrap_or_else(
                         || {
@@ -248,13 +249,14 @@ impl<'a> InferCtx<'a> {
                 )
             })
             .collect();
+        self.block(store, node.block);
         let tv = store.type_var();
         let ret = store.type_var();
         store.assignable_to_type(
             tv,
             Type::Function(Box::new(FunctionSignature { ret: Type::Var(ret), params })),
         );
-        ret
+        tv
     }
 
     fn resolve(&self, store: &mut TypeVarStore, name_ref: &NameRef) -> TypeVar {

@@ -211,6 +211,7 @@ node! {
 node! {
     VarDeclStmt,
     NodeKind::VarDeclStmt,
+    token!(export, TokenKind::Export);
     child!(var_decl, VarDecl);
     token!(semi, TokenKind::Semicolon);
 }
@@ -243,7 +244,7 @@ node! {
     token!(lparen, TokenKind::LeftParen);
     child!(pat, Pat);
     token!(in_kw, TokenKind::In);
-    child!(iterable, Expr, 1);
+    child!(iterable, Expr);
     token!(rparen, TokenKind::RightParen);
     child!(block, BlockStmt);
 }
