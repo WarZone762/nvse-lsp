@@ -328,6 +328,7 @@ enum_! {
     Binary(BinaryExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Postfix(PostfixExpr),
     Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
@@ -361,6 +362,13 @@ node! {
     NodeKind::UnaryExpr,
     token!(op, |x| x.kind.is_unary_op());
     child!(operand, Expr);
+}
+
+node! {
+    PostfixExpr,
+    NodeKind::PostfixExpr,
+    child!(operand, Expr);
+    token!(op, |x| x.kind == TokenKind::PlusPlus || x.kind == TokenKind::MinusMinus);
 }
 
 node! {

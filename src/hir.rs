@@ -428,6 +428,7 @@ pub(crate) enum Expr {
     Bin(BinExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Postfix(PostfixExpr),
     Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
@@ -443,6 +444,7 @@ impl_from! {
     Bin(BinExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Postfix(PostfixExpr),
     Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
@@ -460,6 +462,7 @@ impl Expr {
             Expr::Bin(x) => Box::new(x.children()),
             Expr::Ternary(x) => Box::new(x.children()),
             Expr::Unary(x) => Box::new(x.children()),
+            Expr::Postfix(x) => Box::new(x.children()),
             Expr::Field(x) => Box::new(x.children()),
             Expr::Subscript(x) => Box::new(x.children()),
             Expr::Call(x) => Box::new(x.children()),
@@ -477,6 +480,7 @@ impl Expr {
             Expr::Bin(x) => &x.node,
             Expr::Ternary(x) => &x.node,
             Expr::Unary(x) => &x.node,
+            Expr::Postfix(x) => &x.node,
             Expr::Field(x) => &x.node,
             Expr::Subscript(x) => &x.node,
             Expr::Call(x) => &x.node,
@@ -605,6 +609,25 @@ hir_children! {
 pub(crate) enum UnaryOpKind {
     Minus,
     // TODO
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct PostfixExpr {
+    pub operand: ExprId,
+    pub op: PostfixOpKind,
+    pub node: ast::PostfixExpr,
+}
+
+hir_children! {
+    PostfixExpr,
+    child!(operand)
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum PostfixOpKind {
+    Plus2,
+    Minus2,
+    Unknown,
 }
 
 #[derive(Debug, Clone)]

@@ -49,7 +49,7 @@ pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> Complete
             TokenKind::PlusPlus | TokenKind::MinusMinus => {
                 let m = lhs.precede(p);
                 p.next_any();
-                m.complete(p, NodeKind::UnaryExpr)
+                m.complete(p, NodeKind::PostfixExpr)
             }
             TokenKind::Ternary => {
                 let m = lhs.precede(p);

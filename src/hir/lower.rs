@@ -159,6 +159,7 @@ impl<'a> LowerCtx<'a> {
                     ast::Expr::Binary(x) => self.expr_bin(x).into(),
                     ast::Expr::Ternary(x) => self.expr_ternary(x).into(),
                     ast::Expr::Unary(x) => self.expr_unary(x).into(),
+                    ast::Expr::Postfix(x) => self.expr_postfix(x).into(),
                     ast::Expr::Field(x) => self.expr_field(x).into(),
                     ast::Expr::Subscript(x) => self.expr_subscript(x).into(),
                     ast::Expr::Call(x) => self.expr_call(x)?.into(),
@@ -196,6 +197,21 @@ impl<'a> LowerCtx<'a> {
             // TODO
             op: UnaryOpKind::Minus,
             operand: self.expr(node.operand()),
+            node,
+        }
+    }
+
+    fn expr_postfix(&mut self, node: ast::PostfixExpr) -> PostfixExpr {
+        PostfixExpr {
+            operand: self.expr(node.operand()),
+            op: node
+                .op()
+                .map(|x| match x.kind {
+                    TokenKind::PlusPlus => PostfixOpKind::Plus2,
+                    TokenKind::MinusMinus => PostfixOpKind::Minus2,
+                    _ => PostfixOpKind::Unknown,
+                })
+                .unwrap_or(PostfixOpKind::Unknown),
             node,
         }
     }

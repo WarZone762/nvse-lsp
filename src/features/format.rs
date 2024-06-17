@@ -277,6 +277,7 @@ impl<'a> Formatter<'a> {
             ast::Expr::Binary(x) => self.expr_bin(x),
             ast::Expr::Ternary(x) => self.expr_ternary(x),
             ast::Expr::Unary(x) => self.expr_unary(x),
+            ast::Expr::Postfix(x) => self.expr_postfix(x),
             ast::Expr::Field(x) => self.expr_field(x),
             ast::Expr::Subscript(x) => self.expr_subscript(x),
             ast::Expr::Call(x) => self.expr_call(x),
@@ -314,26 +315,21 @@ impl<'a> Formatter<'a> {
     }
 
     fn expr_unary(&mut self, expr: &ast::UnaryExpr) -> String {
-        match (expr.op(), expr.operand()) {
-            (Some(op), Some(operand)) => {
-                if op.offset < operand.syntax().offset {
-                    format!(
-                        "{}{}{}",
-                        self.token(Some(&op)),
-                        self.comments_between(Some(op.as_ref()), Some(&operand)),
-                        self.expr(Some(&operand)),
-                    )
-                } else {
-                    format!(
-                        "{}{}{}",
-                        self.expr(Some(&operand)),
-                        self.comments_between(Some(&operand), Some(op.as_ref())),
-                        self.token(Some(&op)),
-                    )
-                }
-            }
-            _ => "".into(),
-        }
+        format!(
+            "{}{}{}",
+            self.token(expr.op().as_ref()),
+            self.comments_between(expr.op().as_deref(), expr.operand().as_ref()),
+            self.expr(expr.operand().as_ref()),
+        )
+    }
+
+    fn expr_postfix(&mut self, expr: &ast::PostfixExpr) -> String {
+        format!(
+            "{}{}{}",
+            self.expr(expr.operand().as_ref()),
+            self.comments_between(expr.operand().as_ref(), expr.op().as_deref()),
+            self.token(expr.op().as_ref()),
+        )
     }
 
     fn expr_field(&mut self, expr: &ast::FieldExpr) -> String {

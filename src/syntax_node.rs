@@ -353,6 +353,7 @@ pub(crate) enum NodeKind {
     TernaryExpr,
     BinaryExpr,
     UnaryExpr,
+    PostfixExpr,
     FieldExpr,
     SubscriptExpr,
     CallExpr,

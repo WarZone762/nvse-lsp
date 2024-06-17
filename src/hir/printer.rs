@@ -257,6 +257,7 @@ impl Print for ExprId {
             Expr::Bin(x) => x.print(p),
             Expr::Ternary(x) => x.print(p),
             Expr::Unary(x) => x.print(p),
+            Expr::Postfix(x) => x.print(p),
             Expr::Field(x) => x.print(p),
             Expr::Subscript(x) => x.print(p),
             Expr::Call(x) => x.print(p),
@@ -331,6 +332,23 @@ impl Print for UnaryExpr {
     fn print(&self, p: &mut Printer<'_>) {
         self.op.print(p);
         self.operand.print(p);
+    }
+}
+
+impl Print for PostfixExpr {
+    fn print(&self, p: &mut Printer<'_>) {
+        self.operand.print(p);
+        self.op.print(p);
+    }
+}
+
+impl Print for PostfixOpKind {
+    fn print(&self, p: &mut Printer<'_>) {
+        match self {
+            PostfixOpKind::Plus2 => p.push("++"),
+            PostfixOpKind::Minus2 => p.push("--"),
+            PostfixOpKind::Unknown => p.push("<?>"),
+        }
     }
 }
 

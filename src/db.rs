@@ -16,7 +16,7 @@ use crate::{
     doc::{Doc, DocMeta},
     game_data::{FnData, FormData, GlobalsDatabase, GlobalsDatabaseId},
     hir::*,
-    syntax_node::{Node, NodeKind},
+    syntax_node::Node,
     tree_builder::parse_str,
 };
 

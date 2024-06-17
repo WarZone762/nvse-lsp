@@ -143,6 +143,7 @@ impl<'a> InferCtx<'a> {
             Expr::Bin(x) => self.expr_bin(store, x),
             Expr::Ternary(x) => self.expr_ternary(store, x),
             Expr::Unary(x) => self.expr(store, x.operand),
+            Expr::Postfix(x) => self.expr(store, x.operand),
             Expr::Field(x) => self.expr_field(store, x),
             Expr::Subscript(x) => self.expr_subscript(store, x),
             Expr::Call(x) => self.expr_call(store, x),

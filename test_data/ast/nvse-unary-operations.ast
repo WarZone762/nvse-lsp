@@ -85,7 +85,7 @@ Script@0..776
                     ArgList@174..184
                         LeftParen@174..175 "("
                         BinaryExpr@175..183
-                            UnaryExpr@175..178
+                            PostfixExpr@175..178
                                 NameRef@175..176
                                     Identifier@175..176 "i"
                                 PlusPlus@176..178 "++"
@@ -106,7 +106,7 @@ Script@0..776
                     ArgList@248..258
                         LeftParen@248..249 "("
                         BinaryExpr@249..257
-                            UnaryExpr@249..252
+                            PostfixExpr@249..252
                                 NameRef@249..250
                                     Identifier@249..250 "i"
                                 MinusMinus@250..252 "--"
