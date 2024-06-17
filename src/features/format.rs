@@ -277,6 +277,7 @@ impl<'a> Formatter<'a> {
             ast::Expr::Binary(x) => self.expr_bin(x),
             ast::Expr::Ternary(x) => self.expr_ternary(x),
             ast::Expr::Unary(x) => self.expr_unary(x),
+            ast::Expr::Field(x) => self.expr_field(x),
             ast::Expr::Subscript(x) => self.expr_subscript(x),
             ast::Expr::Call(x) => self.expr_call(x),
             ast::Expr::Paren(x) => self.expr_paren(x),
@@ -289,25 +290,14 @@ impl<'a> Formatter<'a> {
     }
 
     fn expr_bin(&mut self, expr: &ast::BinaryExpr) -> String {
-        if expr.op().is_some_and(|x| x.kind == TokenKind::Dot) {
-            format!(
-                "{}{}{}{}{}",
-                self.expr(expr.lhs().as_ref()),
-                self.comments_between(expr.lhs().as_ref(), expr.op().as_deref()),
-                self.token(expr.op().as_ref()),
-                self.comments_between(expr.op().as_deref(), expr.rhs().as_ref()),
-                self.expr(expr.rhs().as_ref()),
-            )
-        } else {
-            format!(
-                "{}{} {}{} {}",
-                self.expr(expr.lhs().as_ref()),
-                self.comments_between(expr.lhs().as_ref(), expr.op().as_deref()),
-                self.token(expr.op().as_ref()),
-                self.comments_between(expr.op().as_deref(), expr.rhs().as_ref()),
-                self.expr(expr.rhs().as_ref()),
-            )
-        }
+        format!(
+            "{}{} {}{} {}",
+            self.expr(expr.lhs().as_ref()),
+            self.comments_between(expr.lhs().as_ref(), expr.op().as_deref()),
+            self.token(expr.op().as_ref()),
+            self.comments_between(expr.op().as_deref(), expr.rhs().as_ref()),
+            self.expr(expr.rhs().as_ref()),
+        )
     }
 
     fn expr_ternary(&mut self, expr: &ast::TernaryExpr) -> String {
@@ -344,6 +334,16 @@ impl<'a> Formatter<'a> {
             }
             _ => "".into(),
         }
+    }
+
+    fn expr_field(&mut self, expr: &ast::FieldExpr) -> String {
+        format!(
+            "{}{}.{}{}",
+            self.expr(expr.lhs().as_ref()),
+            self.comments_between(expr.lhs().as_ref(), expr.dot().as_deref()),
+            self.comments_between(expr.dot().as_deref(), expr.field().as_ref()),
+            expr.field().as_ref().map(|x| self.expr_name_ref(x)).unwrap_or_default(),
+        )
     }
 
     fn expr_subscript(&mut self, expr: &ast::SubscriptExpr) -> String {

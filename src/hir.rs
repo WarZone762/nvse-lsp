@@ -428,6 +428,7 @@ pub(crate) enum Expr {
     Bin(BinExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
     Paren(ParenExpr),
@@ -442,6 +443,7 @@ impl_from! {
     Bin(BinExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
     Paren(ParenExpr),
@@ -458,6 +460,7 @@ impl Expr {
             Expr::Bin(x) => Box::new(x.children()),
             Expr::Ternary(x) => Box::new(x.children()),
             Expr::Unary(x) => Box::new(x.children()),
+            Expr::Field(x) => Box::new(x.children()),
             Expr::Subscript(x) => Box::new(x.children()),
             Expr::Call(x) => Box::new(x.children()),
             Expr::Paren(x) => Box::new(x.children()),
@@ -474,6 +477,7 @@ impl Expr {
             Expr::Bin(x) => &x.node,
             Expr::Ternary(x) => &x.node,
             Expr::Unary(x) => &x.node,
+            Expr::Field(x) => &x.node,
             Expr::Subscript(x) => &x.node,
             Expr::Call(x) => &x.node,
             Expr::Paren(x) => &x.node,
@@ -530,7 +534,6 @@ pub(crate) enum BinOpKind {
     Gt2,
     Colon,
     Colon2,
-    Dot,
     Unknown,
 }
 
@@ -566,7 +569,6 @@ impl BinOpKind {
             TokenKind::Gt2 => Self::Gt2,
             TokenKind::Colon => Self::Colon,
             TokenKind::Colon2 => Self::Colon2,
-            TokenKind::Dot => Self::Dot,
             _ => Self::Unknown,
         }
     }
@@ -603,6 +605,19 @@ hir_children! {
 pub(crate) enum UnaryOpKind {
     Minus,
     // TODO
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct FieldExpr {
+    pub lhs: ExprId,
+    pub field: ExprId,
+    pub node: ast::FieldExpr,
+}
+
+hir_children! {
+    FieldExpr,
+    child!(lhs)
+    child!(field)
 }
 
 #[derive(Debug, Clone)]

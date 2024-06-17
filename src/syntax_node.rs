@@ -353,6 +353,7 @@ pub(crate) enum NodeKind {
     TernaryExpr,
     BinaryExpr,
     UnaryExpr,
+    FieldExpr,
     SubscriptExpr,
     CallExpr,
     StrExpr,
@@ -436,7 +437,6 @@ tokens! {
     "|" => BitwiseOr,
     ":" => Colon,
     "::" => Colon2,
-    "." => Dot,
 
 
     (is_paired)
@@ -456,6 +456,7 @@ tokens! {
     "${" => DollarLeftBrace,
     "\"" => QuoteDouble,
     "," => Comma,
+    "." => Dot,
     ";" => Semicolon,
     "?" => Ternary,
     StringShard("string"),

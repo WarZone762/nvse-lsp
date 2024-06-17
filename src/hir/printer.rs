@@ -257,6 +257,7 @@ impl Print for ExprId {
             Expr::Bin(x) => x.print(p),
             Expr::Ternary(x) => x.print(p),
             Expr::Unary(x) => x.print(p),
+            Expr::Field(x) => x.print(p),
             Expr::Subscript(x) => x.print(p),
             Expr::Call(x) => x.print(p),
             Expr::Paren(x) => x.print(p),
@@ -311,7 +312,6 @@ impl Print for BinOpKind {
             BinOpKind::Gt2 => p.push(">>"),
             BinOpKind::Colon => p.push(":"),
             BinOpKind::Colon2 => p.push("::"),
-            BinOpKind::Dot => p.push("."),
             BinOpKind::Unknown => p.push("<?>"),
         }
     }
@@ -331,6 +331,14 @@ impl Print for UnaryExpr {
     fn print(&self, p: &mut Printer<'_>) {
         self.op.print(p);
         self.operand.print(p);
+    }
+}
+
+impl Print for FieldExpr {
+    fn print(&self, p: &mut Printer<'_>) {
+        self.lhs.print(p);
+        p.push(".");
+        self.field.print(p);
     }
 }
 

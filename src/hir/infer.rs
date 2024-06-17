@@ -143,6 +143,7 @@ impl<'a> InferCtx<'a> {
             Expr::Bin(x) => self.expr_bin(store, x),
             Expr::Ternary(x) => self.expr_ternary(store, x),
             Expr::Unary(x) => self.expr(store, x.operand),
+            Expr::Field(x) => self.expr_field(store, x),
             Expr::Subscript(x) => self.expr_subscript(store, x),
             Expr::Call(x) => self.expr_call(store, x),
             Expr::Paren(x) => self.expr(store, x.expr),
@@ -176,27 +177,13 @@ impl<'a> InferCtx<'a> {
     }
 
     fn expr_bin(&self, store: &mut TypeVarStore, node: &BinExpr) -> TypeVar {
-        if node.op == BinOpKind::Dot
-            && let Expr::NameRef(name) = node.rhs.lookup(self.script_db)
-        {
-            let lhs = self.expr(store, node.lhs);
-            let rhs = self.expr(store, node.rhs);
-
-            store.assignable_to_type(
-                lhs,
-                Type::Record(Record { fields: vec![(name.name.clone(), Type::Var(rhs))] }),
-            );
-
-            rhs
-        } else {
-            let lhs = self.expr(store, node.lhs);
-            let rhs = self.expr(store, node.rhs);
-            store.assignable(lhs, rhs);
-            let tv = store.type_var();
-            store.assignable(tv, lhs);
-            store.assignable(tv, rhs);
-            tv
-        }
+        let lhs = self.expr(store, node.lhs);
+        let rhs = self.expr(store, node.rhs);
+        store.assignable(lhs, rhs);
+        let tv = store.type_var();
+        store.assignable(tv, lhs);
+        store.assignable(tv, rhs);
+        tv
     }
 
     fn expr_ternary(&self, store: &mut TypeVarStore, node: &TernaryExpr) -> TypeVar {
@@ -208,6 +195,22 @@ impl<'a> InferCtx<'a> {
         let tv = store.type_var();
         store.assignable(tv, true_expr);
         store.assignable(tv, false_expr);
+        tv
+    }
+
+    fn expr_field(&self, store: &mut TypeVarStore, node: &FieldExpr) -> TypeVar {
+        let lhs = self.expr(store, node.lhs);
+        let field = match node.field.lookup(self.script_db) {
+            Expr::NameRef(x) => x,
+            _ => return store.type_var(),
+        };
+        let tv = self.expr(store, node.field);
+
+        store.assignable_to_type(
+            lhs,
+            Type::Record(Record { fields: vec![(field.name.clone(), Type::Var(tv))] }),
+        );
+
         tv
     }
 

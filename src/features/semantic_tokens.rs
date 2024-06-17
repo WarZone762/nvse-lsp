@@ -1,7 +1,7 @@
 use tower_lsp::lsp_types::*;
 
 use crate::{
-    ast::AstNode,
+    ast::{self, AstNode},
     db::{Database, Lookup},
     hir::ty::Symbol,
     syntax_node::{NodeKind, TokenKind},
@@ -29,6 +29,24 @@ impl Doc {
                 .is_some_and(|x| x)
             {
                 SemanticTokenType::FUNCTION
+            } else if t
+                .parent()
+                .and_then(|x| {
+                    Some(
+                        x.kind == NodeKind::NameRef
+                            && ast::FieldExpr::cast(x.parent()?)?.field()?.syntax() == &x,
+                    )
+                })
+                .is_some_and(|x| x)
+            {
+                if t.parent()
+                    .and_then(|x| x.parent()?.parent())
+                    .is_some_and(|x| x.kind == NodeKind::CallExpr)
+                {
+                    SemanticTokenType::METHOD
+                } else {
+                    SemanticTokenType::PROPERTY
+                }
             } else if t
                 .parent()
                 .and_then(|x| match self.resolve(db, db.syntax_to_hir(**self, x)?)? {
@@ -87,9 +105,11 @@ static LEGEND: &[SemanticTokenType] = &[
     SemanticTokenType::COMMENT,
     SemanticTokenType::FUNCTION,
     SemanticTokenType::KEYWORD,
+    SemanticTokenType::METHOD,
     SemanticTokenType::NUMBER,
     SemanticTokenType::OPERATOR,
     SemanticTokenType::PARAMETER,
+    SemanticTokenType::PROPERTY,
     SemanticTokenType::STRING,
     SemanticTokenType::TYPE,
     SemanticTokenType::VARIABLE,

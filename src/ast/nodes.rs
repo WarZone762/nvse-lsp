@@ -328,6 +328,7 @@ enum_! {
     Binary(BinaryExpr),
     Ternary(TernaryExpr),
     Unary(UnaryExpr),
+    Field(FieldExpr),
     Subscript(SubscriptExpr),
     Call(CallExpr),
     Paren(ParenExpr),
@@ -360,6 +361,27 @@ node! {
     NodeKind::UnaryExpr,
     token!(op, |x| x.kind.is_unary_op());
     child!(operand, Expr);
+}
+
+node! {
+    FieldExpr,
+    NodeKind::FieldExpr,
+    child!(lhs, Expr);
+    token!(dot, TokenKind::Dot);
+}
+
+impl FieldExpr {
+    pub fn field(&self) -> Option<NameRef> {
+        self.syntax_node
+            .children
+            .iter()
+            .filter_map(|x| Expr::cast(x.node()?.clone()))
+            .skip(1)
+            .find_map(|x| match x {
+                Expr::NameRef(x) => Some(x),
+                _ => None,
+            })
+    }
 }
 
 node! {

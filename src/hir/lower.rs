@@ -159,6 +159,7 @@ impl<'a> LowerCtx<'a> {
                     ast::Expr::Binary(x) => self.expr_bin(x).into(),
                     ast::Expr::Ternary(x) => self.expr_ternary(x).into(),
                     ast::Expr::Unary(x) => self.expr_unary(x).into(),
+                    ast::Expr::Field(x) => self.expr_field(x).into(),
                     ast::Expr::Subscript(x) => self.expr_subscript(x).into(),
                     ast::Expr::Call(x) => self.expr_call(x)?.into(),
                     ast::Expr::Paren(x) => self.expr_paren(x).into(),
@@ -195,6 +196,14 @@ impl<'a> LowerCtx<'a> {
             // TODO
             op: UnaryOpKind::Minus,
             operand: self.expr(node.operand()),
+            node,
+        }
+    }
+
+    fn expr_field(&mut self, node: ast::FieldExpr) -> FieldExpr {
+        FieldExpr {
+            lhs: self.expr(node.lhs()),
+            field: self.expr(node.field().map(ast::Expr::NameRef)),
             node,
         }
     }

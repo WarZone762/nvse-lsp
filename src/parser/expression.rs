@@ -59,6 +59,12 @@ pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> Complete
                 expr(p);
                 m.complete(p, NodeKind::TernaryExpr)
             }
+            TokenKind::Dot => {
+                let m = lhs.precede(p);
+                p.next_any();
+                name_ref(p);
+                m.complete(p, NodeKind::FieldExpr)
+            }
             _ => break,
         };
     }
@@ -139,7 +145,6 @@ pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
     match token {
-        TokenKind::Dot => 13,
         TokenKind::Star | TokenKind::Slash | TokenKind::Mod | TokenKind::Pow => 12,
         TokenKind::Plus | TokenKind::Minus => 11,
         TokenKind::Lt2 | TokenKind::Gt2 => 10,
