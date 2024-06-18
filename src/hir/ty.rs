@@ -357,6 +357,7 @@ impl Type {
             }
             Self::Union(x) => {
                 if x.len() == 2
+                    && x.contains(&Type::Void)
                     && let Some(other) = x.iter().find(|x| *x != &Type::Void)
                 {
                     format!("{}?", other.to_string(indent))

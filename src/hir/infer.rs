@@ -6,7 +6,7 @@ use super::*;
 use crate::game_data::{Form, FormType, GlobalsDatabaseId};
 
 pub(crate) fn infer(db: &mut Database, file_id: FileId) -> TypeVarStore {
-    let ctx = InferCtx::new(db, file_id);
+    let mut ctx = InferCtx::new(db, file_id);
     let mut store = TypeVarStore::new();
     ctx.script(&mut store, file_id.hir(db));
 
@@ -18,14 +18,15 @@ pub(crate) struct InferCtx<'a> {
     db: &'a db::Database,
     script_db: &'a ScriptDatabase,
     file_id: db::FileId,
+    return_stack: Vec<TypeVar>,
 }
 
 impl<'a> InferCtx<'a> {
     pub fn new(db: &'a Database, file_id: FileId) -> Self {
-        Self { script_db: file_id.script_db(db), db, file_id }
+        Self { script_db: file_id.script_db(db), db, file_id, return_stack: vec![] }
     }
 
-    fn script(&self, store: &mut TypeVarStore, node: &Script) {
+    fn script(&mut self, store: &mut TypeVarStore, node: &Script) {
         if let Some(name) = node.name {
             let tv = store.type_var();
             store
@@ -37,23 +38,25 @@ impl<'a> InferCtx<'a> {
         }
     }
 
-    fn item(&self, store: &mut TypeVarStore, node: ItemId) {
+    fn item(&mut self, store: &mut TypeVarStore, node: ItemId) {
         match node.lookup(self.script_db) {
             Item::FnDecl(x) => {
+                self.return_stack.push(store.type_var());
                 self.block(store, x.block);
+                let _ret = self.return_stack.pop().expect("InferCtx::item: return stack empty");
             }
             Item::BlockType(x) => self.block(store, x.block),
             Item::VarDeclStmt(x) => self.var_decl(store, x.decl),
         }
     }
 
-    fn block(&self, store: &mut TypeVarStore, node: BlockId) {
+    fn block(&mut self, store: &mut TypeVarStore, node: BlockId) {
         for stmt in &node.lookup(self.script_db).stmts {
             self.stmt(store, *stmt);
         }
     }
 
-    fn stmt(&self, store: &mut TypeVarStore, node: StmtId) {
+    fn stmt(&mut self, store: &mut TypeVarStore, node: StmtId) {
         match node.lookup(self.script_db) {
             Stmt::For(x) => self.stmt_for(store, x),
             Stmt::ForEach(x) => self.stmt_for_each(store, x),
@@ -62,7 +65,12 @@ impl<'a> InferCtx<'a> {
             Stmt::VarDecl(x) => self.var_decl(store, x.decl),
             Stmt::Return(x) => {
                 if let Some(x) = x.expr {
-                    self.expr(store, x);
+                    let ret = self.expr(store, x);
+                    if let Some(top) = self.return_stack.last() {
+                        store.assignable(ret, *top);
+                    }
+                } else if let Some(top) = self.return_stack.last() {
+                    store.assignable_to_type(*top, Type::Void);
                 }
             }
 
@@ -75,7 +83,7 @@ impl<'a> InferCtx<'a> {
         }
     }
 
-    fn stmt_for(&self, store: &mut TypeVarStore, node: &ForStmt) {
+    fn stmt_for(&mut self, store: &mut TypeVarStore, node: &ForStmt) {
         if let Some(init) = &node.init {
             self.var_decl(store, *init);
         }
@@ -89,13 +97,13 @@ impl<'a> InferCtx<'a> {
         self.block(store, node.block);
     }
 
-    fn stmt_for_each(&self, store: &mut TypeVarStore, node: &ForEachStmt) {
+    fn stmt_for_each(&mut self, store: &mut TypeVarStore, node: &ForEachStmt) {
         self.pat(store, &node.pat);
         self.expr(store, node.iterable);
         self.block(store, node.block);
     }
 
-    fn stmt_if(&self, store: &mut TypeVarStore, node: &IfStmt) {
+    fn stmt_if(&mut self, store: &mut TypeVarStore, node: &IfStmt) {
         let tv = self.expr(store, node.cond);
         store.concrete_type(tv, InferredType::bool());
         self.block(store, node.true_branch);
@@ -106,13 +114,13 @@ impl<'a> InferCtx<'a> {
         }
     }
 
-    fn stmt_while(&self, store: &mut TypeVarStore, node: &WhileStmt) {
+    fn stmt_while(&mut self, store: &mut TypeVarStore, node: &WhileStmt) {
         let tv = self.expr(store, node.cond);
         store.concrete_type(tv, InferredType::bool());
         self.block(store, node.block);
     }
 
-    fn pat(&self, store: &mut TypeVarStore, node: &Pat) {
+    fn pat(&mut self, store: &mut TypeVarStore, node: &Pat) {
         match node {
             Pat::VarDecl(x) => self.var_decl(store, *x),
             Pat::Arr(x) => {
@@ -123,7 +131,7 @@ impl<'a> InferCtx<'a> {
         }
     }
 
-    fn var_decl(&self, store: &mut TypeVarStore, node: VarDeclId) {
+    fn var_decl(&mut self, store: &mut TypeVarStore, node: VarDeclId) {
         let var_decl = node.lookup(self.script_db);
         let name_tv = store.name_map.get(&var_decl.name).copied().unwrap_or_else(|| {
             let tv = store.type_var();
@@ -137,7 +145,7 @@ impl<'a> InferCtx<'a> {
         }
     }
 
-    fn expr(&self, store: &mut TypeVarStore, node: ExprId) -> TypeVar {
+    fn expr(&mut self, store: &mut TypeVarStore, node: ExprId) -> TypeVar {
         let tv = match node.lookup(self.script_db) {
             Expr::Missing => store.type_var(),
             Expr::Bin(x) => self.expr_bin(store, x),
@@ -177,7 +185,7 @@ impl<'a> InferCtx<'a> {
         tv
     }
 
-    fn expr_bin(&self, store: &mut TypeVarStore, node: &BinExpr) -> TypeVar {
+    fn expr_bin(&mut self, store: &mut TypeVarStore, node: &BinExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
         let rhs = self.expr(store, node.rhs);
         store.assignable(lhs, rhs);
@@ -187,7 +195,7 @@ impl<'a> InferCtx<'a> {
         tv
     }
 
-    fn expr_ternary(&self, store: &mut TypeVarStore, node: &TernaryExpr) -> TypeVar {
+    fn expr_ternary(&mut self, store: &mut TypeVarStore, node: &TernaryExpr) -> TypeVar {
         let cond = self.expr(store, node.cond);
         store.concrete_type(cond, InferredType::bool());
         let true_expr = self.expr(store, node.true_expr);
@@ -199,7 +207,7 @@ impl<'a> InferCtx<'a> {
         tv
     }
 
-    fn expr_field(&self, store: &mut TypeVarStore, node: &FieldExpr) -> TypeVar {
+    fn expr_field(&mut self, store: &mut TypeVarStore, node: &FieldExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
         let field = match node.field.lookup(self.script_db) {
             Expr::NameRef(x) => x,
@@ -215,7 +223,7 @@ impl<'a> InferCtx<'a> {
         tv
     }
 
-    fn expr_subscript(&self, store: &mut TypeVarStore, node: &SubscriptExpr) -> TypeVar {
+    fn expr_subscript(&mut self, store: &mut TypeVarStore, node: &SubscriptExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
         let subscript = self.expr(store, node.subscript);
         let tv = store.type_var();
@@ -225,7 +233,7 @@ impl<'a> InferCtx<'a> {
         value
     }
 
-    fn expr_call(&self, store: &mut TypeVarStore, node: &CallExpr) -> TypeVar {
+    fn expr_call(&mut self, store: &mut TypeVarStore, node: &CallExpr) -> TypeVar {
         let lhs = self.expr(store, node.lhs);
         let args = node.args.iter().map(|x| Type::Var(self.expr(store, *x))).collect();
         let tv = store.type_var();
@@ -236,7 +244,7 @@ impl<'a> InferCtx<'a> {
         tv
     }
 
-    fn expr_lambda(&self, store: &mut TypeVarStore, node: &LambdaExpr) -> TypeVar {
+    fn expr_lambda(&mut self, store: &mut TypeVarStore, node: &LambdaExpr) -> TypeVar {
         let params = node
             .params
             .iter()
@@ -253,16 +261,15 @@ impl<'a> InferCtx<'a> {
                 )
             })
             .collect();
-        match node.block_or_expr {
+        let ret = match node.block_or_expr {
             BlockOrExpr::Block(x) => {
+                self.return_stack.push(store.type_var());
                 self.block(store, x);
+                self.return_stack.pop().expect("InferCtx::expr_lambda: return stack is empty")
             }
-            BlockOrExpr::Expr(x) => {
-                self.expr(store, x);
-            }
-        }
+            BlockOrExpr::Expr(x) => self.expr(store, x),
+        };
         let tv = store.type_var();
-        let ret = store.type_var();
         store.assignable_to_type(
             tv,
             Type::Function(Box::new(FunctionSignature { ret: Type::Var(ret), params })),
