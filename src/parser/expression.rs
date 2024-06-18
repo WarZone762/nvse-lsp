@@ -93,7 +93,7 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
             p.expect(TokenKind::RightParen);
             m.complete(p, NodeKind::ParenExpr)
         }
-        TokenKind::Fn => expr_fn(p),
+        TokenKind::Fn => expr_lambda(p),
         _ => {
             let m = p.start();
             p.err("expected expression");
@@ -107,11 +107,15 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
     })
 }
 
-pub(crate) fn expr_fn(p: &mut Parser) -> CompletedMarker {
+pub(crate) fn expr_lambda(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::Fn);
     param_list(p);
-    stmt_block(p);
+    if p.at(TokenKind::LeftBrace) {
+        stmt_block(p);
+    } else {
+        expr(p);
+    }
     m.complete(p, NodeKind::LambdaExpr)
 }
 

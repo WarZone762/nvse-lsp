@@ -683,14 +683,29 @@ hir_children! {
 #[derive(Debug, Clone)]
 pub(crate) struct LambdaExpr {
     pub params: Vec<VarDeclId>,
-    pub block: BlockId,
+    pub block_or_expr: BlockOrExpr,
     pub node: ast::LambdaExpr,
 }
 
 hir_children! {
     LambdaExpr,
     child_iter!(params)
-    child!(block)
+    child!(block_or_expr)
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum BlockOrExpr {
+    Block(BlockId),
+    Expr(ExprId),
+}
+
+impl From<BlockOrExpr> for HirNode {
+    fn from(value: BlockOrExpr) -> Self {
+        match value {
+            BlockOrExpr::Block(x) => x.into(),
+            BlockOrExpr::Expr(x) => x.into(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

@@ -399,7 +399,10 @@ impl Print for LambdaExpr {
         p.push("fn (");
         self.params.iter().print_delimited(p, ", ");
         p.push(") ");
-        self.block.print(p);
+        match self.block_or_expr {
+            BlockOrExpr::Block(x) => x.print(p),
+            BlockOrExpr::Expr(x) => x.print(p),
+        }
     }
 }
 

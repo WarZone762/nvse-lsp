@@ -248,8 +248,15 @@ impl<'a> LowerCtx<'a> {
                 .params()
                 .filter_map(|x| self.var_decl(Some(x)))
                 .collect(),
-            block: self.block(node.block())?,
+            block_or_expr: self.block_or_expr(node.block_or_expr())?,
             node,
+        })
+    }
+
+    fn block_or_expr(&mut self, node: Option<ast::BlockOrExpr>) -> Option<BlockOrExpr> {
+        Some(match node? {
+            ast::BlockOrExpr::Block(x) => BlockOrExpr::Block(self.block(Some(x))?),
+            ast::BlockOrExpr::Expr(x) => BlockOrExpr::Expr(self.expr(Some(x))),
         })
     }
 

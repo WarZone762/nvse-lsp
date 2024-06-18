@@ -421,7 +421,39 @@ node! {
     NodeKind::LambdaExpr,
     token!(fn_kw, TokenKind::Fn);
     child!(params, ParamList);
-    child!(block, BlockStmt);
+    child!(block_or_expr, BlockOrExpr);
+}
+
+#[derive(Debug, Clone)]
+pub(crate) enum BlockOrExpr {
+    Block(BlockStmt),
+    Expr(Expr),
+}
+
+impl AstNode for BlockOrExpr {
+    fn can_cast(kind: NodeKind) -> bool {
+        Expr::can_cast(kind) || BlockStmt::can_cast(kind)
+    }
+
+    fn cast(syntax_node: Rc<Node>) -> Option<Self>
+    where
+        Self: Sized,
+    {
+        Some(if Expr::can_cast(syntax_node.kind) {
+            Self::Expr(Expr::cast(syntax_node).unwrap())
+        } else if BlockStmt::can_cast(syntax_node.kind) {
+            Self::Block(BlockStmt::cast(syntax_node).unwrap())
+        } else {
+            return None;
+        })
+    }
+
+    fn syntax(&self) -> &Rc<Node> {
+        match self {
+            Self::Block(x) => &x.syntax_node,
+            Self::Expr(x) => x.syntax(),
+        }
+    }
 }
 
 node! {

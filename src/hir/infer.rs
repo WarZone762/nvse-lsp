@@ -253,7 +253,14 @@ impl<'a> InferCtx<'a> {
                 )
             })
             .collect();
-        self.block(store, node.block);
+        match node.block_or_expr {
+            BlockOrExpr::Block(x) => {
+                self.block(store, x);
+            }
+            BlockOrExpr::Expr(x) => {
+                self.expr(store, x);
+            }
+        }
         let tv = store.type_var();
         let ret = store.type_var();
         store.assignable_to_type(

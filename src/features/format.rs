@@ -376,8 +376,8 @@ impl<'a> Formatter<'a> {
             "fn{} {}{} {}",
             self.comments_between(expr.fn_kw().as_deref(), expr.params().as_ref()),
             self.param_list(expr.params().as_ref()),
-            self.comments_between(expr.params().as_ref(), expr.block().as_ref()),
-            self.block(expr.block().as_ref()),
+            self.comments_between(expr.params().as_ref(), expr.block_or_expr().as_ref()),
+            self.block_or_expr(expr.block_or_expr().as_ref()),
         )
     }
 
@@ -404,6 +404,15 @@ impl<'a> Formatter<'a> {
 
     fn expr_lit(&mut self, expr: &ast::Literal) -> &'a str {
         self.token(expr.lit().as_ref())
+    }
+
+    fn block_or_expr(&mut self, block_or_expr: Option<&ast::BlockOrExpr>) -> String {
+        block_or_expr
+            .map(|x| match x {
+                ast::BlockOrExpr::Block(x) => self.block(Some(x)),
+                ast::BlockOrExpr::Expr(x) => self.expr(Some(x)),
+            })
+            .unwrap_or_default()
     }
 
     fn block(&mut self, block: Option<&ast::BlockStmt>) -> String {
