@@ -107,13 +107,9 @@ impl Database {
         }
     }
 
-    pub fn str_shard_to_hir(
-        &self,
-        file_id: FileId,
-        node: ast::StringShard,
-    ) -> Option<StringShardId> {
+    pub fn str_shard_to_hir(&self, file_id: FileId, node: ast::StrShard) -> Option<StrShardId> {
         match self.syntax_to_hir(file_id, node.syntax().clone())? {
-            HirNode::StringShard(x) => Some(x),
+            HirNode::StrShard(x) => Some(x),
             _ => None,
         }
     }

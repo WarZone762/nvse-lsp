@@ -52,7 +52,7 @@ impl<'a> LowerCtx<'a> {
         let item = match node {
             ast::Item::FnDecl(x) => self.fn_decl(x)?.into(),
             ast::Item::BlockType(x) => self.block_type(x)?.into(),
-            ast::Item::VarDeclStmt(x) => self.stmt_var_decl(x)?.into(),
+            ast::Item::VarDecl(x) => self.stmt_var_decl(x)?.into(),
         };
         Some(self.script_db.add_item(item))
     }
@@ -81,7 +81,7 @@ impl<'a> LowerCtx<'a> {
             ast::Stmt::VarDecl(x) => self.stmt_var_decl(x)?.into(),
             ast::Stmt::Expr(x) => self.stmt_expr(x)?.into(),
             ast::Stmt::For(x) => self.stmt_for(x)?.into(),
-            ast::Stmt::ForEach(x) => self.stmt_for_each(x)?.into(),
+            ast::Stmt::ForEach(x) => self.stmt_for_range(x)?.into(),
             ast::Stmt::If(x) => self.stmt_if(x)?.into(),
             ast::Stmt::While(x) => self.stmt_while(x)?.into(),
             ast::Stmt::Return(x) => self.stmt_return(x).into(),
@@ -114,8 +114,8 @@ impl<'a> LowerCtx<'a> {
         })
     }
 
-    fn stmt_for_each(&mut self, node: ast::ForEachStmt) -> Option<ForEachStmt> {
-        Some(ForEachStmt {
+    fn stmt_for_range(&mut self, node: ast::ForRangeStmt) -> Option<ForRangeStmt> {
+        Some(ForRangeStmt {
             pat: self.pat(node.pat())?,
             iterable: self.expr(node.iterable()),
             block: self.block(node.block())?,
@@ -167,17 +167,17 @@ impl<'a> LowerCtx<'a> {
                     ast::Expr::Lambda(x) => self.expr_lambda(x)?.into(),
                     ast::Expr::NameRef(x) => self.name_ref(x)?.into(),
                     ast::Expr::Str(x) => self.str(x).into(),
-                    ast::Expr::Lit(x) => self.lit(x)?.into(),
+                    ast::Expr::Literal(x) => self.literal(x)?.into(),
                 })
             })
             .unwrap_or(Expr::Missing);
         self.script_db.add_expr(expr)
     }
 
-    fn expr_bin(&mut self, node: ast::BinaryExpr) -> BinExpr {
+    fn expr_bin(&mut self, node: ast::BinExpr) -> BinExpr {
         BinExpr {
             lhs: self.expr(node.lhs()),
-            op: node.op().map(|x| BinOpKind::from_token(x.kind)).unwrap_or(BinOpKind::Unknown),
+            op: node.op().map(|x| BinOpKind::from_token(x.kind)).unwrap_or_default(),
             rhs: self.expr(node.rhs()),
             node,
         }
@@ -194,8 +194,7 @@ impl<'a> LowerCtx<'a> {
 
     fn expr_unary(&mut self, node: ast::UnaryExpr) -> UnaryExpr {
         UnaryExpr {
-            // TODO
-            op: UnaryOpKind::Minus,
+            op: node.op().map(|x| UnaryOpKind::from_token(x.kind)).unwrap_or_default(),
             operand: self.expr(node.operand()),
             node,
         }
@@ -204,14 +203,7 @@ impl<'a> LowerCtx<'a> {
     fn expr_postfix(&mut self, node: ast::PostfixExpr) -> PostfixExpr {
         PostfixExpr {
             operand: self.expr(node.operand()),
-            op: node
-                .op()
-                .map(|x| match x.kind {
-                    TokenKind::PlusPlus => PostfixOpKind::Plus2,
-                    TokenKind::MinusMinus => PostfixOpKind::Minus2,
-                    _ => PostfixOpKind::Unknown,
-                })
-                .unwrap_or(PostfixOpKind::Unknown),
+            op: node.op().map(|x| PostfixOpKind::from_token(x.kind)).unwrap_or_default(),
             node,
         }
     }
@@ -286,7 +278,7 @@ impl<'a> LowerCtx<'a> {
 
     fn var_decl(&mut self, node: Option<ast::VarDecl>) -> Option<VarDeclId> {
         let var_decl = VarDecl {
-            decl_type: VarDeclType::from(node.as_ref()?.r#type()?.kind),
+            decl_type: VarDeclType::from(node.as_ref()?.type_()?.kind),
             name: self.name(node.as_ref()?.name())?,
             init: node.as_ref()?.init().map(|x| self.expr(Some(x))),
             node: node?,
@@ -312,27 +304,27 @@ impl<'a> LowerCtx<'a> {
     }
 
     fn str(&mut self, node: ast::StrExpr) -> StrExpr {
-        StrExpr { shards: node.shards().filter_map(|x| self.string_shard(x)).collect(), node }
+        StrExpr { shards: node.shards().filter_map(|x| self.str_shard(x)).collect(), node }
     }
 
-    fn string_shard(&mut self, node: ast::StringShard) -> Option<StringShardId> {
+    fn str_shard(&mut self, node: ast::StrShard) -> Option<StrShardId> {
         let str_shard = match &node {
-            ast::StringShard::Literal(x) => {
-                StringShard::Str { val: self.token_text(x.token()?.as_ref()).into(), node }
+            ast::StrShard::Literal(x) => {
+                StrShard::Str { val: self.token_text(x.token()?.as_ref()).into(), node }
             }
-            ast::StringShard::Expr(x) => StringShard::Expr { expr: self.expr(x.expr()), node },
+            ast::StrShard::Expr(x) => StrShard::Expr { expr: self.expr(x.expr()), node },
         };
         Some(self.script_db.add_str_shard(str_shard))
     }
 
-    fn lit(&mut self, node: ast::Literal) -> Option<Literal> {
-        let token = node.lit()?;
+    fn literal(&mut self, node: ast::Literal) -> Option<Literal> {
+        let token = node.literal()?;
         Some(match token.kind {
-            TokenKind::Number => Literal::Number(NumberLiteral {
+            TokenKind::NUMBER => Literal::Number(NumberLiteral {
                 value: self.token_text(&token).parse().ok()?,
                 node,
             }),
-            TokenKind::Bool => {
+            TokenKind::BOOL => {
                 Literal::Bool(BoolLiteral { value: self.token_text(&token).parse().ok()?, node })
             }
             _ => unreachable!(),

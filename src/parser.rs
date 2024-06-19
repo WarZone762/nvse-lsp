@@ -55,7 +55,7 @@ impl Parser {
     }
 
     pub fn more(&self) -> bool {
-        !self.at(TokenKind::Eof)
+        !self.at(TokenKind::EOF)
     }
 
     pub fn at(&self, kind: TokenKind) -> bool {
@@ -77,7 +77,7 @@ impl Parser {
 
     pub fn start(&mut self) -> Marker {
         let pos = self.events.len();
-        self.push_event(Event::Start(NodeKind::Tombstone, None));
+        self.push_event(Event::Start(NodeKind::TOMBSTONE, None));
         Marker::new(pos)
     }
 
@@ -90,7 +90,7 @@ impl Parser {
 
     pub fn next_any(&mut self) {
         let kind = self.cur();
-        if kind == TokenKind::Eof {
+        if kind == TokenKind::EOF {
             return;
         }
         self.do_next(kind);
@@ -193,7 +193,7 @@ impl Marker {
 
     pub fn abandon(self, p: &mut Parser) {
         if self.pos == p.events.len() - 1 {
-            let Event::Start(NodeKind::Tombstone, None) = p.events.pop().unwrap() else {
+            let Event::Start(NodeKind::TOMBSTONE, None) = p.events.pop().unwrap() else {
                 panic!("tried to abandon a valid marker");
             };
         }
@@ -210,7 +210,7 @@ pub(crate) enum Event {
 
 impl Event {
     pub fn take(&mut self) -> Self {
-        mem::replace(self, Event::Start(NodeKind::Tombstone, None))
+        mem::replace(self, Event::Start(NodeKind::TOMBSTONE, None))
     }
 }
 
@@ -230,7 +230,7 @@ impl FromIterator<TokenKind> for Input {
         Self {
             tokens: iter
                 .into_iter()
-                .filter(|x| !matches!(x, TokenKind::Whitespace | TokenKind::Comment))
+                .filter(|x| !matches!(x, TokenKind::WHITESPACE | TokenKind::COMMENT))
                 .collect(),
         }
     }

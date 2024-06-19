@@ -24,7 +24,7 @@ impl Doc {
             let kind = if t
                 .parent()
                 .and_then(|x| {
-                    Some(x.kind == NodeKind::NameRef && x.parent()?.kind == NodeKind::CallExpr)
+                    Some(x.kind == NodeKind::NAME_REF && x.parent()?.kind == NodeKind::CALL_EXPR)
                 })
                 .is_some_and(|x| x)
             {
@@ -33,7 +33,7 @@ impl Doc {
                 .parent()
                 .and_then(|x| {
                     Some(
-                        x.kind == NodeKind::NameRef
+                        x.kind == NodeKind::NAME_REF
                             && ast::FieldExpr::cast(x.parent()?)?.field()?.syntax() == &x,
                     )
                 })
@@ -41,7 +41,7 @@ impl Doc {
             {
                 if t.parent()
                     .and_then(|x| x.parent()?.parent())
-                    .is_some_and(|x| x.kind == NodeKind::CallExpr)
+                    .is_some_and(|x| x.kind == NodeKind::CALL_EXPR)
                 {
                     SemanticTokenType::METHOD
                 } else {
@@ -54,7 +54,7 @@ impl Doc {
                         let doc = Doc(file_id);
                         Some(
                             x.lookup(doc.script_db(db)).node.syntax().parent()?.kind
-                                == NodeKind::ParamList,
+                                == NodeKind::PARAM_LIST,
                         )
                     }
                     _ => None,
@@ -62,8 +62,8 @@ impl Doc {
                 .is_some_and(|x| x)
             {
                 SemanticTokenType::PARAMETER
-            } else if t.kind == TokenKind::RightBrace
-                && t.parent().is_some_and(|x| x.kind == NodeKind::StringShardExpr)
+            } else if t.kind == TokenKind::RBRACK
+                && t.parent().is_some_and(|x| x.kind == NodeKind::STR_SHARD_EXPR)
             {
                 SemanticTokenTypeCustom::ESCAPE_SEQUENCE
             } else {
@@ -74,7 +74,7 @@ impl Doc {
 
             for line_text in t.text(self.text(db)).split('\n') {
                 builder.push(&kind, None, line, pos, line_text.len() as _);
-                if t.kind == TokenKind::StringShard {
+                if t.kind == TokenKind::STR_SHARD {
                     for (i, c) in line_text.chars().enumerate() {
                         let i = i as u32;
                         if t.text(self.text(db)).chars().nth(i.saturating_sub(1) as _) == Some('\\')

@@ -35,7 +35,7 @@ pub(crate) enum HirNode {
     Block(BlockId),
     VarDecl(VarDeclId),
     Name(NameId),
-    StringShard(StringShardId),
+    StrShard(StrShardId),
 }
 
 impl_from! {
@@ -47,7 +47,7 @@ impl_from! {
     Block(BlockId),
     VarDecl(VarDeclId),
     Name(NameId),
-    StringShard(StringShardId),
+    StrShard(StrShardId),
 }
 
 impl HirNode {
@@ -68,7 +68,7 @@ impl HirNode {
             HirNode::Block(x) => Box::new(x.children(script_db)),
             HirNode::VarDecl(x) => Box::new(x.children(script_db)),
             HirNode::Name(_) => Box::new(iter::empty()),
-            HirNode::StringShard(x) => x.children(script_db),
+            HirNode::StrShard(x) => x.children(script_db),
         }
     }
 
@@ -85,7 +85,7 @@ impl HirNode {
             HirNode::Block(x) => x.node(script_db)?,
             HirNode::VarDecl(x) => x.node(script_db)?,
             HirNode::Name(x) => x.node(script_db)?,
-            HirNode::StringShard(x) => x.node(script_db)?,
+            HirNode::StrShard(x) => x.node(script_db)?,
         })
     }
 }
@@ -169,14 +169,14 @@ hir_children! {
 pub(crate) enum Item {
     FnDecl(FnDeclItem),
     BlockType(BlockTypeItem),
-    VarDeclStmt(VarDeclStmt),
+    VarDecl(VarDeclStmt),
 }
 
 impl_from! {
     Item,
     FnDecl(FnDeclItem),
     BlockType(BlockTypeItem),
-    VarDeclStmt(VarDeclStmt),
+    VarDecl(VarDeclStmt),
 }
 
 impl Item {
@@ -184,7 +184,7 @@ impl Item {
         match self {
             Item::FnDecl(x) => Box::new(x.children()),
             Item::BlockType(x) => Box::new(x.children()),
-            Item::VarDeclStmt(x) => Box::new(x.children()),
+            Item::VarDecl(x) => Box::new(x.children()),
         }
     }
 
@@ -192,7 +192,7 @@ impl Item {
         Some(match self {
             Item::FnDecl(x) => &x.node,
             Item::BlockType(x) => &x.node,
-            Item::VarDeclStmt(x) => &x.node,
+            Item::VarDecl(x) => &x.node,
         })
     }
 }
@@ -227,7 +227,7 @@ hir_children! {
 #[derive(Debug, Clone)]
 pub(crate) enum Stmt {
     For(ForStmt),
-    ForEach(ForEachStmt),
+    ForRange(ForRangeStmt),
     If(IfStmt),
     While(WhileStmt),
     VarDecl(VarDeclStmt),
@@ -241,7 +241,7 @@ pub(crate) enum Stmt {
 impl_from! {
     Stmt,
     For(ForStmt),
-    ForEach(ForEachStmt),
+    ForRange(ForRangeStmt),
     If(IfStmt),
     While(WhileStmt),
     VarDecl(VarDeclStmt),
@@ -259,7 +259,7 @@ impl Stmt {
     ) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         match self {
             Stmt::For(x) => Box::new(x.children()),
-            Stmt::ForEach(x) => Box::new(x.children()),
+            Stmt::ForRange(x) => Box::new(x.children()),
             Stmt::If(x) => Box::new(x.children()),
             Stmt::While(x) => Box::new(x.children()),
             Stmt::VarDecl(x) => Box::new(x.children()),
@@ -274,7 +274,7 @@ impl Stmt {
     pub fn node<'a>(&'a self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {
         Some(match self {
             Stmt::For(x) => &x.node,
-            Stmt::ForEach(x) => &x.node,
+            Stmt::ForRange(x) => &x.node,
             Stmt::If(x) => &x.node,
             Stmt::While(x) => &x.node,
             Stmt::VarDecl(x) => &x.node,
@@ -305,14 +305,14 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ForEachStmt {
+pub(crate) struct ForRangeStmt {
     pub pat: Pat,
     pub iterable: ExprId,
     pub block: BlockId,
-    pub node: ast::ForEachStmt,
+    pub node: ast::ForRangeStmt,
 }
 
-impl ForEachStmt {
+impl ForRangeStmt {
     pub fn children(&self) -> impl Iterator<Item = HirNode> {
         std::iter::from_coroutine(
             #[coroutine]
@@ -436,7 +436,7 @@ pub(crate) enum Expr {
     Lambda(LambdaExpr),
     NameRef(NameRef),
     Str(StrExpr),
-    Lit(Literal),
+    Literal(Literal),
 }
 
 impl_from! {
@@ -452,7 +452,7 @@ impl_from! {
     Lambda(LambdaExpr),
     NameRef(NameRef),
     Str(StrExpr),
-    Lit(Literal),
+    Literal(Literal),
 }
 
 impl Expr {
@@ -470,7 +470,7 @@ impl Expr {
             Expr::Lambda(x) => Box::new(x.children()),
             Expr::NameRef(_) => Box::new(iter::empty()),
             Expr::Str(x) => Box::new(x.children()),
-            Expr::Lit(_) => Box::new(iter::empty()),
+            Expr::Literal(_) => Box::new(iter::empty()),
         }
     }
 
@@ -488,7 +488,7 @@ impl Expr {
             Expr::Lambda(x) => &x.node,
             Expr::NameRef(x) => &x.node,
             Expr::Str(x) => &x.node,
-            Expr::Lit(x) => x.node(),
+            Expr::Literal(x) => x.node(),
         })
     }
 }
@@ -498,7 +498,7 @@ pub(crate) struct BinExpr {
     pub lhs: ExprId,
     pub op: BinOpKind,
     pub rhs: ExprId,
-    pub node: ast::BinaryExpr,
+    pub node: ast::BinExpr,
 }
 
 hir_children! {
@@ -507,7 +507,7 @@ hir_children! {
     child!(rhs)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum BinOpKind {
     Plus,
     Minus,
@@ -538,41 +538,42 @@ pub(crate) enum BinOpKind {
     Gt2,
     Colon,
     Colon2,
+    #[default]
     Unknown,
 }
 
 impl BinOpKind {
     pub fn from_token(string: TokenKind) -> Self {
         match string {
-            TokenKind::Plus => Self::Plus,
-            TokenKind::Minus => Self::Minus,
-            TokenKind::Star => Self::Asterisk,
-            TokenKind::Slash => Self::Slash,
-            TokenKind::Mod => Self::Percent,
-            TokenKind::Pow => Self::Circumflex,
-            TokenKind::PlusEq => Self::PlusEq,
-            TokenKind::MinusEq => Self::MinusEq,
-            TokenKind::StarEq => Self::AsteriskEq,
-            TokenKind::SlashEq => Self::SlashEq,
-            TokenKind::ModEq => Self::PercentEq,
-            TokenKind::PowEq => Self::CircumflexEq,
-            TokenKind::BitwiseOr => Self::Vbar,
-            TokenKind::BitwiseOrEq => Self::VbarEq,
-            TokenKind::BitwiseAnd => Self::Ampersand,
-            TokenKind::BitwiseAndEq => Self::AmpersandEq,
-            TokenKind::Eq => Self::Eq,
-            TokenKind::EqEq => Self::Eq2,
-            TokenKind::Less => Self::Lt,
-            TokenKind::LessEq => Self::LtEq,
-            TokenKind::Greater => Self::Gt,
-            TokenKind::GreaterEq => Self::GtEq,
-            TokenKind::BangEq => Self::ExclamationEq,
-            TokenKind::LogicOr => Self::Vbar2,
-            TokenKind::LogicAnd => Self::Ampersand2,
-            TokenKind::Lt2 => Self::Lt2,
-            TokenKind::Gt2 => Self::Gt2,
-            TokenKind::Colon => Self::Colon,
-            TokenKind::Colon2 => Self::Colon2,
+            TokenKind::PLUS => Self::Plus,
+            TokenKind::MINUS => Self::Minus,
+            TokenKind::ASTERISK => Self::Asterisk,
+            TokenKind::SLASH => Self::Slash,
+            TokenKind::PERCENT => Self::Percent,
+            TokenKind::CIRCUMFLEX => Self::Circumflex,
+            TokenKind::PLUS_EQ => Self::PlusEq,
+            TokenKind::MINUS_EQ => Self::MinusEq,
+            TokenKind::ASTERISK_EQ => Self::AsteriskEq,
+            TokenKind::SLASH_EQ => Self::SlashEq,
+            TokenKind::PERCENT_EQ => Self::PercentEq,
+            TokenKind::CIRCUMFLEX_EQ => Self::CircumflexEq,
+            TokenKind::VBAR => Self::Vbar,
+            TokenKind::VBAR_EQ => Self::VbarEq,
+            TokenKind::AMPERSAND => Self::Ampersand,
+            TokenKind::AMPERSAND_EQ => Self::AmpersandEq,
+            TokenKind::EQ => Self::Eq,
+            TokenKind::EQ_2 => Self::Eq2,
+            TokenKind::LT => Self::Lt,
+            TokenKind::LT_EQ => Self::LtEq,
+            TokenKind::GT => Self::Gt,
+            TokenKind::GT_EQ => Self::GtEq,
+            TokenKind::EXCLAMATION_EQ => Self::ExclamationEq,
+            TokenKind::VBAR_2 => Self::Vbar2,
+            TokenKind::AMPERSAND_2 => Self::Ampersand2,
+            TokenKind::LT_2 => Self::Lt2,
+            TokenKind::GT_2 => Self::Gt2,
+            TokenKind::COLON => Self::Colon,
+            TokenKind::COLON_2 => Self::Colon2,
             _ => Self::Unknown,
         }
     }
@@ -605,10 +606,38 @@ hir_children! {
     child!(operand)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum UnaryOpKind {
+    Plus,
     Minus,
-    // TODO
+    Asterisk,
+    Ampersand,
+    Plus2,
+    Minus2,
+    Dollar,
+    NumSign,
+    Exclamation,
+    Tilde,
+    #[default]
+    Unknown,
+}
+
+impl UnaryOpKind {
+    pub fn from_token(kind: TokenKind) -> Self {
+        match kind {
+            TokenKind::PLUS => Self::Plus,
+            TokenKind::MINUS => Self::Minus,
+            TokenKind::ASTERISK => Self::Asterisk,
+            TokenKind::AMPERSAND => Self::Ampersand,
+            TokenKind::PLUS_2 => Self::Plus2,
+            TokenKind::MINUS_2 => Self::Minus2,
+            TokenKind::DOLLAR => Self::Dollar,
+            TokenKind::NUM_SIGN => Self::NumSign,
+            TokenKind::EXCLAMATION => Self::Exclamation,
+            TokenKind::TILDE => Self::Tilde,
+            _ => Self::Unknown,
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -623,11 +652,22 @@ hir_children! {
     child!(operand)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum PostfixOpKind {
     Plus2,
     Minus2,
+    #[default]
     Unknown,
+}
+
+impl PostfixOpKind {
+    pub fn from_token(kind: TokenKind) -> Self {
+        match kind {
+            TokenKind::PLUS_2 => Self::Plus2,
+            TokenKind::MINUS_2 => Self::Minus2,
+            _ => Self::Plus2,
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -763,12 +803,12 @@ pub(crate) enum VarDeclType {
 impl From<TokenKind> for VarDeclType {
     fn from(value: TokenKind) -> Self {
         match value {
-            TokenKind::IntType => Self::Int,
-            TokenKind::DoubleType => Self::Double,
-            TokenKind::FloatType => Self::Float,
-            TokenKind::RefType => Self::Ref,
-            TokenKind::StringType => Self::String,
-            TokenKind::ArrayType => Self::Array,
+            TokenKind::INT_TY => Self::Int,
+            TokenKind::DOUBLE_TY => Self::Double,
+            TokenKind::FLOAT_TY => Self::Float,
+            TokenKind::REF_TY => Self::Ref,
+            TokenKind::STRING_TY => Self::String,
+            TokenKind::ARRAY_TY => Self::Array,
             _ => Self::Unknown,
         }
     }
@@ -788,7 +828,7 @@ pub(crate) struct NameRef {
 
 #[derive(Debug, Clone)]
 pub(crate) struct StrExpr {
-    pub shards: Vec<StringShardId>,
+    pub shards: Vec<StrShardId>,
     pub node: ast::StrExpr,
 }
 
@@ -798,23 +838,23 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum StringShard {
-    Str { val: String, node: ast::StringShard },
-    Expr { expr: ExprId, node: ast::StringShard },
+pub(crate) enum StrShard {
+    Str { val: String, node: ast::StrShard },
+    Expr { expr: ExprId, node: ast::StrShard },
 }
 
-impl StringShard {
+impl StrShard {
     pub fn children<'a>(&'a self) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         match self {
-            StringShard::Str { .. } => Box::new(iter::empty()),
-            StringShard::Expr { expr, .. } => Box::new(iter::once((*expr).into())),
+            StrShard::Str { .. } => Box::new(iter::empty()),
+            StrShard::Expr { expr, .. } => Box::new(iter::once((*expr).into())),
         }
     }
 
     pub fn node(&self) -> Option<&dyn AstNode> {
         Some(match self {
-            StringShard::Str { node, .. } => node,
-            StringShard::Expr { node, .. } => node,
+            StrShard::Str { node, .. } => node,
+            StrShard::Expr { node, .. } => node,
         })
     }
 }

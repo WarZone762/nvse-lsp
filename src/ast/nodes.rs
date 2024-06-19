@@ -1,11 +1,11 @@
 use super::*;
 
 macro_rules! enum_ {
-    ($name:ident, $($member:ident($member_kind:ident),)*) => {
+    ($name:ident, $($member:ident($member_struct: ident, $member_kind:ident),)*) => {
         #[derive(Debug, Clone)]
         pub(crate) enum $name {
             $(
-                $member($member_kind),
+                $member($member_struct),
             )*
         }
 
@@ -25,7 +25,7 @@ macro_rules! enum_ {
             {
                 match syntax_node.kind {
                     $(
-                        NodeKind::$member_kind => Some(Self::$member($member_kind{syntax_node})),
+                        NodeKind::$member_kind => Some(Self::$member($member_struct{syntax_node})),
                     )*
                     _ => None,
                 }
@@ -154,24 +154,24 @@ macro_rules! token {
 
 node! {
     Script,
-    NodeKind::Script,
-    token!(name_token, TokenKind::Name);
+    NodeKind::SCRIPT,
+    token!(name_kw, TokenKind::NAME_KW);
     child!(name, Name);
-    token!(semi, TokenKind::Semicolon);
+    token!(semi, TokenKind::SEMICOLON);
     children!(items, Item);
 }
 
 enum_! {
     Item,
-    FnDecl(FnDeclItem),
-    BlockType(BlockTypeItem),
-    VarDeclStmt(VarDeclStmt),
+    FnDecl(FnDeclItem, FN_DECL_ITEM),
+    BlockType(BlockTypeItem, BLOCK_TYPE_ITEM),
+    VarDecl(VarDeclStmt, VAR_DECL_STMT),
 }
 
 node! {
     FnDeclItem,
-    NodeKind::FnDeclItem,
-    token!(fn_token, TokenKind::Fn);
+    NodeKind::FN_DECL_ITEM,
+    token!(fn_kw, TokenKind::FN_KW);
     child!(name, Name);
     child!(param_list, ParamList);
     child!(block, BlockStmt);
@@ -179,85 +179,85 @@ node! {
 
 node! {
     BlockTypeItem,
-    NodeKind::BlockTypeItem,
-    token!(blocktype, TokenKind::BlockType);
+    NodeKind::BLOCK_TYPE_ITEM,
+    token!(blocktype, TokenKind::BLOCK_TYPE);
     child!(block, BlockStmt);
     child!(param, Expr);
 }
 
 enum_! {
     Stmt,
-    Block(BlockStmt),
-    VarDecl(VarDeclStmt),
-    Expr(ExprStmt),
-    For(ForStmt),
-    ForEach(ForEachStmt),
-    If(IfStmt),
-    While(WhileStmt),
-    Return(ReturnStmt),
-    Break(BreakStmt),
-    Continue(ContinueStmt),
-    Empty(EmptyStmt),
+    Block(BlockStmt, BLOCK_STMT),
+    VarDecl(VarDeclStmt, VAR_DECL_STMT),
+    Expr(ExprStmt, EXPR_STMT),
+    For(ForStmt, FOR_STMT),
+    ForEach(ForRangeStmt, FOR_RANGE_STMT),
+    If(IfStmt, IF_STMT),
+    While(WhileStmt, WHILE_STMT),
+    Return(ReturnStmt, RETURN_STMT),
+    Break(BreakStmt, BREAK_STMT),
+    Continue(ContinueStmt, CONTINUE_STMT),
+    Empty(EmptyStmt, EMPTY_EXPR),
 }
 
 node! {
     BlockStmt,
-    NodeKind::BlockStmt,
-    token!(lbrack, TokenKind::LeftBrace);
+    NodeKind::BLOCK_STMT,
+    token!(lbrack, TokenKind::LBRACK);
     children!(stmts, Stmt);
-    token!(rbrack, TokenKind::RightBrace);
+    token!(rbrack, TokenKind::RBRACK);
 }
 
 node! {
     VarDeclStmt,
-    NodeKind::VarDeclStmt,
-    token!(export, TokenKind::Export);
+    NodeKind::VAR_DECL_STMT,
+    token!(export, TokenKind::EXPORT_KW);
     child!(var_decl, VarDecl);
-    token!(semi, TokenKind::Semicolon);
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 node! {
     ExprStmt,
-    NodeKind::ExprStmt,
+    NodeKind::EXPR_STMT,
     child!(expr, Expr);
-    token!(semi, TokenKind::Semicolon);
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 node! {
     ForStmt,
-    NodeKind::ForStmt,
-    token!(for_kw, TokenKind::For);
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::FOR_STMT,
+    token!(for_kw, TokenKind::FOR_KW);
+    token!(lparen, TokenKind::LPAREN);
     child!(init, VarDecl);
-    token!(semi_1, TokenKind::Semicolon);
+    token!(semi_1, TokenKind::SEMICOLON);
     child!(cond, Expr);
-    token!(semi_2, TokenKind::Semicolon, 1);
+    token!(semi_2, TokenKind::SEMICOLON, 1);
     child!(loop_expr, Expr, 1);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
     child!(block, BlockStmt);
 }
 
 node! {
-    ForEachStmt,
-    NodeKind::ForEachStmt,
-    token!(for_kw, TokenKind::For);
-    token!(lparen, TokenKind::LeftParen);
+    ForRangeStmt,
+    NodeKind::FOR_RANGE_STMT,
+    token!(for_kw, TokenKind::FOR_KW);
+    token!(lparen, TokenKind::LPAREN);
     child!(pat, Pat);
-    token!(in_kw, TokenKind::In);
+    token!(in_kw, TokenKind::IN_KW);
     child!(iterable, Expr);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
     child!(block, BlockStmt);
 }
 
 node! {
     IfStmt,
-    NodeKind::IfStmt,
-    token!(if_kw, TokenKind::If);
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::IF_STMT,
+    token!(if_kw, TokenKind::IF_KW);
+    token!(lparen, TokenKind::LPAREN);
     child!(cond, Expr);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
     child!(true_branch, BlockStmt);
-    token!(else_kw, TokenKind::Else);
+    token!(else_kw, TokenKind::ELSE_KW);
 }
 
 impl IfStmt {
@@ -281,67 +281,67 @@ impl IfStmt {
 
 enum_! {
     ElseBranch,
-    Block(BlockStmt),
-    IfStmt(IfStmt),
+    Block(BlockStmt, BLOCK_STMT),
+    IfStmt(IfStmt, IF_STMT),
 }
 
 node! {
     WhileStmt,
-    NodeKind::WhileStmt,
-    token!(while_kw, TokenKind::While);
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::WHILE_STMT,
+    token!(while_kw, TokenKind::WHILE_KW);
+    token!(lparen, TokenKind::LPAREN);
     child!(cond, Expr);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
     child!(block, BlockStmt);
 }
 
 node! {
     ReturnStmt,
-    NodeKind::ReturnStmt,
-    token!(ret_kw, TokenKind::Return);
+    NodeKind::RETURN_STMT,
+    token!(ret_kw, TokenKind::RETURN_KW);
     child!(expr, Expr);
-    token!(semi, TokenKind::Semicolon);
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 node! {
     BreakStmt,
-    NodeKind::BreakStmt,
-    token!(break_kw, TokenKind::Break);
-    token!(semi, TokenKind::Semicolon);
+    NodeKind::BREAK_STMT,
+    token!(break_kw, TokenKind::BREAK_KW);
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 node! {
     ContinueStmt,
-    NodeKind::ContinueStmt,
-    token!(continue_kw, TokenKind::Continue);
-    token!(semi, TokenKind::Semicolon);
+    NodeKind::CONTINUE_STMT,
+    token!(continue_kw, TokenKind::CONTINUE_KW);
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 node! {
     EmptyStmt,
-    NodeKind::EmptyStmt,
-    token!(semi, TokenKind::Semicolon);
+    NodeKind::EMPTY_EXPR,
+    token!(semi, TokenKind::SEMICOLON);
 }
 
 enum_! {
     Expr,
-    Binary(BinaryExpr),
-    Ternary(TernaryExpr),
-    Unary(UnaryExpr),
-    Postfix(PostfixExpr),
-    Field(FieldExpr),
-    Subscript(SubscriptExpr),
-    Call(CallExpr),
-    Paren(ParenExpr),
-    Lambda(LambdaExpr),
-    NameRef(NameRef),
-    Str(StrExpr),
-    Lit(Literal),
+    Binary(BinExpr, BIN_EXPR),
+    Ternary(TernaryExpr, TERNARY_EXPR),
+    Unary(UnaryExpr, UNARY_EXPR),
+    Postfix(PostfixExpr, POSTFIX_EXPR),
+    Field(FieldExpr, FIELD_EXPR),
+    Subscript(SubscriptExpr, SUBSCRIPT_EXPR),
+    Call(CallExpr, CALL_EXPR),
+    Paren(ParenExpr, PAREN_EXPR),
+    Lambda(LambdaExpr, LAMBDA_EXPR),
+    NameRef(NameRef, NAME_REF),
+    Str(StrExpr, STR_EXPR),
+    Literal(Literal, LITERAL),
 }
 
 node! {
-    BinaryExpr,
-    NodeKind::BinaryExpr,
+    BinExpr,
+    NodeKind::BIN_EXPR,
     child!(lhs, Expr);
     token!(op, |x| x.kind.is_bin_op());
     child!(rhs, Expr, 1);
@@ -349,33 +349,33 @@ node! {
 
 node! {
     TernaryExpr,
-    NodeKind::TernaryExpr,
+    NodeKind::TERNARY_EXPR,
     child!(cond, Expr);
-    token!(question_mark, TokenKind::Ternary);
+    token!(question_mark, TokenKind::QUESTION_MARK);
     child!(true_expr, Expr, 1);
-    token!(colon, TokenKind::Colon);
+    token!(colon, TokenKind::COLON);
     child!(false_expr, Expr, 2);
 }
 
 node! {
     UnaryExpr,
-    NodeKind::UnaryExpr,
+    NodeKind::UNARY_EXPR,
     token!(op, |x| x.kind.is_unary_op());
     child!(operand, Expr);
 }
 
 node! {
     PostfixExpr,
-    NodeKind::PostfixExpr,
+    NodeKind::POSTFIX_EXPR,
     child!(operand, Expr);
-    token!(op, |x| x.kind == TokenKind::PlusPlus || x.kind == TokenKind::MinusMinus);
+    token!(op, |x| x.kind == TokenKind::PLUS_2 || x.kind == TokenKind::MINUS_2);
 }
 
 node! {
     FieldExpr,
-    NodeKind::FieldExpr,
+    NodeKind::FIELD_EXPR,
     child!(lhs, Expr);
-    token!(dot, TokenKind::Dot);
+    token!(dot, TokenKind::DOT);
 }
 
 impl FieldExpr {
@@ -394,32 +394,32 @@ impl FieldExpr {
 
 node! {
     SubscriptExpr,
-    NodeKind::SubscriptExpr,
+    NodeKind::SUBSCRIPT_EXPR,
     child!(lhs, Expr);
-    token!(lsqbracket, TokenKind::LeftBracket);
+    token!(lsqbrack, TokenKind::LSQ_BRACK);
     child!(subscript, Expr, 1);
-    token!(rsqbracket, TokenKind::RightBracket);
+    token!(rsqbrack, TokenKind::RSQ_BRACK);
 }
 
 node! {
     CallExpr,
-    NodeKind::CallExpr,
+    NodeKind::CALL_EXPR,
     child!(lhs, Expr);
     child!(args, ArgList);
 }
 
 node! {
     ParenExpr,
-    NodeKind::ParenExpr,
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::PAREN_EXPR,
+    token!(lparen, TokenKind::LPAREN);
     child!(expr, Expr);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
 }
 
 node! {
     LambdaExpr,
-    NodeKind::LambdaExpr,
-    token!(fn_kw, TokenKind::Fn);
+    NodeKind::LAMBDA_EXPR,
+    token!(fn_kw, TokenKind::FN_KW);
     child!(params, ParamList);
     child!(block_or_expr, BlockOrExpr);
 }
@@ -458,85 +458,85 @@ impl AstNode for BlockOrExpr {
 
 node! {
     ParamList,
-    NodeKind::ParamList,
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::PARAM_LIST,
+    token!(lparen, TokenKind::LPAREN);
     children!(params, VarDecl);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
 }
 
 node! {
     ArgList,
-    NodeKind::ArgList,
-    token!(lparen, TokenKind::LeftParen);
+    NodeKind::ARG_LIST,
+    token!(lparen, TokenKind::LPAREN);
     children!(args, Expr);
-    token!(rparen, TokenKind::RightParen);
+    token!(rparen, TokenKind::RPAREN);
 }
 
 enum_! {
     Pat,
-    VarDecl(VarDecl),
-    Arr(PatArr),
+    VarDecl(VarDecl, VAR_DECL),
+    Arr(ArrPat, ARR_PAT),
 }
 
 node! {
-    PatArr,
-    NodeKind::PatArr,
-    token!(lsqbrack, TokenKind::LeftBracket);
+    ArrPat,
+    NodeKind::ARR_PAT,
+    token!(lsqbrack, TokenKind::LSQ_BRACK);
     children!(patts, Pat);
-    token!(rsqbrack, TokenKind::RightBracket);
+    token!(rsqbrack, TokenKind::RSQ_BRACK);
 }
 
 node! {
     VarDecl,
-    NodeKind::VarDecl,
-    token!(r#type, |x| x.kind.is_type());
+    NodeKind::VAR_DECL,
+    token!(type_, |x| x.kind.is_type());
     child!(name, Name);
-    token!(eq, TokenKind::Eq);
+    token!(eq, TokenKind::EQ);
     child!(init, Expr);
 }
 
 node! {
     Name,
-    NodeKind::Name,
-    token!(ident, TokenKind::Identifier);
+    NodeKind::NAME,
+    token!(ident, TokenKind::IDENT);
 }
 
 node! {
     NameRef,
-    NodeKind::NameRef,
-    token!(ident, TokenKind::Identifier);
+    NodeKind::NAME_REF,
+    token!(ident, TokenKind::IDENT);
 }
 
 node! {
     StrExpr,
-    NodeKind::StrExpr,
-    token!(lquote, TokenKind::QuoteDouble);
-    children!(shards, StringShard);
-    token!(rquote, TokenKind::QuoteDouble, 1);
+    NodeKind::STR_EXPR,
+    token!(lquote, TokenKind::QUOTE_DOUBLE);
+    children!(shards, StrShard);
+    token!(rquote, TokenKind::QUOTE_DOUBLE, 1);
 }
 
 enum_! {
-    StringShard,
-    Literal(StringShardLiteral),
-    Expr(StringShardExpr),
+    StrShard,
+    Literal(StrShardLiteral, STR_SHARD_LITERAL),
+    Expr(StrShardExpr, STR_SHARD_EXPR),
 }
 
 node! {
-    StringShardLiteral,
-    NodeKind::StringShardLiteral,
-    token!(token, TokenKind::StringShard);
+    StrShardLiteral,
+    NodeKind::STR_SHARD_LITERAL,
+    token!(token, TokenKind::STR_SHARD);
 }
 
 node! {
-    StringShardExpr,
-    NodeKind::StringShardExpr,
-    token!(dollar_lbrace, TokenKind::DollarLeftBrace);
+    StrShardExpr,
+    NodeKind::STR_SHARD_EXPR,
+    token!(dollar_lbrack, TokenKind::DOLLAR_LBRACK);
     child!(expr, Expr);
-    token!(rbrace, TokenKind::RightBrace);
+    token!(rbrack, TokenKind::RBRACK);
 }
 
 node! {
     Literal,
-    NodeKind::Literal,
-    token!(lit, TokenKind::Number | TokenKind::Bool);
+    NodeKind::LITERAL,
+    token!(literal, TokenKind::NUMBER | TokenKind::BOOL);
 }

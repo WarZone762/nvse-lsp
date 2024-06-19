@@ -45,7 +45,7 @@ pub(crate) fn process_events(mut events: Vec<Event>) -> Vec<Event> {
                 }
 
                 output.extend(forward_parents.drain(..).rev().filter_map(|x| match x {
-                    NodeKind::Tombstone => None,
+                    NodeKind::TOMBSTONE => None,
                     x => Some(Event::Start(x, None)),
                 }));
             }
@@ -162,7 +162,7 @@ impl TriviaBuilder {
     fn attach_trivia(&mut self) {
         while self.token_pos < self.tokens.len() {
             let kind = self.tokens[self.token_pos].kind;
-            if !matches!(kind, TokenKind::Whitespace | TokenKind::Comment) {
+            if !matches!(kind, TokenKind::WHITESPACE | TokenKind::COMMENT) {
                 break;
             }
             self.do_token();

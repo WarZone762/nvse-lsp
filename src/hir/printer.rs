@@ -96,7 +96,7 @@ impl Print for ItemId {
         match self.lookup(p.script_db) {
             Item::FnDecl(x) => x.print(p),
             Item::BlockType(x) => x.print(p),
-            Item::VarDeclStmt(x) => x.print(p),
+            Item::VarDecl(x) => x.print(p),
         }
         p.push("\n");
     }
@@ -128,7 +128,7 @@ impl Print for StmtId {
         p.push_indent();
         match self.lookup(p.script_db) {
             Stmt::For(x) => x.print(p),
-            Stmt::ForEach(x) => x.print(p),
+            Stmt::ForRange(x) => x.print(p),
             Stmt::If(x) => x.print(p),
             Stmt::While(x) => x.print(p),
             Stmt::VarDecl(x) => x.print(p),
@@ -160,7 +160,7 @@ impl Print for ForStmt {
     }
 }
 
-impl Print for ForEachStmt {
+impl Print for ForRangeStmt {
     fn print(&self, p: &mut Printer<'_>) {
         p.push("for (");
         self.pat.print(p);
@@ -265,7 +265,7 @@ impl Print for ExprId {
             Expr::Lambda(x) => x.print(p),
             Expr::NameRef(x) => x.print(p),
             Expr::Str(x) => x.print(p),
-            Expr::Lit(x) => x.print(p),
+            Expr::Literal(x) => x.print(p),
         }
         p.push(")");
     }
@@ -363,7 +363,17 @@ impl Print for FieldExpr {
 impl Print for UnaryOpKind {
     fn print(&self, p: &mut Printer<'_>) {
         match self {
+            UnaryOpKind::Plus => p.push("+"),
             UnaryOpKind::Minus => p.push("-"),
+            UnaryOpKind::Asterisk => p.push("*"),
+            UnaryOpKind::Ampersand => p.push("&"),
+            UnaryOpKind::Plus2 => p.push("++"),
+            UnaryOpKind::Minus2 => p.push("--"),
+            UnaryOpKind::Dollar => p.push("$"),
+            UnaryOpKind::NumSign => p.push("#"),
+            UnaryOpKind::Exclamation => p.push("!"),
+            UnaryOpKind::Tilde => p.push("~"),
+            UnaryOpKind::Unknown => p.push("<?>"),
         }
     }
 }
@@ -416,11 +426,11 @@ impl Print for StrExpr {
     }
 }
 
-impl Print for StringShardId {
+impl Print for StrShardId {
     fn print(&self, p: &mut Printer<'_>) {
         match self.lookup(p.script_db) {
-            StringShard::Str { val, .. } => p.push(val),
-            StringShard::Expr { expr, .. } => {
+            StrShard::Str { val, .. } => p.push(val),
+            StrShard::Expr { expr, .. } => {
                 p.push("${");
                 expr.print(p);
                 p.push("}");

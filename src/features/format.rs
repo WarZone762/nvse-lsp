@@ -51,7 +51,7 @@ impl<'a> Formatter<'a> {
     fn script(&mut self, script: &ast::Script) -> String {
         format!(
             "name{} {}{};{}\n{}",
-            self.comments_between(script.name_token().as_deref(), script.name().as_ref()),
+            self.comments_between(script.name_kw().as_deref(), script.name().as_ref()),
             self.name(script.name().as_ref()),
             self.comments_between(script.name().as_ref(), script.semi().as_deref()),
             self.comments_between(script.semi().as_deref(), script.items().next().as_ref()),
@@ -64,7 +64,7 @@ impl<'a> Formatter<'a> {
             .map(|x| match x {
                 ast::Item::FnDecl(x) => format!("\n{}", self.fn_decl(&x)),
                 ast::Item::BlockType(x) => format!("\n{}", self.block_type(&x)),
-                ast::Item::VarDeclStmt(x) => {
+                ast::Item::VarDecl(x) => {
                     format!(
                         "{}{};",
                         self.var_decl(x.var_decl().as_ref()),
@@ -80,7 +80,7 @@ impl<'a> Formatter<'a> {
         if name.is_empty() {
             format!(
                 "fn{} {}{} {}",
-                self.comments_between(fn_decl.fn_token().as_deref(), fn_decl.param_list().as_ref()),
+                self.comments_between(fn_decl.fn_kw().as_deref(), fn_decl.param_list().as_ref()),
                 self.param_list(fn_decl.param_list().as_ref()),
                 self.comments_between(fn_decl.param_list().as_ref(), fn_decl.block().as_ref()),
                 self.block(fn_decl.block().as_ref())
@@ -88,7 +88,7 @@ impl<'a> Formatter<'a> {
         } else {
             format!(
                 "fn{} {name}{}{}{} {}",
-                self.comments_between(fn_decl.fn_token().as_deref(), fn_decl.name().as_ref()),
+                self.comments_between(fn_decl.fn_kw().as_deref(), fn_decl.name().as_ref()),
                 self.comments_between(fn_decl.name().as_ref(), fn_decl.param_list().as_ref()),
                 self.param_list(fn_decl.param_list().as_ref()),
                 self.comments_between(fn_decl.param_list().as_ref(), fn_decl.block().as_ref()),
@@ -132,7 +132,7 @@ impl<'a> Formatter<'a> {
                 self.comments_between(x.expr().as_ref(), x.semi().as_deref(),),
             ),
             ast::Stmt::For(x) => format!("\n{indent}{}", self.stmt_for(x)),
-            ast::Stmt::ForEach(x) => format!("\n{indent}{}", self.stmt_for_each(x)),
+            ast::Stmt::ForEach(x) => format!("\n{indent}{}", self.stmt_for_range(x)),
             ast::Stmt::If(x) => format!("\n{indent}{}", self.stmt_if(x)),
             ast::Stmt::While(x) => format!("\n{indent}{}", self.stmt_while(x)),
             ast::Stmt::Return(x) => {
@@ -203,7 +203,7 @@ impl<'a> Formatter<'a> {
         )
     }
 
-    fn stmt_for_each(&mut self, stmt_for_each: &ast::ForEachStmt) -> String {
+    fn stmt_for_range(&mut self, stmt_for_each: &ast::ForRangeStmt) -> String {
         format!(
             "for{} ({}{}{} in{} {}{}){} {}",
             self.comments_between(
@@ -283,14 +283,14 @@ impl<'a> Formatter<'a> {
             ast::Expr::Call(x) => self.expr_call(x),
             ast::Expr::Paren(x) => self.expr_paren(x),
             ast::Expr::Lambda(x) => self.expr_lambda(x),
-            ast::Expr::NameRef(x) => self.expr_name_ref(x).into(),
+            ast::Expr::NameRef(x) => self.name_ref(x).into(),
             ast::Expr::Str(x) => self.expr_str(x),
-            ast::Expr::Lit(x) => self.expr_lit(x).into(),
+            ast::Expr::Literal(x) => self.literal(x).into(),
         })
         .unwrap_or_default()
     }
 
-    fn expr_bin(&mut self, expr: &ast::BinaryExpr) -> String {
+    fn expr_bin(&mut self, expr: &ast::BinExpr) -> String {
         format!(
             "{}{} {}{} {}",
             self.expr(expr.lhs().as_ref()),
@@ -338,7 +338,7 @@ impl<'a> Formatter<'a> {
             self.expr(expr.lhs().as_ref()),
             self.comments_between(expr.lhs().as_ref(), expr.dot().as_deref()),
             self.comments_between(expr.dot().as_deref(), expr.field().as_ref()),
-            expr.field().as_ref().map(|x| self.expr_name_ref(x)).unwrap_or_default(),
+            expr.field().as_ref().map(|x| self.name_ref(x)).unwrap_or_default(),
         )
     }
 
@@ -346,10 +346,10 @@ impl<'a> Formatter<'a> {
         format!(
             "{}{}[{}{}{}]",
             self.expr(expr.lhs().as_ref()),
-            self.comments_between(expr.lhs().as_ref(), expr.lsqbracket().as_deref()),
-            self.comments_between(expr.lsqbracket().as_deref(), expr.subscript().as_ref()),
+            self.comments_between(expr.lhs().as_ref(), expr.lsqbrack().as_deref()),
+            self.comments_between(expr.lsqbrack().as_deref(), expr.subscript().as_ref()),
             self.expr(expr.subscript().as_ref()),
-            self.comments_between(expr.subscript().as_ref(), expr.rsqbracket().as_deref()),
+            self.comments_between(expr.subscript().as_ref(), expr.rsqbrack().as_deref()),
         )
     }
 
@@ -381,29 +381,25 @@ impl<'a> Formatter<'a> {
         )
     }
 
-    fn expr_name_ref(&mut self, expr: &ast::NameRef) -> &'a str {
-        self.token(expr.ident().as_ref())
-    }
-
     fn expr_str(&mut self, expr: &ast::StrExpr) -> String {
         format!(
             "\"{}\"",
             expr.shards()
                 .map(|x| match &x {
-                    ast::StringShard::Literal(x) => self.token(x.token().as_ref()).to_string(),
-                    ast::StringShard::Expr(x) => format!(
+                    ast::StrShard::Literal(x) => self.token(x.token().as_ref()).to_string(),
+                    ast::StrShard::Expr(x) => format!(
                         "${{{}{}{}}}",
-                        self.comments_between(x.dollar_lbrace().as_deref(), x.expr().as_ref()),
+                        self.comments_between(x.dollar_lbrack().as_deref(), x.expr().as_ref()),
                         self.expr(x.expr().as_ref()),
-                        self.comments_between(x.expr().as_ref(), x.rbrace().as_deref()),
+                        self.comments_between(x.expr().as_ref(), x.rbrack().as_deref()),
                     ),
                 })
                 .collect::<String>()
         )
     }
 
-    fn expr_lit(&mut self, expr: &ast::Literal) -> &'a str {
-        self.token(expr.lit().as_ref())
+    fn literal(&mut self, expr: &ast::Literal) -> &'a str {
+        self.token(expr.literal().as_ref())
     }
 
     fn block_or_expr(&mut self, block_or_expr: Option<&ast::BlockOrExpr>) -> String {
@@ -480,12 +476,12 @@ impl<'a> Formatter<'a> {
     fn pat(&mut self, pat: Option<&ast::Pat>) -> String {
         pat.map(|x| match x {
             ast::Pat::VarDecl(x) => self.var_decl(Some(x)),
-            ast::Pat::Arr(x) => self.pat_arr(x),
+            ast::Pat::Arr(x) => self.arr_pat(x),
         })
         .unwrap_or_default()
     }
 
-    fn pat_arr(&mut self, pat_arr: &ast::PatArr) -> String {
+    fn arr_pat(&mut self, pat_arr: &ast::ArrPat) -> String {
         format!(
             "[{}{}{}]",
             self.comments_between(pat_arr.lsqbrack().as_deref(), pat_arr.patts().next().as_ref()),
@@ -500,8 +496,8 @@ impl<'a> Formatter<'a> {
                 if let Some(init) = &x.init() {
                     format!(
                         "{}{} {}{} ={} {}",
-                        self.token(x.r#type().as_ref()),
-                        self.comments_between(x.r#type().as_deref(), x.name().as_ref()),
+                        self.token(x.type_().as_ref()),
+                        self.comments_between(x.type_().as_deref(), x.name().as_ref()),
                         self.name(x.name().as_ref()),
                         self.comments_between(x.name().as_ref(), x.eq().as_deref()),
                         self.comments_between(x.eq().as_deref(), Some(init)),
@@ -510,13 +506,17 @@ impl<'a> Formatter<'a> {
                 } else {
                     format!(
                         "{}{} {}",
-                        self.token(x.r#type().as_ref()),
-                        self.comments_between(x.r#type().as_deref(), x.name().as_ref()),
+                        self.token(x.type_().as_ref()),
+                        self.comments_between(x.type_().as_deref(), x.name().as_ref()),
                         self.name(x.name().as_ref()),
                     )
                 }
             })
             .unwrap_or_default()
+    }
+
+    fn name_ref(&mut self, expr: &ast::NameRef) -> &'a str {
+        self.token(expr.ident().as_ref())
     }
 
     fn name(&mut self, name: Option<&ast::Name>) -> &'a str {
@@ -545,7 +545,7 @@ impl<'a> Formatter<'a> {
             .node
             .syntax()
             .tokens_within_range(start, end)
-            .filter(|x| matches!(x.kind, TokenKind::Comment))
+            .filter(|x| matches!(x.kind, TokenKind::COMMENT))
         {
             let text_before = &self.text()[last_end as usize..comment.offset as usize];
 
@@ -557,12 +557,12 @@ impl<'a> Formatter<'a> {
                 let mut next = comment;
                 let is_last_comment = loop {
                     if let Some(next_token) = next.next_token() {
-                        if next_token.kind != TokenKind::Whitespace
-                            && next_token.kind != TokenKind::Comment
+                        if next_token.kind != TokenKind::WHITESPACE
+                            && next_token.kind != TokenKind::COMMENT
                         {
                             break false;
                         }
-                        if next_token.kind == TokenKind::Whitespace
+                        if next_token.kind == TokenKind::WHITESPACE
                             && next_token.text(self.text()).contains('\n')
                         {
                             break true;

@@ -3,29 +3,29 @@ use crate::syntax_node::{NodeKind, TokenKind};
 
 pub(crate) fn stmt(p: &mut Parser) {
     match p.cur() {
-        TokenKind::For => stmt_for(p),
-        TokenKind::If => stmt_if(p),
-        TokenKind::Return => stmt_return(p),
-        TokenKind::Break => {
+        TokenKind::FOR_KW => stmt_for(p),
+        TokenKind::IF_KW => stmt_if(p),
+        TokenKind::RETURN_KW => stmt_return(p),
+        TokenKind::BREAK_KW => {
             let m = p.start();
             p.next_any();
-            p.expect(TokenKind::Semicolon);
-            m.complete(p, NodeKind::BreakStmt);
+            p.expect(TokenKind::SEMICOLON);
+            m.complete(p, NodeKind::BREAK_STMT);
         }
-        TokenKind::Continue => {
+        TokenKind::CONTINUE_KW => {
             let m = p.start();
             p.next_any();
-            p.expect(TokenKind::Semicolon);
-            m.complete(p, NodeKind::ContinueStmt);
+            p.expect(TokenKind::SEMICOLON);
+            m.complete(p, NodeKind::CONTINUE_STMT);
         }
-        TokenKind::While => stmt_while(p),
-        TokenKind::LeftBrace => stmt_block(p),
-        TokenKind::Semicolon => {
+        TokenKind::WHILE_KW => stmt_while(p),
+        TokenKind::LBRACK => stmt_block(p),
+        TokenKind::SEMICOLON => {
             let m = p.start();
             p.next_any();
-            m.complete(p, NodeKind::EmptyStmt);
+            m.complete(p, NodeKind::EMPTY_EXPR);
         }
-        x if x.is_type() || p.at(TokenKind::Export) => stmt_var_decl(p),
+        x if x.is_type() || p.at(TokenKind::EXPORT_KW) => stmt_var_decl(p),
         _ => stmt_expr(p),
     }
 }
@@ -33,18 +33,18 @@ pub(crate) fn stmt(p: &mut Parser) {
 pub(crate) fn stmt_for(p: &mut Parser) {
     let m = p.start();
 
-    p.next(TokenKind::For);
-    p.expect(TokenKind::LeftParen);
-    if !p.at(TokenKind::Semicolon) && !p.at(TokenKind::RightParen) {
+    p.next(TokenKind::FOR_KW);
+    p.expect(TokenKind::LPAREN);
+    if !p.at(TokenKind::SEMICOLON) && !p.at(TokenKind::RPAREN) {
         // range-based for
-        if (p.cur().is_type() && p.nth_at(2, TokenKind::In)) || p.at(TokenKind::LeftBracket) {
+        if (p.cur().is_type() && p.nth_at(2, TokenKind::IN_KW)) || p.at(TokenKind::LSQ_BRACK) {
             pat(p);
-            p.expect(TokenKind::In);
+            p.expect(TokenKind::IN_KW);
             expr(p);
-            p.expect(TokenKind::RightParen);
+            p.expect(TokenKind::RPAREN);
             stmt_block(p);
 
-            m.complete(p, NodeKind::ForEachStmt);
+            m.complete(p, NodeKind::FOR_RANGE_STMT);
             return;
         } else if p.cur().is_type() {
             var_decl(p);
@@ -52,108 +52,108 @@ pub(crate) fn stmt_for(p: &mut Parser) {
             expr(p);
         }
     }
-    p.expect(TokenKind::Semicolon);
+    p.expect(TokenKind::SEMICOLON);
 
-    if !p.at(TokenKind::Semicolon) && !p.at(TokenKind::RightParen) {
+    if !p.at(TokenKind::SEMICOLON) && !p.at(TokenKind::RPAREN) {
         expr(p);
     }
-    p.expect(TokenKind::Semicolon);
+    p.expect(TokenKind::SEMICOLON);
 
-    if !p.at(TokenKind::RightParen) {
+    if !p.at(TokenKind::RPAREN) {
         expr(p);
     }
-    p.expect(TokenKind::RightParen);
+    p.expect(TokenKind::RPAREN);
     stmt_block(p);
 
-    m.complete(p, NodeKind::ForStmt);
+    m.complete(p, NodeKind::FOR_STMT);
 }
 
 pub(crate) fn stmt_if(p: &mut Parser) {
     let m = p.start();
 
-    p.next(TokenKind::If);
-    p.expect(TokenKind::LeftParen);
+    p.next(TokenKind::IF_KW);
+    p.expect(TokenKind::LPAREN);
     expr(p);
-    p.expect(TokenKind::RightParen);
+    p.expect(TokenKind::RPAREN);
     stmt_block(p);
-    if p.opt(TokenKind::Else) {
-        if p.at(TokenKind::If) {
+    if p.opt(TokenKind::ELSE_KW) {
+        if p.at(TokenKind::IF_KW) {
             stmt_if(p);
         } else {
             stmt_block(p);
         }
     }
 
-    m.complete(p, NodeKind::IfStmt);
+    m.complete(p, NodeKind::IF_STMT);
 }
 pub(crate) fn stmt_return(p: &mut Parser) {
     let m = p.start();
 
-    p.next(TokenKind::Return);
-    if !p.at(TokenKind::Semicolon) {
+    p.next(TokenKind::RETURN_KW);
+    if !p.at(TokenKind::SEMICOLON) {
         expr(p);
     }
-    p.expect(TokenKind::Semicolon);
+    p.expect(TokenKind::SEMICOLON);
 
-    m.complete(p, NodeKind::ReturnStmt);
+    m.complete(p, NodeKind::RETURN_STMT);
 }
 
 pub(crate) fn stmt_while(p: &mut Parser) {
     let m = p.start();
 
-    p.next(TokenKind::While);
-    p.expect(TokenKind::LeftParen);
+    p.next(TokenKind::WHILE_KW);
+    p.expect(TokenKind::LPAREN);
     expr(p);
-    p.expect(TokenKind::RightParen);
+    p.expect(TokenKind::RPAREN);
     stmt_block(p);
 
-    m.complete(p, NodeKind::WhileStmt);
+    m.complete(p, NodeKind::WHILE_STMT);
 }
 
 pub(crate) fn stmt_expr(p: &mut Parser) {
     let m = p.start();
 
-    if p.opt(TokenKind::Semicolon) {
-        m.complete(p, NodeKind::ExprStmt);
+    if p.opt(TokenKind::SEMICOLON) {
+        m.complete(p, NodeKind::EXPR_STMT);
         return;
     }
     expr(p);
-    p.expect(TokenKind::Semicolon);
+    p.expect(TokenKind::SEMICOLON);
 
-    m.complete(p, NodeKind::ExprStmt);
+    m.complete(p, NodeKind::EXPR_STMT);
 }
 
 pub(crate) fn stmt_var_decl(p: &mut Parser) {
     let m = p.start();
 
-    p.opt(TokenKind::Export);
+    p.opt(TokenKind::EXPORT_KW);
     let var_decl_m = p.start();
     if !p.cur().is_type() {
         p.err_and_next("expected type");
     }
     p.next_any();
     name(p);
-    while p.more() && p.opt(TokenKind::Comma) {
+    while p.more() && p.opt(TokenKind::COMMA) {
         name(p);
     }
-    if p.opt(TokenKind::Eq) {
+    if p.opt(TokenKind::EQ) {
         expr(p);
     }
 
-    var_decl_m.complete(p, NodeKind::VarDecl);
+    var_decl_m.complete(p, NodeKind::VAR_DECL);
 
-    p.expect(TokenKind::Semicolon);
-    m.complete(p, NodeKind::VarDeclStmt);
+    p.expect(TokenKind::SEMICOLON);
+    m.complete(p, NodeKind::VAR_DECL_STMT);
 }
 
 pub(crate) fn stmt_block(p: &mut Parser) {
     let m = p.start();
 
-    p.expect(TokenKind::LeftBrace);
-    while p.more() && !p.at(TokenKind::RightBrace) {
+    p.expect(TokenKind::LBRACK);
+    while p.more() && !p.at(TokenKind::RBRACK) {
         stmt(p);
     }
-    p.expect(TokenKind::RightBrace);
+    p.expect(TokenKind::RBRACK);
 
-    m.complete(p, NodeKind::BlockStmt);
+    m.complete(p, NodeKind::BLOCK_STMT);
 }

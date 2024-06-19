@@ -13,7 +13,7 @@ pub(crate) struct ScriptDatabase {
     pub blocks: Vec<Block>,
     pub var_decls: Vec<VarDecl>,
     pub names: Vec<Name>,
-    pub str_shards: Vec<StringShard>,
+    pub str_shards: Vec<StrShard>,
 
     pub syntax_to_hir_cache: UnsafeCell<HashMap<usize, Option<HirNode>>>,
 }
@@ -85,9 +85,9 @@ impl ScriptDatabase {
         NameId((self.names.len() - 1) as _)
     }
 
-    pub fn add_str_shard(&mut self, str_shard: StringShard) -> StringShardId {
+    pub fn add_str_shard(&mut self, str_shard: StrShard) -> StrShardId {
         self.str_shards.push(str_shard);
-        StringShardId((self.str_shards.len() - 1) as _)
+        StrShardId((self.str_shards.len() - 1) as _)
     }
 }
 
@@ -104,7 +104,7 @@ pub(crate) struct VarDeclId(pub u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub(crate) struct NameId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct StringShardId(u32);
+pub(crate) struct StrShardId(u32);
 
 impl Lookup for ItemId {
     type DB = ScriptDatabase;
@@ -172,9 +172,9 @@ impl Lookup for NameId {
     }
 }
 
-impl Lookup for StringShardId {
+impl Lookup for StrShardId {
     type DB = ScriptDatabase;
-    type Output = StringShard;
+    type Output = StrShard;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
         db.str_shards
@@ -255,7 +255,7 @@ impl NameId {
     }
 }
 
-impl StringShardId {
+impl StrShardId {
     pub fn children<'a>(&self, db: &'a ScriptDatabase) -> Box<dyn Iterator<Item = HirNode> + 'a> {
         Box::new(self.lookup(db).children())
     }

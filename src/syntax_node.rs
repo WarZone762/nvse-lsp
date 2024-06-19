@@ -280,7 +280,7 @@ impl Token {
 macro_rules! tokens {
     ($(($group:ident) $($($lit:literal =>)? $ident:ident $(($display:literal))?,)*)*) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-        #[allow(dead_code)]
+        #[allow(dead_code, non_camel_case_types, clippy::upper_case_acronyms)]
         pub(crate) enum TokenKind {
             $($(
                 $ident,
@@ -293,8 +293,8 @@ macro_rules! tokens {
                     $($(
                         $($lit => Some(Self::$ident),)?
                     )*)*
-                    blocktypes!() => Some(Self::BlockType),
-                    "true" | "false" => Some(Self::Bool),
+                    blocktypes!() => Some(Self::BLOCK_TYPE),
+                    "true" | "false" => Some(Self::BOOL),
                     _ => None,
                 }
             }
@@ -335,136 +335,139 @@ macro_rules! blocktypes {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[allow(non_camel_case_types, clippy::upper_case_acronyms)]
 pub(crate) enum NodeKind {
-    Script,
-    FnDeclItem,
-    BlockTypeItem,
-    VarDeclStmt,
-    ExprStmt,
-    ForStmt,
-    ForEachStmt,
-    IfStmt,
-    ReturnStmt,
-    BreakStmt,
-    ContinueStmt,
-    WhileStmt,
-    BlockStmt,
-    EmptyStmt,
-    TernaryExpr,
-    BinaryExpr,
-    UnaryExpr,
-    PostfixExpr,
-    FieldExpr,
-    SubscriptExpr,
-    CallExpr,
-    StrExpr,
-    ParenExpr,
-    LambdaExpr,
+    SCRIPT,
+    FN_DECL_ITEM,
+    BLOCK_TYPE_ITEM,
 
-    ArgList,
-    ParamList,
-    PatArr,
-    VarDecl,
-    Name,
-    NameRef,
-    StringShardLiteral,
-    StringShardExpr,
-    Literal,
+    VAR_DECL_STMT,
+    EXPR_STMT,
+    FOR_STMT,
+    FOR_RANGE_STMT,
+    IF_STMT,
+    RETURN_STMT,
+    BREAK_STMT,
+    CONTINUE_STMT,
+    WHILE_STMT,
+    BLOCK_STMT,
 
-    Error,
-    Tombstone,
+    EMPTY_EXPR,
+    TERNARY_EXPR,
+    BIN_EXPR,
+    UNARY_EXPR,
+    POSTFIX_EXPR,
+    FIELD_EXPR,
+    SUBSCRIPT_EXPR,
+    CALL_EXPR,
+    STR_EXPR,
+    PAREN_EXPR,
+    LAMBDA_EXPR,
+
+    ARG_LIST,
+    PARAM_LIST,
+    ARR_PAT,
+    VAR_DECL,
+    NAME,
+    NAME_REF,
+    STR_SHARD_LITERAL,
+    STR_SHARD_EXPR,
+    LITERAL,
+
+    ERROR,
+    TOMBSTONE,
 }
 
 tokens! {
     (is_keyword)
-    "if" => If,
-    "else" => Else,
-    "while" => While,
-    "fn" => Fn,
-    "return" => Return,
-    "for" => For,
-    "in" => In,
-    "export" => Export,
-    BlockType("block type"),
-    "name" => Name,
-    "continue" => Continue,
-    "break" => Break,
+    "if" => IF_KW,
+    "else" => ELSE_KW,
+    "while" => WHILE_KW,
+    "fn" => FN_KW,
+    "return" => RETURN_KW,
+    "for" => FOR_KW,
+    "in" => IN_KW,
+    "export" => EXPORT_KW,
+    BLOCK_TYPE("block type"),
+    "name" => NAME_KW,
+    "continue" => CONTINUE_KW,
+    "break" => BREAK_KW,
 
     (is_type)
-    "int" => IntType,
-    "double" => DoubleType,
-    "float" => FloatType,
-    "ref" => RefType,
-    "string" => StringType,
-    "array" => ArrayType,
+    "int" => INT_TY,
+    "double" => DOUBLE_TY,
+    "float" => FLOAT_TY,
+    "ref" => REF_TY,
+    "string" => STRING_TY,
+    "array" => ARRAY_TY,
 
     (is_unary_and_bin_op)
-    "+" => Plus,
-    "-" => Minus,
-    "*" => Star,
-    "&" => BitwiseAnd,
+    "+" => PLUS,
+    "-" => MINUS,
+    "*" => ASTERISK,
+    "&" => AMPERSAND,
 
     (is_unary_only_op)
-    "++" => PlusPlus,
-    "--" => MinusMinus,
-    "$" => Dollar,
-    "#" => Pound,
-    "!" => Bang,
-    "~" => Tilde,
+    "++" => PLUS_2,
+    "--" => MINUS_2,
+    "$" => DOLLAR,
+    "#" => NUM_SIGN,
+    "!" => EXCLAMATION,
+    "~" => TILDE,
 
     (is_bin_only_op)
-    "+=" => PlusEq,
-    "-=" => MinusEq,
-    "*=" => StarEq,
-    "/" => Slash,
-    "/=" => SlashEq,
-    "%" => Mod,
-    "%=" => ModEq,
-    "^" => Pow,
-    "^=" => PowEq,
-    "|=" => BitwiseOrEq,
-    "&=" => BitwiseAndEq,
-    "=" => Eq,
-    "==" => EqEq,
-    "<" => Less,
-    ">" => Greater,
-    "<=" => LessEq,
-    ">=" => GreaterEq,
-    "!=" => BangEq,
-    "||" => LogicOr,
-    "&&" => LogicAnd,
-    "<<" => Lt2,
-    ">>" => Gt2,
-    "|" => BitwiseOr,
-    ":" => Colon,
-    "::" => Colon2,
+    "+=" => PLUS_EQ,
+    "-=" => MINUS_EQ,
+    "*=" => ASTERISK_EQ,
+    "/" => SLASH,
+    "/=" => SLASH_EQ,
+    "%" => PERCENT,
+    "%=" => PERCENT_EQ,
+    "^" => CIRCUMFLEX,
+    "^=" => CIRCUMFLEX_EQ,
+    "|=" => VBAR_EQ,
+    "&=" => AMPERSAND_EQ,
+    "=" => EQ,
+    "==" => EQ_2,
+    "<" => LT,
+    ">" => GT,
+    "<=" => LT_EQ,
+    ">=" => GT_EQ,
+    "!=" => EXCLAMATION_EQ,
+    "||" => VBAR_2,
+    "&&" => AMPERSAND_2,
+    "<<" => LT_2,
+    ">>" => GT_2,
+    "|" => VBAR,
+    ":" => COLON,
+    "::" => COLON_2,
 
 
     (is_paired)
-    "{" => LeftBrace,
-    "}" => RightBrace,
-    "[" => LeftBracket,
-    "]" => RightBracket,
-    "(" => LeftParen,
-    ")" => RightParen,
+    "{" => LBRACK,
+    "}" => RBRACK,
+    "[" => LSQ_BRACK,
+    "]" => RSQ_BRACK,
+    "(" => LPAREN,
+    ")" => RPAREN,
 
     (is_literal)
-    Number("number"),
-    Bool("boolean"),
+    NUMBER("number"),
+    BOOL("boolean"),
 
     (is_misc)
-    Identifier("identifier"),
-    "${" => DollarLeftBrace,
-    "\"" => QuoteDouble,
-    "," => Comma,
-    "." => Dot,
-    ";" => Semicolon,
-    "?" => Ternary,
-    StringShard("string"),
-    Whitespace("whitespace"),
-    Comment("comment"),
-    Eof("end of file"),
-    Error("error"),
+    IDENT("identifier"),
+    "${" => DOLLAR_LBRACK,
+    "\"" => QUOTE_DOUBLE,
+    "," => COMMA,
+    "." => DOT,
+    ";" => SEMICOLON,
+    "?" => QUESTION_MARK,
+    STR_SHARD("string"),
+    WHITESPACE("whitespace"),
+    COMMENT("comment"),
+    EOF("end of file"),
+    ERROR("error"),
 }
 
 impl TokenKind {
@@ -472,7 +475,7 @@ impl TokenKind {
         self.is_unary_only_op()
             || self.is_bin_only_op()
             || self.is_unary_and_bin_op()
-            || *self == TokenKind::Ternary
+            || *self == TokenKind::QUESTION_MARK
     }
 
     pub fn is_unary_op(&self) -> bool {
@@ -494,12 +497,12 @@ impl TokenKind {
             SemanticTokenTypeCustom::PUNCTUATION
         } else {
             match self {
-                Self::DollarLeftBrace => SemanticTokenTypeCustom::ESCAPE_SEQUENCE,
-                Self::StringShard | Self::QuoteDouble => SemanticTokenType::STRING,
-                Self::Number => SemanticTokenType::NUMBER,
-                Self::Bool => SemanticTokenTypeCustom::BOOLEAN,
-                Self::Identifier => SemanticTokenType::VARIABLE,
-                Self::Comment => SemanticTokenType::COMMENT,
+                Self::DOLLAR_LBRACK => SemanticTokenTypeCustom::ESCAPE_SEQUENCE,
+                Self::STR_SHARD | Self::QUOTE_DOUBLE => SemanticTokenType::STRING,
+                Self::NUMBER => SemanticTokenType::NUMBER,
+                Self::BOOL => SemanticTokenTypeCustom::BOOLEAN,
+                Self::IDENT => SemanticTokenType::VARIABLE,
+                Self::COMMENT => SemanticTokenType::COMMENT,
                 _ => return None,
             }
         })

@@ -17,7 +17,7 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
         p.next_any();
         expr_bp(p, bp + 1);
 
-        lhs = m.complete(p, NodeKind::BinaryExpr);
+        lhs = m.complete(p, NodeKind::BIN_EXPR);
     }
 
     Some(lhs)
@@ -28,7 +28,7 @@ pub(crate) fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
         let m = p.start();
         p.next_any();
         expr(p);
-        m.complete(p, NodeKind::UnaryExpr)
+        m.complete(p, NodeKind::UNARY_EXPR)
     } else {
         let lhs = expr_primary(p)?;
         expr_postfix(p, lhs)
@@ -38,32 +38,32 @@ pub(crate) fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
 pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> CompletedMarker {
     loop {
         lhs = match p.cur() {
-            TokenKind::LeftParen => expr_call(p, lhs),
-            TokenKind::LeftBracket => {
+            TokenKind::LPAREN => expr_call(p, lhs),
+            TokenKind::LSQ_BRACK => {
                 let m = lhs.precede(p);
                 p.next_any();
                 expr(p);
-                p.expect(TokenKind::RightBracket);
-                m.complete(p, NodeKind::SubscriptExpr)
+                p.expect(TokenKind::RSQ_BRACK);
+                m.complete(p, NodeKind::SUBSCRIPT_EXPR)
             }
-            TokenKind::PlusPlus | TokenKind::MinusMinus => {
+            TokenKind::PLUS_2 | TokenKind::MINUS_2 => {
                 let m = lhs.precede(p);
                 p.next_any();
-                m.complete(p, NodeKind::PostfixExpr)
+                m.complete(p, NodeKind::POSTFIX_EXPR)
             }
-            TokenKind::Ternary => {
+            TokenKind::QUESTION_MARK => {
                 let m = lhs.precede(p);
                 p.next_any();
-                expr_bp(p, bin_op_bp(TokenKind::Colon) * 2 + 1);
-                p.expect(TokenKind::Colon);
+                expr_bp(p, bin_op_bp(TokenKind::COLON) * 2 + 1);
+                p.expect(TokenKind::COLON);
                 expr(p);
-                m.complete(p, NodeKind::TernaryExpr)
+                m.complete(p, NodeKind::TERNARY_EXPR)
             }
-            TokenKind::Dot => {
+            TokenKind::DOT => {
                 let m = lhs.precede(p);
                 p.next_any();
                 name_ref(p);
-                m.complete(p, NodeKind::FieldExpr)
+                m.complete(p, NodeKind::FIELD_EXPR)
             }
             _ => break,
         };
@@ -74,7 +74,7 @@ pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> Complete
 pub(crate) fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker {
     let m = lhs.precede(p);
     arg_list(p);
-    m.complete(p, NodeKind::CallExpr)
+    m.complete(p, NodeKind::CALL_EXPR)
 }
 
 pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
@@ -82,93 +82,93 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
         x if x.is_literal() => {
             let m = p.start();
             p.next_any();
-            m.complete(p, NodeKind::Literal)
+            m.complete(p, NodeKind::LITERAL)
         }
-        TokenKind::QuoteDouble => expr_str(p),
-        TokenKind::Identifier => name_ref(p),
-        TokenKind::LeftParen => {
+        TokenKind::QUOTE_DOUBLE => expr_str(p),
+        TokenKind::IDENT => name_ref(p),
+        TokenKind::LPAREN => {
             let m = p.start();
             p.next_any();
             expr(p);
-            p.expect(TokenKind::RightParen);
-            m.complete(p, NodeKind::ParenExpr)
+            p.expect(TokenKind::RPAREN);
+            m.complete(p, NodeKind::PAREN_EXPR)
         }
-        TokenKind::Fn => expr_lambda(p),
+        TokenKind::FN_KW => expr_lambda(p),
         _ => {
             let m = p.start();
             p.err("expected expression");
-            if p.at(TokenKind::RightBrace) {
+            if p.at(TokenKind::RBRACK) {
                 m.abandon(p);
                 return None;
             }
             p.next_any();
-            m.complete(p, NodeKind::Error)
+            m.complete(p, NodeKind::ERROR)
         }
     })
 }
 
 pub(crate) fn expr_lambda(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
-    p.next(TokenKind::Fn);
+    p.next(TokenKind::FN_KW);
     param_list(p);
-    if p.at(TokenKind::LeftBrace) {
+    if p.at(TokenKind::LBRACK) {
         stmt_block(p);
     } else {
         expr(p);
     }
-    m.complete(p, NodeKind::LambdaExpr)
+    m.complete(p, NodeKind::LAMBDA_EXPR)
 }
 
 pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
-    p.next(TokenKind::QuoteDouble);
-    while p.more() && !p.at(TokenKind::QuoteDouble) {
+    p.next(TokenKind::QUOTE_DOUBLE);
+    while p.more() && !p.at(TokenKind::QUOTE_DOUBLE) {
         match p.cur() {
-            TokenKind::DollarLeftBrace => {
+            TokenKind::DOLLAR_LBRACK => {
                 let shard_m = p.start();
                 p.next_any();
                 expr(p);
-                p.expect(TokenKind::RightBrace);
-                shard_m.complete(p, NodeKind::StringShardExpr);
+                p.expect(TokenKind::RBRACK);
+                shard_m.complete(p, NodeKind::STR_SHARD_EXPR);
             }
-            TokenKind::StringShard => {
+            TokenKind::STR_SHARD => {
                 let shard_m = p.start();
                 p.next_any();
-                shard_m.complete(p, NodeKind::StringShardLiteral);
+                shard_m.complete(p, NodeKind::STR_SHARD_LITERAL);
             }
             _ => {
                 let m = p.start();
                 p.err_and_next("expected a string or '}'");
-                return m.complete(p, NodeKind::Error);
+                return m.complete(p, NodeKind::ERROR);
             }
         }
     }
-    p.expect(TokenKind::QuoteDouble);
-    m.complete(p, NodeKind::StrExpr)
+    p.expect(TokenKind::QUOTE_DOUBLE);
+    m.complete(p, NodeKind::STR_EXPR)
 }
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
     match token {
-        TokenKind::Star | TokenKind::Slash | TokenKind::Mod | TokenKind::Pow => 12,
-        TokenKind::Plus | TokenKind::Minus => 11,
-        TokenKind::Lt2 | TokenKind::Gt2 => 10,
-        TokenKind::BitwiseAnd => 9,
-        TokenKind::BitwiseOr => 8,
-        TokenKind::Less | TokenKind::LessEq | TokenKind::Greater | TokenKind::GreaterEq => 7,
-        TokenKind::EqEq | TokenKind::BangEq => 6,
-        TokenKind::LogicAnd => 5,
-        TokenKind::LogicOr => 4,
-        TokenKind::Colon2 => 3,
-        TokenKind::Colon => 2,
-        TokenKind::Eq
-        | TokenKind::PlusEq
-        | TokenKind::MinusEq
-        | TokenKind::StarEq
-        | TokenKind::SlashEq
-        | TokenKind::ModEq
-        | TokenKind::PowEq
-        | TokenKind::BitwiseOrEq
-        | TokenKind::BitwiseAndEq => 1,
+        TokenKind::ASTERISK | TokenKind::SLASH | TokenKind::PERCENT | TokenKind::CIRCUMFLEX => 12,
+        TokenKind::PLUS | TokenKind::MINUS => 11,
+        TokenKind::LT_2 | TokenKind::GT_2 => 10,
+        TokenKind::AMPERSAND => 9,
+        TokenKind::VBAR => 8,
+        TokenKind::LT | TokenKind::LT_EQ | TokenKind::GT | TokenKind::GT_EQ => 7,
+        TokenKind::EQ_2 | TokenKind::EXCLAMATION_EQ => 6,
+        TokenKind::AMPERSAND_2 => 5,
+        TokenKind::VBAR_2 => 4,
+        TokenKind::COLON_2 => 3,
+        TokenKind::COLON => 2,
+        TokenKind::EQ
+        | TokenKind::PLUS_EQ
+        | TokenKind::MINUS_EQ
+        | TokenKind::ASTERISK_EQ
+        | TokenKind::SLASH_EQ
+        | TokenKind::PERCENT_EQ
+        | TokenKind::CIRCUMFLEX_EQ
+        | TokenKind::VBAR_EQ
+        | TokenKind::AMPERSAND_EQ => 1,
         x if x.is_bin_op() => {
             panic!("encountered binary operator with no binding power assigned: '{x}'")
         }

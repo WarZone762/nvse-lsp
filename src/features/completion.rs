@@ -25,7 +25,7 @@ impl Doc {
         let offset = offset.saturating_sub(1);
         let prev_token = root.node.syntax().token_at_offset(offset);
         let prev_text = prev_token
-            .filter(|x| x.kind == TokenKind::Identifier)
+            .filter(|x| x.kind == TokenKind::IDENT)
             .map(|x| &x.text(self.text(db))[..(offset - x.offset + 1) as usize]);
 
         for (name, sym) in self.collect_visible_symbols(db, &hir_node, prev_text) {

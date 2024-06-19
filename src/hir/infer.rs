@@ -46,7 +46,7 @@ impl<'a> InferCtx<'a> {
                 let _ret = self.return_stack.pop().expect("InferCtx::item: return stack empty");
             }
             Item::BlockType(x) => self.block(store, x.block),
-            Item::VarDeclStmt(x) => self.var_decl(store, x.decl),
+            Item::VarDecl(x) => self.var_decl(store, x.decl),
         }
     }
 
@@ -59,7 +59,7 @@ impl<'a> InferCtx<'a> {
     fn stmt(&mut self, store: &mut TypeVarStore, node: StmtId) {
         match node.lookup(self.script_db) {
             Stmt::For(x) => self.stmt_for(store, x),
-            Stmt::ForEach(x) => self.stmt_for_each(store, x),
+            Stmt::ForRange(x) => self.stmt_for_range(store, x),
             Stmt::If(x) => self.stmt_if(store, x),
             Stmt::While(x) => self.stmt_while(store, x),
             Stmt::VarDecl(x) => self.var_decl(store, x.decl),
@@ -97,7 +97,7 @@ impl<'a> InferCtx<'a> {
         self.block(store, node.block);
     }
 
-    fn stmt_for_each(&mut self, store: &mut TypeVarStore, node: &ForEachStmt) {
+    fn stmt_for_range(&mut self, store: &mut TypeVarStore, node: &ForRangeStmt) {
         self.pat(store, &node.pat);
         self.expr(store, node.iterable);
         self.block(store, node.block);
@@ -161,8 +161,8 @@ impl<'a> InferCtx<'a> {
             Expr::Str(x) => {
                 for shard in &x.shards {
                     match shard.lookup(self.script_db) {
-                        StringShard::Str { .. } => (),
-                        StringShard::Expr { expr, .. } => {
+                        StrShard::Str { .. } => (),
+                        StrShard::Expr { expr, .. } => {
                             self.expr(store, *expr);
                         }
                     }
@@ -171,7 +171,7 @@ impl<'a> InferCtx<'a> {
                 store.concrete_type(tv, InferredType::string());
                 tv
             }
-            Expr::Lit(x) => {
+            Expr::Literal(x) => {
                 let tv = store.type_var();
                 store.concrete_type(tv, match x {
                     Literal::Number(_) => InferredType::number(),

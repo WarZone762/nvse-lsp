@@ -48,7 +48,7 @@ impl<'a> Lexer<'a> {
                     {
                         self.next_char();
                     }
-                    return Some(self.finish_token(TokenKind::Whitespace));
+                    return Some(self.finish_token(TokenKind::WHITESPACE));
                 }
 
                 if c == '/' && self.peek(1) == Some('/') {
@@ -70,7 +70,7 @@ impl<'a> Lexer<'a> {
                 if c == '"' {
                     self.state_stack.push(LexerState::StringTemplateString);
                     self.next_char();
-                    return Some(self.finish_token(TokenKind::QuoteDouble));
+                    return Some(self.finish_token(TokenKind::QUOTE_DOUBLE));
                 }
 
                 if c == '{' {
@@ -85,13 +85,13 @@ impl<'a> Lexer<'a> {
                     '"' => {
                         self.state_stack.pop();
                         self.next_char();
-                        self.finish_token(TokenKind::QuoteDouble)
+                        self.finish_token(TokenKind::QUOTE_DOUBLE)
                     }
                     '$' if self.peek(1) == Some('{') => {
                         self.state_stack.push(LexerState::Normal);
                         self.next_char();
                         self.next_char();
-                        self.finish_token(TokenKind::DollarLeftBrace)
+                        self.finish_token(TokenKind::DOLLAR_LBRACK)
                     }
                     _ => self.string_shard(),
                 });
@@ -101,7 +101,7 @@ impl<'a> Lexer<'a> {
             None
         } else {
             self.done = true;
-            Some(self.finish_token(TokenKind::Eof))
+            Some(self.finish_token(TokenKind::EOF))
         }
     }
 
@@ -115,7 +115,7 @@ impl<'a> Lexer<'a> {
             self.next_char();
         }
 
-        self.finish_token(TokenKind::Comment)
+        self.finish_token(TokenKind::COMMENT)
     }
 
     fn comment_block(&mut self) -> Token {
@@ -130,7 +130,7 @@ impl<'a> Lexer<'a> {
             self.next_char();
         }
 
-        self.finish_token(TokenKind::Comment)
+        self.finish_token(TokenKind::COMMENT)
     }
 
     fn number(&mut self) -> Token {
@@ -146,7 +146,7 @@ impl<'a> Lexer<'a> {
             self.next_char();
         }
 
-        self.finish_token(TokenKind::Number)
+        self.finish_token(TokenKind::NUMBER)
     }
 
     fn ident(&mut self) -> Token {
@@ -158,7 +158,7 @@ impl<'a> Lexer<'a> {
         }
 
         self.finish_token(
-            TokenKind::from_str(&self.token_text().to_lowercase()).unwrap_or(TokenKind::Identifier),
+            TokenKind::from_str(&self.token_text().to_lowercase()).unwrap_or(TokenKind::IDENT),
         )
     }
 
@@ -177,7 +177,7 @@ impl<'a> Lexer<'a> {
             self.next_char();
         }
 
-        self.finish_token(TokenKind::StringShard)
+        self.finish_token(TokenKind::STR_SHARD)
     }
 
     fn op_misc(&mut self) -> Token {
@@ -193,7 +193,7 @@ impl<'a> Lexer<'a> {
         }
 
         let text = self.token_text();
-        self.finish_token(TokenKind::from_str(text).unwrap_or(TokenKind::Error))
+        self.finish_token(TokenKind::from_str(text).unwrap_or(TokenKind::ERROR))
     }
 
     fn state(&self) -> LexerState {
@@ -274,7 +274,7 @@ mod test {
     #[test]
     fn comment() {
         fn test(string: &str) {
-            test_str(string.trim_end_matches('\n'), || TokenKind::Comment);
+            test_str(string.trim_end_matches('\n'), || TokenKind::COMMENT);
         }
 
         test("//");
@@ -296,7 +296,7 @@ mod test {
     #[test]
     fn number() {
         fn test(string: &str) {
-            test_str(string, || TokenKind::Number);
+            test_str(string, || TokenKind::NUMBER);
         }
 
         test("1");
@@ -307,17 +307,17 @@ mod test {
         test("1.23");
 
         let mut lexer = Lexer::new(".1");
-        assert_eq!(token_from_str(TokenKind::Number, "1", 1), lexer.nth(1).unwrap());
+        assert_eq!(token_from_str(TokenKind::NUMBER, "1", 1), lexer.nth(1).unwrap());
 
         let mut lexer = Lexer::new("1.");
-        assert_eq!(token_from_str(TokenKind::Number, "1", 0), lexer.next().unwrap());
+        assert_eq!(token_from_str(TokenKind::NUMBER, "1", 0), lexer.next().unwrap());
     }
 
     #[test]
     fn ident() {
         fn test(string: &str) {
             test_str(string, || {
-                TokenKind::from_str(&string.to_lowercase()).unwrap_or(TokenKind::Identifier)
+                TokenKind::from_str(&string.to_lowercase()).unwrap_or(TokenKind::IDENT)
             });
         }
 
@@ -344,8 +344,8 @@ mod test {
         test("bar1");
 
         let mut lexer = Lexer::new("1a");
-        assert_eq!(token_from_str(TokenKind::Number, "1", 0), lexer.next().unwrap());
-        assert_eq!(token_from_str(TokenKind::Identifier, "a", 1), lexer.next().unwrap());
+        assert_eq!(token_from_str(TokenKind::NUMBER, "1", 0), lexer.next().unwrap());
+        assert_eq!(token_from_str(TokenKind::IDENT, "a", 1), lexer.next().unwrap());
     }
 
     #[test]
@@ -354,7 +354,7 @@ mod test {
             let string = string.trim();
             let mut lexer = Lexer::new(string);
             assert_eq!(
-                token_from_str(TokenKind::StringShard, &string[1..string.len() - 1], 1),
+                token_from_str(TokenKind::STR_SHARD, &string[1..string.len() - 1], 1),
                 lexer.nth(1).unwrap(),
                 "{string:?}",
             );
@@ -363,7 +363,7 @@ mod test {
         let string = r#"   ""   "#.trim();
         let mut lexer = Lexer::new(string);
         assert_eq!(
-            token_from_str(TokenKind::QuoteDouble, "\"", 1),
+            token_from_str(TokenKind::QUOTE_DOUBLE, "\"", 1),
             lexer.nth(1).unwrap(),
             "{string:?}",
         );
@@ -378,7 +378,7 @@ mod test {
         let string = r#"   "\"123\"   "#.trim();
         let mut lexer = Lexer::new(string);
         assert_eq!(
-            token_from_str(TokenKind::StringShard, &string[1..], 1),
+            token_from_str(TokenKind::STR_SHARD, &string[1..], 1),
             lexer.nth(1).unwrap(),
             "{string:?}",
         );
