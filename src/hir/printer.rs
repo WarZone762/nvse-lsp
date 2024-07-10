@@ -265,6 +265,8 @@ impl Print for ExprId {
             Expr::Lambda(x) => x.print(p),
             Expr::NameRef(x) => x.print(p),
             Expr::Str(x) => x.print(p),
+            Expr::LitArr(x) => x.print(p),
+            Expr::LitMap(x) => x.print(p),
             Expr::Literal(x) => x.print(p),
         }
         p.push(")");
@@ -436,6 +438,30 @@ impl Print for StrShardId {
                 p.push("}");
             }
         }
+    }
+}
+
+impl Print for LitArr {
+    fn print(&self, p: &mut Printer<'_>) {
+        p.push("[");
+        self.exprs.iter().print_delimited(p, ", ");
+        p.push("]");
+    }
+}
+
+impl Print for LitMap {
+    fn print(&self, p: &mut Printer<'_>) {
+        p.push("{");
+        self.kv_pairs.iter().print_delimited(p, ", ");
+        p.push("}");
+    }
+}
+
+impl Print for (ExprId, ExprId) {
+    fn print(&self, p: &mut Printer<'_>) {
+        self.0.print(p);
+        p.push("::");
+        self.1.print(p);
     }
 }
 

@@ -285,6 +285,8 @@ impl<'a> Formatter<'a> {
             ast::Expr::Lambda(x) => self.expr_lambda(x),
             ast::Expr::NameRef(x) => self.name_ref(x).into(),
             ast::Expr::Str(x) => self.expr_str(x),
+            ast::Expr::LitArr(x) => self.lit_arr(x),
+            ast::Expr::LitMap(x) => self.lit_map(x),
             ast::Expr::Literal(x) => self.literal(x).into(),
         })
         .unwrap_or_default()
@@ -309,8 +311,8 @@ impl<'a> Formatter<'a> {
             self.comments_between(expr.question_mark().as_deref(), expr.true_expr().as_ref()),
             self.expr(expr.true_expr().as_ref()),
             self.comments_between(expr.true_expr().as_ref(), expr.colon().as_deref()),
-            self.expr(expr.false_expr().as_ref()),
             self.comments_between(expr.colon().as_deref(), expr.false_expr().as_ref()),
+            self.expr(expr.false_expr().as_ref()),
         )
     }
 
@@ -395,6 +397,34 @@ impl<'a> Formatter<'a> {
                     ),
                 })
                 .collect::<String>()
+        )
+    }
+
+    fn lit_arr(&mut self, lit: &ast::LitArr) -> String {
+        format!(
+            "[{}{}{}]",
+            self.comments_between(lit.lsq_brack().as_deref(), lit.exprs().next().as_ref()),
+            lit.exprs().map(|x| self.expr(Some(&x))).join(", "),
+            self.comments_between(lit.exprs().last().as_ref(), lit.rsq_brack().as_deref()),
+        )
+    }
+
+    fn lit_map(&mut self, lit: &ast::LitMap) -> String {
+        format!(
+            "{{{}{}{}}}",
+            self.comments_between(lit.lbrack().as_deref(), lit.kv_pairs().next().as_ref()),
+            lit.kv_pairs().map(|x| self.kv_pair(&x)).join(", "),
+            self.comments_between(lit.kv_pairs().last().as_ref(), lit.rbrack().as_deref()),
+        )
+    }
+
+    fn kv_pair(&mut self, kv_pair: &ast::KVPair) -> String {
+        format!(
+            "{}{}::{}{}",
+            self.expr(kv_pair.key().as_ref()),
+            self.comments_between(kv_pair.key().as_ref(), kv_pair.col2().as_deref()),
+            self.comments_between(kv_pair.col2().as_deref(), kv_pair.value().as_ref()),
+            self.expr(kv_pair.value().as_ref()),
         )
     }
 

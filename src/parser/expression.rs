@@ -84,6 +84,8 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
             p.next_any();
             m.complete(p, NodeKind::LITERAL)
         }
+        TokenKind::LSQ_BRACK => lit_arr(p),
+        TokenKind::LBRACK => lit_map(p),
         TokenKind::QUOTE_DOUBLE => expr_str(p),
         TokenKind::IDENT => name_ref(p),
         TokenKind::LPAREN => {
@@ -97,10 +99,10 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
         _ => {
             let m = p.start();
             p.err("expected expression");
-            if p.at(TokenKind::RBRACK) {
-                m.abandon(p);
-                return None;
-            }
+            // if p.at(TokenKind::RBRACK) {
+            //     m.abandon(p);
+            //     return None;
+            // }
             p.next_any();
             m.complete(p, NodeKind::ERROR)
         }
@@ -145,6 +147,44 @@ pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
     }
     p.expect(TokenKind::QUOTE_DOUBLE);
     m.complete(p, NodeKind::STR_EXPR)
+}
+
+pub(crate) fn lit_arr(p: &mut Parser) -> CompletedMarker {
+    let m = p.start();
+    p.next(TokenKind::LSQ_BRACK);
+
+    while p.more() && !p.at(TokenKind::RSQ_BRACK) {
+        expr(p);
+        p.opt(TokenKind::COMMA);
+    }
+
+    p.expect(TokenKind::RSQ_BRACK);
+
+    m.complete(p, NodeKind::LIT_ARR)
+}
+
+pub(crate) fn lit_map(p: &mut Parser) -> CompletedMarker {
+    let m = p.start();
+    p.next(TokenKind::LBRACK);
+
+    while p.more() && !p.at(TokenKind::RBRACK) {
+        kv_pair(p);
+        p.opt(TokenKind::COMMA);
+    }
+
+    p.expect(TokenKind::RBRACK);
+
+    m.complete(p, NodeKind::LIT_MAP)
+}
+
+pub(crate) fn kv_pair(p: &mut Parser) {
+    let m = p.start();
+
+    expr_primary(p);
+    p.expect(TokenKind::COLON_2);
+    expr_primary(p);
+
+    m.complete(p, NodeKind::KV_PAIR);
 }
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {

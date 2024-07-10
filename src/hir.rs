@@ -436,6 +436,8 @@ pub(crate) enum Expr {
     Lambda(LambdaExpr),
     NameRef(NameRef),
     Str(StrExpr),
+    LitArr(LitArr),
+    LitMap(LitMap),
     Literal(Literal),
 }
 
@@ -452,6 +454,8 @@ impl_from! {
     Lambda(LambdaExpr),
     NameRef(NameRef),
     Str(StrExpr),
+    LitArr(LitArr),
+    LitMap(LitMap),
     Literal(Literal),
 }
 
@@ -470,6 +474,8 @@ impl Expr {
             Expr::Lambda(x) => Box::new(x.children()),
             Expr::NameRef(_) => Box::new(iter::empty()),
             Expr::Str(x) => Box::new(x.children()),
+            Expr::LitArr(x) => Box::new(x.children()),
+            Expr::LitMap(x) => Box::new(x.children()),
             Expr::Literal(_) => Box::new(iter::empty()),
         }
     }
@@ -488,6 +494,8 @@ impl Expr {
             Expr::Lambda(x) => &x.node,
             Expr::NameRef(x) => &x.node,
             Expr::Str(x) => &x.node,
+            Expr::LitArr(x) => &x.node,
+            Expr::LitMap(x) => &x.node,
             Expr::Literal(x) => x.node(),
         })
     }
@@ -856,6 +864,31 @@ impl StrShard {
             StrShard::Str { node, .. } => node,
             StrShard::Expr { node, .. } => node,
         })
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct LitArr {
+    pub exprs: Vec<ExprId>,
+    pub node: ast::LitArr,
+}
+
+hir_children! {
+    LitArr,
+    child_iter!(exprs)
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct LitMap {
+    pub kv_pairs: Vec<(ExprId, ExprId)>,
+    pub node: ast::LitMap,
+}
+
+impl LitMap {
+    pub fn children<'a>(&'a self) -> impl Iterator<Item = HirNode> + 'a {
+        self.kv_pairs
+            .iter()
+            .flat_map(|(k, v)| iter::once(HirNode::Expr(*k)).chain(iter::once(HirNode::Expr(*v))))
     }
 }
 

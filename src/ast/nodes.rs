@@ -336,6 +336,8 @@ enum_! {
     Lambda(LambdaExpr, LAMBDA_EXPR),
     NameRef(NameRef, NAME_REF),
     Str(StrExpr, STR_EXPR),
+    LitArr(LitArr, LIT_ARR),
+    LitMap(LitMap, LIT_MAP),
     Literal(Literal, LITERAL),
 }
 
@@ -533,6 +535,30 @@ node! {
     token!(dollar_lbrack, TokenKind::DOLLAR_LBRACK);
     child!(expr, Expr);
     token!(rbrack, TokenKind::RBRACK);
+}
+
+node! {
+    LitArr,
+    NodeKind::LIT_ARR,
+    token!(lsq_brack, TokenKind::LSQ_BRACK);
+    children!(exprs, Expr);
+    token!(rsq_brack, TokenKind::RSQ_BRACK);
+}
+
+node! {
+    LitMap,
+    NodeKind::LIT_MAP,
+    token!(lbrack, TokenKind::LBRACK);
+    children!(kv_pairs, KVPair);
+    token!(rbrack, TokenKind::RBRACK);
+}
+
+node! {
+    KVPair,
+    NodeKind::KV_PAIR,
+    child!(key, Expr);
+    token!(col2, TokenKind::COLON_2);
+    child!(value, Expr, 1);
 }
 
 node! {
