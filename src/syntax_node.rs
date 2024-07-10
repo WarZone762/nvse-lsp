@@ -372,6 +372,9 @@ pub(crate) enum NodeKind {
     NAME_REF,
     STR_SHARD_LITERAL,
     STR_SHARD_EXPR,
+    LIT_ARR,
+    LIT_MAP,
+    KV_PAIR,
     LITERAL,
 
     ERROR,

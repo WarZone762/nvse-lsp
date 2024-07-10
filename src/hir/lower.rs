@@ -167,6 +167,8 @@ impl<'a> LowerCtx<'a> {
                     ast::Expr::Lambda(x) => self.expr_lambda(x)?.into(),
                     ast::Expr::NameRef(x) => self.name_ref(x)?.into(),
                     ast::Expr::Str(x) => self.str(x).into(),
+                    ast::Expr::LitArr(x) => self.lit_arr(x)?.into(),
+                    ast::Expr::LitMap(x) => self.lit_map(x)?.into(),
                     ast::Expr::Literal(x) => self.literal(x)?.into(),
                 })
             })
@@ -315,6 +317,17 @@ impl<'a> LowerCtx<'a> {
             ast::StrShard::Expr(x) => StrShard::Expr { expr: self.expr(x.expr()), node },
         };
         Some(self.script_db.add_str_shard(str_shard))
+    }
+
+    fn lit_arr(&mut self, node: ast::LitArr) -> Option<LitArr> {
+        Some(LitArr { exprs: node.exprs().map(|x| self.expr(Some(x))).collect(), node })
+    }
+
+    fn lit_map(&mut self, node: ast::LitMap) -> Option<LitMap> {
+        Some(LitMap {
+            kv_pairs: node.kv_pairs().map(|x| (self.expr(x.key()), self.expr(x.value()))).collect(),
+            node,
+        })
     }
 
     fn literal(&mut self, node: ast::Literal) -> Option<Literal> {

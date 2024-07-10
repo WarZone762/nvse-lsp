@@ -171,6 +171,34 @@ impl<'a> InferCtx<'a> {
                 store.concrete_type(tv, InferredType::string());
                 tv
             }
+            Expr::LitArr(x) => {
+                let tv = store.type_var();
+                let val = store.type_var();
+
+                for e in &x.exprs {
+                    let e = self.expr(store, *e);
+                    store.assignable(val, e);
+                }
+
+                store.assignable_to_type(tv, Type::Map(Box::new((Type::Number, Type::Var(val)))));
+                tv
+            }
+            Expr::LitMap(x) => {
+                let tv = store.type_var();
+                let key = store.type_var();
+                let val = store.type_var();
+
+                for (k, v) in &x.kv_pairs {
+                    let k = self.expr(store, *k);
+                    let v = self.expr(store, *v);
+
+                    store.assignable(key, k);
+                    store.assignable(val, v);
+                }
+
+                store.assignable_to_type(tv, Type::Map(Box::new((Type::Var(key), Type::Var(val)))));
+                tv
+            }
             Expr::Literal(x) => {
                 let tv = store.type_var();
                 store.concrete_type(tv, match x {
