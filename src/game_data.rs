@@ -5,13 +5,13 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     db::{Database, Lookup},
-    hir::ty::{FunctionSignature, InferredType, Type},
+    hir::ty::{Function, Type},
 };
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct GlobalsDatabase {
     pub name: String,
-    pub globals: HashMap<String, InferredType>,
+    pub globals: HashMap<String, Type>,
 }
 
 impl GlobalsDatabase {
@@ -19,7 +19,7 @@ impl GlobalsDatabase {
         Self { name, globals: HashMap::new() }
     }
 
-    pub fn add_global(&mut self, name: String, ty: InferredType) {
+    pub fn add_global(&mut self, name: String, ty: Type) {
         self.globals.insert(name, ty);
     }
 }
@@ -81,12 +81,13 @@ pub(crate) struct FnData {
     pub desc: Option<String>,
 }
 
-impl From<FnData> for InferredType {
+impl From<FnData> for Type {
     fn from(value: FnData) -> Self {
-        Self::concrete(Type::Function(Box::new(FunctionSignature {
-            ret: InferredType::from(value.ret_type).narrowest,
-            params: value.params.into_iter().map(|x| InferredType::from(x).narrowest).collect(),
-        })))
+        Type::Function(Box::new(Function {
+            generic_args: vec![],
+            ret: Type::from(value.ret_type),
+            params: value.params.into_iter().map(Type::from).collect(),
+        }))
     }
 }
 
@@ -97,12 +98,11 @@ pub(crate) struct FnParamData {
     optional: bool,
 }
 
-impl From<FnParamData> for InferredType {
+impl From<FnParamData> for Type {
     fn from(value: FnParamData) -> Self {
         let mut ty = Self::from(value.r#type);
         if value.optional {
-            ty.widest = Type::Union(vec![ty.widest, Type::Void]);
-            ty.narrowest = Type::Union(vec![ty.narrowest, Type::Void]);
+            ty = Type::Union(vec![ty, Type::Void]);
         }
         ty
     }
@@ -197,115 +197,113 @@ pub(crate) enum TypeName {
     WorldSpace,
 }
 
-impl From<TypeName> for InferredType {
+impl From<TypeName> for Type {
     fn from(value: TypeName) -> Self {
         match value {
-            TypeName::Ambiguous => Self::any(),
-            TypeName::AnyType => Self::any(),
-            TypeName::Array => Self::array(),
-            TypeName::ArrayIndex => Self::number(),
-            TypeName::Bool => Self::bool(),
-            TypeName::Double => Self::number(),
-            TypeName::Float => Self::number(),
-            TypeName::Integer => Self::number(),
-            TypeName::MapMarker => Self::ref_(),
-            TypeName::Number => Self::number(),
-            TypeName::Object => Self::ref_(),
-            TypeName::ObjectID => Self::ref_(),
-            TypeName::ObjectRef => Self::ref_(),
-            TypeName::OneOrZero => Self::bool(),
-            TypeName::Owner => Self::ref_(),
-            TypeName::QuestStage => Self::number(),
-            TypeName::ScriptVar => Self::any(),
-            TypeName::String => Self::string(),
-            TypeName::StringOrNumber => {
-                Self::concrete(Type::Union(vec![Type::String, Type::Number]))
-            }
-            TypeName::StringVar => Self::string(),
-            TypeName::Unk2E => Self::any(),
-            TypeName::Unknown => Self::any(),
-            TypeName::Variable => Self::any(),
-            TypeName::VariableName => Self::any(),
+            TypeName::Ambiguous => Self::Any,
+            TypeName::AnyType => Self::Any,
+            TypeName::Array => Self::Map(Box::new((Self::Number, Self::Any))),
+            TypeName::ArrayIndex => Self::Number,
+            TypeName::Bool => Self::Bool,
+            TypeName::Double => Self::Number,
+            TypeName::Float => Self::Number,
+            TypeName::Integer => Self::Number,
+            TypeName::MapMarker => Self::Ref,
+            TypeName::Number => Self::Number,
+            TypeName::Object => Self::Ref,
+            TypeName::ObjectID => Self::Ref,
+            TypeName::ObjectRef => Self::Ref,
+            TypeName::OneOrZero => Self::Bool,
+            TypeName::Owner => Self::Ref,
+            TypeName::QuestStage => Self::Number,
+            TypeName::ScriptVar => Self::Any,
+            TypeName::String => Self::String,
+            TypeName::StringOrNumber => Self::Union(vec![Type::String, Type::Number]),
+            TypeName::StringVar => Self::String,
+            TypeName::Unk2E => Self::Any,
+            TypeName::Unknown => Self::Any,
+            TypeName::Variable => Self::Any,
+            TypeName::VariableName => Self::Any,
 
             // TODO
-            TypeName::Slice => Self::any(),
-            TypeName::Pair => Self::any(),
+            TypeName::Slice => Self::Any,
+            TypeName::Pair => Self::Any,
 
             // TODO: enums
-            TypeName::ActorValue => Self::any(),
-            TypeName::Alignment => Self::any(),
-            TypeName::AnimationGroup => Self::any(),
-            TypeName::Axis => Self::any(),
-            TypeName::CrimeType => Self::any(),
-            TypeName::CriticalStage => Self::any(),
-            TypeName::EquipType => Self::any(),
-            TypeName::FormType => Self::any(),
-            TypeName::MiscStat => Self::any(),
-            TypeName::Sex => Self::any(),
+            TypeName::ActorValue => Self::Any,
+            TypeName::Alignment => Self::Any,
+            TypeName::AnimationGroup => Self::Any,
+            TypeName::Axis => Self::Any,
+            TypeName::CrimeType => Self::Any,
+            TypeName::CriticalStage => Self::Any,
+            TypeName::EquipType => Self::Any,
+            TypeName::FormType => Self::Any,
+            TypeName::MiscStat => Self::Any,
+            TypeName::Sex => Self::Any,
 
-            TypeName::AIPackage => Self::concrete(Type::Form(Form::Other(FormType::PACK))),
-            TypeName::Actor => Self::concrete(Type::Form(Form::Other(FormType::ACHR))),
-            TypeName::ActorBase => Self::concrete(Type::Form(Form::Other(FormType::ACHR))),
-            TypeName::AnyForm => Self::concrete(Type::Form(Form::Any)),
-            TypeName::CaravanDeck => Self::concrete(Type::Form(Form::Other(FormType::CDCK))),
-            TypeName::Casino => Self::concrete(Type::Form(Form::Other(FormType::CSNO))),
-            TypeName::Cell => Self::concrete(Type::Form(Form::Other(FormType::CELL))),
-            TypeName::Challenge => Self::concrete(Type::Form(Form::Other(FormType::CHAL))),
-            TypeName::Class => Self::concrete(Type::Form(Form::Other(FormType::CLAS))),
-            TypeName::CombatStyle => Self::concrete(Type::Form(Form::Other(FormType::CSTY))),
-            TypeName::Container => Self::concrete(Type::Form(Form::Other(FormType::CONT))),
-            TypeName::EffectShader => Self::concrete(Type::Form(Form::Other(FormType::EFSH))),
-            TypeName::EncounterZone => Self::concrete(Type::Form(Form::Other(FormType::ECZN))),
-            TypeName::Faction => Self::concrete(Type::Form(Form::Other(FormType::FACT))),
-            TypeName::Form => Self::concrete(Type::Form(Form::Any)),
-            TypeName::FormList => Self::concrete(Type::Form(Form::Other(FormType::FLST))),
-            TypeName::Furniture => Self::concrete(Type::Form(Form::Other(FormType::FURN))),
-            TypeName::Global => Self::concrete(Type::Form(Form::Other(FormType::GLOB))),
-            TypeName::IdleForm => Self::concrete(Type::Form(Form::Other(FormType::IDLE))),
-            TypeName::ImageSpace => Self::concrete(Type::Form(Form::Other(FormType::IMGS))),
-            TypeName::ImageSpaceModifier => Self::concrete(Type::Form(Form::Other(FormType::IMAD))),
-            TypeName::InvObjectOrFormList => Self::concrete(Type::Union(vec![
-                Type::Form(Form::Other(FormType::ALCH)),
-                Type::Form(Form::Other(FormType::AMMO)),
-                Type::Form(Form::Other(FormType::ARMO)),
-                Type::Form(Form::Other(FormType::BOOK)),
-                Type::Form(Form::Other(FormType::CCRD)),
-                Type::Form(Form::Other(FormType::CHIP)),
-                Type::Form(Form::Other(FormType::CMNY)),
-                Type::Form(Form::Other(FormType::FLST)),
-                Type::Form(Form::Other(FormType::IMOD)),
-                Type::Form(Form::Other(FormType::KEYM)),
-                Type::Form(Form::Other(FormType::MISC)),
-                Type::Form(Form::Other(FormType::WEAP)),
-            ])),
-            TypeName::LeveledChar => Self::concrete(Type::Form(Form::Other(FormType::LVLN))),
-            TypeName::LeveledCreature => Self::concrete(Type::Form(Form::Other(FormType::LVLC))),
-            TypeName::LeveledItem => Self::concrete(Type::Form(Form::Other(FormType::LVLI))),
-            TypeName::LeveledOrBaseChar => Self::concrete(Type::Union(vec![
-                Type::Form(Form::Other(FormType::ACHR)),
-                Type::Form(Form::Other(FormType::LVLN)),
-            ])),
-            TypeName::LeveledOrBaseCreature => Self::concrete(Type::Union(vec![
-                Type::Form(Form::Other(FormType::ACRE)),
-                Type::Form(Form::Other(FormType::LVLC)),
-            ])),
-            TypeName::MagicEffect => Self::concrete(Type::Form(Form::Other(FormType::MGEF))),
-            TypeName::MagicItem => Self::concrete(Type::Form(Form::Other(FormType::ENCH))),
-            TypeName::Message => Self::concrete(Type::Form(Form::Other(FormType::MESG))),
-            TypeName::NPC => Self::concrete(Type::Form(Form::Other(FormType::NPC_))),
-            TypeName::NonFormList => Self::concrete(Type::Form(Form::Any)),
-            TypeName::Note => Self::concrete(Type::Form(Form::Other(FormType::NOTE))),
-            TypeName::Perk => Self::concrete(Type::Form(Form::Other(FormType::PERK))),
-            TypeName::Quest => Self::concrete(Type::Form(Form::Quest { script: None })),
-            TypeName::Race => Self::concrete(Type::Form(Form::Other(FormType::RACE))),
-            TypeName::Region => Self::concrete(Type::Form(Form::Other(FormType::REGN))),
-            TypeName::Reputation => Self::concrete(Type::Form(Form::Other(FormType::REPU))),
-            TypeName::Sound => Self::concrete(Type::Form(Form::Other(FormType::SOUN))),
-            TypeName::SoundFile => Self::concrete(Type::Form(Form::Other(FormType::MUSC))),
-            TypeName::SpellItem => Self::concrete(Type::Form(Form::Other(FormType::SPEL))),
-            TypeName::Topic => Self::concrete(Type::Form(Form::Other(FormType::DIAL))),
-            TypeName::WeatherID => Self::concrete(Type::Form(Form::Other(FormType::WTHR))),
-            TypeName::WorldSpace => Self::concrete(Type::Form(Form::Other(FormType::WRLD))),
+            TypeName::AIPackage => Self::Form(Form::Other(FormType::PACK)),
+            TypeName::Actor => Self::Form(Form::Other(FormType::ACHR)),
+            TypeName::ActorBase => Self::Form(Form::Other(FormType::ACHR)),
+            TypeName::AnyForm => Self::Form(Form::Any),
+            TypeName::CaravanDeck => Self::Form(Form::Other(FormType::CDCK)),
+            TypeName::Casino => Self::Form(Form::Other(FormType::CSNO)),
+            TypeName::Cell => Self::Form(Form::Other(FormType::CELL)),
+            TypeName::Challenge => Self::Form(Form::Other(FormType::CHAL)),
+            TypeName::Class => Self::Form(Form::Other(FormType::CLAS)),
+            TypeName::CombatStyle => Self::Form(Form::Other(FormType::CSTY)),
+            TypeName::Container => Self::Form(Form::Other(FormType::CONT)),
+            TypeName::EffectShader => Self::Form(Form::Other(FormType::EFSH)),
+            TypeName::EncounterZone => Self::Form(Form::Other(FormType::ECZN)),
+            TypeName::Faction => Self::Form(Form::Other(FormType::FACT)),
+            TypeName::Form => Self::Form(Form::Any),
+            TypeName::FormList => Self::Form(Form::Other(FormType::FLST)),
+            TypeName::Furniture => Self::Form(Form::Other(FormType::FURN)),
+            TypeName::Global => Self::Form(Form::Other(FormType::GLOB)),
+            TypeName::IdleForm => Self::Form(Form::Other(FormType::IDLE)),
+            TypeName::ImageSpace => Self::Form(Form::Other(FormType::IMGS)),
+            TypeName::ImageSpaceModifier => Self::Form(Form::Other(FormType::IMAD)),
+            TypeName::InvObjectOrFormList => Type::Union(vec![
+                Self::Form(Form::Other(FormType::ALCH)),
+                Self::Form(Form::Other(FormType::AMMO)),
+                Self::Form(Form::Other(FormType::ARMO)),
+                Self::Form(Form::Other(FormType::BOOK)),
+                Self::Form(Form::Other(FormType::CCRD)),
+                Self::Form(Form::Other(FormType::CHIP)),
+                Self::Form(Form::Other(FormType::CMNY)),
+                Self::Form(Form::Other(FormType::FLST)),
+                Self::Form(Form::Other(FormType::IMOD)),
+                Self::Form(Form::Other(FormType::KEYM)),
+                Self::Form(Form::Other(FormType::MISC)),
+                Self::Form(Form::Other(FormType::WEAP)),
+            ]),
+            TypeName::LeveledChar => Self::Form(Form::Other(FormType::LVLN)),
+            TypeName::LeveledCreature => Self::Form(Form::Other(FormType::LVLC)),
+            TypeName::LeveledItem => Self::Form(Form::Other(FormType::LVLI)),
+            TypeName::LeveledOrBaseChar => Type::Union(vec![
+                Self::Form(Form::Other(FormType::ACHR)),
+                Self::Form(Form::Other(FormType::LVLN)),
+            ]),
+            TypeName::LeveledOrBaseCreature => Type::Union(vec![
+                Self::Form(Form::Other(FormType::ACRE)),
+                Self::Form(Form::Other(FormType::LVLC)),
+            ]),
+            TypeName::MagicEffect => Self::Form(Form::Other(FormType::MGEF)),
+            TypeName::MagicItem => Self::Form(Form::Other(FormType::ENCH)),
+            TypeName::Message => Self::Form(Form::Other(FormType::MESG)),
+            TypeName::NPC => Self::Form(Form::Other(FormType::NPC_)),
+            TypeName::NonFormList => Self::Form(Form::Any),
+            TypeName::Note => Self::Form(Form::Other(FormType::NOTE)),
+            TypeName::Perk => Self::Form(Form::Other(FormType::PERK)),
+            TypeName::Quest => Self::Form(Form::Quest { script: None }),
+            TypeName::Race => Self::Form(Form::Other(FormType::RACE)),
+            TypeName::Region => Self::Form(Form::Other(FormType::REGN)),
+            TypeName::Reputation => Self::Form(Form::Other(FormType::REPU)),
+            TypeName::Sound => Self::Form(Form::Other(FormType::SOUN)),
+            TypeName::SoundFile => Self::Form(Form::Other(FormType::MUSC)),
+            TypeName::SpellItem => Self::Form(Form::Other(FormType::SPEL)),
+            TypeName::Topic => Self::Form(Form::Other(FormType::DIAL)),
+            TypeName::WeatherID => Self::Form(Form::Other(FormType::WTHR)),
+            TypeName::WorldSpace => Self::Form(Form::Other(FormType::WRLD)),
         }
     }
 }
@@ -426,4 +424,48 @@ pub(crate) enum FormType {
     WEAP,
     WRLD,
     WTHR,
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn a() {
+        let data = include_str!("../resources/forms/FalloutNV.esm.json");
+
+        let parsed = serde_json::from_str::<Vec<FormData>>(data);
+        println!("{parsed:#?}");
+    }
+
+    #[test]
+    fn b() {
+        macro_rules! print_data {
+            ($name:literal) => {
+                let data = include_str!(concat!("../resources/functions/", $name, ".json"));
+
+                match serde_json::from_str::<Vec<FnData>>(data) {
+                    Ok(_) => (),
+                    Err(x) => println!("{x}"),
+                }
+                // let parsed = serde_json::from_str::<Vec<FnData>>(data).unwrap();
+                // println!("{parsed:#?}");
+            };
+        }
+
+        print_data!("Base game");
+        print_data!("JIP LN NVSE");
+        print_data!("JohnnyGuitarNVSE");
+        print_data!("kNVSE");
+        print_data!("lStewieAl's Tweaks");
+        print_data!("MCM Extensions");
+        print_data!("NVSE");
+        print_data!("ShowOffNVSE Plugin");
+        print_data!("ttw_nvse");
+
+        // let data = include_str!("../resources/functions/NVSE.json");
+        //
+        // let parsed = serde_json::from_str::<Vec<FnData>>(data);
+        // println!("{parsed:#?}");
+    }
 }

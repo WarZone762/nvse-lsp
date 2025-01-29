@@ -565,12 +565,6 @@ impl Print for SymbolTable {
     }
 }
 
-impl Print for InferredType {
-    fn print(&self, p: &mut Printer<'_>) {
-        self.narrowest.print(p);
-    }
-}
-
 impl Print for Type {
     fn print(&self, p: &mut Printer<'_>) {
         p.push(&self.to_string(p.indent));

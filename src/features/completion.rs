@@ -31,12 +31,12 @@ impl Doc {
         for (name, sym) in self.collect_visible_symbols(db, &hir_node, prev_text) {
             let (ty, detail) = match sym {
                 Symbol::Local(file_id, x) => {
-                    let ty = x.type_(db, file_id).narrowest;
+                    let ty = x.type_(db, file_id);
                     let detail = ty.to_string_with_name(&name, 0);
                     (ty, detail)
                 }
                 Symbol::Global(gdb, name) => {
-                    let ty = gdb.lookup(db).globals.get(&name).unwrap().narrowest.clone();
+                    let ty = gdb.lookup(db).globals.get(&name).unwrap().clone();
                     let detail =
                         format!("{}\n\nFrom: {}", ty.to_string_with_name(&name, 0), db[gdb].name);
                     (ty, detail)

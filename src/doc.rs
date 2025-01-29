@@ -85,7 +85,7 @@ impl Doc {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct DocMeta {
     pub uri: Url,
     pub language_id: String,

@@ -649,3 +649,39 @@ impl<'a> Formatter<'a> {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use std::collections::HashMap;
+
+    use tower_lsp::lsp_types::{TextDocumentItem, Url};
+
+    use super::*;
+
+    #[test]
+    fn a() {
+        let mut db = Database::new();
+        let doc = db.add_doc(TextDocumentItem {
+            uri: Url::parse("file://test").unwrap(),
+            language_id: "NVSEScript".into(),
+            version: 0,
+            text: include_str!("../../test_data/cases/conf.gek").into(),
+            // text: include_str!("../../test_data/cases/test.gek").into(),
+        });
+
+        for _ in db.analyze_workspace() {}
+
+        println!(
+            "{}",
+            doc.format(&db, FormattingOptions {
+                tab_size: 4,
+                insert_spaces: true,
+                properties: HashMap::new(),
+                trim_trailing_whitespace: None,
+                insert_final_newline: None,
+                trim_final_newlines: None
+            })[0]
+                .new_text
+        );
+    }
+}

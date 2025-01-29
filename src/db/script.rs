@@ -1,33 +1,50 @@
 use std::{cell::UnsafeCell, collections::HashMap, rc::Rc};
 
-use ty::InferredType;
+use la_arena::{Arena, Idx};
 
-use super::{Database, FileId, Lookup};
+use super::{Database, FileId, Lookup, Type};
 use crate::{ast::AstNode, hir::*, syntax_node::Node};
 
 #[derive(Debug)]
 pub(crate) struct ScriptDatabase {
-    pub items: Vec<Item>,
-    pub stmts: Vec<Stmt>,
-    pub exprs: Vec<Expr>,
-    pub blocks: Vec<Block>,
-    pub var_decls: Vec<VarDecl>,
-    pub names: Vec<Name>,
-    pub str_shards: Vec<StrShard>,
+    pub items: Arena<Item>,
+    pub stmts: Arena<Stmt>,
+    pub exprs: Arena<Expr>,
+    pub blocks: Arena<Block>,
+    pub var_decls: Arena<VarDecl>,
+    pub names: Arena<Name>,
+    pub str_shards: Arena<StrShard>,
 
     pub syntax_to_hir_cache: UnsafeCell<HashMap<usize, Option<HirNode>>>,
+}
+
+impl Clone for ScriptDatabase {
+    fn clone(&self) -> Self {
+        Self {
+            items: self.items.clone(),
+            stmts: self.stmts.clone(),
+            exprs: self.exprs.clone(),
+            blocks: self.blocks.clone(),
+            var_decls: self.var_decls.clone(),
+            names: self.names.clone(),
+            str_shards: self.str_shards.clone(),
+            syntax_to_hir_cache: UnsafeCell::new(unsafe {
+                (*self.syntax_to_hir_cache.get()).clone()
+            }),
+        }
+    }
 }
 
 impl ScriptDatabase {
     pub fn new() -> Self {
         Self {
-            items: vec![],
-            stmts: vec![],
-            exprs: vec![],
-            blocks: vec![],
-            var_decls: vec![],
-            names: vec![],
-            str_shards: vec![],
+            items: Arena::new(),
+            stmts: Arena::new(),
+            exprs: Arena::new(),
+            blocks: Arena::new(),
+            var_decls: Arena::new(),
+            names: Arena::new(),
+            str_shards: Arena::new(),
             syntax_to_hir_cache: UnsafeCell::new(HashMap::new()),
         }
     }
@@ -56,64 +73,55 @@ impl ScriptDatabase {
     }
 
     pub fn add_item(&mut self, item: Item) -> ItemId {
-        self.items.push(item);
-        ItemId((self.items.len() - 1) as _)
+        ItemId(self.items.alloc(item))
     }
 
     pub fn add_stmt(&mut self, stmt: Stmt) -> StmtId {
-        self.stmts.push(stmt);
-        StmtId((self.stmts.len() - 1) as _)
+        StmtId(self.stmts.alloc(stmt))
     }
 
     pub fn add_expr(&mut self, expr: Expr) -> ExprId {
-        self.exprs.push(expr);
-        ExprId((self.exprs.len() - 1) as _)
+        ExprId(self.exprs.alloc(expr))
     }
 
     pub fn add_block(&mut self, block: Block) -> BlockId {
-        self.blocks.push(block);
-        BlockId((self.blocks.len() - 1) as _)
+        BlockId(self.blocks.alloc(block))
     }
 
     pub fn add_var_decl(&mut self, var_decl: VarDecl) -> VarDeclId {
-        self.var_decls.push(var_decl);
-        VarDeclId((self.var_decls.len() - 1) as _)
+        VarDeclId(self.var_decls.alloc(var_decl))
     }
 
     pub fn add_name(&mut self, name: Name) -> NameId {
-        self.names.push(name);
-        NameId((self.names.len() - 1) as _)
+        NameId(self.names.alloc(name))
     }
 
     pub fn add_str_shard(&mut self, str_shard: StrShard) -> StrShardId {
-        self.str_shards.push(str_shard);
-        StrShardId((self.str_shards.len() - 1) as _)
+        StrShardId(self.str_shards.alloc(str_shard))
     }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct ItemId(u32);
+pub(crate) struct ItemId(Idx<Item>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct StmtId(u32);
+pub(crate) struct StmtId(Idx<Stmt>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct ExprId(u32);
+pub(crate) struct ExprId(Idx<Expr>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct BlockId(u32);
+pub(crate) struct BlockId(Idx<Block>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct VarDeclId(pub u32);
+pub(crate) struct VarDeclId(Idx<VarDecl>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct NameId(u32);
+pub(crate) struct NameId(Idx<Name>);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct StrShardId(u32);
+pub(crate) struct StrShardId(Idx<StrShard>);
 
 impl Lookup for ItemId {
     type DB = ScriptDatabase;
     type Output = Item;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.items
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.items[self.0]
     }
 }
 
@@ -122,9 +130,7 @@ impl Lookup for StmtId {
     type Output = Stmt;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.stmts
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.stmts[self.0]
     }
 }
 
@@ -133,9 +139,7 @@ impl Lookup for ExprId {
     type Output = Expr;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.exprs
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.exprs[self.0]
     }
 }
 
@@ -144,9 +148,7 @@ impl Lookup for BlockId {
     type Output = Block;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.blocks
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.blocks[self.0]
     }
 }
 
@@ -155,9 +157,7 @@ impl Lookup for VarDeclId {
     type Output = VarDecl;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.var_decls
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.var_decls[self.0]
     }
 }
 
@@ -166,9 +166,7 @@ impl Lookup for NameId {
     type Output = Name;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.names
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.names[self.0]
     }
 }
 
@@ -177,9 +175,7 @@ impl Lookup for StrShardId {
     type Output = StrShard;
 
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output {
-        db.str_shards
-            .get(self.0 as usize)
-            .unwrap_or_else(|| panic!("failed to find {self:?} in Database"))
+        &db.str_shards[self.0]
     }
 }
 
@@ -212,12 +208,8 @@ impl ExprId {
         self.lookup(db).node()
     }
 
-    pub fn type_(&self, db: &Database, file_id: FileId) -> InferredType {
-        db.type_maps
-            .get(file_id.0)
-            .and_then(|x| x.get(self))
-            .cloned()
-            .unwrap_or(InferredType::any())
+    pub fn type_(&self, db: &Database, file_id: FileId) -> Type {
+        db.type_maps.get(file_id.0).and_then(|x| x.get(self)).cloned().unwrap_or(Type::Any)
     }
 }
 
@@ -242,12 +234,8 @@ impl VarDeclId {
 }
 
 impl NameId {
-    pub fn type_(&self, db: &Database, file_id: FileId) -> InferredType {
-        db.name_type_maps
-            .get(file_id.0)
-            .and_then(|x| x.get(self))
-            .cloned()
-            .unwrap_or(InferredType::any())
+    pub fn type_(&self, db: &Database, file_id: FileId) -> Type {
+        db.name_type_maps.get(file_id.0).and_then(|x| x.get(self)).cloned().unwrap_or(Type::Any)
     }
 
     pub fn node<'a>(&self, db: &'a ScriptDatabase) -> Option<&'a dyn AstNode> {

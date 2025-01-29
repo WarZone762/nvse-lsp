@@ -181,7 +181,7 @@ impl TriviaBuilder {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct Diagnostic {
     pub msg: String,
     pub severity: DiagnosticSeverity,

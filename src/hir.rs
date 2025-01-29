@@ -1,4 +1,4 @@
-use std::{collections::HashMap, iter, rc::Rc};
+use std::{iter, rc::Rc};
 
 use crate::{
     ast::{self, AstNode},
@@ -6,7 +6,7 @@ use crate::{
     syntax_node::TokenKind,
 };
 
-pub(crate) mod infer;
+pub(crate) mod infer_local;
 pub(crate) mod lower;
 pub(crate) mod printer;
 pub(crate) mod ty;

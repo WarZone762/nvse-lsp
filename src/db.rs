@@ -9,7 +9,7 @@ use tower_lsp::lsp_types::{TextDocumentItem, Url};
 mod script;
 
 pub(crate) use script::*;
-use ty::{InferredType, Symbol, Type};
+use ty::{Symbol, Type};
 
 use crate::{
     ast::{self, AstNode},
@@ -20,7 +20,7 @@ use crate::{
     tree_builder::parse_str,
 };
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub(crate) struct Database {
     pub doc_metas: Arena<DocMeta>,
     pub text_map: ArenaMap<Idx<DocMeta>, Box<str>>,
@@ -28,8 +28,8 @@ pub(crate) struct Database {
     pub hir_map: ArenaMap<Idx<DocMeta>, Script>,
     pub script_db_map: ArenaMap<Idx<DocMeta>, ScriptDatabase>,
 
-    pub type_maps: ArenaMap<Idx<DocMeta>, HashMap<ExprId, InferredType>>,
-    pub name_type_maps: ArenaMap<Idx<DocMeta>, HashMap<NameId, InferredType>>,
+    pub type_maps: ArenaMap<Idx<DocMeta>, HashMap<ExprId, Type>>,
+    pub name_type_maps: ArenaMap<Idx<DocMeta>, HashMap<NameId, Type>>,
 
     pub globals: HashMap<String, Symbol>,
     pub globals_dbs: Arena<GlobalsDatabase>,
@@ -147,7 +147,7 @@ impl Database {
                 let db = self.add_globals_db($name);
                 for f in forms {
                     let edid = f.edid.clone();
-                    self[db].add_global(edid.clone(), InferredType::concrete(Type::Form(f.into())));
+                    self[db].add_global(edid.clone(), Type::Form(f.into()));
                     self.globals.insert(edid.clone(), Symbol::Global(db, edid));
                 }
             };
@@ -240,8 +240,9 @@ impl Database {
         (0..self.doc_metas.len()).map(|id| {
             let id = Idx::from_raw(RawIdx::from_u32(id as u32));
             if self.doc_metas[id].modified {
-                let store = infer::infer(self, id.into());
-                store.apply(self, id.into());
+                let res = infer_local::infer(self, id.into());
+                res.apply(self);
+
                 self.doc_metas[id].modified = false;
             }
             Doc(id.into())

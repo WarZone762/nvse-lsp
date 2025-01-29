@@ -7,6 +7,7 @@
     ptr_as_ref_unchecked,
     let_chains
 )]
+#![allow(dead_code)]
 
 mod ast;
 mod db;
