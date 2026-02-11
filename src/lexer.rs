@@ -183,13 +183,12 @@ impl<'a> Lexer<'a> {
     fn op_misc(&mut self) -> Token {
         let c = self.next_char().unwrap();
 
-        if let Some(next_c) = self.peek(0) {
-            if matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '|' | '&' | '=' | '!' | '<' | '>')
+        if let Some(next_c) = self.peek(0)
+            && (matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '|' | '&' | '=' | '!' | '<' | '>')
                 && next_c == '='
-                || matches!(c, '+' | '-' | '|' | '&' | '<' | '>' | ':') && next_c == c
-            {
-                self.next_char();
-            }
+                || matches!(c, '+' | '-' | '|' | '&' | '<' | '>' | ':') && next_c == c)
+        {
+            self.next_char();
         }
 
         let text = self.token_text();
@@ -257,13 +256,7 @@ mod test {
 
     fn token_from_str(kind: TokenKind, string: &str, offset: usize) -> Token {
         let byte_offset = string.char_indices().nth(offset).map(|x| x.0).unwrap_or(0);
-        Token::new(
-            kind,
-            offset as _,
-            string.len() as _,
-            byte_offset as _,
-            string.bytes().len() as _,
-        )
+        Token::new(kind, offset as _, string.len() as _, byte_offset as _, string.len() as _)
     }
 
     fn test_str(string: &str, kind_fn: impl FnOnce() -> TokenKind) {

@@ -70,11 +70,7 @@ macro_rules! ast_node {
             where
                 Self: Sized,
             {
-                if Self::can_cast(syntax_node.kind) {
-                    Some(Self { syntax_node })
-                } else {
-                    None
-                }
+                if Self::can_cast(syntax_node.kind) { Some(Self { syntax_node }) } else { None }
             }
 
             fn syntax(&self) -> &Rc<Node> {
@@ -86,7 +82,7 @@ macro_rules! ast_node {
 
 macro_rules! children {
     ($name:ident, $type:ident) => {
-        pub fn $name(&self) -> AstChildren<$type> {
+        pub fn $name(&self) -> AstChildren<'_, $type> {
             AstChildren::new(&self.syntax_node)
         }
     };

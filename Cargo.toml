@@ -11,17 +11,17 @@ panic = "abort"
 opt-level = 3
 
 [dependencies]
-anyhow = "1.0.86"
-dashmap = "5.5"
-futures = "0.3.30"
-itertools = "0.13.0"
+anyhow = "1.0.101"
+dashmap = "6.1.0"
+futures = "0.3.31"
+itertools = "0.14.0"
 la-arena = "0.3.1"
-lsp-types = "0.96"
-serde = { version = "1.0.203", features = ["derive"] }
-serde_json = "1.0.117"
-tokio = { version = "1.37", features = ["full"] }
-tower-lsp = "0.20"
+lsp-types = "0.97.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+tokio = { version = "1.49.0", features = ["full"] }
+tower-lsp = "0.20.0"
 walkdir = "2.5.0"
 
 [dev-dependencies]
-similar-asserts = "1.5"
+similar-asserts = "1.7.0"

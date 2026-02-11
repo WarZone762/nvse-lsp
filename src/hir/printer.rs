@@ -177,12 +177,9 @@ impl Print for IfStmt {
         self.cond.print(p);
         p.push(") ");
         self.true_branch.print(p);
-        match &self.false_branch {
-            Some(x) => {
-                p.push(" ");
-                x.print(p);
-            }
-            None => (),
+        if let Some(x) = &self.false_branch {
+            p.push(" ");
+            x.print(p);
         }
     }
 }

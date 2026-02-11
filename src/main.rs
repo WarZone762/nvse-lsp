@@ -4,8 +4,7 @@
     get_mut_unchecked,
     iter_from_coroutine,
     iter_map_windows,
-    ptr_as_ref_unchecked,
-    let_chains
+    ptr_as_ref_unchecked
 )]
 
 mod ast;
@@ -34,12 +33,12 @@ use features::*;
 use serde::{Deserialize, Serialize};
 use tokio::sync::RwLock;
 use tower_lsp::{
+    Client, LanguageServer, LspService, Server,
     jsonrpc::{self, Result},
     lsp_types::{
         notification::{Notification, Progress},
         *,
     },
-    Client, LanguageServer, LspService, Server,
 };
 
 #[tokio::main]
