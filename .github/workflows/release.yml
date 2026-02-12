@@ -2,6 +2,8 @@ name: release
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -19,10 +21,10 @@ jobs:
             target: x86_64-apple-darwin
             code-target: darwin-x64
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - uses: dtolnay/rust-toolchain@nightly
 
       - name: Test
@@ -48,57 +50,52 @@ jobs:
           path: ./vscode/out
 
   publish-nightly:
-      name: publish
-      runs-on: ubuntu-latest
-      needs: ["build"]
-      steps:
-        - uses: actions/setup-node@v4
-          with:
-            node-version: 20
+    name: publish
+    runs-on: ubuntu-latest
+    needs: ["build"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: ${{ env.FETCH_DEPTH }}
 
-        - name: Checkout repository
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: ${{ env.FETCH_DEPTH }}
+      - run: echo "HEAD_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+      - run: 'echo "HEAD_SHA: $HEAD_SHA"'
 
-        - run: echo "HEAD_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        - run: 'echo "HEAD_SHA: $HEAD_SHA"'
+      - uses: actions/download-artifact@v7
+        with:
+          name: nvse-lsp-x86_64-pc-windows-msvc
+          path: dist
+      - run: |
+          tar -czf ./dist/nvse-lsp-windows.tgz ./dist/nvse-lsp.exe
+          rm ./dist/nvse-lsp.exe
 
-        - uses: actions/download-artifact@v4
-          with:
-            name: nvse-lsp-x86_64-pc-windows-msvc
-            path: dist
-        - run: |
-            tar -czf ./dist/nvse-lsp-windows.tgz ./dist/nvse-lsp.exe
-            rm ./dist/nvse-lsp.exe
+      - uses: actions/download-artifact@v7
+        with:
+          name: nvse-lsp-x86_64-unknown-linux-gnu
+          path: dist
+      - run: |
+          tar -czf ./dist/nvse-lsp-linux.tgz ./dist/nvse-lsp
+          rm ./dist/nvse-lsp
 
-        - uses: actions/download-artifact@v4
-          with:
-            name: nvse-lsp-x86_64-unknown-linux-gnu
-            path: dist
-        - run: |
-            tar -czf ./dist/nvse-lsp-linux.tgz ./dist/nvse-lsp
-            rm ./dist/nvse-lsp
+      - uses: actions/download-artifact@v7
+        with:
+          name: nvse-lsp-x86_64-apple-darwin
+          path: dist
+      - run: |
+          tar -czf ./dist/nvse-lsp-macos.tgz ./dist/nvse-lsp
+          rm ./dist/nvse-lsp
 
-        - uses: actions/download-artifact@v4
-          with:
-            name: nvse-lsp-x86_64-apple-darwin
-            path: dist
-        - run: |
-            tar -czf ./dist/nvse-lsp-macos.tgz ./dist/nvse-lsp
-            rm ./dist/nvse-lsp
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: vscode-*
+          path: ./dist
+          merge-multiple: true
 
-        - uses: actions/download-artifact@v4
-          with:
-            pattern: vscode-*
-            path: ./dist
-            merge-multiple: true
+      - run: ls -la ./dist
 
-        - run: ls -la ./dist
-
-        - name: Publish Release
-          uses: ./.github/actions/github-release
-          with:
-            files: "dist/*"
-            name: dev
-            token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: "dist/*"
