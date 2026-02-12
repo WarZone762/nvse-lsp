@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - "**"
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -99,3 +101,17 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           files: "dist/*"
+
+      - name: Delete `beta` tag
+        run: gh release delete beta --cleanup-tag
+        if: github.ref_type != 'tag'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Pre-release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type != 'tag'
+        with:
+          files: "dist/*"
+          tag_name: beta
+          prerelease: true
