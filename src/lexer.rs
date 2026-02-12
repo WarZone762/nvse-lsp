@@ -186,7 +186,8 @@ impl<'a> Lexer<'a> {
         if let Some(next_c) = self.peek(0)
             && (matches!(c, '+' | '-' | '*' | '/' | '%' | '^' | '|' | '&' | '=' | '!' | '<' | '>')
                 && next_c == '='
-                || matches!(c, '+' | '-' | '|' | '&' | '<' | '>' | ':') && next_c == c)
+                || matches!(c, '+' | '-' | '|' | '&' | '<' | '>' | ':') && next_c == c
+                || c == '-' && next_c == '>')
         {
             self.next_char();
         }

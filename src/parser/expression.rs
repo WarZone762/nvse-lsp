@@ -14,7 +14,17 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
         }
         let m = lhs.precede(p);
 
-        p.next_any();
+        if let TokenKind::NOT_KW = p.cur() {
+            let next = p.nth(1);
+            if next == TokenKind::IN_KW {
+                p.next_any();
+                p.next_any();
+            } else {
+                p.err_and_next(&format!("expected 'in', got {next}"));
+            }
+        } else {
+            p.next_any();
+        }
         expr_bp(p, bp + 1);
 
         lhs = m.complete(p, NodeKind::BIN_EXPR);
@@ -113,9 +123,11 @@ pub(crate) fn expr_lambda(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::FN_KW);
     param_list(p);
+
     if p.at(TokenKind::LBRACK) {
         stmt_block(p);
     } else {
+        p.expect(TokenKind::RARROW);
         expr(p);
     }
     m.complete(p, NodeKind::LAMBDA_EXPR)
@@ -189,16 +201,17 @@ pub(crate) fn kv_pair(p: &mut Parser) {
 
 pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
     match token {
-        TokenKind::ASTERISK | TokenKind::SLASH | TokenKind::PERCENT | TokenKind::CIRCUMFLEX => 12,
-        TokenKind::PLUS | TokenKind::MINUS => 11,
-        TokenKind::LT_2 | TokenKind::GT_2 => 10,
-        TokenKind::AMPERSAND => 9,
-        TokenKind::VBAR => 8,
-        TokenKind::LT | TokenKind::LT_EQ | TokenKind::GT | TokenKind::GT_EQ => 7,
-        TokenKind::EQ_2 | TokenKind::EXCLAMATION_EQ => 6,
-        TokenKind::AMPERSAND_2 => 5,
-        TokenKind::VBAR_2 => 4,
-        TokenKind::COLON_2 => 3,
+        TokenKind::ASTERISK | TokenKind::SLASH | TokenKind::PERCENT | TokenKind::CIRCUMFLEX => 13,
+        TokenKind::PLUS | TokenKind::MINUS => 12,
+        TokenKind::LT_2 | TokenKind::GT_2 => 11,
+        TokenKind::AMPERSAND => 10,
+        TokenKind::VBAR => 9,
+        TokenKind::LT | TokenKind::LT_EQ | TokenKind::GT | TokenKind::GT_EQ => 8,
+        TokenKind::EQ_2 | TokenKind::EXCLAMATION_EQ => 7,
+        TokenKind::AMPERSAND_2 => 6,
+        TokenKind::VBAR_2 => 5,
+        TokenKind::COLON_2 => 4,
+        TokenKind::IN_KW | TokenKind::NOT_KW => 3,
         TokenKind::COLON => 2,
         TokenKind::EQ
         | TokenKind::PLUS_EQ

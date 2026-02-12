@@ -100,6 +100,8 @@ function M.setup(opts)
         }
     })
 
+    vim.cmd("hi link @lsp.type.punctuation @punctuation")
+
     local util = require("lspconfig.util")
     local cmd = { "nvse-lsp", "--stdio" }
 

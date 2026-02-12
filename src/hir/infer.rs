@@ -392,7 +392,7 @@ impl TypeVarStore {
                     if let Some(mut x) = type_map.get_mut(&tv).cloned() {
                         match x.union(&mut c.clone(), &mut constraint_map) {
                             Ok(_) => (),
-                            Err(x) => ()/* println!("{x}") */,
+                            Err(x) => eprintln!("{x}"),
                         }
                         type_map.insert(tv, x);
                     } else {
@@ -416,7 +416,7 @@ impl TypeVarStore {
                 break;
             }
             if step > 256 {
-                // println!("inference iteration limit reached");
+                eprintln!("inference iteration limit reached");
                 break;
             }
         }
@@ -434,7 +434,7 @@ impl TypeVarStore {
                                         Ok(_) => {
                                             type_map.insert(*lhs, ty);
                                         }
-                                        Err(x) => ()/* println!("{x}") */,
+                                        Err(x) => eprintln!("{x}"),
                                     }
                                 }
                                 (Some(mut a), None) => {
@@ -443,7 +443,7 @@ impl TypeVarStore {
                                         Ok(_) => {
                                             type_map.insert(*rhs, ty);
                                         }
-                                        Err(x) => ()/* println!("{x}") */,
+                                        Err(x) => eprintln!("{x}"),
                                     }
                                 }
                                 (Some(mut a), Some(mut b)) => {
@@ -452,7 +452,7 @@ impl TypeVarStore {
                                             type_map.insert(*lhs, a.clone());
                                             type_map.insert(*rhs, b);
                                         }
-                                        Err(x) => ()/* println!("{x}") */,
+                                        Err(x) => eprintln!("{x}"),
                                     }
                                 }
                                 _ => (),
@@ -467,7 +467,7 @@ impl TypeVarStore {
                                     Ok(_) => {
                                         type_map.insert(tv, x);
                                     }
-                                    Err(x) => ()/* println!("{x}") */,
+                                    Err(x) => eprintln!("{x}"),
                                 }
                             } else {
                                 type_map.insert(tv, InferredType::inferred(ty.clone()));
@@ -492,7 +492,7 @@ impl TypeVarStore {
                 break;
             }
             if step > 256 {
-                // println!("inference iteration limit reached");
+                eprintln!("inference iteration limit reached");
                 break;
             }
         }
@@ -509,7 +509,7 @@ impl TypeVarStore {
                 type_map.get(&v).cloned().unwrap_or_else(|| InferredType::concrete(Type::Var(v)));
             if let Some(old_ty) = db[gdb].globals.get_mut(&k) {
                 if let Err(x) = old_ty.union(&mut ty, &mut constraint_map) {
-                    // println!("{x}")
+                    eprintln!("{x}")
                 }
             } else {
                 db[gdb].add_global(k.clone(), ty);

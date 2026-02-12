@@ -314,7 +314,7 @@ SCRIPT@0..587
                             EQ_2@512..514 "=="
                             WHITESPACE@514..515 " "
                             LITERAL@515..516
-                                NUMBER@515..516 "5"
+                                NUMBER@515..516 "4"
                         RPAREN@516..517 ")"
                 SEMICOLON@517..518 ";"
             WHITESPACE@518..522 "\n\t\n\t"

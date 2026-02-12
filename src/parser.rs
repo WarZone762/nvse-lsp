@@ -243,7 +243,7 @@ mod test {
         path::{Path, PathBuf},
     };
 
-    use crate::{tree_builder::parse_str, AstNode};
+    use crate::{AstNode, tree_builder::parse_str};
 
     fn case_paths() -> impl Iterator<Item = (PathBuf, PathBuf)> {
         let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
@@ -286,8 +286,8 @@ mod test {
             #[test]
             fn $name() {
                 let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
-                let ast_dir = test_dir.join("ast");
-                let case_dir = test_dir.join("cases");
+                let ast_dir = test_dir.join("ast").join("new_compiler");
+                let case_dir = test_dir.join("cases").join("new_compiler");
 
                 let case = case_dir.join(format!("{}.gek", $file));
                 let ast = ast_dir.join(format!("{}.ast", $file));
@@ -325,8 +325,13 @@ mod test {
         };
     }
 
-    test_from_file!(nvse_ternary_op, "nvse-ternary-operations");
-    test_from_file!(nvse_bin_op, "nvse-binary-operations");
-    test_from_file!(nvse_unary_op, "nvse-unary-operations");
-    test_from_file!(nvse_comments, "nvse-comments");
+    test_from_file!(nvse_bin_op, "binary_operations");
+    test_from_file!(nvse_call_test, "call_test");
+    test_from_file!(nvse_comments, "comments");
+    test_from_file!(nvse_for_loops, "for_loops");
+    test_from_file!(nvse_foreachalt, "foreachalt");
+    test_from_file!(nvse_misc, "misc");
+    test_from_file!(nvse_stack_vars, "stack_vars");
+    test_from_file!(nvse_ternary_op, "ternary_operations");
+    test_from_file!(nvse_unary_op, "unary_operations");
 }

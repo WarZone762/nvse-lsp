@@ -78,6 +78,7 @@ pub(crate) fn pat(p: &mut Parser) {
     match p.cur() {
         x if x.is_type() => var_decl(p),
         TokenKind::LSQ_BRACK => pat_arr(p),
+        TokenKind::IDENT => name(p),
         _ => p.err_and_next("expected a type or '['"),
     }
 }

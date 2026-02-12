@@ -390,6 +390,7 @@ tokens! {
     "return" => RETURN_KW,
     "for" => FOR_KW,
     "in" => IN_KW,
+    "not" => NOT_KW,
     "export" => EXPORT_KW,
     BLOCK_TYPE("block type"),
     "name" => NAME_KW,
@@ -466,6 +467,7 @@ tokens! {
     "." => DOT,
     ";" => SEMICOLON,
     "?" => QUESTION_MARK,
+    "->" => RARROW,
     STR_SHARD("string"),
     WHITESPACE("whitespace"),
     COMMENT("comment"),
@@ -486,7 +488,9 @@ impl TokenKind {
     }
 
     pub fn is_bin_op(&self) -> bool {
-        self.is_bin_only_op() || self.is_unary_and_bin_op()
+        self.is_bin_only_op()
+            || self.is_unary_and_bin_op()
+            || matches!(self, TokenKind::IN_KW | TokenKind::NOT_KW)
     }
 
     pub fn to_semantic(self) -> Option<SemanticTokenType> {
@@ -506,6 +510,7 @@ impl TokenKind {
                 Self::BOOL => SemanticTokenTypeCustom::BOOLEAN,
                 Self::IDENT => SemanticTokenType::VARIABLE,
                 Self::COMMENT => SemanticTokenType::COMMENT,
+                Self::RARROW | Self::SEMICOLON => SemanticTokenTypeCustom::PUNCTUATION,
                 _ => return None,
             }
         })
