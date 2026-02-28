@@ -327,10 +327,44 @@ macro_rules! tokens {
     };
 }
 
-// TODO
 macro_rules! blocktypes {
     () => {
-        "menumode" | "gamemode"
+        "gamemode"
+            | "menumode"
+            | "onactivate"
+            | "onactorequip"
+            | "onactorunequip"
+            | "onadd"
+            | "onclose"
+            | "oncombatend"
+            | "ondeath"
+            | "ondestructionstagechange"
+            | "ondrop"
+            | "onequip"
+            | "onfire"
+            | "ongrab"
+            | "onhit"
+            | "onhitwith"
+            | "onload"
+            | "onmagiceffecthit"
+            | "onmurder"
+            | "onnpcactivate"
+            | "onopen"
+            | "onpackagechange"
+            | "onpackagedone"
+            | "onpackagestart"
+            | "onrelease"
+            | "onreset"
+            | "onsell"
+            | "onstartcombat"
+            | "ontrigger"
+            | "ontriggerenter"
+            | "ontriggerleave"
+            | "onunequip"
+            | "saytodone"
+            | "scripteffectfinish"
+            | "scripteffectstart"
+            | "scripteffectupdate"
     };
 }
 
