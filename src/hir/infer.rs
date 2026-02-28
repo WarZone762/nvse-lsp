@@ -61,6 +61,7 @@ impl<'a> InferCtx<'a> {
             Stmt::For(x) => self.stmt_for(store, x),
             Stmt::ForRange(x) => self.stmt_for_range(store, x),
             Stmt::If(x) => self.stmt_if(store, x),
+            Stmt::Match(x) => self.stmt_match(store, x),
             Stmt::While(x) => self.stmt_while(store, x),
             Stmt::VarDecl(x) => self.var_decl(store, x.decl),
             Stmt::Return(x) => {
@@ -114,6 +115,15 @@ impl<'a> InferCtx<'a> {
         }
     }
 
+    fn stmt_match(&mut self, store: &mut TypeVarStore, node: &MatchStmt) {
+        self.expr(store, node.expr);
+
+        for arm in &node.arms {
+            self.pat(store, &arm.pat);
+            self.block(store, arm.block);
+        }
+    }
+
     fn stmt_while(&mut self, store: &mut TypeVarStore, node: &WhileStmt) {
         let tv = self.expr(store, node.cond);
         store.concrete_type(tv, InferredType::bool());
@@ -122,6 +132,9 @@ impl<'a> InferCtx<'a> {
 
     fn pat(&mut self, store: &mut TypeVarStore, node: &Pat) {
         match node {
+            Pat::StrExpr(x) | Pat::Literal(x) => {
+                self.expr(store, *x);
+            }
             Pat::VarDecl(x) => self.var_decl(store, *x),
             Pat::Arr(x) => {
                 for pat in x {

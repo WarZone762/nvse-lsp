@@ -5,6 +5,7 @@ pub(crate) fn stmt(p: &mut Parser) {
     match p.cur() {
         TokenKind::FOR_KW => stmt_for(p),
         TokenKind::IF_KW => stmt_if(p),
+        TokenKind::MATCH_KW => stmt_match(p),
         TokenKind::RETURN_KW => stmt_return(p),
         TokenKind::BREAK_KW => {
             let m = p.start();
@@ -86,6 +87,33 @@ pub(crate) fn stmt_if(p: &mut Parser) {
 
     m.complete(p, NodeKind::IF_STMT);
 }
+
+pub(crate) fn stmt_match(p: &mut Parser) {
+    let m = p.start();
+
+    p.next(TokenKind::MATCH_KW);
+    p.expect(TokenKind::LPAREN);
+    expr(p);
+    p.expect(TokenKind::RPAREN);
+    p.expect(TokenKind::LBRACK);
+    while p.more() {
+        let arm = p.start();
+
+        pat(p);
+        p.expect(TokenKind::RARROW);
+        stmt_block(p);
+
+        arm.complete(p, NodeKind::MATCH_ARM);
+
+        if p.at(TokenKind::RBRACK) {
+            break;
+        }
+    }
+    p.expect(TokenKind::RBRACK);
+
+    m.complete(p, NodeKind::MATCH_STMT);
+}
+
 pub(crate) fn stmt_return(p: &mut Parser) {
     let m = p.start();
 

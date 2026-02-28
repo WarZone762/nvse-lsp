@@ -130,6 +130,7 @@ impl Print for StmtId {
             Stmt::For(x) => x.print(p),
             Stmt::ForRange(x) => x.print(p),
             Stmt::If(x) => x.print(p),
+            Stmt::Match(x) => x.print(p),
             Stmt::While(x) => x.print(p),
             Stmt::VarDecl(x) => x.print(p),
             Stmt::Return(x) => x.print(p),
@@ -191,6 +192,26 @@ impl Print for ElseBranch {
             ElseBranch::Block(x) => x.print(p),
             ElseBranch::If(x) => x.print(p),
         }
+    }
+}
+
+impl Print for MatchStmt {
+    fn print(&self, p: &mut Printer<'_>) {
+        p.push("match (");
+        self.expr.print(p);
+        p.push(") {");
+        for arm in &self.arms {
+            arm.print(p)
+        }
+        p.push("}");
+    }
+}
+
+impl Print for MatchArm {
+    fn print(&self, p: &mut Printer<'_>) {
+        self.pat.print(p);
+        p.push(" -> ");
+        self.block.print(p);
     }
 }
 
@@ -501,6 +522,8 @@ impl Print for VarDeclType {
 impl Print for Pat {
     fn print(&self, p: &mut Printer<'_>) {
         match self {
+            Pat::StrExpr(x) => x.print(p),
+            Pat::Literal(x) => x.print(p),
             Pat::VarDecl(x) => x.print(p),
             Pat::Arr(x) => {
                 p.push("[");

@@ -40,7 +40,7 @@ impl AsSyntax for &Token {
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct AstChildren<'a, N> {
     inner: std::slice::Iter<'a, NodeOrToken>,
     _phantom: PhantomData<N>,

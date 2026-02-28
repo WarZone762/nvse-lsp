@@ -83,6 +83,7 @@ impl<'a> LowerCtx<'a> {
             ast::Stmt::For(x) => self.stmt_for(x)?.into(),
             ast::Stmt::ForEach(x) => self.stmt_for_range(x)?.into(),
             ast::Stmt::If(x) => self.stmt_if(x)?.into(),
+            ast::Stmt::Match(x) => self.stmt_match(x)?.into(),
             ast::Stmt::While(x) => self.stmt_while(x)?.into(),
             ast::Stmt::Return(x) => self.stmt_return(x).into(),
             ast::Stmt::Break(x) => self.stmt_break(x).into(),
@@ -132,6 +133,19 @@ impl<'a> LowerCtx<'a> {
                 Some(ast::ElseBranch::IfStmt(x)) => self.stmt(ast::Stmt::If(x)).map(ElseBranch::If),
                 None => None,
             },
+            node,
+        })
+    }
+
+    fn stmt_match(&mut self, node: ast::MatchStmt) -> Option<MatchStmt> {
+        Some(MatchStmt {
+            expr: self.expr(node.expr()),
+            arms: node
+                .arms()
+                .filter_map(|x| {
+                    Some(MatchArm { pat: self.pat(x.pat())?, block: self.block(x.block())? })
+                })
+                .collect(),
             node,
         })
     }
@@ -271,6 +285,8 @@ impl<'a> LowerCtx<'a> {
 
     fn pat(&mut self, node: Option<ast::Pat>) -> Option<Pat> {
         Some(match node? {
+            ast::Pat::StrExpr(x) => Pat::StrExpr(self.expr(Some(ast::Expr::Str(x)))),
+            ast::Pat::Literal(x) => Pat::Literal(self.expr(Some(ast::Expr::Literal(x)))),
             ast::Pat::VarDecl(x) => Pat::VarDecl(self.var_decl(Some(x))?),
             ast::Pat::Arr(x) => {
                 Pat::Arr(x.patts().map(|x| self.pat(Some(x))).collect::<Option<_>>()?)

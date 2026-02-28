@@ -327,6 +327,7 @@ macro_rules! tokens {
     };
 }
 
+// TODO: unhardcode
 macro_rules! blocktypes {
     () => {
         "gamemode"
@@ -380,6 +381,8 @@ pub(crate) enum NodeKind {
     FOR_STMT,
     FOR_RANGE_STMT,
     IF_STMT,
+    MATCH_STMT,
+    MATCH_ARM,
     RETURN_STMT,
     BREAK_STMT,
     CONTINUE_STMT,
@@ -420,6 +423,7 @@ tokens! {
     "if" => IF_KW,
     "else" => ELSE_KW,
     "while" => WHILE_KW,
+    "match" => MATCH_KW,
     "fn" => FN_KW,
     "return" => RETURN_KW,
     "for" => FOR_KW,

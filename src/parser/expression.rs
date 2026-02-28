@@ -89,11 +89,7 @@ pub(crate) fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker
 
 pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
     Some(match p.cur() {
-        x if x.is_literal() => {
-            let m = p.start();
-            p.next_any();
-            m.complete(p, NodeKind::LITERAL)
-        }
+        x if x.is_literal() => literal(p),
         TokenKind::LSQ_BRACK => lit_arr(p),
         TokenKind::LBRACK => lit_map(p),
         TokenKind::QUOTE_DOUBLE => expr_str(p),
@@ -159,6 +155,12 @@ pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
     }
     p.expect(TokenKind::QUOTE_DOUBLE);
     m.complete(p, NodeKind::STR_EXPR)
+}
+
+pub(crate) fn literal(p: &mut Parser) -> CompletedMarker {
+    let m = p.start();
+    p.next_any();
+    m.complete(p, NodeKind::LITERAL)
 }
 
 pub(crate) fn lit_arr(p: &mut Parser) -> CompletedMarker {

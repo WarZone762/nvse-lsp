@@ -50,29 +50,52 @@ impl<'a> Formatter<'a> {
 
     fn script(&mut self, script: &ast::Script) -> String {
         format!(
-            "name{} {}{};{}\n{}",
+            "name{} {}{};{}{}{}",
             self.comments_between(script.name_kw().as_deref(), script.name().as_ref()),
             self.name(script.name().as_ref()),
             self.comments_between(script.name().as_ref(), script.semi().as_deref()),
             self.comments_between(script.semi().as_deref(), script.items().next().as_ref()),
             self.item_list(script.items()),
+            if let Some(last_item) = script.items().last() {
+                self.comments_in_range(last_item.syntax().end(), script.syntax().end())
+            } else {
+                "".to_string()
+            }
         )
     }
 
     fn item_list(&mut self, items: AstChildren<ast::Item>) -> String {
-        items
-            .map(|x| match x {
-                ast::Item::FnDecl(x) => format!("\n{}", self.fn_decl(&x)),
-                ast::Item::BlockType(x) => format!("\n{}", self.block_type(&x)),
-                ast::Item::VarDecl(x) => {
+        let Some(first_item) = items.clone().next() else {
+            return "".into();
+        };
+
+        format!(
+            "\n{}{}",
+            self.item(&first_item),
+            items
+                .map_windows(|[a, b]| {
                     format!(
-                        "{}{};",
-                        self.var_decl(x.var_decl().as_ref()),
-                        self.comments_between(x.var_decl().as_ref(), x.semi().as_deref()),
+                        "{}\n{}",
+                        self.comments_in_range(a.syntax().end(), b.syntax().offset),
+                        self.item(b),
                     )
-                }
-            })
-            .join("\n")
+                })
+                .collect::<String>()
+        )
+    }
+
+    fn item(&mut self, item: &ast::Item) -> String {
+        match item {
+            ast::Item::FnDecl(x) => self.fn_decl(x),
+            ast::Item::BlockType(x) => self.block_type(x),
+            ast::Item::VarDecl(x) => {
+                format!(
+                    "{}{};",
+                    self.var_decl(x.var_decl().as_ref()),
+                    self.comments_between(x.var_decl().as_ref(), x.semi().as_deref()),
+                )
+            }
+        }
     }
 
     fn fn_decl(&mut self, fn_decl: &ast::FnDeclItem) -> String {
@@ -134,6 +157,7 @@ impl<'a> Formatter<'a> {
             ast::Stmt::For(x) => format!("\n{indent}{}", self.stmt_for(x)),
             ast::Stmt::ForEach(x) => format!("\n{indent}{}", self.stmt_for_range(x)),
             ast::Stmt::If(x) => format!("\n{indent}{}", self.stmt_if(x)),
+            ast::Stmt::Match(x) => format!("\n{indent}{}", self.stmt_match(x)),
             ast::Stmt::While(x) => format!("\n{indent}{}", self.stmt_while(x)),
             ast::Stmt::Return(x) => {
                 if let Some(expr) = &x.expr() {
@@ -258,6 +282,62 @@ impl<'a> Formatter<'a> {
         }
 
         base
+    }
+
+    fn stmt_match(&mut self, stmt_match: &ast::MatchStmt) -> String {
+        self.indent += 1;
+        format!(
+            "match{} ({}{}{}){} {{{}{}{}\n{}}}",
+            self.comments_between(stmt_match.match_kw().as_deref(), stmt_match.lparen().as_deref()),
+            self.comments_between(stmt_match.lparen().as_deref(), stmt_match.expr().as_ref()),
+            self.expr(stmt_match.expr().as_ref()),
+            self.comments_between(stmt_match.expr().as_ref(), stmt_match.rparen().as_deref()),
+            self.comments_between(stmt_match.rparen().as_deref(), stmt_match.lbrack().as_deref()),
+            self.comments_between(
+                stmt_match.lbrack().as_deref(),
+                stmt_match.arms().next().as_ref()
+            ),
+            self.match_arms(stmt_match.arms()),
+            self.comments_between(
+                stmt_match.arms().last().as_ref(),
+                stmt_match.rbrack().as_deref()
+            ),
+            {
+                self.indent -= 1;
+                self.indent_str()
+            }
+        )
+    }
+
+    fn match_arms(&mut self, arms: AstChildren<ast::MatchArm>) -> String {
+        let Some(first_arm) = arms.clone().next() else {
+            return "".into();
+        };
+
+        format!(
+            "\n{}{}{}",
+            self.indent_str(),
+            self.match_arm(&first_arm),
+            arms.map_windows(|[a, b]| {
+                format!(
+                    "{}\n{}{}",
+                    self.comments_between(a.block().as_ref(), b.pat().as_ref()),
+                    self.indent_str(),
+                    self.match_arm(b),
+                )
+            })
+            .collect::<String>()
+        )
+    }
+
+    fn match_arm(&mut self, arm: &ast::MatchArm) -> String {
+        format!(
+            "{}{} ->{} {}",
+            self.pat(arm.pat().as_ref()),
+            self.comments_between(arm.pat().as_ref(), arm.rarrow().as_deref()),
+            self.comments_between(arm.rarrow().as_deref(), arm.block().as_ref()),
+            self.block(arm.block().as_ref()),
+        )
     }
 
     fn stmt_while(&mut self, stmt_while: &ast::WhileStmt) -> String {
@@ -453,7 +533,7 @@ impl<'a> Formatter<'a> {
                     self.indent += 1;
                     let first_stmt = x.stmts().next().unwrap();
                     format!(
-                        "{{{}{}{}\n{}{}}}",
+                        "{{{}{}{}{}\n{}}}",
                         self.comments_between(x.lbrack().as_deref(), Some(&first_stmt)).trim_end(),
                         self.stmt(&first_stmt),
                         &x.stmts()
@@ -505,6 +585,8 @@ impl<'a> Formatter<'a> {
 
     fn pat(&mut self, pat: Option<&ast::Pat>) -> String {
         pat.map(|x| match x {
+            ast::Pat::StrExpr(x) => self.expr_str(x),
+            ast::Pat::Literal(x) => self.literal(x).to_string(),
             ast::Pat::VarDecl(x) => self.var_decl(Some(x)),
             ast::Pat::Arr(x) => self.arr_pat(x),
         })

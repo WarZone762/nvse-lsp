@@ -189,6 +189,7 @@ enum_! {
     For(ForStmt, FOR_STMT),
     ForEach(ForRangeStmt, FOR_RANGE_STMT),
     If(IfStmt, IF_STMT),
+    Match(MatchStmt, MATCH_STMT),
     While(WhileStmt, WHILE_STMT),
     Return(ReturnStmt, RETURN_STMT),
     Break(BreakStmt, BREAK_STMT),
@@ -273,6 +274,26 @@ impl IfStmt {
                     .nth(1)
             })
     }
+}
+
+node! {
+    MatchStmt,
+    NodeKind::MATCH_STMT,
+    token!(match_kw, TokenKind::MATCH_KW);
+    token!(lparen, TokenKind::LPAREN);
+    child!(expr, Expr);
+    token!(rparen, TokenKind::RPAREN);
+    token!(lbrack, TokenKind::LBRACK);
+    children!(arms, MatchArm);
+    token!(rbrack, TokenKind::RBRACK);
+}
+
+node! {
+    MatchArm,
+    NodeKind::MATCH_ARM,
+    child!(pat, Pat);
+    token!(rarrow, TokenKind::RARROW);
+    child!(block, BlockStmt);
 }
 
 enum_! {
@@ -472,6 +493,8 @@ node! {
 
 enum_! {
     Pat,
+    Literal(Literal, LITERAL),
+    StrExpr(StrExpr, STR_EXPR),
     VarDecl(VarDecl, VAR_DECL),
     Arr(ArrPat, ARR_PAT),
 }

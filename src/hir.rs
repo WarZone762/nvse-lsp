@@ -229,6 +229,7 @@ pub(crate) enum Stmt {
     For(ForStmt),
     ForRange(ForRangeStmt),
     If(IfStmt),
+    Match(MatchStmt),
     While(WhileStmt),
     VarDecl(VarDeclStmt),
     Return(ReturnStmt),
@@ -243,6 +244,7 @@ impl_from! {
     For(ForStmt),
     ForRange(ForRangeStmt),
     If(IfStmt),
+    Match(MatchStmt),
     While(WhileStmt),
     VarDecl(VarDeclStmt),
     Return(ReturnStmt),
@@ -261,6 +263,7 @@ impl Stmt {
             Stmt::For(x) => Box::new(x.children()),
             Stmt::ForRange(x) => Box::new(x.children()),
             Stmt::If(x) => Box::new(x.children()),
+            Stmt::Match(x) => Box::new(x.children()),
             Stmt::While(x) => Box::new(x.children()),
             Stmt::VarDecl(x) => Box::new(x.children()),
             Stmt::Return(x) => Box::new(x.children()),
@@ -276,6 +279,7 @@ impl Stmt {
             Stmt::For(x) => &x.node,
             Stmt::ForRange(x) => &x.node,
             Stmt::If(x) => &x.node,
+            Stmt::Match(x) => &x.node,
             Stmt::While(x) => &x.node,
             Stmt::VarDecl(x) => &x.node,
             Stmt::Return(x) => &x.node,
@@ -354,6 +358,49 @@ impl From<ElseBranch> for HirNode {
             ElseBranch::Block(x) => x.into(),
             ElseBranch::If(x) => x.into(),
         }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct MatchStmt {
+    pub expr: ExprId,
+    pub arms: Vec<MatchArm>,
+    pub node: ast::MatchStmt,
+}
+
+impl MatchStmt {
+    pub fn children(&self) -> impl Iterator<Item = HirNode> {
+        std::iter::from_coroutine(
+            #[coroutine]
+            || {
+                yield HirNode::from(self.expr);
+                for arm in &self.arms {
+                    for child in arm.children() {
+                        yield child;
+                    }
+                }
+            },
+        )
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct MatchArm {
+    pub pat: Pat,
+    pub block: BlockId,
+}
+
+impl MatchArm {
+    pub fn children(&self) -> impl Iterator<Item = HirNode> {
+        std::iter::from_coroutine(
+            #[coroutine]
+            || {
+                for child in self.pat.children() {
+                    yield child;
+                }
+                yield HirNode::from(self.block);
+            },
+        )
     }
 }
 
@@ -770,6 +817,8 @@ hir_children! {
 
 #[derive(Debug, Clone)]
 pub(crate) enum Pat {
+    StrExpr(ExprId),
+    Literal(ExprId),
     VarDecl(VarDeclId),
     Arr(Vec<Pat>),
 }
@@ -777,6 +826,8 @@ pub(crate) enum Pat {
 impl Pat {
     pub fn children(&self) -> Box<dyn Iterator<Item = HirNode> + '_> {
         match self {
+            Pat::StrExpr(x) => Box::new(iter::once(HirNode::from(*x))),
+            Pat::Literal(x) => Box::new(iter::once(HirNode::from(*x))),
             Pat::VarDecl(x) => Box::new(iter::once(HirNode::from(*x))),
             Pat::Arr(x) => Box::new(x.iter().flat_map(|x| x.children())),
         }
