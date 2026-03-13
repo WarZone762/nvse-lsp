@@ -1,7 +1,7 @@
 use super::*;
 use crate::syntax_node::{NodeKind, TokenKind};
 
-pub(crate) fn script(p: &mut Parser) {
+pub fn script(p: &mut Parser) {
     let m = p.start();
 
     p.expect(TokenKind::NAME_KW);
@@ -20,7 +20,7 @@ pub(crate) fn script(p: &mut Parser) {
     m.complete(p, NodeKind::SCRIPT);
 }
 
-pub(crate) fn begin(p: &mut Parser) {
+pub fn begin(p: &mut Parser) {
     let m = p.start();
     p.next(TokenKind::BLOCK_TYPE);
     if p.opt(TokenKind::COLON) {
@@ -31,7 +31,7 @@ pub(crate) fn begin(p: &mut Parser) {
     m.complete(p, NodeKind::BLOCK_TYPE_ITEM);
 }
 
-pub(crate) fn fn_decl(p: &mut Parser) {
+pub fn fn_decl(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::FN_KW);
@@ -44,7 +44,7 @@ pub(crate) fn fn_decl(p: &mut Parser) {
     m.complete(p, NodeKind::FN_DECL_ITEM);
 }
 
-pub(crate) fn arg_list(p: &mut Parser) {
+pub fn arg_list(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::LPAREN);
@@ -59,7 +59,7 @@ pub(crate) fn arg_list(p: &mut Parser) {
     m.complete(p, NodeKind::ARG_LIST);
 }
 
-pub(crate) fn param_list(p: &mut Parser) {
+pub fn param_list(p: &mut Parser) {
     let m = p.start();
 
     p.expect(TokenKind::LPAREN);
@@ -74,7 +74,7 @@ pub(crate) fn param_list(p: &mut Parser) {
     m.complete(p, NodeKind::PARAM_LIST);
 }
 
-pub(crate) fn pat(p: &mut Parser) {
+pub fn pat(p: &mut Parser) {
     match p.cur() {
         x if x.is_type() => var_decl(p),
         x if x.is_literal() => {
@@ -89,7 +89,7 @@ pub(crate) fn pat(p: &mut Parser) {
     }
 }
 
-pub(crate) fn pat_arr(p: &mut Parser) {
+pub fn pat_arr(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::LSQ_BRACK);
@@ -104,7 +104,7 @@ pub(crate) fn pat_arr(p: &mut Parser) {
     m.complete(p, NodeKind::ARR_PAT);
 }
 
-pub(crate) fn var_decl(p: &mut Parser) {
+pub fn var_decl(p: &mut Parser) {
     let m = p.start();
     if !p.cur().is_type() {
         p.err_and_next("expected type");
@@ -118,7 +118,7 @@ pub(crate) fn var_decl(p: &mut Parser) {
     m.complete(p, NodeKind::VAR_DECL);
 }
 
-pub(crate) fn name(p: &mut Parser) {
+pub fn name(p: &mut Parser) {
     let m = p.start();
     if p.at(TokenKind::IDENT) {
         p.next(TokenKind::IDENT);
@@ -129,7 +129,7 @@ pub(crate) fn name(p: &mut Parser) {
     }
 }
 
-pub(crate) fn name_ref(p: &mut Parser) -> CompletedMarker {
+pub fn name_ref(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     if p.at(TokenKind::IDENT) {
         p.next(TokenKind::IDENT);

@@ -4,9 +4,9 @@ use crate::syntax_node::{Node, NodeKind, NodeOrToken, NodeOrTokenRef, Token, Tok
 
 #[allow(dead_code)]
 mod nodes;
-pub(crate) use nodes::*;
+pub use nodes::*;
 
-pub(crate) trait AstNode {
+pub trait AstNode {
     fn can_cast(kind: NodeKind) -> bool
     where
         Self: Sized;
@@ -16,7 +16,7 @@ pub(crate) trait AstNode {
     fn syntax(&self) -> &Rc<Node>;
 }
 
-pub(crate) trait AstToken {
+pub trait AstToken {
     fn can_cast(kind: TokenKind) -> bool;
     fn cast(syntax_node: Token) -> Option<Self>
     where
@@ -24,7 +24,7 @@ pub(crate) trait AstToken {
     fn syntax(&self) -> &Token;
 }
 
-pub(crate) trait AsSyntax {
+pub trait AsSyntax {
     fn as_syntax(&self) -> NodeOrTokenRef<'_>;
 }
 
@@ -41,7 +41,7 @@ impl AsSyntax for &Token {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct AstChildren<'a, N> {
+pub struct AstChildren<'a, N> {
     inner: std::slice::Iter<'a, NodeOrToken>,
     _phantom: PhantomData<N>,
 }

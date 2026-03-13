@@ -9,7 +9,7 @@ use crate::{
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) struct Doc(pub FileId);
+pub struct Doc(pub FileId);
 
 impl Deref for Doc {
     type Target = FileId;
@@ -86,7 +86,7 @@ impl Doc {
 }
 
 #[derive(Debug)]
-pub(crate) struct DocMeta {
+pub struct DocMeta {
     pub uri: Url,
     pub language_id: String,
     pub version: i32,

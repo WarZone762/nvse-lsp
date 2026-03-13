@@ -6,10 +6,10 @@ use crate::{
     syntax_node::TokenKind,
 };
 
-pub(crate) mod infer;
-pub(crate) mod lower;
-pub(crate) mod printer;
-pub(crate) mod ty;
+pub mod infer;
+pub mod lower;
+pub mod printer;
+pub mod ty;
 
 use db::*;
 use ty::*;
@@ -27,7 +27,7 @@ macro_rules! impl_from {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum HirNode {
+pub enum HirNode {
     Script(db::FileId),
     Item(ItemId),
     Stmt(StmtId),
@@ -91,7 +91,7 @@ impl HirNode {
 }
 
 #[derive(Debug)]
-pub(crate) struct Iter<'a> {
+pub struct Iter<'a> {
     stack: Vec<HirNode>,
     db: &'a Database,
     script_db: &'a ScriptDatabase,
@@ -152,7 +152,7 @@ macro_rules! hir_children {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct Script {
+pub struct Script {
     pub name: Option<NameId>,
     pub items: Vec<ItemId>,
     pub sym_table: SymbolTable,
@@ -166,7 +166,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Item {
+pub enum Item {
     FnDecl(FnDeclItem),
     BlockType(BlockTypeItem),
     VarDecl(VarDeclStmt),
@@ -198,7 +198,7 @@ impl Item {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct FnDeclItem {
+pub struct FnDeclItem {
     pub name: Option<NameId>,
     pub params: Vec<VarDeclId>,
     pub block: BlockId,
@@ -213,7 +213,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct BlockTypeItem {
+pub struct BlockTypeItem {
     pub blocktype_kind: u8,
     pub block: BlockId,
     pub node: ast::BlockTypeItem,
@@ -225,7 +225,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Stmt {
+pub enum Stmt {
     For(ForStmt),
     ForRange(ForRangeStmt),
     If(IfStmt),
@@ -292,7 +292,7 @@ impl Stmt {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ForStmt {
+pub struct ForStmt {
     pub init: Option<VarDeclId>,
     pub cond: Option<ExprId>,
     pub loop_expr: Option<ExprId>,
@@ -309,7 +309,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ForRangeStmt {
+pub struct ForRangeStmt {
     pub pat: Pat,
     pub iterable: ExprId,
     pub block: BlockId,
@@ -332,7 +332,7 @@ impl ForRangeStmt {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct IfStmt {
+pub struct IfStmt {
     pub cond: ExprId,
     pub true_branch: BlockId,
     pub false_branch: Option<ElseBranch>,
@@ -347,7 +347,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub(crate) enum ElseBranch {
+pub enum ElseBranch {
     Block(BlockId),
     If(StmtId),
 }
@@ -362,7 +362,7 @@ impl From<ElseBranch> for HirNode {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct MatchStmt {
+pub struct MatchStmt {
     pub expr: ExprId,
     pub arms: Vec<MatchArm>,
     pub node: ast::MatchStmt,
@@ -385,7 +385,7 @@ impl MatchStmt {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct MatchArm {
+pub struct MatchArm {
     pub pat: Pat,
     pub block: BlockId,
 }
@@ -405,7 +405,7 @@ impl MatchArm {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct WhileStmt {
+pub struct WhileStmt {
     pub cond: ExprId,
     pub block: BlockId,
     pub node: ast::WhileStmt,
@@ -418,7 +418,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct VarDeclStmt {
+pub struct VarDeclStmt {
     pub export: bool,
     pub decl: VarDeclId,
     pub node: ast::VarDeclStmt,
@@ -430,7 +430,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ReturnStmt {
+pub struct ReturnStmt {
     pub expr: Option<ExprId>,
     pub node: ast::ReturnStmt,
 }
@@ -441,7 +441,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct BreakStmt {
+pub struct BreakStmt {
     pub node: ast::BreakStmt,
 }
 
@@ -450,7 +450,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ContinueStmt {
+pub struct ContinueStmt {
     pub node: ast::ContinueStmt,
 }
 
@@ -459,7 +459,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ExprStmt {
+pub struct ExprStmt {
     pub expr: ExprId,
     pub node: ast::ExprStmt,
 }
@@ -470,7 +470,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Expr {
+pub enum Expr {
     Missing,
     Bin(BinExpr),
     Ternary(TernaryExpr),
@@ -549,7 +549,7 @@ impl Expr {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct BinExpr {
+pub struct BinExpr {
     pub lhs: ExprId,
     pub op: BinOpKind,
     pub rhs: ExprId,
@@ -563,7 +563,7 @@ hir_children! {
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum BinOpKind {
+pub enum BinOpKind {
     Plus,
     Minus,
     Asterisk,
@@ -635,7 +635,7 @@ impl BinOpKind {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct TernaryExpr {
+pub struct TernaryExpr {
     pub cond: ExprId,
     pub true_expr: ExprId,
     pub false_expr: ExprId,
@@ -650,7 +650,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct UnaryExpr {
+pub struct UnaryExpr {
     pub op: UnaryOpKind,
     pub operand: ExprId,
     pub node: ast::UnaryExpr,
@@ -662,7 +662,7 @@ hir_children! {
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum UnaryOpKind {
+pub enum UnaryOpKind {
     Plus,
     Minus,
     Asterisk,
@@ -696,7 +696,7 @@ impl UnaryOpKind {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct PostfixExpr {
+pub struct PostfixExpr {
     pub operand: ExprId,
     pub op: PostfixOpKind,
     pub node: ast::PostfixExpr,
@@ -708,7 +708,7 @@ hir_children! {
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum PostfixOpKind {
+pub enum PostfixOpKind {
     Plus2,
     Minus2,
     #[default]
@@ -726,7 +726,7 @@ impl PostfixOpKind {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct FieldExpr {
+pub struct FieldExpr {
     pub lhs: ExprId,
     pub field: ExprId,
     pub node: ast::FieldExpr,
@@ -739,7 +739,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct SubscriptExpr {
+pub struct SubscriptExpr {
     pub lhs: ExprId,
     pub subscript: ExprId,
     pub node: ast::SubscriptExpr,
@@ -752,7 +752,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct CallExpr {
+pub struct CallExpr {
     pub lhs: ExprId,
     pub args: Vec<ExprId>,
     pub node: ast::CallExpr,
@@ -765,7 +765,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ParenExpr {
+pub struct ParenExpr {
     pub expr: ExprId,
     pub node: ast::ParenExpr,
 }
@@ -776,7 +776,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct LambdaExpr {
+pub struct LambdaExpr {
     pub params: Vec<VarDeclId>,
     pub block_or_expr: BlockOrExpr,
     pub node: ast::LambdaExpr,
@@ -789,7 +789,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum BlockOrExpr {
+pub enum BlockOrExpr {
     Block(BlockId),
     Expr(ExprId),
 }
@@ -804,7 +804,7 @@ impl From<BlockOrExpr> for HirNode {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct Block {
+pub struct Block {
     pub stmts: Vec<StmtId>,
     pub sym_table: SymbolTable,
     pub node: ast::BlockStmt,
@@ -816,7 +816,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Pat {
+pub enum Pat {
     StrExpr(ExprId),
     Literal(ExprId),
     VarDecl(VarDeclId),
@@ -835,7 +835,7 @@ impl Pat {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct VarDecl {
+pub struct VarDecl {
     pub decl_type: VarDeclType,
     pub name: NameId,
     pub init: Option<ExprId>,
@@ -849,7 +849,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum VarDeclType {
+pub enum VarDeclType {
     Int,
     Double,
     Float,
@@ -874,19 +874,19 @@ impl From<TokenKind> for VarDeclType {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct Name {
+pub struct Name {
     pub name: String,
     pub node: ast::Name,
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct NameRef {
+pub struct NameRef {
     pub name: String,
     pub node: ast::NameRef,
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct StrExpr {
+pub struct StrExpr {
     pub shards: Vec<StrShardId>,
     pub node: ast::StrExpr,
 }
@@ -897,7 +897,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum StrShard {
+pub enum StrShard {
     Str { val: String, node: ast::StrShard },
     Expr { expr: ExprId, node: ast::StrShard },
 }
@@ -919,7 +919,7 @@ impl StrShard {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct LitArr {
+pub struct LitArr {
     pub exprs: Vec<ExprId>,
     pub node: ast::LitArr,
 }
@@ -930,7 +930,7 @@ hir_children! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct LitMap {
+pub struct LitMap {
     pub kv_pairs: Vec<(ExprId, ExprId)>,
     pub node: ast::LitMap,
 }
@@ -944,7 +944,7 @@ impl LitMap {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Literal {
+pub enum Literal {
     Number(NumberLiteral),
     Bool(BoolLiteral),
 }
@@ -959,13 +959,13 @@ impl Literal {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct NumberLiteral {
+pub struct NumberLiteral {
     pub value: f32,
     pub node: ast::Literal,
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct BoolLiteral {
+pub struct BoolLiteral {
     pub value: bool,
     pub node: ast::Literal,
 }

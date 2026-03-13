@@ -3,7 +3,7 @@ use super::*;
 macro_rules! enum_ {
     ($name:ident, $($member:ident($member_struct: ident, $member_kind:ident),)*) => {
         #[derive(Debug, Clone)]
-        pub(crate) enum $name {
+        pub enum $name {
             $(
                 $member($member_struct),
             )*
@@ -45,7 +45,7 @@ macro_rules! enum_ {
 macro_rules! node {
     ($name:ident, $pat:pat, $($items:item)*) => {
         #[derive(Debug, Clone)]
-        pub(crate) struct $name {
+        pub struct $name {
             pub syntax_node: Rc<Node>,
         }
 
@@ -444,7 +444,7 @@ node! {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum BlockOrExpr {
+pub enum BlockOrExpr {
     Block(BlockStmt),
     Expr(Expr),
 }

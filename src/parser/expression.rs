@@ -1,10 +1,10 @@
 use super::*;
 
-pub(crate) fn expr(p: &mut Parser) -> Option<CompletedMarker> {
+pub fn expr(p: &mut Parser) -> Option<CompletedMarker> {
     expr_bp(p, 1)
 }
 
-pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
+pub fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
     let mut lhs = expr_lhs(p)?;
 
     loop {
@@ -33,7 +33,7 @@ pub(crate) fn expr_bp(p: &mut Parser, min_bp: u8) -> Option<CompletedMarker> {
     Some(lhs)
 }
 
-pub(crate) fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
+pub fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
     Some(if p.cur().is_unary_op() {
         let m = p.start();
         p.next_any();
@@ -45,7 +45,7 @@ pub(crate) fn expr_lhs(p: &mut Parser) -> Option<CompletedMarker> {
     })
 }
 
-pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> CompletedMarker {
+pub fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> CompletedMarker {
     loop {
         lhs = match p.cur() {
             TokenKind::LPAREN => expr_call(p, lhs),
@@ -81,13 +81,13 @@ pub(crate) fn expr_postfix(p: &mut Parser, mut lhs: CompletedMarker) -> Complete
     lhs
 }
 
-pub(crate) fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker {
+pub fn expr_call(p: &mut Parser, lhs: CompletedMarker) -> CompletedMarker {
     let m = lhs.precede(p);
     arg_list(p);
     m.complete(p, NodeKind::CALL_EXPR)
 }
 
-pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
+pub fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
     Some(match p.cur() {
         x if x.is_literal() => literal(p),
         TokenKind::LSQ_BRACK => lit_arr(p),
@@ -115,7 +115,7 @@ pub(crate) fn expr_primary(p: &mut Parser) -> Option<CompletedMarker> {
     })
 }
 
-pub(crate) fn expr_lambda(p: &mut Parser) -> CompletedMarker {
+pub fn expr_lambda(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::FN_KW);
     param_list(p);
@@ -129,7 +129,7 @@ pub(crate) fn expr_lambda(p: &mut Parser) -> CompletedMarker {
     m.complete(p, NodeKind::LAMBDA_EXPR)
 }
 
-pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
+pub fn expr_str(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::QUOTE_DOUBLE);
     while p.more() && !p.at(TokenKind::QUOTE_DOUBLE) {
@@ -157,13 +157,13 @@ pub(crate) fn expr_str(p: &mut Parser) -> CompletedMarker {
     m.complete(p, NodeKind::STR_EXPR)
 }
 
-pub(crate) fn literal(p: &mut Parser) -> CompletedMarker {
+pub fn literal(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next_any();
     m.complete(p, NodeKind::LITERAL)
 }
 
-pub(crate) fn lit_arr(p: &mut Parser) -> CompletedMarker {
+pub fn lit_arr(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::LSQ_BRACK);
 
@@ -177,7 +177,7 @@ pub(crate) fn lit_arr(p: &mut Parser) -> CompletedMarker {
     m.complete(p, NodeKind::LIT_ARR)
 }
 
-pub(crate) fn lit_map(p: &mut Parser) -> CompletedMarker {
+pub fn lit_map(p: &mut Parser) -> CompletedMarker {
     let m = p.start();
     p.next(TokenKind::LBRACK);
 
@@ -191,7 +191,7 @@ pub(crate) fn lit_map(p: &mut Parser) -> CompletedMarker {
     m.complete(p, NodeKind::LIT_MAP)
 }
 
-pub(crate) fn kv_pair(p: &mut Parser) {
+pub fn kv_pair(p: &mut Parser) {
     let m = p.start();
 
     expr_primary(p);
@@ -201,7 +201,7 @@ pub(crate) fn kv_pair(p: &mut Parser) {
     m.complete(p, NodeKind::KV_PAIR);
 }
 
-pub(crate) fn bin_op_bp(token: TokenKind) -> u8 {
+pub fn bin_op_bp(token: TokenKind) -> u8 {
     match token {
         TokenKind::ASTERISK | TokenKind::SLASH | TokenKind::PERCENT | TokenKind::CIRCUMFLEX => 13,
         TokenKind::PLUS | TokenKind::MINUS => 12,

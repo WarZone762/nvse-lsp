@@ -6,7 +6,7 @@ use super::{Database, FileId, Lookup};
 use crate::{ast::AstNode, hir::*, syntax_node::Node};
 
 #[derive(Debug)]
-pub(crate) struct ScriptDatabase {
+pub struct ScriptDatabase {
     pub items: Vec<Item>,
     pub stmts: Vec<Stmt>,
     pub exprs: Vec<Expr>,
@@ -92,19 +92,19 @@ impl ScriptDatabase {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct ItemId(u32);
+pub struct ItemId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct StmtId(u32);
+pub struct StmtId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct ExprId(u32);
+pub struct ExprId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct BlockId(u32);
+pub struct BlockId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct VarDeclId(pub u32);
+pub struct VarDeclId(pub u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct NameId(u32);
+pub struct NameId(u32);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct StrShardId(u32);
+pub struct StrShardId(u32);
 
 impl Lookup for ItemId {
     type DB = ScriptDatabase;

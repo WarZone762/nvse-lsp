@@ -8,7 +8,7 @@ use la_arena::{Arena, ArenaMap, Idx, RawIdx};
 use tower_lsp::lsp_types::{TextDocumentItem, Url};
 mod script;
 
-pub(crate) use script::*;
+pub use script::*;
 use ty::{InferredType, Symbol, Type};
 
 use crate::{
@@ -21,7 +21,7 @@ use crate::{
 };
 
 #[derive(Debug)]
-pub(crate) struct Database {
+pub struct Database {
     pub doc_metas: Arena<DocMeta>,
     pub text_map: ArenaMap<Idx<DocMeta>, Box<str>>,
 
@@ -268,7 +268,7 @@ impl IndexMut<GlobalsDatabaseId> for Database {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) struct FileId(pub Idx<DocMeta>);
+pub struct FileId(pub Idx<DocMeta>);
 
 impl From<Idx<DocMeta>> for FileId {
     fn from(value: Idx<DocMeta>) -> Self {
@@ -277,24 +277,24 @@ impl From<Idx<DocMeta>> for FileId {
 }
 
 impl FileId {
-    pub(crate) fn meta<'a>(&self, db: &'a Database) -> &'a DocMeta {
+    pub fn meta<'a>(&self, db: &'a Database) -> &'a DocMeta {
         &db.doc_metas[self.0]
     }
 
-    pub(crate) fn text<'a>(&self, db: &'a Database) -> &'a str {
+    pub fn text<'a>(&self, db: &'a Database) -> &'a str {
         &db.text_map[self.0]
     }
 
-    pub(crate) fn hir<'a>(&self, db: &'a Database) -> &'a Script {
+    pub fn hir<'a>(&self, db: &'a Database) -> &'a Script {
         &db.hir_map[self.0]
     }
 
-    pub(crate) fn script_db<'a>(&self, db: &'a Database) -> &'a ScriptDatabase {
+    pub fn script_db<'a>(&self, db: &'a Database) -> &'a ScriptDatabase {
         &db.script_db_map[self.0]
     }
 }
 
-pub(crate) trait Lookup {
+pub trait Lookup {
     type DB;
     type Output;
     fn lookup<'a>(&self, db: &'a Self::DB) -> &'a Self::Output;

@@ -10,7 +10,7 @@ use super::{
 use crate::game_data::{Form, GlobalsDatabaseId};
 
 #[derive(Debug, Clone)]
-pub(crate) struct SymbolTable {
+pub struct SymbolTable {
     pub map: HashMap<String, Symbol>,
 }
 
@@ -21,13 +21,13 @@ impl SymbolTable {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) enum Symbol {
+pub enum Symbol {
     Local(FileId, NameId),
     Global(GlobalsDatabaseId, String),
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct InferredType {
+pub struct InferredType {
     pub widest: Type,
     pub narrowest: Type,
 }
@@ -118,7 +118,7 @@ impl InferredType {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) enum Type {
+pub enum Type {
     Void,
     Bool,
     Number,
@@ -394,13 +394,13 @@ impl Type {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct FunctionSignature {
+pub struct FunctionSignature {
     pub ret: Type,
     pub params: Vec<Type>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct Record {
+pub struct Record {
     pub fields: Vec<(String, Type)>,
 }
 

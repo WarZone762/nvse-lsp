@@ -5,7 +5,7 @@ use la_arena::{Arena, Idx};
 use super::*;
 use crate::game_data::{Form, FormType, GlobalsDatabaseId};
 
-pub(crate) fn infer(db: &mut Database, file_id: FileId) -> TypeVarStore {
+pub fn infer(db: &mut Database, file_id: FileId) -> TypeVarStore {
     let mut ctx = InferCtx::new(db, file_id);
     let mut store = TypeVarStore::new();
     ctx.script(&mut store, file_id.hir(db));
@@ -14,7 +14,7 @@ pub(crate) fn infer(db: &mut Database, file_id: FileId) -> TypeVarStore {
 }
 
 #[derive(Debug)]
-pub(crate) struct InferCtx<'a> {
+pub struct InferCtx<'a> {
     db: &'a db::Database,
     script_db: &'a ScriptDatabase,
     file_id: db::FileId,
@@ -347,7 +347,7 @@ impl<'a> InferCtx<'a> {
 }
 
 #[derive(Debug)]
-pub(crate) struct TypeVarStore {
+pub struct TypeVarStore {
     type_vars: Arena<Vec<Idx<Constraint>>>,
     expr_map: HashMap<ExprId, TypeVar>,
     name_map: HashMap<NameId, TypeVar>,
@@ -547,11 +547,11 @@ impl TypeVarStore {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) enum Constraint {
+pub enum Constraint {
     ConcreteType(InferredType),
     Assignable(TypeVar, TypeVar),
     AssignableToType(Type),
 }
 
-pub(crate) type TypeVar = Idx<Vec<Idx<Constraint>>>;
-pub(crate) type ConstraintId = Idx<Constraint>;
+pub type TypeVar = Idx<Vec<Idx<Constraint>>>;
+pub type ConstraintId = Idx<Constraint>;

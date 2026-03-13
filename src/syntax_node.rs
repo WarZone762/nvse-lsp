@@ -10,7 +10,7 @@ use crate::semantic_tokens::SemanticTokenTypeCustom;
 mod api;
 
 #[derive(Debug, Clone)]
-pub(crate) enum NodeOrToken {
+pub enum NodeOrToken {
     Node(Rc<Node>),
     Token(Rc<Token>),
 }
@@ -72,7 +72,7 @@ impl NodeOrToken {
 }
 
 #[derive(Debug, PartialEq, Eq)]
-pub(crate) enum NodeOrTokenRef<'a> {
+pub enum NodeOrTokenRef<'a> {
     Node(&'a Node),
     Token(&'a Token),
 }
@@ -137,7 +137,7 @@ impl<'a> From<&'a Token> for NodeOrTokenRef<'a> {
     }
 }
 
-pub(crate) struct Node {
+pub struct Node {
     pub kind: NodeKind,
     pub offset: u32,
     pub children: Vec<NodeOrToken>,
@@ -214,7 +214,7 @@ impl Node {
 }
 
 #[derive(Clone)]
-pub(crate) struct Token {
+pub struct Token {
     pub kind: TokenKind,
     pub offset: u32,
     pub len: u32,
@@ -281,7 +281,7 @@ macro_rules! tokens {
     ($(($group:ident) $($($lit:literal =>)? $ident:ident $(($display:literal))?,)*)*) => {
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         #[allow(dead_code, non_camel_case_types, clippy::upper_case_acronyms)]
-        pub(crate) enum TokenKind {
+        pub enum TokenKind {
             $($(
                 $ident,
             )*)*
@@ -371,7 +371,7 @@ macro_rules! blocktypes {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[allow(non_camel_case_types, clippy::upper_case_acronyms)]
-pub(crate) enum NodeKind {
+pub enum NodeKind {
     SCRIPT,
     FN_DECL_ITEM,
     BLOCK_TYPE_ITEM,

@@ -9,7 +9,7 @@ use crate::{
 };
 
 #[derive(Debug)]
-pub(crate) struct GlobalsDatabase {
+pub struct GlobalsDatabase {
     pub name: String,
     pub globals: HashMap<String, InferredType>,
 }
@@ -25,7 +25,7 @@ impl GlobalsDatabase {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) struct GlobalsDatabaseId(pub Idx<GlobalsDatabase>);
+pub struct GlobalsDatabaseId(pub Idx<GlobalsDatabase>);
 
 impl Lookup for GlobalsDatabaseId {
     type DB = Database;
@@ -37,7 +37,7 @@ impl Lookup for GlobalsDatabaseId {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) enum Form {
+pub enum Form {
     Quest { script: Option<String> },
     Any,
     Other(FormType),
@@ -70,7 +70,7 @@ impl From<FormData> for Form {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct FnData {
+pub struct FnData {
     pub name: String,
     pub alias: Option<String>,
     pub params: Vec<FnParamData>,
@@ -91,7 +91,7 @@ impl From<FnData> for InferredType {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct FnParamData {
+pub struct FnParamData {
     r#type: TypeName,
     name: Option<String>,
     optional: bool,
@@ -109,7 +109,7 @@ impl From<FnParamData> for InferredType {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) enum TypeName {
+pub enum TypeName {
     AIPackage,
     Actor,
     ActorBase,
@@ -311,7 +311,7 @@ impl From<TypeName> for InferredType {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub(crate) struct FormData {
+pub struct FormData {
     #[serde(rename = "type")]
     pub type_: FormType,
     pub edid: String,
@@ -320,7 +320,7 @@ pub(crate) struct FormData {
 
 #[allow(clippy::upper_case_acronyms, dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub(crate) enum FormType {
+pub enum FormType {
     ACHR,
     ACRE,
     ACTI,

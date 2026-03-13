@@ -1,6 +1,6 @@
 use crate::syntax_node::{Token, TokenKind};
 
-pub(crate) struct Lexer<'a> {
+pub struct Lexer<'a> {
     input: &'a str,
     state_stack: Vec<LexerState>,
     indices: Vec<(usize, char)>,

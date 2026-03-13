@@ -1,7 +1,7 @@
 use super::*;
 use crate::syntax_node::{NodeKind, TokenKind};
 
-pub(crate) fn stmt(p: &mut Parser) {
+pub fn stmt(p: &mut Parser) {
     match p.cur() {
         TokenKind::FOR_KW => stmt_for(p),
         TokenKind::IF_KW => stmt_if(p),
@@ -31,7 +31,7 @@ pub(crate) fn stmt(p: &mut Parser) {
     }
 }
 
-pub(crate) fn stmt_for(p: &mut Parser) {
+pub fn stmt_for(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::FOR_KW);
@@ -69,7 +69,7 @@ pub(crate) fn stmt_for(p: &mut Parser) {
     m.complete(p, NodeKind::FOR_STMT);
 }
 
-pub(crate) fn stmt_if(p: &mut Parser) {
+pub fn stmt_if(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::IF_KW);
@@ -88,7 +88,7 @@ pub(crate) fn stmt_if(p: &mut Parser) {
     m.complete(p, NodeKind::IF_STMT);
 }
 
-pub(crate) fn stmt_match(p: &mut Parser) {
+pub fn stmt_match(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::MATCH_KW);
@@ -114,7 +114,7 @@ pub(crate) fn stmt_match(p: &mut Parser) {
     m.complete(p, NodeKind::MATCH_STMT);
 }
 
-pub(crate) fn stmt_return(p: &mut Parser) {
+pub fn stmt_return(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::RETURN_KW);
@@ -126,7 +126,7 @@ pub(crate) fn stmt_return(p: &mut Parser) {
     m.complete(p, NodeKind::RETURN_STMT);
 }
 
-pub(crate) fn stmt_while(p: &mut Parser) {
+pub fn stmt_while(p: &mut Parser) {
     let m = p.start();
 
     p.next(TokenKind::WHILE_KW);
@@ -138,7 +138,7 @@ pub(crate) fn stmt_while(p: &mut Parser) {
     m.complete(p, NodeKind::WHILE_STMT);
 }
 
-pub(crate) fn stmt_expr(p: &mut Parser) {
+pub fn stmt_expr(p: &mut Parser) {
     let m = p.start();
 
     if p.opt(TokenKind::SEMICOLON) {
@@ -151,7 +151,7 @@ pub(crate) fn stmt_expr(p: &mut Parser) {
     m.complete(p, NodeKind::EXPR_STMT);
 }
 
-pub(crate) fn stmt_var_decl(p: &mut Parser) {
+pub fn stmt_var_decl(p: &mut Parser) {
     let m = p.start();
 
     p.opt(TokenKind::EXPORT_KW);
@@ -174,7 +174,7 @@ pub(crate) fn stmt_var_decl(p: &mut Parser) {
     m.complete(p, NodeKind::VAR_DECL_STMT);
 }
 
-pub(crate) fn stmt_block(p: &mut Parser) {
+pub fn stmt_block(p: &mut Parser) {
     let m = p.start();
 
     p.expect(TokenKind::LBRACK);

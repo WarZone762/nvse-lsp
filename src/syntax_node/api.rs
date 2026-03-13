@@ -113,7 +113,7 @@ impl Token {
 }
 
 #[derive(Debug)]
-pub(crate) struct Iter<'a> {
+pub struct Iter<'a> {
     stack: Vec<NodeOrTokenRef<'a>>,
 }
 

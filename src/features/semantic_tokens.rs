@@ -8,7 +8,7 @@ use crate::{
     Doc,
 };
 
-pub(crate) fn capabilities() -> SemanticTokensServerCapabilities {
+pub fn capabilities() -> SemanticTokensServerCapabilities {
     SemanticTokensServerCapabilities::SemanticTokensOptions(SemanticTokensOptions {
         legend: SemanticTokensLegend { token_types: LEGEND.into(), token_modifiers: vec![] },
         full: Some(SemanticTokensFullOptions::Bool(true)),
@@ -17,7 +17,7 @@ pub(crate) fn capabilities() -> SemanticTokensServerCapabilities {
 }
 
 impl Doc {
-    pub(crate) fn semantic_tokens(&self, db: &Database) -> Vec<SemanticToken> {
+    pub fn semantic_tokens(&self, db: &Database) -> Vec<SemanticToken> {
         let mut builder = SemanticTokenBuilder::new();
 
         for t in self.hir(db).node.syntax().leafs() {
@@ -118,7 +118,7 @@ static LEGEND: &[SemanticTokenType] = &[
     SemanticTokenTypeCustom::PUNCTUATION,
 ];
 
-pub(crate) struct SemanticTokenTypeCustom;
+pub struct SemanticTokenTypeCustom;
 
 impl SemanticTokenTypeCustom {
     pub const BOOLEAN: SemanticTokenType = SemanticTokenType::new("boolean");
@@ -126,7 +126,7 @@ impl SemanticTokenTypeCustom {
     pub const PUNCTUATION: SemanticTokenType = SemanticTokenType::new("punctuation");
 }
 
-pub(crate) fn semantic_token_type_index(value: &SemanticTokenType) -> u32 {
+pub fn semantic_token_type_index(value: &SemanticTokenType) -> u32 {
     LEGEND.iter().position(|x| x == value).expect("semantic token type not in legend") as _
 }
 

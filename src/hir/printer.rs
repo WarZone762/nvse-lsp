@@ -3,7 +3,7 @@ use db::Database;
 use super::*;
 
 #[derive(Debug, Clone)]
-pub(crate) struct Printer<'a> {
+pub struct Printer<'a> {
     db: &'a db::Database,
     script_db: &'a ScriptDatabase,
     file_id: db::FileId,
@@ -37,7 +37,7 @@ impl<'a> Printer<'a> {
     }
 }
 
-pub(crate) trait Print {
+pub trait Print {
     fn print(&self, p: &mut Printer<'_>);
     fn print_str(&self, mut p: Printer<'_>) -> String {
         self.print(&mut p);
@@ -57,7 +57,7 @@ impl<P: Print> Print for Rc<P> {
     }
 }
 
-pub(crate) trait PrintDelim {
+pub trait PrintDelim {
     fn print_delimited(self, p: &mut Printer<'_>, delim: &str);
 }
 

@@ -13,7 +13,7 @@ use expression::*;
 use other::*;
 use statement::*;
 
-pub(crate) fn parse(input: Input) -> Vec<Event> {
+pub fn parse(input: Input) -> Vec<Event> {
     let mut p = Parser::new(input);
     script(&mut p);
 
@@ -21,7 +21,7 @@ pub(crate) fn parse(input: Input) -> Vec<Event> {
 }
 
 #[derive(Debug)]
-pub(crate) struct Parser {
+pub struct Parser {
     input: Input,
     pos: usize,
     events: Vec<Event>,
@@ -139,7 +139,7 @@ impl Parser {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct CompletedMarker {
+pub struct CompletedMarker {
     pos: usize,
     kind: NodeKind,
 }
@@ -171,7 +171,7 @@ impl CompletedMarker {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct Marker {
+pub struct Marker {
     pos: usize,
 }
 
@@ -201,7 +201,7 @@ impl Marker {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) enum Event {
+pub enum Event {
     Start(NodeKind, Option<usize>),
     Diagnostic(String, DiagnosticSeverity),
     Token(TokenKind),
@@ -215,7 +215,7 @@ impl Event {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct Input {
+pub struct Input {
     tokens: Vec<TokenKind>,
 }
 

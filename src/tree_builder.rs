@@ -15,7 +15,7 @@ pub fn generate_ast(text: &str) -> String {
     tree
 }
 
-pub(crate) fn parse_str(string: &str) -> (ast::Script, Vec<Diagnostic>) {
+pub fn parse_str(string: &str) -> (ast::Script, Vec<Diagnostic>) {
     let tokens = Lexer::new(string).collect::<Vec<_>>();
 
     let (root, diagnostics) =
@@ -23,7 +23,7 @@ pub(crate) fn parse_str(string: &str) -> (ast::Script, Vec<Diagnostic>) {
     (AstNode::cast(root).expect("first node of a file is not a Script"), diagnostics)
 }
 
-pub(crate) fn output_to_tree(
+pub fn output_to_tree(
     output: Vec<Event>,
     tokens: Vec<Token>,
 ) -> (Rc<Node>, Vec<Diagnostic>) {
@@ -31,7 +31,7 @@ pub(crate) fn output_to_tree(
     builder.process(output)
 }
 
-pub(crate) fn process_events(mut events: Vec<Event>) -> Vec<Event> {
+pub fn process_events(mut events: Vec<Event>) -> Vec<Event> {
     let mut output = vec![];
     let mut forward_parents = vec![];
 
@@ -63,7 +63,7 @@ pub(crate) fn process_events(mut events: Vec<Event>) -> Vec<Event> {
 }
 
 #[derive(Debug, Default)]
-pub(crate) struct TreeBuilder {
+pub struct TreeBuilder {
     parents: Vec<(Node, usize)>,
     children: Vec<NodeOrToken>,
 }
@@ -110,7 +110,7 @@ impl TreeBuilder {
 }
 
 #[derive(Debug)]
-pub(crate) struct TriviaBuilder {
+pub struct TriviaBuilder {
     tokens: Vec<Token>,
     token_pos: usize,
     diagnostics: Vec<Diagnostic>,
@@ -188,7 +188,7 @@ impl TriviaBuilder {
 }
 
 #[derive(Debug)]
-pub(crate) struct Diagnostic {
+pub struct Diagnostic {
     pub msg: String,
     pub severity: DiagnosticSeverity,
     pub offset: u32,

@@ -6,7 +6,7 @@ use crate::{
     syntax_node::{Token, TokenKind},
 };
 
-pub(crate) fn lower(db: &mut db::Database, file_id: db::FileId, script: ast::Script) {
+pub fn lower(db: &mut db::Database, file_id: db::FileId, script: ast::Script) {
     let mut ctx = LowerCtx::new(db, file_id);
     let script = ctx.script(script);
     let script_db = ctx.finish();
