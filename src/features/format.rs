@@ -51,10 +51,10 @@ impl<'a> Formatter<'a> {
     fn script(&mut self, script: &ast::Script) -> String {
         format!(
             "name{} {}{};{}{}{}",
-            self.comments_between(script.name_kw().as_deref(), script.name().as_ref()),
-            self.name(script.name().as_ref()),
-            self.comments_between(script.name().as_ref(), script.semi().as_deref()),
-            self.comments_between(script.semi().as_deref(), script.items().next().as_ref()),
+            self.comments_between(&script.name_kw(), &script.name()),
+            self.name(&script.name()),
+            self.comments_between(&script.name(), &script.semi()),
+            self.comments_between(&script.semi(), &script.items().next()),
             self.item_list(script.items()),
             if let Some(last_item) = script.items().last() {
                 self.comments_in_range(last_item.syntax().end(), script.syntax().end())
@@ -91,31 +91,31 @@ impl<'a> Formatter<'a> {
             ast::Item::VarDecl(x) => {
                 format!(
                     "{}{};",
-                    self.var_decl(x.var_decl().as_ref()),
-                    self.comments_between(x.var_decl().as_ref(), x.semi().as_deref()),
+                    self.var_decl(&x.var_decl()),
+                    self.comments_between(&x.var_decl(), &x.semi()),
                 )
             }
         }
     }
 
     fn fn_decl(&mut self, fn_decl: &ast::FnDeclItem) -> String {
-        let name = self.name(fn_decl.name().as_ref());
+        let name = self.name(&fn_decl.name());
         if name.is_empty() {
             format!(
                 "fn{} {}{} {}",
-                self.comments_between(fn_decl.fn_kw().as_deref(), fn_decl.param_list().as_ref()),
-                self.param_list(fn_decl.param_list().as_ref()),
-                self.comments_between(fn_decl.param_list().as_ref(), fn_decl.block().as_ref()),
-                self.block(fn_decl.block().as_ref())
+                self.comments_between(&fn_decl.fn_kw(), &fn_decl.param_list()),
+                self.param_list(&fn_decl.param_list()),
+                self.comments_between(&fn_decl.param_list(), &fn_decl.block()),
+                self.block(&fn_decl.block())
             )
         } else {
             format!(
                 "fn{} {name}{}{}{} {}",
-                self.comments_between(fn_decl.fn_kw().as_deref(), fn_decl.name().as_ref()),
-                self.comments_between(fn_decl.name().as_ref(), fn_decl.param_list().as_ref()),
-                self.param_list(fn_decl.param_list().as_ref()),
-                self.comments_between(fn_decl.param_list().as_ref(), fn_decl.block().as_ref()),
-                self.block(fn_decl.block().as_ref())
+                self.comments_between(&fn_decl.fn_kw(), &fn_decl.name()),
+                self.comments_between(&fn_decl.name(), &fn_decl.param_list()),
+                self.param_list(&fn_decl.param_list()),
+                self.comments_between(&fn_decl.param_list(), &fn_decl.block()),
+                self.block(&fn_decl.block())
             )
         }
     }
@@ -123,36 +123,36 @@ impl<'a> Formatter<'a> {
     fn block_type(&mut self, block_type: &ast::BlockTypeItem) -> String {
         format!(
             "{}{} {}",
-            self.token(block_type.blocktype().as_ref()),
-            self.comments_between(block_type.blocktype().as_deref(), block_type.block().as_ref()),
-            self.block(block_type.block().as_ref())
+            self.token(&block_type.blocktype()),
+            self.comments_between(&block_type.blocktype(), &block_type.block()),
+            self.block(&block_type.block())
         )
     }
 
     fn stmt(&mut self, stmt: &ast::Stmt) -> String {
         let indent = self.indent_str();
         match stmt {
-            ast::Stmt::Block(x) => format!("\n{indent}{}", self.block(Some(x))),
+            ast::Stmt::Block(x) => format!("\n{indent}{}", self.block(x)),
             ast::Stmt::VarDecl(x) => {
                 if x.export().is_some() {
                     format!(
                         "\n{indent}export{} {}{};",
-                        self.comments_between(x.export().as_deref(), x.var_decl().as_ref()),
-                        self.var_decl(x.var_decl().as_ref()),
-                        self.comments_between(x.var_decl().as_ref(), x.semi().as_deref(),),
+                        self.comments_between(&x.export(), &x.var_decl()),
+                        self.var_decl(&x.var_decl()),
+                        self.comments_between(&x.var_decl(), &x.semi(),),
                     )
                 } else {
                     format!(
                         "\n{indent}{}{};",
-                        self.var_decl(x.var_decl().as_ref()),
-                        self.comments_between(x.var_decl().as_ref(), x.semi().as_deref(),),
+                        self.var_decl(&x.var_decl()),
+                        self.comments_between(&x.var_decl(), &x.semi(),),
                     )
                 }
             }
             ast::Stmt::Expr(x) => format!(
                 "\n{indent}{}{};",
-                self.expr(x.expr().as_ref()),
-                self.comments_between(x.expr().as_ref(), x.semi().as_deref(),),
+                self.expr(&x.expr()),
+                self.comments_between(&x.expr(), &x.semi(),),
             ),
             ast::Stmt::For(x) => format!("\n{indent}{}", self.stmt_for(x)),
             ast::Stmt::ForEach(x) => format!("\n{indent}{}", self.stmt_for_range(x)),
@@ -163,26 +163,19 @@ impl<'a> Formatter<'a> {
                 if let Some(expr) = &x.expr() {
                     format!(
                         "\n{indent}return{} {}{};",
-                        self.comments_between(x.ret_kw().as_deref(), Some(expr)),
-                        self.expr(Some(expr)),
-                        self.comments_between(Some(expr), x.semi().as_deref()),
+                        self.comments_between(&x.ret_kw(), expr),
+                        self.expr(expr),
+                        self.comments_between(expr, &x.semi()),
                     )
                 } else {
-                    format!(
-                        "\n{indent}return{};",
-                        self.comments_between(x.ret_kw().as_deref(), x.semi().as_deref()),
-                    )
+                    format!("\n{indent}return{};", self.comments_between(&x.ret_kw(), &x.semi()),)
                 }
             }
-            ast::Stmt::Break(x) => format!(
-                "\n{indent}break{};",
-                self.comments_between(x.break_kw().as_deref(), x.semi().as_deref()),
-            ),
+            ast::Stmt::Break(x) => {
+                format!("\n{indent}break{};", self.comments_between(&x.break_kw(), &x.semi()),)
+            }
             ast::Stmt::Continue(x) => {
-                format!(
-                    "\n{indent}continue{};",
-                    self.comments_between(x.continue_kw().as_deref(), x.semi().as_deref()),
-                )
+                format!("\n{indent}continue{};", self.comments_between(&x.continue_kw(), &x.semi()),)
             }
             ast::Stmt::Empty(_) => "".into(),
         }
@@ -192,91 +185,79 @@ impl<'a> Formatter<'a> {
         let init = if let Some(init) = &stmt_for.init() {
             format!(
                 "{}{}{}",
-                self.comments_between(stmt_for.lparen().as_deref(), Some(init)),
-                self.var_decl(Some(init)),
-                self.comments_between(Some(init), stmt_for.semi_1().as_deref()),
+                self.comments_between(&stmt_for.lparen(), init),
+                self.var_decl(init),
+                self.comments_between(init, &stmt_for.semi_1()),
             )
         } else {
-            self.comments_between(stmt_for.lparen().as_deref(), stmt_for.semi_1().as_deref())
+            self.comments_between(&stmt_for.lparen(), &stmt_for.semi_1())
         };
         let cond = if let Some(cond) = &stmt_for.cond() {
             format!(
                 "{} {}{}",
-                self.comments_between(stmt_for.semi_1().as_deref(), Some(cond)),
-                self.expr(Some(cond)),
-                self.comments_between(Some(cond), stmt_for.semi_2().as_deref()),
+                self.comments_between(&stmt_for.semi_1(), cond),
+                self.expr(cond),
+                self.comments_between(cond, &stmt_for.semi_2()),
             )
         } else {
-            self.comments_between(stmt_for.lparen().as_deref(), stmt_for.semi_1().as_deref())
+            self.comments_between(&stmt_for.lparen(), &stmt_for.semi_1())
         };
         let loop_expr = if let Some(loop_expr) = &stmt_for.loop_expr() {
             format!(
                 "{} {}{}",
-                self.comments_between(stmt_for.semi_2().as_deref(), Some(loop_expr)),
-                self.expr(Some(loop_expr)),
-                self.comments_between(Some(loop_expr), stmt_for.rparen().as_deref()),
+                self.comments_between(&stmt_for.semi_2(), loop_expr),
+                self.expr(loop_expr),
+                self.comments_between(loop_expr, &stmt_for.rparen()),
             )
         } else {
-            self.comments_between(stmt_for.semi_1().as_deref(), stmt_for.semi_2().as_deref())
+            self.comments_between(&stmt_for.semi_1(), &stmt_for.semi_2())
         };
         format!(
             "for{} ({init};{cond};{loop_expr}){} {}",
-            self.comments_between(stmt_for.for_kw().as_deref(), stmt_for.lparen().as_deref()),
-            self.comments_between(stmt_for.rparen().as_deref(), stmt_for.block().as_ref()),
-            self.block(stmt_for.block().as_ref()),
+            self.comments_between(&stmt_for.for_kw(), &stmt_for.lparen()),
+            self.comments_between(&stmt_for.rparen(), &stmt_for.block()),
+            self.block(&stmt_for.block()),
         )
     }
 
     fn stmt_for_range(&mut self, stmt_for_each: &ast::ForRangeStmt) -> String {
         format!(
             "for{} ({}{}{} in{} {}{}){} {}",
-            self.comments_between(
-                stmt_for_each.for_kw().as_deref(),
-                stmt_for_each.lparen().as_deref(),
-            ),
-            self.comments_between(stmt_for_each.lparen().as_deref(), stmt_for_each.pat().as_ref(),),
-            self.pat(stmt_for_each.pat().as_ref()),
-            self.comments_between(stmt_for_each.pat().as_ref(), stmt_for_each.in_kw().as_deref(),),
-            self.comments_between(
-                stmt_for_each.in_kw().as_deref(),
-                stmt_for_each.iterable().as_ref(),
-            ),
-            self.expr(stmt_for_each.iterable().as_ref()),
-            self.comments_between(
-                stmt_for_each.iterable().as_ref(),
-                stmt_for_each.rparen().as_deref(),
-            ),
-            self.comments_between(
-                stmt_for_each.rparen().as_deref(),
-                stmt_for_each.block().as_ref(),
-            ),
-            self.block(stmt_for_each.block().as_ref()),
+            self.comments_between(&stmt_for_each.for_kw(), &stmt_for_each.lparen(),),
+            self.comments_between(&stmt_for_each.lparen(), &stmt_for_each.pat(),),
+            self.pat(&stmt_for_each.pat()),
+            self.comments_between(&stmt_for_each.pat(), &stmt_for_each.in_kw(),),
+            self.comments_between(&stmt_for_each.in_kw(), &stmt_for_each.iterable(),),
+            self.expr(&stmt_for_each.iterable()),
+            self.comments_between(&stmt_for_each.iterable(), &stmt_for_each.rparen(),),
+            self.comments_between(&stmt_for_each.rparen(), &stmt_for_each.block(),),
+            self.block(&stmt_for_each.block()),
         )
     }
 
     fn stmt_if(&mut self, stmt_if: &ast::IfStmt) -> String {
         let mut base = format!(
             "if{} ({}{}{}){} {}",
-            self.comments_between(stmt_if.if_kw().as_deref(), stmt_if.lparen().as_deref()),
-            self.comments_between(stmt_if.lparen().as_deref(), stmt_if.cond().as_ref()),
-            self.expr(stmt_if.cond().as_ref()),
-            self.comments_between(stmt_if.cond().as_ref(), stmt_if.rparen().as_deref()),
-            self.comments_between(stmt_if.rparen().as_deref(), stmt_if.true_branch().as_ref()),
-            self.block(stmt_if.true_branch().as_ref()),
+            self.comments_between(&stmt_if.if_kw(), &stmt_if.lparen()),
+            self.comments_between(&stmt_if.lparen(), &stmt_if.cond()),
+            self.expr(&stmt_if.cond()),
+            self.comments_between(&stmt_if.cond(), &stmt_if.rparen()),
+            self.comments_between(&stmt_if.rparen(), &stmt_if.true_branch()),
+            self.block(&stmt_if.true_branch()),
         );
 
         match &stmt_if.false_branch() {
             Some(ast::ElseBranch::IfStmt(x)) => base.push_str(&format!(
                 "{} else{} {}",
-                self.comments_between(stmt_if.true_branch().as_ref(), stmt_if.else_kw().as_deref()),
-                self.comments_between(stmt_if.else_kw().as_deref(), Some(x)),
+                self.comments_between(&stmt_if.true_branch(), &stmt_if.else_kw()),
+                self.comments_between(&stmt_if.else_kw(), x),
                 self.stmt_if(x),
             )),
             Some(ast::ElseBranch::Block(x)) => base.push_str(&format!(
                 "{} else{} {}",
-                self.comments_between(stmt_if.true_branch().as_ref(), stmt_if.else_kw().as_deref()),
-                self.comments_between(stmt_if.else_kw().as_deref(), Some(x)),
-                self.block(Some(x)),
+                self.comments_between(&stmt_if.true_branch(), &stmt_if.else_kw()),
+                self.comments_between(&stmt_if.else_kw(), x),
+                self.block(x),
             )),
             None => (),
         }
@@ -288,20 +269,14 @@ impl<'a> Formatter<'a> {
         self.indent += 1;
         format!(
             "match{} ({}{}{}){} {{{}{}{}\n{}}}",
-            self.comments_between(stmt_match.match_kw().as_deref(), stmt_match.lparen().as_deref()),
-            self.comments_between(stmt_match.lparen().as_deref(), stmt_match.expr().as_ref()),
-            self.expr(stmt_match.expr().as_ref()),
-            self.comments_between(stmt_match.expr().as_ref(), stmt_match.rparen().as_deref()),
-            self.comments_between(stmt_match.rparen().as_deref(), stmt_match.lbrack().as_deref()),
-            self.comments_between(
-                stmt_match.lbrack().as_deref(),
-                stmt_match.arms().next().as_ref()
-            ),
+            self.comments_between(&stmt_match.match_kw(), &stmt_match.lparen()),
+            self.comments_between(&stmt_match.lparen(), &stmt_match.expr()),
+            self.expr(&stmt_match.expr()),
+            self.comments_between(&stmt_match.expr(), &stmt_match.rparen()),
+            self.comments_between(&stmt_match.rparen(), &stmt_match.lbrack()),
+            self.comments_between(&stmt_match.lbrack(), &stmt_match.arms().next()),
             self.match_arms(stmt_match.arms()),
-            self.comments_between(
-                stmt_match.arms().last().as_ref(),
-                stmt_match.rbrack().as_deref()
-            ),
+            self.comments_between(&stmt_match.arms().last(), &stmt_match.rbrack()),
             {
                 self.indent -= 1;
                 self.indent_str()
@@ -321,7 +296,7 @@ impl<'a> Formatter<'a> {
             arms.map_windows(|[a, b]| {
                 format!(
                     "{}\n{}{}",
-                    self.comments_between(a.block().as_ref(), b.pat().as_ref()),
+                    self.comments_between(&a.block(), &b.pat()),
                     self.indent_str(),
                     self.match_arm(b),
                 )
@@ -333,133 +308,134 @@ impl<'a> Formatter<'a> {
     fn match_arm(&mut self, arm: &ast::MatchArm) -> String {
         format!(
             "{}{} ->{} {}",
-            self.pat(arm.pat().as_ref()),
-            self.comments_between(arm.pat().as_ref(), arm.rarrow().as_deref()),
-            self.comments_between(arm.rarrow().as_deref(), arm.block().as_ref()),
-            self.block(arm.block().as_ref()),
+            self.pat(&arm.pat()),
+            self.comments_between(&arm.pat(), &arm.rarrow()),
+            self.comments_between(&arm.rarrow(), &arm.block()),
+            self.block(&arm.block()),
         )
     }
 
     fn stmt_while(&mut self, stmt_while: &ast::WhileStmt) -> String {
         format!(
             "while{} ({}{}{}){} {}",
-            self.comments_between(stmt_while.while_kw().as_deref(), stmt_while.lparen().as_deref()),
-            self.comments_between(stmt_while.lparen().as_deref(), stmt_while.cond().as_ref()),
-            self.expr(stmt_while.cond().as_ref()),
-            self.comments_between(stmt_while.cond().as_ref(), stmt_while.rparen().as_deref()),
-            self.comments_between(stmt_while.rparen().as_deref(), stmt_while.block().as_ref()),
-            self.block(stmt_while.block().as_ref()),
+            self.comments_between(&stmt_while.while_kw(), &stmt_while.lparen()),
+            self.comments_between(&stmt_while.lparen(), &stmt_while.cond()),
+            self.expr(&stmt_while.cond()),
+            self.comments_between(&stmt_while.cond(), &stmt_while.rparen()),
+            self.comments_between(&stmt_while.rparen(), &stmt_while.block()),
+            self.block(&stmt_while.block()),
         )
     }
 
-    fn expr(&mut self, expr: Option<&ast::Expr>) -> String {
-        expr.map(|x| match x {
-            ast::Expr::Binary(x) => self.expr_bin(x),
-            ast::Expr::Ternary(x) => self.expr_ternary(x),
-            ast::Expr::Unary(x) => self.expr_unary(x),
-            ast::Expr::Postfix(x) => self.expr_postfix(x),
-            ast::Expr::Field(x) => self.expr_field(x),
-            ast::Expr::Subscript(x) => self.expr_subscript(x),
-            ast::Expr::Call(x) => self.expr_call(x),
-            ast::Expr::Paren(x) => self.expr_paren(x),
-            ast::Expr::Lambda(x) => self.expr_lambda(x),
-            ast::Expr::NameRef(x) => self.name_ref(x).into(),
-            ast::Expr::Str(x) => self.expr_str(x),
-            ast::Expr::LitArr(x) => self.lit_arr(x),
-            ast::Expr::LitMap(x) => self.lit_map(x),
-            ast::Expr::Literal(x) => self.literal(x).into(),
-        })
-        .unwrap_or_default()
+    fn expr<'b>(&'b mut self, expr: impl Into<Option<&'b ast::Expr>>) -> String {
+        expr.into()
+            .map(|x| match x {
+                ast::Expr::Binary(x) => self.expr_bin(x),
+                ast::Expr::Ternary(x) => self.expr_ternary(x),
+                ast::Expr::Unary(x) => self.expr_unary(x),
+                ast::Expr::Postfix(x) => self.expr_postfix(x),
+                ast::Expr::Field(x) => self.expr_field(x),
+                ast::Expr::Subscript(x) => self.expr_subscript(x),
+                ast::Expr::Call(x) => self.expr_call(x),
+                ast::Expr::Paren(x) => self.expr_paren(x),
+                ast::Expr::Lambda(x) => self.expr_lambda(x),
+                ast::Expr::NameRef(x) => self.name_ref(x).into(),
+                ast::Expr::Str(x) => self.expr_str(x),
+                ast::Expr::LitArr(x) => self.lit_arr(x),
+                ast::Expr::LitMap(x) => self.lit_map(x),
+                ast::Expr::Literal(x) => self.literal(x).into(),
+            })
+            .unwrap_or_default()
     }
 
     fn expr_bin(&mut self, expr: &ast::BinExpr) -> String {
         format!(
             "{}{} {}{} {}",
-            self.expr(expr.lhs().as_ref()),
-            self.comments_between(expr.lhs().as_ref(), expr.op().as_deref()),
-            self.token(expr.op().as_ref()),
-            self.comments_between(expr.op().as_deref(), expr.rhs().as_ref()),
-            self.expr(expr.rhs().as_ref()),
+            self.expr(&expr.lhs()),
+            self.comments_between(&expr.lhs(), &expr.op()),
+            self.token(&expr.op()),
+            self.comments_between(&expr.op(), &expr.rhs()),
+            self.expr(&expr.rhs()),
         )
     }
 
     fn expr_ternary(&mut self, expr: &ast::TernaryExpr) -> String {
         format!(
             "{}{} ?{} {}{} :{} {}",
-            self.comments_between(expr.cond().as_ref(), expr.question_mark().as_deref()),
-            self.expr(expr.cond().as_ref()),
-            self.comments_between(expr.question_mark().as_deref(), expr.true_expr().as_ref()),
-            self.expr(expr.true_expr().as_ref()),
-            self.comments_between(expr.true_expr().as_ref(), expr.colon().as_deref()),
-            self.comments_between(expr.colon().as_deref(), expr.false_expr().as_ref()),
-            self.expr(expr.false_expr().as_ref()),
+            self.comments_between(&expr.cond(), &expr.question_mark()),
+            self.expr(&expr.cond()),
+            self.comments_between(&expr.question_mark(), &expr.true_expr()),
+            self.expr(&expr.true_expr()),
+            self.comments_between(&expr.true_expr(), &expr.colon()),
+            self.comments_between(&expr.colon(), &expr.false_expr()),
+            self.expr(&expr.false_expr()),
         )
     }
 
     fn expr_unary(&mut self, expr: &ast::UnaryExpr) -> String {
         format!(
             "{}{}{}",
-            self.token(expr.op().as_ref()),
-            self.comments_between(expr.op().as_deref(), expr.operand().as_ref()),
-            self.expr(expr.operand().as_ref()),
+            self.token(&expr.op()),
+            self.comments_between(&expr.op(), &expr.operand()),
+            self.expr(&expr.operand()),
         )
     }
 
     fn expr_postfix(&mut self, expr: &ast::PostfixExpr) -> String {
         format!(
             "{}{}{}",
-            self.expr(expr.operand().as_ref()),
-            self.comments_between(expr.operand().as_ref(), expr.op().as_deref()),
-            self.token(expr.op().as_ref()),
+            self.expr(&expr.operand()),
+            self.comments_between(&expr.operand(), &expr.op()),
+            self.token(&expr.op()),
         )
     }
 
     fn expr_field(&mut self, expr: &ast::FieldExpr) -> String {
         format!(
             "{}{}.{}{}",
-            self.expr(expr.lhs().as_ref()),
-            self.comments_between(expr.lhs().as_ref(), expr.dot().as_deref()),
-            self.comments_between(expr.dot().as_deref(), expr.field().as_ref()),
-            expr.field().as_ref().map(|x| self.name_ref(x)).unwrap_or_default(),
+            self.expr(&expr.lhs()),
+            self.comments_between(&expr.lhs(), &expr.dot()),
+            self.comments_between(&expr.dot(), &expr.field()),
+            expr.field().map(|x| self.name_ref(&x)).unwrap_or_default(),
         )
     }
 
     fn expr_subscript(&mut self, expr: &ast::SubscriptExpr) -> String {
         format!(
             "{}{}[{}{}{}]",
-            self.expr(expr.lhs().as_ref()),
-            self.comments_between(expr.lhs().as_ref(), expr.lsqbrack().as_deref()),
-            self.comments_between(expr.lsqbrack().as_deref(), expr.subscript().as_ref()),
-            self.expr(expr.subscript().as_ref()),
-            self.comments_between(expr.subscript().as_ref(), expr.rsqbrack().as_deref()),
+            self.expr(&expr.lhs()),
+            self.comments_between(&expr.lhs(), &expr.lsqbrack()),
+            self.comments_between(&expr.lsqbrack(), &expr.subscript()),
+            self.expr(&expr.subscript()),
+            self.comments_between(&expr.subscript(), &expr.rsqbrack()),
         )
     }
 
     fn expr_call(&mut self, expr: &ast::CallExpr) -> String {
         format!(
             "{}{}{}",
-            self.expr(expr.lhs().as_ref()),
-            self.comments_between(expr.lhs().as_ref(), expr.args().as_ref()),
-            self.arg_list(expr.args().as_ref()),
+            self.expr(&expr.lhs()),
+            self.comments_between(&expr.lhs(), &expr.args()),
+            self.arg_list(&expr.args()),
         )
     }
 
     fn expr_paren(&mut self, expr: &ast::ParenExpr) -> String {
         format!(
             "({}{}{})",
-            self.comments_between(expr.lparen().as_deref(), expr.expr().as_ref()),
-            self.expr(expr.expr().as_ref()),
-            self.comments_between(expr.expr().as_ref(), expr.rparen().as_deref()),
+            self.comments_between(&expr.lparen(), &expr.expr()),
+            self.expr(&expr.expr()),
+            self.comments_between(&expr.expr(), &expr.rparen()),
         )
     }
 
     fn expr_lambda(&mut self, expr: &ast::LambdaExpr) -> String {
         format!(
             "fn{} {}{} {}",
-            self.comments_between(expr.fn_kw().as_deref(), expr.params().as_ref()),
-            self.param_list(expr.params().as_ref()),
-            self.comments_between(expr.params().as_ref(), expr.block_or_expr().as_ref()),
-            self.block_or_expr(expr.block_or_expr().as_ref()),
+            self.comments_between(&expr.fn_kw(), &expr.params()),
+            self.param_list(&expr.params()),
+            self.comments_between(&expr.params(), &expr.block_or_expr()),
+            self.block_or_expr(&expr.block_or_expr()),
         )
     }
 
@@ -468,12 +444,12 @@ impl<'a> Formatter<'a> {
             "\"{}\"",
             expr.shards()
                 .map(|x| match &x {
-                    ast::StrShard::Literal(x) => self.token(x.token().as_ref()).to_string(),
+                    ast::StrShard::Literal(x) => self.token(&x.token()).to_string(),
                     ast::StrShard::Expr(x) => format!(
                         "${{{}{}{}}}",
-                        self.comments_between(x.dollar_lbrack().as_deref(), x.expr().as_ref()),
-                        self.expr(x.expr().as_ref()),
-                        self.comments_between(x.expr().as_ref(), x.rbrack().as_deref()),
+                        self.comments_between(&x.dollar_lbrack(), &x.expr()),
+                        self.expr(&x.expr()),
+                        self.comments_between(&x.expr(), &x.rbrack()),
                     ),
                 })
                 .collect::<String>()
@@ -483,58 +459,60 @@ impl<'a> Formatter<'a> {
     fn lit_arr(&mut self, lit: &ast::LitArr) -> String {
         format!(
             "[{}{}{}]",
-            self.comments_between(lit.lsq_brack().as_deref(), lit.exprs().next().as_ref()),
-            lit.exprs().map(|x| self.expr(Some(&x))).join(", "),
-            self.comments_between(lit.exprs().last().as_ref(), lit.rsq_brack().as_deref()),
+            self.comments_between(&lit.lsq_brack(), &lit.exprs().next()),
+            lit.exprs().map(|x| self.expr(&x)).join(", "),
+            self.comments_between(&lit.exprs().last(), &lit.rsq_brack()),
         )
     }
 
     fn lit_map(&mut self, lit: &ast::LitMap) -> String {
         format!(
             "{{{}{}{}}}",
-            self.comments_between(lit.lbrack().as_deref(), lit.kv_pairs().next().as_ref()),
+            self.comments_between(&lit.lbrack(), &lit.kv_pairs().next()),
             lit.kv_pairs().map(|x| self.kv_pair(&x)).join(", "),
-            self.comments_between(lit.kv_pairs().last().as_ref(), lit.rbrack().as_deref()),
+            self.comments_between(&lit.kv_pairs().last(), &lit.rbrack()),
         )
     }
 
     fn kv_pair(&mut self, kv_pair: &ast::KVPair) -> String {
         format!(
             "{}{}::{}{}",
-            self.expr(kv_pair.key().as_ref()),
-            self.comments_between(kv_pair.key().as_ref(), kv_pair.col2().as_deref()),
-            self.comments_between(kv_pair.col2().as_deref(), kv_pair.value().as_ref()),
-            self.expr(kv_pair.value().as_ref()),
+            self.expr(&kv_pair.key()),
+            self.comments_between(&kv_pair.key(), &kv_pair.col2()),
+            self.comments_between(&kv_pair.col2(), &kv_pair.value()),
+            self.expr(&kv_pair.value()),
         )
     }
 
     fn literal(&mut self, expr: &ast::Literal) -> &'a str {
-        self.token(expr.literal().as_ref())
+        self.token(&expr.literal())
     }
 
-    fn block_or_expr(&mut self, block_or_expr: Option<&ast::BlockOrExpr>) -> String {
+    fn block_or_expr<'b>(
+        &mut self,
+        block_or_expr: impl Into<Option<&'b ast::BlockOrExpr>>,
+    ) -> String {
         block_or_expr
+            .into()
             .map(|x| match x {
-                ast::BlockOrExpr::Block(x) => self.block(Some(x)),
-                ast::BlockOrExpr::Expr(x) => self.expr(Some(x)),
+                ast::BlockOrExpr::Block(x) => self.block(x),
+                ast::BlockOrExpr::Expr(x) => self.expr(x),
             })
             .unwrap_or_default()
     }
 
-    fn block(&mut self, block: Option<&ast::BlockStmt>) -> String {
+    fn block<'b>(&'b mut self, block: impl Into<Option<&'b ast::BlockStmt>>) -> String {
         block
+            .into()
             .map(|x| {
                 if x.stmts().len() == 0 {
-                    format!(
-                        "{{{}}}",
-                        self.comments_between(x.lbrack().as_deref(), x.rbrack().as_deref())
-                    )
+                    format!("{{{}}}", self.comments_between(&x.lbrack(), &x.rbrack()))
                 } else {
                     self.indent += 1;
                     let first_stmt = x.stmts().next().unwrap();
                     format!(
                         "{{{}{}{}{}\n{}}}",
-                        self.comments_between(x.lbrack().as_deref(), Some(&first_stmt)).trim_end(),
+                        self.comments_between(&x.lbrack(), &first_stmt).trim_end(),
                         self.stmt(&first_stmt),
                         &x.stmts()
                             .map_windows(|[a, b]| {
@@ -545,8 +523,7 @@ impl<'a> Formatter<'a> {
                                 )
                             })
                             .collect::<String>(),
-                        self.comments_between(x.stmts().last().as_ref(), x.rbrack().as_deref(),)
-                            .trim_end(),
+                        self.comments_between(&x.stmts().last(), &x.rbrack(),).trim_end(),
                         {
                             self.indent -= 1;
                             self.indent_str()
@@ -557,70 +534,74 @@ impl<'a> Formatter<'a> {
             .unwrap_or_default()
     }
 
-    fn param_list(&mut self, param_list: Option<&ast::ParamList>) -> String {
+    fn param_list<'b>(&'b mut self, param_list: impl Into<Option<&'b ast::ParamList>>) -> String {
         param_list
+            .into()
             .map(|x| {
                 format!(
                     "({}{}{})",
-                    self.comments_between(x.lparen().as_deref(), x.params().next().as_ref()),
-                    x.params().map(|x| self.var_decl(Some(&x))).join(", "),
-                    self.comments_between(x.params().last().as_ref(), x.rparen().as_deref()),
+                    self.comments_between(&x.lparen(), &x.params().next()),
+                    x.params().map(|x| self.var_decl(&x)).join(", "),
+                    self.comments_between(&x.params().last(), &x.rparen()),
                 )
             })
             .unwrap_or_default()
     }
 
-    fn arg_list(&mut self, arg_list: Option<&ast::ArgList>) -> String {
+    fn arg_list<'b>(&'b mut self, arg_list: impl Into<Option<&'b ast::ArgList>>) -> String {
         arg_list
+            .into()
             .map(|x| {
                 format!(
                     "({}{}{})",
-                    self.comments_between(x.lparen().as_deref(), x.args().next().as_ref()),
-                    x.args().map(|x| self.expr(Some(&x))).join(", "),
-                    self.comments_between(x.args().last().as_ref(), x.rparen().as_deref()),
+                    self.comments_between(&x.lparen(), &x.args().next()),
+                    x.args().map(|x| self.expr(&x)).join(", "),
+                    self.comments_between(&x.args().last(), &x.rparen()),
                 )
             })
             .unwrap_or_default()
     }
 
-    fn pat(&mut self, pat: Option<&ast::Pat>) -> String {
-        pat.map(|x| match x {
-            ast::Pat::StrExpr(x) => self.expr_str(x),
-            ast::Pat::Literal(x) => self.literal(x).to_string(),
-            ast::Pat::VarDecl(x) => self.var_decl(Some(x)),
-            ast::Pat::Arr(x) => self.arr_pat(x),
-        })
-        .unwrap_or_default()
+    fn pat<'b>(&'b mut self, pat: impl Into<Option<&'b ast::Pat>>) -> String {
+        pat.into()
+            .map(|x| match x {
+                ast::Pat::StrExpr(x) => self.expr_str(x),
+                ast::Pat::Literal(x) => self.literal(x).to_string(),
+                ast::Pat::VarDecl(x) => self.var_decl(x),
+                ast::Pat::Arr(x) => self.arr_pat(x),
+            })
+            .unwrap_or_default()
     }
 
     fn arr_pat(&mut self, pat_arr: &ast::ArrPat) -> String {
         format!(
             "[{}{}{}]",
-            self.comments_between(pat_arr.lsqbrack().as_deref(), pat_arr.patts().next().as_ref()),
-            pat_arr.patts().map(|x| self.pat(Some(&x))).join(", "),
-            self.comments_between(pat_arr.patts().last().as_ref(), pat_arr.rsqbrack().as_deref()),
+            self.comments_between(&pat_arr.lsqbrack(), &pat_arr.patts().next()),
+            pat_arr.patts().map(|x| self.pat(&x)).join(", "),
+            self.comments_between(&pat_arr.patts().last(), &pat_arr.rsqbrack()),
         )
     }
 
-    fn var_decl(&mut self, var_decl: Option<&ast::VarDecl>) -> String {
+    fn var_decl<'b>(&'b mut self, var_decl: impl Into<Option<&'b ast::VarDecl>>) -> String {
         var_decl
+            .into()
             .map(|x| {
                 if let Some(init) = &x.init() {
                     format!(
                         "{}{} {}{} ={} {}",
-                        self.token(x.type_().as_ref()),
-                        self.comments_between(x.type_().as_deref(), x.name().as_ref()),
-                        self.name(x.name().as_ref()),
-                        self.comments_between(x.name().as_ref(), x.eq().as_deref()),
-                        self.comments_between(x.eq().as_deref(), Some(init)),
-                        self.expr(Some(init)),
+                        self.token(&x.type_()),
+                        self.comments_between(&x.type_(), &x.name()),
+                        self.name(&x.name()),
+                        self.comments_between(&x.name(), &x.eq()),
+                        self.comments_between(&x.eq(), init),
+                        self.expr(init),
                     )
                 } else {
                     format!(
                         "{}{} {}",
-                        self.token(x.type_().as_ref()),
-                        self.comments_between(x.type_().as_deref(), x.name().as_ref()),
-                        self.name(x.name().as_ref()),
+                        self.token(&x.type_()),
+                        self.comments_between(&x.type_(), &x.name()),
+                        self.name(&x.name()),
                     )
                 }
             })
@@ -628,19 +609,19 @@ impl<'a> Formatter<'a> {
     }
 
     fn name_ref(&mut self, expr: &ast::NameRef) -> &'a str {
-        self.token(expr.ident().as_ref())
+        self.token(&expr.ident())
     }
 
-    fn name(&mut self, name: Option<&ast::Name>) -> &'a str {
-        name.map(|x| self.token(x.ident().as_ref())).unwrap_or_default()
+    fn name<'b>(&'b mut self, name: impl Into<Option<&'b ast::Name>>) -> &'a str {
+        name.into().map(|x| self.token(&x.ident())).unwrap_or_default()
     }
 
-    fn token(&mut self, token: Option<&Rc<Token>>) -> &'a str {
-        token.map(|x| x.text(self.text())).unwrap_or_default()
+    fn token<'b>(&'b mut self, token: impl Into<Option<&'b Rc<Token>>>) -> &'a str {
+        token.into().map(|x| x.text(self.text())).unwrap_or_default()
     }
 
-    fn comments_between(&self, start: Option<impl AsSyntax>, end: Option<impl AsSyntax>) -> String {
-        match (start, end) {
+    fn comments_between(&self, start: impl MaybeAsSyntax, end: impl MaybeAsSyntax) -> String {
+        match (start.into_opt(), end.into_opt()) {
             (Some(a), Some(b)) => {
                 self.comments_in_range(a.as_syntax().end(), b.as_syntax().offset())
             }
@@ -729,5 +710,42 @@ impl<'a> Formatter<'a> {
         } else {
             "\t".repeat(self.indent)
         }
+    }
+}
+
+/// Helper trait for `comments_between`
+trait MaybeAsSyntax {
+    type AsSyntax: AsSyntax;
+
+    fn into_opt(self) -> Option<Self::AsSyntax>;
+}
+
+impl<T: AsSyntax> MaybeAsSyntax for T {
+    type AsSyntax = T;
+
+    fn into_opt(self) -> Option<Self::AsSyntax> {
+        Some(self)
+    }
+}
+
+impl<'a, T> MaybeAsSyntax for &'a Option<T>
+where
+    &'a T: AsSyntax,
+{
+    type AsSyntax = &'a T;
+
+    fn into_opt(self) -> Option<Self::AsSyntax> {
+        self.as_ref()
+    }
+}
+
+impl<'a, T> MaybeAsSyntax for &'a Option<Rc<T>>
+where
+    &'a T: AsSyntax,
+{
+    type AsSyntax = &'a T;
+
+    fn into_opt(self) -> Option<Self::AsSyntax> {
+        self.as_deref()
     }
 }
