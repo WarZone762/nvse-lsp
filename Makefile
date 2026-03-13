@@ -1,15 +1,20 @@
 SRCS := $(shell find src -name '*.rs')
+TARGET_DEBUG = target/debug/nvse-lsp
+TARGET_RELEASE = target/release/nvse-lsp
 
 run: run-debug
 
-run-debug: target/debug/nvse-lsp
-	nvim +'set rtp+=./nvse-lsp.nvim | lua require("nvse-lsp").setup({cmd = {"./target/debug/nvse-lsp"}})' .
+run-debug: ${TARGET_DEBUG}
+	nvim +'set rtp+=./nvse-lsp.nvim | lua require("nvse-lsp").setup({cmd = {"./${TARGET_DEBUG}"}})' .
 
-run-release: target/release/nvse-lsp
-	nvim +'set rtp+=./nvse-lsp.nvim | lua require("nvse-lsp").setup({cmd = {"./target/release/nvse-lsp"}})' .
+run-release: ${TARGET_RELEASE}
+	nvim +'set rtp+=./nvse-lsp.nvim | lua require("nvse-lsp").setup({cmd = {"./${TARGET_RELEASE}"}})' .
 
-target/debug/nvse-lsp: ${SRCS}
+${TARGET_DEBUG}: ${SRCS}
 	cargo build
 
-target/release/nvse-lsp: ${SRCS}
+${TARGET_RELEASE}: ${SRCS}
 	cargo build --release
+
+generate-ast: ${TARGET_RELEASE}
+	scripts/generate-ast.sh

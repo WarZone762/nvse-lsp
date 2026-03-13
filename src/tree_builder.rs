@@ -5,9 +5,15 @@ use tower_lsp::lsp_types::DiagnosticSeverity;
 use crate::{
     ast::{self, AstNode},
     lexer::Lexer,
-    parser::{parse, Event},
+    parser::{Event, parse},
     syntax_node::{Node, NodeKind, NodeOrToken, Token, TokenKind},
 };
+
+pub fn generate_ast(text: &str) -> String {
+    let mut tree = parse_str(text).0.syntax().tree_string(text);
+    tree.push('\n');
+    tree
+}
 
 pub(crate) fn parse_str(string: &str) -> (ast::Script, Vec<Diagnostic>) {
     let tokens = Lexer::new(string).collect::<Vec<_>>();

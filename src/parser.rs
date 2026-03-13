@@ -238,30 +238,11 @@ impl FromIterator<TokenKind> for Input {
 
 #[cfg(test)]
 mod test {
-    use std::{
-        fs,
-        path::{Path, PathBuf},
-    };
+    use std::{fs, path::Path};
 
-    use crate::{AstNode, tree_builder::parse_str};
+    use crate::tree_builder::generate_ast;
 
-    fn case_paths() -> impl Iterator<Item = (PathBuf, PathBuf)> {
-        let test_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("test_data");
-        let ast_dir = test_dir.join("ast");
-        let case_dir = test_dir.join("cases");
-        fs::create_dir_all(&case_dir).unwrap();
-        fs::create_dir_all(&ast_dir).unwrap();
-
-        fs::read_dir(case_dir).unwrap().map(move |f| {
-            let f = f.unwrap();
-            let mut ast = f.path();
-            ast.set_extension("ast");
-            let ast = ast_dir.join(ast.file_name().unwrap());
-
-            (f.path(), ast)
-        })
-    }
-
+    // strip node offset range on Windows because CRLF messes them up
     fn strip_range(string: &str) -> String {
         let mut buf = String::new();
         let mut chars = string.chars();
@@ -292,39 +273,24 @@ mod test {
                 let case = case_dir.join(format!("{}.gek", $file));
                 let ast = ast_dir.join(format!("{}.ast", $file));
 
-                if !ast.exists() {
-                    let text = fs::read_to_string(&case).unwrap();
-                    let mut tree = parse_str(&text).0.syntax().tree_string(&text);
-                    tree.push('\n');
-                    fs::write(&ast, tree).unwrap();
-                    println!("Generated {ast:?}");
-                }
-
-                let text = fs::read_to_string(&case)
-                    .unwrap()
-                    .replace("\\r\\n", "\\n")
-                    .replace("\r\n", "\n");
-                let mut tree = parse_str(&text).0.syntax().tree_string(&text);
-                tree.push('\n');
-                let must = fs::read_to_string(&ast)
-                    .unwrap()
-                    .replace("\\r\\n", "\\n")
-                    .replace("\r\n", "\n");
+                let text = fs::read_to_string(&case).unwrap();
+                let tree = generate_ast(&text);
+                #[cfg(target_os = "windows")]
+                let tree = strip_range(&tree.replace("\\r\\n", "\\n").replace("\r\n", "\n"));
+                let must = fs::read_to_string(&ast).unwrap();
+                #[cfg(target_os = "windows")]
+                let must = strip_range(&must.replace("\\r\\n", "\\n").replace("\r\n", "\n"));
                 if tree != must {
                     panic!(
                         "{case:?}:\n\n{}",
-                        similar_asserts::SimpleDiff::from_str(
-                            &strip_range(&must),
-                            &strip_range(&tree),
-                            "old",
-                            "new",
-                        )
+                        similar_asserts::SimpleDiff::from_str(&must, &tree, "old", "new",)
                     )
                 }
             }
         };
     }
 
+    test_from_file!(nvse_udf, "udfs/TestUDF");
     test_from_file!(nvse_bin_op, "binary_operations");
     test_from_file!(nvse_call_test, "call_test");
     test_from_file!(nvse_comments, "comments");

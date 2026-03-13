@@ -1,0 +1,30 @@
+SCRIPT@0..46
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..12
+        IDENT@5..12 "TestUDF"
+    SEMICOLON@12..13 ";"
+    WHITESPACE@13..15 "\n\n"
+    FN_DECL_ITEM@15..46
+        FN_KW@15..17 "fn"
+        WHITESPACE@17..18 " "
+        PARAM_LIST@18..28
+            LPAREN@18..19 "("
+            VAR_DECL@19..27
+                REF_TY@19..22 "ref"
+                WHITESPACE@22..23 " "
+                NAME@23..27
+                    IDENT@23..27 "rRef"
+            RPAREN@27..28 ")"
+        WHITESPACE@28..29 " "
+        BLOCK_STMT@29..46
+            LBRACK@29..30 "{"
+            WHITESPACE@30..32 "\n\t"
+            RETURN_STMT@32..44
+                RETURN_KW@32..38 "return"
+                WHITESPACE@38..39 " "
+                NAME_REF@39..43
+                    IDENT@39..43 "rRef"
+                SEMICOLON@43..44 ";"
+            WHITESPACE@44..45 "\n"
+            RBRACK@45..46 "}"
