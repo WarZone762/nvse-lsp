@@ -1,0 +1,470 @@
+SCRIPT@0..1165
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..17
+        IDENT@5..17 "stmt_foreach"
+    SEMICOLON@17..18 ";"
+    WHITESPACE@18..20 "\n\n"
+    FN_DECL_ITEM@20..1164
+        FN_KW@20..22 "fn"
+        WHITESPACE@22..23 " "
+        PARAM_LIST@23..25
+            LPAREN@23..24 "("
+            RPAREN@24..25 ")"
+        WHITESPACE@25..26 " "
+        BLOCK_STMT@26..1164
+            LBRACK@26..27 "{"
+            WHITESPACE@27..32 "\n    "
+            COMMENT@32..62 "// Array pattern: two elements"
+            WHITESPACE@62..67 "\n    "
+            FOR_RANGE_STMT@67..97
+                FOR_KW@67..70 "for"
+                WHITESPACE@70..71 " "
+                LPAREN@71..72 "("
+                ARR_PAT@72..86
+                    LSQ_BRACK@72..73 "["
+                    VAR_DECL@73..78
+                        INT_TY@73..76 "int"
+                        WHITESPACE@76..77 " "
+                        NAME@77..78
+                            IDENT@77..78 "k"
+                    COMMA@78..79 ","
+                    WHITESPACE@79..80 " "
+                    VAR_DECL@80..85
+                        REF_TY@80..83 "ref"
+                        WHITESPACE@83..84 " "
+                        NAME@84..85
+                            IDENT@84..85 "v"
+                    RSQ_BRACK@85..86 "]"
+                WHITESPACE@86..87 " "
+                IN_KW@87..89 "in"
+                WHITESPACE@89..90 " "
+                NAME_REF@90..93
+                    IDENT@90..93 "arr"
+                RPAREN@93..94 ")"
+                WHITESPACE@94..95 " "
+                BLOCK_STMT@95..97
+                    LBRACK@95..96 "{"
+                    RBRACK@96..97 "}"
+            WHITESPACE@97..103 "\n\n    "
+            COMMENT@103..135 "// Array pattern: single element"
+            WHITESPACE@135..140 "\n    "
+            FOR_RANGE_STMT@140..163
+                FOR_KW@140..143 "for"
+                WHITESPACE@143..144 " "
+                LPAREN@144..145 "("
+                ARR_PAT@145..152
+                    LSQ_BRACK@145..146 "["
+                    VAR_DECL@146..151
+                        INT_TY@146..149 "int"
+                        WHITESPACE@149..150 " "
+                        NAME@150..151
+                            IDENT@150..151 "k"
+                    RSQ_BRACK@151..152 "]"
+                WHITESPACE@152..153 " "
+                IN_KW@153..155 "in"
+                WHITESPACE@155..156 " "
+                NAME_REF@156..159
+                    IDENT@156..159 "arr"
+                RPAREN@159..160 ")"
+                WHITESPACE@160..161 " "
+                BLOCK_STMT@161..163
+                    LBRACK@161..162 "{"
+                    RBRACK@162..163 "}"
+            WHITESPACE@163..169 "\n\n    "
+            COMMENT@169..188 "// Var decl pattern"
+            WHITESPACE@188..193 "\n    "
+            FOR_RANGE_STMT@193..214
+                FOR_KW@193..196 "for"
+                WHITESPACE@196..197 " "
+                LPAREN@197..198 "("
+                VAR_DECL@198..203
+                    INT_TY@198..201 "int"
+                    WHITESPACE@201..202 " "
+                    NAME@202..203
+                        IDENT@202..203 "x"
+                WHITESPACE@203..204 " "
+                IN_KW@204..206 "in"
+                WHITESPACE@206..207 " "
+                NAME_REF@207..210
+                    IDENT@207..210 "arr"
+                RPAREN@210..211 ")"
+                WHITESPACE@211..212 " "
+                BLOCK_STMT@212..214
+                    LBRACK@212..213 "{"
+                    RBRACK@213..214 "}"
+            WHITESPACE@214..220 "\n\n    "
+            COMMENT@220..246 "// String var decl pattern"
+            WHITESPACE@246..251 "\n    "
+            FOR_RANGE_STMT@251..275
+                FOR_KW@251..254 "for"
+                WHITESPACE@254..255 " "
+                LPAREN@255..256 "("
+                VAR_DECL@256..264
+                    STRING_TY@256..262 "string"
+                    WHITESPACE@262..263 " "
+                    NAME@263..264
+                        IDENT@263..264 "s"
+                WHITESPACE@264..265 " "
+                IN_KW@265..267 "in"
+                WHITESPACE@267..268 " "
+                NAME_REF@268..271
+                    IDENT@268..271 "arr"
+                RPAREN@271..272 ")"
+                WHITESPACE@272..273 " "
+                BLOCK_STMT@273..275
+                    LBRACK@273..274 "{"
+                    RBRACK@274..275 "}"
+            WHITESPACE@275..281 "\n\n    "
+            COMMENT@281..293 "// With body"
+            WHITESPACE@293..298 "\n    "
+            FOR_RANGE_STMT@298..354
+                FOR_KW@298..301 "for"
+                WHITESPACE@301..302 " "
+                LPAREN@302..303 "("
+                ARR_PAT@303..317
+                    LSQ_BRACK@303..304 "["
+                    VAR_DECL@304..309
+                        INT_TY@304..307 "int"
+                        WHITESPACE@307..308 " "
+                        NAME@308..309
+                            IDENT@308..309 "k"
+                    COMMA@309..310 ","
+                    WHITESPACE@310..311 " "
+                    VAR_DECL@311..316
+                        REF_TY@311..314 "ref"
+                        WHITESPACE@314..315 " "
+                        NAME@315..316
+                            IDENT@315..316 "v"
+                    RSQ_BRACK@316..317 "]"
+                WHITESPACE@317..318 " "
+                IN_KW@318..320 "in"
+                WHITESPACE@320..321 " "
+                NAME_REF@321..324
+                    IDENT@321..324 "arr"
+                RPAREN@324..325 ")"
+                WHITESPACE@325..326 " "
+                BLOCK_STMT@326..354
+                    LBRACK@326..327 "{"
+                    WHITESPACE@327..336 "\n        "
+                    EXPR_STMT@336..348
+                        CALL_EXPR@336..347
+                            NAME_REF@336..343
+                                IDENT@336..343 "Message"
+                            ARG_LIST@343..347
+                                LPAREN@343..344 "("
+                                UNARY_EXPR@344..346
+                                    DOLLAR@344..345 "$"
+                                    NAME_REF@345..346
+                                        IDENT@345..346 "v"
+                                RPAREN@346..347 ")"
+                        SEMICOLON@347..348 ";"
+                    WHITESPACE@348..353 "\n    "
+                    RBRACK@353..354 "}"
+            WHITESPACE@354..360 "\n\n    "
+            COMMENT@360..377 "// Nested foreach"
+            WHITESPACE@377..382 "\n    "
+            FOR_RANGE_STMT@382..480
+                FOR_KW@382..385 "for"
+                WHITESPACE@385..386 " "
+                LPAREN@386..387 "("
+                ARR_PAT@387..394
+                    LSQ_BRACK@387..388 "["
+                    VAR_DECL@388..393
+                        INT_TY@388..391 "int"
+                        WHITESPACE@391..392 " "
+                        NAME@392..393
+                            IDENT@392..393 "i"
+                    RSQ_BRACK@393..394 "]"
+                WHITESPACE@394..395 " "
+                IN_KW@395..397 "in"
+                WHITESPACE@397..398 " "
+                NAME_REF@398..403
+                    IDENT@398..403 "outer"
+                RPAREN@403..404 ")"
+                WHITESPACE@404..405 " "
+                BLOCK_STMT@405..480
+                    LBRACK@405..406 "{"
+                    WHITESPACE@406..415 "\n        "
+                    FOR_RANGE_STMT@415..474
+                        FOR_KW@415..418 "for"
+                        WHITESPACE@418..419 " "
+                        LPAREN@419..420 "("
+                        ARR_PAT@420..427
+                            LSQ_BRACK@420..421 "["
+                            VAR_DECL@421..426
+                                INT_TY@421..424 "int"
+                                WHITESPACE@424..425 " "
+                                NAME@425..426
+                                    IDENT@425..426 "j"
+                            RSQ_BRACK@426..427 "]"
+                        WHITESPACE@427..428 " "
+                        IN_KW@428..430 "in"
+                        WHITESPACE@430..431 " "
+                        NAME_REF@431..436
+                            IDENT@431..436 "inner"
+                        RPAREN@436..437 ")"
+                        WHITESPACE@437..438 " "
+                        BLOCK_STMT@438..474
+                            LBRACK@438..439 "{"
+                            WHITESPACE@439..452 "\n            "
+                            EXPR_STMT@452..464
+                                CALL_EXPR@452..463
+                                    NAME_REF@452..459
+                                        IDENT@452..459 "Message"
+                                    ARG_LIST@459..463
+                                        LPAREN@459..460 "("
+                                        UNARY_EXPR@460..462
+                                            DOLLAR@460..461 "$"
+                                            NAME_REF@461..462
+                                                IDENT@461..462 "i"
+                                        RPAREN@462..463 ")"
+                                SEMICOLON@463..464 ";"
+                            WHITESPACE@464..473 "\n        "
+                            RBRACK@473..474 "}"
+                    WHITESPACE@474..479 "\n    "
+                    RBRACK@479..480 "}"
+            WHITESPACE@480..486 "\n\n    "
+            COMMENT@486..527 "// Comment between for keyword and lparen"
+            WHITESPACE@527..532 "\n    "
+            FOR_RANGE_STMT@532..563
+                FOR_KW@532..535 "for"
+                WHITESPACE@535..536 " "
+                COMMENT@536..543 "/* c */"
+                WHITESPACE@543..544 " "
+                LPAREN@544..545 "("
+                ARR_PAT@545..552
+                    LSQ_BRACK@545..546 "["
+                    VAR_DECL@546..551
+                        INT_TY@546..549 "int"
+                        WHITESPACE@549..550 " "
+                        NAME@550..551
+                            IDENT@550..551 "k"
+                    RSQ_BRACK@551..552 "]"
+                WHITESPACE@552..553 " "
+                IN_KW@553..555 "in"
+                WHITESPACE@555..556 " "
+                NAME_REF@556..559
+                    IDENT@556..559 "arr"
+                RPAREN@559..560 ")"
+                WHITESPACE@560..561 " "
+                BLOCK_STMT@561..563
+                    LBRACK@561..562 "{"
+                    RBRACK@562..563 "}"
+            WHITESPACE@563..569 "\n\n    "
+            COMMENT@569..606 "// Comment between lparen and pattern"
+            WHITESPACE@606..611 "\n    "
+            FOR_RANGE_STMT@611..642
+                FOR_KW@611..614 "for"
+                WHITESPACE@614..615 " "
+                LPAREN@615..616 "("
+                WHITESPACE@616..617 " "
+                COMMENT@617..624 "/* c */"
+                ARR_PAT@624..631
+                    LSQ_BRACK@624..625 "["
+                    VAR_DECL@625..630
+                        INT_TY@625..628 "int"
+                        WHITESPACE@628..629 " "
+                        NAME@629..630
+                            IDENT@629..630 "k"
+                    RSQ_BRACK@630..631 "]"
+                WHITESPACE@631..632 " "
+                IN_KW@632..634 "in"
+                WHITESPACE@634..635 " "
+                NAME_REF@635..638
+                    IDENT@635..638 "arr"
+                RPAREN@638..639 ")"
+                WHITESPACE@639..640 " "
+                BLOCK_STMT@640..642
+                    LBRACK@640..641 "{"
+                    RBRACK@641..642 "}"
+            WHITESPACE@642..648 "\n\n    "
+            COMMENT@648..689 "// Comment between pattern and in keyword"
+            WHITESPACE@689..694 "\n    "
+            FOR_RANGE_STMT@694..725
+                FOR_KW@694..697 "for"
+                WHITESPACE@697..698 " "
+                LPAREN@698..699 "("
+                ARR_PAT@699..706
+                    LSQ_BRACK@699..700 "["
+                    VAR_DECL@700..705
+                        INT_TY@700..703 "int"
+                        WHITESPACE@703..704 " "
+                        NAME@704..705
+                            IDENT@704..705 "k"
+                    RSQ_BRACK@705..706 "]"
+                WHITESPACE@706..707 " "
+                COMMENT@707..714 "/* c */"
+                WHITESPACE@714..715 " "
+                IN_KW@715..717 "in"
+                WHITESPACE@717..718 " "
+                NAME_REF@718..721
+                    IDENT@718..721 "arr"
+                RPAREN@721..722 ")"
+                WHITESPACE@722..723 " "
+                BLOCK_STMT@723..725
+                    LBRACK@723..724 "{"
+                    RBRACK@724..725 "}"
+            WHITESPACE@725..731 "\n\n    "
+            COMMENT@731..773 "// Comment between in keyword and iterable"
+            WHITESPACE@773..778 "\n    "
+            FOR_RANGE_STMT@778..809
+                FOR_KW@778..781 "for"
+                WHITESPACE@781..782 " "
+                LPAREN@782..783 "("
+                ARR_PAT@783..790
+                    LSQ_BRACK@783..784 "["
+                    VAR_DECL@784..789
+                        INT_TY@784..787 "int"
+                        WHITESPACE@787..788 " "
+                        NAME@788..789
+                            IDENT@788..789 "k"
+                    RSQ_BRACK@789..790 "]"
+                WHITESPACE@790..791 " "
+                IN_KW@791..793 "in"
+                WHITESPACE@793..794 " "
+                COMMENT@794..801 "/* c */"
+                WHITESPACE@801..802 " "
+                NAME_REF@802..805
+                    IDENT@802..805 "arr"
+                RPAREN@805..806 ")"
+                WHITESPACE@806..807 " "
+                BLOCK_STMT@807..809
+                    LBRACK@807..808 "{"
+                    RBRACK@808..809 "}"
+            WHITESPACE@809..815 "\n\n    "
+            COMMENT@815..853 "// Comment between iterable and rparen"
+            WHITESPACE@853..858 "\n    "
+            FOR_RANGE_STMT@858..889
+                FOR_KW@858..861 "for"
+                WHITESPACE@861..862 " "
+                LPAREN@862..863 "("
+                ARR_PAT@863..870
+                    LSQ_BRACK@863..864 "["
+                    VAR_DECL@864..869
+                        INT_TY@864..867 "int"
+                        WHITESPACE@867..868 " "
+                        NAME@868..869
+                            IDENT@868..869 "k"
+                    RSQ_BRACK@869..870 "]"
+                WHITESPACE@870..871 " "
+                IN_KW@871..873 "in"
+                WHITESPACE@873..874 " "
+                NAME_REF@874..877
+                    IDENT@874..877 "arr"
+                WHITESPACE@877..878 " "
+                COMMENT@878..885 "/* c */"
+                RPAREN@885..886 ")"
+                WHITESPACE@886..887 " "
+                BLOCK_STMT@887..889
+                    LBRACK@887..888 "{"
+                    RBRACK@888..889 "}"
+            WHITESPACE@889..895 "\n\n    "
+            COMMENT@895..930 "// Comment between rparen and block"
+            WHITESPACE@930..935 "\n    "
+            FOR_RANGE_STMT@935..966
+                FOR_KW@935..938 "for"
+                WHITESPACE@938..939 " "
+                LPAREN@939..940 "("
+                ARR_PAT@940..947
+                    LSQ_BRACK@940..941 "["
+                    VAR_DECL@941..946
+                        INT_TY@941..944 "int"
+                        WHITESPACE@944..945 " "
+                        NAME@945..946
+                            IDENT@945..946 "k"
+                    RSQ_BRACK@946..947 "]"
+                WHITESPACE@947..948 " "
+                IN_KW@948..950 "in"
+                WHITESPACE@950..951 " "
+                NAME_REF@951..954
+                    IDENT@951..954 "arr"
+                RPAREN@954..955 ")"
+                WHITESPACE@955..956 " "
+                COMMENT@956..963 "/* c */"
+                WHITESPACE@963..964 " "
+                BLOCK_STMT@964..966
+                    LBRACK@964..965 "{"
+                    RBRACK@965..966 "}"
+            WHITESPACE@966..972 "\n\n    "
+            COMMENT@972..1008 "// Comments inside the array pattern"
+            WHITESPACE@1008..1013 "\n    "
+            FOR_RANGE_STMT@1013..1044
+                FOR_KW@1013..1016 "for"
+                WHITESPACE@1016..1017 " "
+                LPAREN@1017..1018 "("
+                ARR_PAT@1018..1033
+                    LSQ_BRACK@1018..1019 "["
+                    WHITESPACE@1019..1020 " "
+                    COMMENT@1020..1027 "/* c */"
+                    VAR_DECL@1027..1032
+                        INT_TY@1027..1030 "int"
+                        WHITESPACE@1030..1031 " "
+                        NAME@1031..1032
+                            IDENT@1031..1032 "k"
+                    RSQ_BRACK@1032..1033 "]"
+                WHITESPACE@1033..1034 " "
+                IN_KW@1034..1036 "in"
+                WHITESPACE@1036..1037 " "
+                NAME_REF@1037..1040
+                    IDENT@1037..1040 "arr"
+                RPAREN@1040..1041 ")"
+                WHITESPACE@1041..1042 " "
+                BLOCK_STMT@1042..1044
+                    LBRACK@1042..1043 "{"
+                    RBRACK@1043..1044 "}"
+            WHITESPACE@1044..1049 "\n    "
+            FOR_RANGE_STMT@1049..1080
+                FOR_KW@1049..1052 "for"
+                WHITESPACE@1052..1053 " "
+                LPAREN@1053..1054 "("
+                ARR_PAT@1054..1069
+                    LSQ_BRACK@1054..1055 "["
+                    VAR_DECL@1055..1060
+                        INT_TY@1055..1058 "int"
+                        WHITESPACE@1058..1059 " "
+                        NAME@1059..1060
+                            IDENT@1059..1060 "k"
+                    WHITESPACE@1060..1061 " "
+                    COMMENT@1061..1068 "/* c */"
+                    RSQ_BRACK@1068..1069 "]"
+                WHITESPACE@1069..1070 " "
+                IN_KW@1070..1072 "in"
+                WHITESPACE@1072..1073 " "
+                NAME_REF@1073..1076
+                    IDENT@1073..1076 "arr"
+                RPAREN@1076..1077 ")"
+                WHITESPACE@1077..1078 " "
+                BLOCK_STMT@1078..1080
+                    LBRACK@1078..1079 "{"
+                    RBRACK@1079..1080 "}"
+            WHITESPACE@1080..1086 "\n\n    "
+            COMMENT@1086..1126 "// Comment between pattern type and name"
+            WHITESPACE@1126..1131 "\n    "
+            FOR_RANGE_STMT@1131..1162
+                FOR_KW@1131..1134 "for"
+                WHITESPACE@1134..1135 " "
+                LPAREN@1135..1136 "("
+                ARR_PAT@1136..1151
+                    LSQ_BRACK@1136..1137 "["
+                    VAR_DECL@1137..1150
+                        INT_TY@1137..1140 "int"
+                        WHITESPACE@1140..1141 " "
+                        COMMENT@1141..1148 "/* c */"
+                        WHITESPACE@1148..1149 " "
+                        NAME@1149..1150
+                            IDENT@1149..1150 "k"
+                    RSQ_BRACK@1150..1151 "]"
+                WHITESPACE@1151..1152 " "
+                IN_KW@1152..1154 "in"
+                WHITESPACE@1154..1155 " "
+                NAME_REF@1155..1158
+                    IDENT@1155..1158 "arr"
+                RPAREN@1158..1159 ")"
+                WHITESPACE@1159..1160 " "
+                BLOCK_STMT@1160..1162
+                    LBRACK@1160..1161 "{"
+                    RBRACK@1161..1162 "}"
+            WHITESPACE@1162..1163 "\n"
+            RBRACK@1163..1164 "}"
+    WHITESPACE@1164..1165 "\n"

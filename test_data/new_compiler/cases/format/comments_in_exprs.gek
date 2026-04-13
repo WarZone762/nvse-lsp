@@ -1,0 +1,56 @@
+name comments_in_exprs;
+
+fn () {
+    // === Binary: comment between lhs and op ===
+    int a = x /* c */ + y;
+
+    // === Binary: comment between op and rhs ===
+    int b = x + /* c */ y;
+
+    // === Unary: comment between op and operand ===
+    int c = - /* c */ x;
+    int d = ! /* c */ x;
+
+    // === Postfix: comment between operand and op ===
+    x /* c */++;
+    x /* c */--;
+
+    // === Ternary: comments around all tokens ===
+    int e = a /* c1 */ ? /* c2 */ b /* c3 */ : /* c4 */ c;
+
+    // === Paren: comments inside ===
+    int f = ( /* c */x + y);
+    int g = (x + y /* c */);
+
+    // === Call: comments around arg list ===
+    foo /* c */(x);
+    foo( /* c */x);
+    foo(x /* c */);
+
+    // === Subscript: comments around index ===
+    int h = arr /* c */[0];
+    int i = arr[ /* c */0];
+    int j = arr[0 /* c */];
+
+    // === Field: comments around dot ===
+    int k = obj /* c */.field;
+    int l = obj./* c */field;
+
+    // === Array literal ===
+    array m = [ /* c */1, 2];
+    array n = [1, 2 /* c */];
+
+    // === Map literal ===
+    array o = { /* c */"k"::v};
+    array p = {"k" /* c */::v};
+    array q = {"k":: /* c */v};
+    array r = {"k"::v /* c */};
+
+    // === String interpolation ===
+    string s = "${ /* c */x}";
+    string t = "${x /* c */}";
+
+    // === Nested: comment deep in expression ===
+    int u = (a /* c1 */ + b) * (c /* c2 */ - d);
+    foo(bar /* c */(x), baz[0 /* c */]);
+}

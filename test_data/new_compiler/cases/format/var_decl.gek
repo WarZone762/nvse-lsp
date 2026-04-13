@@ -1,0 +1,49 @@
+name var_decl;
+
+// === Script-level var decls (no export, no init) ===
+int gInt;
+double gDouble;
+float gFloat;
+ref gRef;
+string gString;
+array gArray;
+
+// === Script-level var decls with init ===
+int gWithInit = 42;
+double gDouble2 = 3.14;
+float gFloat2 = 1.5;
+ref gPlayer = player;
+string gMsg = "hello";
+array gArr = [];
+
+// === Statement-level var decls ===
+fn () {
+    // No init
+    int a;
+    ref b;
+    string c;
+
+    // With init
+    int d = 10;
+    string e = "world";
+    array f = [1, 2, 3];
+
+    // Export
+    export int exported = 99;
+    export string exportedStr;
+
+    // Comment between type and name
+    int /* c */ x1;
+
+    // Comment between name and equals
+    int x2 /* c */ = 1;
+
+    // Comment between equals and init expression
+    int x3 = /* c */ 1;
+
+    // Comment between init expression and semicolon
+    int x4 = 1 /* c */;
+
+    // Comment between export keyword and var decl
+    export /* c */ int x5 = 5;
+}

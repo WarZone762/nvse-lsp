@@ -1,0 +1,86 @@
+name expr_call_field_subscript;
+
+fn () {
+    // === Calls ===
+
+    // No args
+    foo();
+
+    // One arg
+    foo(x);
+
+    // Multiple args
+    foo(a, b, c);
+
+    // Nested calls
+    foo(bar(x), baz(y));
+
+    // Method call chain
+    obj.method(a, b);
+
+    // Call on call result
+    foo()(x);
+
+    // Comment between callee and arg list
+    foo /* c */(x);
+
+    // Comment before first arg
+    foo( /* c */x);
+
+    // Comment after last arg
+    foo(x /* c */);
+
+    // Comment between args — only end-of-args comment survives (between-arg comments are dropped)
+    foo(a, b /* c */);
+
+    // === Field access ===
+
+    // Simple
+    int x = obj.field;
+
+    // Chained
+    int y = a.b.c;
+
+    // Call then field
+    int z = foo().field;
+
+    // Comment between lhs and dot
+    int r1 = obj /* c */.field;
+
+    // Comment between dot and field name
+    int r2 = obj./* c */field;
+
+    // === Subscript ===
+
+    // Integer index
+    int s1 = arr[0];
+
+    // Expression index
+    int s2 = arr[i + 1];
+
+    // String key
+    ref s3 = map["key"];
+
+    // Nested subscript
+    int s4 = arr[arr[0]];
+
+    // Comment between lhs and opening bracket
+    int r3 = arr /* c */[0];
+
+    // Comment between opening bracket and index
+    int r4 = arr[ /* c */0];
+
+    // Comment between index and closing bracket
+    int r5 = arr[0 /* c */];
+
+    // === Combined ===
+
+    // Call result subscripted
+    int r6 = foo()[0];
+
+    // Field of subscript result
+    int r7 = arr[0].field;
+
+    // Subscript of field
+    int r8 = obj.arr[0];
+}

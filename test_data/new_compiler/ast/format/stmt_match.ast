@@ -1,0 +1,624 @@
+SCRIPT@0..1826
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..15
+        IDENT@5..15 "stmt_match"
+    SEMICOLON@15..16 ";"
+    WHITESPACE@16..18 "\n\n"
+    FN_DECL_ITEM@18..1825
+        FN_KW@18..20 "fn"
+        WHITESPACE@20..21 " "
+        PARAM_LIST@21..23
+            LPAREN@21..22 "("
+            RPAREN@22..23 ")"
+        WHITESPACE@23..24 " "
+        BLOCK_STMT@24..1825
+            LBRACK@24..25 "{"
+            WHITESPACE@25..30 "\n    "
+            COMMENT@30..51 "// Single literal arm"
+            WHITESPACE@51..56 "\n    "
+            MATCH_STMT@56..89
+                MATCH_KW@56..61 "match"
+                WHITESPACE@61..62 " "
+                LPAREN@62..63 "("
+                NAME_REF@63..64
+                    IDENT@63..64 "x"
+                RPAREN@64..65 ")"
+                WHITESPACE@65..66 " "
+                LBRACK@66..67 "{"
+                WHITESPACE@67..76 "\n        "
+                MATCH_ARM@76..83
+                    LITERAL@76..77
+                        NUMBER@76..77 "1"
+                    WHITESPACE@77..78 " "
+                    RARROW@78..80 "->"
+                    WHITESPACE@80..81 " "
+                    BLOCK_STMT@81..83
+                        LBRACK@81..82 "{"
+                        RBRACK@82..83 "}"
+                WHITESPACE@83..88 "\n    "
+                RBRACK@88..89 "}"
+            WHITESPACE@89..95 "\n\n    "
+            COMMENT@95..119 "// Multiple literal arms"
+            WHITESPACE@119..124 "\n    "
+            MATCH_STMT@124..189
+                MATCH_KW@124..129 "match"
+                WHITESPACE@129..130 " "
+                LPAREN@130..131 "("
+                NAME_REF@131..132
+                    IDENT@131..132 "x"
+                RPAREN@132..133 ")"
+                WHITESPACE@133..134 " "
+                LBRACK@134..135 "{"
+                WHITESPACE@135..144 "\n        "
+                MATCH_ARM@144..151
+                    LITERAL@144..145
+                        NUMBER@144..145 "1"
+                    WHITESPACE@145..146 " "
+                    RARROW@146..148 "->"
+                    WHITESPACE@148..149 " "
+                    BLOCK_STMT@149..151
+                        LBRACK@149..150 "{"
+                        RBRACK@150..151 "}"
+                WHITESPACE@151..160 "\n        "
+                MATCH_ARM@160..167
+                    LITERAL@160..161
+                        NUMBER@160..161 "2"
+                    WHITESPACE@161..162 " "
+                    RARROW@162..164 "->"
+                    WHITESPACE@164..165 " "
+                    BLOCK_STMT@165..167
+                        LBRACK@165..166 "{"
+                        RBRACK@166..167 "}"
+                WHITESPACE@167..176 "\n        "
+                MATCH_ARM@176..183
+                    LITERAL@176..177
+                        NUMBER@176..177 "3"
+                    WHITESPACE@177..178 " "
+                    RARROW@178..180 "->"
+                    WHITESPACE@180..181 " "
+                    BLOCK_STMT@181..183
+                        LBRACK@181..182 "{"
+                        RBRACK@182..183 "}"
+                WHITESPACE@183..188 "\n    "
+                RBRACK@188..189 "}"
+            WHITESPACE@189..195 "\n\n    "
+            COMMENT@195..207 "// Bool arms"
+            WHITESPACE@207..212 "\n    "
+            MATCH_STMT@212..271
+                MATCH_KW@212..217 "match"
+                WHITESPACE@217..218 " "
+                LPAREN@218..219 "("
+                NAME_REF@219..223
+                    IDENT@219..223 "flag"
+                RPAREN@223..224 ")"
+                WHITESPACE@224..225 " "
+                LBRACK@225..226 "{"
+                WHITESPACE@226..235 "\n        "
+                MATCH_ARM@235..245
+                    LITERAL@235..239
+                        BOOL@235..239 "true"
+                    WHITESPACE@239..240 " "
+                    RARROW@240..242 "->"
+                    WHITESPACE@242..243 " "
+                    BLOCK_STMT@243..245
+                        LBRACK@243..244 "{"
+                        RBRACK@244..245 "}"
+                WHITESPACE@245..254 "\n        "
+                MATCH_ARM@254..265
+                    LITERAL@254..259
+                        BOOL@254..259 "false"
+                    WHITESPACE@259..260 " "
+                    RARROW@260..262 "->"
+                    WHITESPACE@262..263 " "
+                    BLOCK_STMT@263..265
+                        LBRACK@263..264 "{"
+                        RBRACK@264..265 "}"
+                WHITESPACE@265..270 "\n    "
+                RBRACK@270..271 "}"
+            WHITESPACE@271..277 "\n\n    "
+            COMMENT@277..291 "// String arms"
+            WHITESPACE@291..296 "\n    "
+            MATCH_STMT@296..355
+                MATCH_KW@296..301 "match"
+                WHITESPACE@301..302 " "
+                LPAREN@302..303 "("
+                NAME_REF@303..304
+                    IDENT@303..304 "s"
+                RPAREN@304..305 ")"
+                WHITESPACE@305..306 " "
+                LBRACK@306..307 "{"
+                WHITESPACE@307..316 "\n        "
+                MATCH_ARM@316..329
+                    STR_EXPR@316..323
+                        QUOTE_DOUBLE@316..317 "\""
+                        STR_SHARD_LITERAL@317..322
+                            STR_SHARD@317..322 "hello"
+                        QUOTE_DOUBLE@322..323 "\""
+                    WHITESPACE@323..324 " "
+                    RARROW@324..326 "->"
+                    WHITESPACE@326..327 " "
+                    BLOCK_STMT@327..329
+                        LBRACK@327..328 "{"
+                        RBRACK@328..329 "}"
+                WHITESPACE@329..338 "\n        "
+                MATCH_ARM@338..349
+                    STR_EXPR@338..343
+                        QUOTE_DOUBLE@338..339 "\""
+                        STR_SHARD_LITERAL@339..342
+                            STR_SHARD@339..342 "bye"
+                        QUOTE_DOUBLE@342..343 "\""
+                    WHITESPACE@343..344 " "
+                    RARROW@344..346 "->"
+                    WHITESPACE@346..347 " "
+                    BLOCK_STMT@347..349
+                        LBRACK@347..348 "{"
+                        RBRACK@348..349 "}"
+                WHITESPACE@349..354 "\n    "
+                RBRACK@354..355 "}"
+            WHITESPACE@355..361 "\n\n    "
+            COMMENT@361..388 "// Var-decl binding pattern"
+            WHITESPACE@388..393 "\n    "
+            MATCH_STMT@393..430
+                MATCH_KW@393..398 "match"
+                WHITESPACE@398..399 " "
+                LPAREN@399..400 "("
+                NAME_REF@400..401
+                    IDENT@400..401 "x"
+                RPAREN@401..402 ")"
+                WHITESPACE@402..403 " "
+                LBRACK@403..404 "{"
+                WHITESPACE@404..413 "\n        "
+                MATCH_ARM@413..424
+                    VAR_DECL@413..418
+                        INT_TY@413..416 "int"
+                        WHITESPACE@416..417 " "
+                        NAME@417..418
+                            IDENT@417..418 "n"
+                    WHITESPACE@418..419 " "
+                    RARROW@419..421 "->"
+                    WHITESPACE@421..422 " "
+                    BLOCK_STMT@422..424
+                        LBRACK@422..423 "{"
+                        RBRACK@423..424 "}"
+                WHITESPACE@424..429 "\n    "
+                RBRACK@429..430 "}"
+            WHITESPACE@430..436 "\n\n    "
+            COMMENT@436..466 "// Array destructuring pattern"
+            WHITESPACE@466..471 "\n    "
+            MATCH_STMT@471..517
+                MATCH_KW@471..476 "match"
+                WHITESPACE@476..477 " "
+                LPAREN@477..478 "("
+                NAME_REF@478..479
+                    IDENT@478..479 "x"
+                RPAREN@479..480 ")"
+                WHITESPACE@480..481 " "
+                LBRACK@481..482 "{"
+                WHITESPACE@482..491 "\n        "
+                MATCH_ARM@491..511
+                    ARR_PAT@491..505
+                        LSQ_BRACK@491..492 "["
+                        VAR_DECL@492..497
+                            INT_TY@492..495 "int"
+                            WHITESPACE@495..496 " "
+                            NAME@496..497
+                                IDENT@496..497 "a"
+                        COMMA@497..498 ","
+                        WHITESPACE@498..499 " "
+                        VAR_DECL@499..504
+                            INT_TY@499..502 "int"
+                            WHITESPACE@502..503 " "
+                            NAME@503..504
+                                IDENT@503..504 "b"
+                        RSQ_BRACK@504..505 "]"
+                    WHITESPACE@505..506 " "
+                    RARROW@506..508 "->"
+                    WHITESPACE@508..509 " "
+                    BLOCK_STMT@509..511
+                        LBRACK@509..510 "{"
+                        RBRACK@510..511 "}"
+                WHITESPACE@511..516 "\n    "
+                RBRACK@516..517 "}"
+            WHITESPACE@517..523 "\n\n    "
+            COMMENT@523..542 "// Arms with bodies"
+            WHITESPACE@542..547 "\n    "
+            MATCH_STMT@547..698
+                MATCH_KW@547..552 "match"
+                WHITESPACE@552..553 " "
+                LPAREN@553..554 "("
+                NAME_REF@554..555
+                    IDENT@554..555 "x"
+                RPAREN@555..556 ")"
+                WHITESPACE@556..557 " "
+                LBRACK@557..558 "{"
+                WHITESPACE@558..567 "\n        "
+                MATCH_ARM@567..639
+                    LITERAL@567..568
+                        NUMBER@567..568 "1"
+                    WHITESPACE@568..569 " "
+                    RARROW@569..571 "->"
+                    WHITESPACE@571..572 " "
+                    BLOCK_STMT@572..639
+                        LBRACK@572..573 "{"
+                        WHITESPACE@573..586 "\n            "
+                        VAR_DECL_STMT@586..602
+                            VAR_DECL@586..601
+                                INT_TY@586..589 "int"
+                                WHITESPACE@589..590 " "
+                                NAME@590..593
+                                    IDENT@590..593 "tmp"
+                                WHITESPACE@593..594 " "
+                                EQ@594..595 "="
+                                WHITESPACE@595..596 " "
+                                BIN_EXPR@596..601
+                                    NAME_REF@596..597
+                                        IDENT@596..597 "x"
+                                    WHITESPACE@597..598 " "
+                                    PLUS@598..599 "+"
+                                    WHITESPACE@599..600 " "
+                                    LITERAL@600..601
+                                        NUMBER@600..601 "1"
+                            SEMICOLON@601..602 ";"
+                        WHITESPACE@602..615 "\n            "
+                        EXPR_STMT@615..629
+                            CALL_EXPR@615..628
+                                NAME_REF@615..622
+                                    IDENT@615..622 "Message"
+                                ARG_LIST@622..628
+                                    LPAREN@622..623 "("
+                                    UNARY_EXPR@623..627
+                                        DOLLAR@623..624 "$"
+                                        NAME_REF@624..627
+                                            IDENT@624..627 "tmp"
+                                    RPAREN@627..628 ")"
+                            SEMICOLON@628..629 ";"
+                        WHITESPACE@629..638 "\n        "
+                        RBRACK@638..639 "}"
+                WHITESPACE@639..648 "\n        "
+                MATCH_ARM@648..692
+                    LITERAL@648..649
+                        NUMBER@648..649 "2"
+                    WHITESPACE@649..650 " "
+                    RARROW@650..652 "->"
+                    WHITESPACE@652..653 " "
+                    BLOCK_STMT@653..692
+                        LBRACK@653..654 "{"
+                        WHITESPACE@654..667 "\n            "
+                        EXPR_STMT@667..682
+                            CALL_EXPR@667..681
+                                NAME_REF@667..674
+                                    IDENT@667..674 "Message"
+                                ARG_LIST@674..681
+                                    LPAREN@674..675 "("
+                                    STR_EXPR@675..680
+                                        QUOTE_DOUBLE@675..676 "\""
+                                        STR_SHARD_LITERAL@676..679
+                                            STR_SHARD@676..679 "two"
+                                        QUOTE_DOUBLE@679..680 "\""
+                                    RPAREN@680..681 ")"
+                            SEMICOLON@681..682 ";"
+                        WHITESPACE@682..691 "\n        "
+                        RBRACK@691..692 "}"
+                WHITESPACE@692..697 "\n    "
+                RBRACK@697..698 "}"
+            WHITESPACE@698..704 "\n\n    "
+            COMMENT@704..747 "// Comment between match keyword and lparen"
+            WHITESPACE@747..752 "\n    "
+            MATCH_STMT@752..793
+                MATCH_KW@752..757 "match"
+                WHITESPACE@757..758 " "
+                COMMENT@758..765 "/* c */"
+                WHITESPACE@765..766 " "
+                LPAREN@766..767 "("
+                NAME_REF@767..768
+                    IDENT@767..768 "x"
+                RPAREN@768..769 ")"
+                WHITESPACE@769..770 " "
+                LBRACK@770..771 "{"
+                WHITESPACE@771..780 "\n        "
+                MATCH_ARM@780..787
+                    LITERAL@780..781
+                        NUMBER@780..781 "1"
+                    WHITESPACE@781..782 " "
+                    RARROW@782..784 "->"
+                    WHITESPACE@784..785 " "
+                    BLOCK_STMT@785..787
+                        LBRACK@785..786 "{"
+                        RBRACK@786..787 "}"
+                WHITESPACE@787..792 "\n    "
+                RBRACK@792..793 "}"
+            WHITESPACE@793..799 "\n\n    "
+            COMMENT@799..833 "// Comment between lparen and expr"
+            WHITESPACE@833..838 "\n    "
+            MATCH_STMT@838..879
+                MATCH_KW@838..843 "match"
+                WHITESPACE@843..844 " "
+                LPAREN@844..845 "("
+                WHITESPACE@845..846 " "
+                COMMENT@846..853 "/* c */"
+                NAME_REF@853..854
+                    IDENT@853..854 "x"
+                RPAREN@854..855 ")"
+                WHITESPACE@855..856 " "
+                LBRACK@856..857 "{"
+                WHITESPACE@857..866 "\n        "
+                MATCH_ARM@866..873
+                    LITERAL@866..867
+                        NUMBER@866..867 "1"
+                    WHITESPACE@867..868 " "
+                    RARROW@868..870 "->"
+                    WHITESPACE@870..871 " "
+                    BLOCK_STMT@871..873
+                        LBRACK@871..872 "{"
+                        RBRACK@872..873 "}"
+                WHITESPACE@873..878 "\n    "
+                RBRACK@878..879 "}"
+            WHITESPACE@879..885 "\n\n    "
+            COMMENT@885..919 "// Comment between expr and rparen"
+            WHITESPACE@919..924 "\n    "
+            MATCH_STMT@924..965
+                MATCH_KW@924..929 "match"
+                WHITESPACE@929..930 " "
+                LPAREN@930..931 "("
+                NAME_REF@931..932
+                    IDENT@931..932 "x"
+                WHITESPACE@932..933 " "
+                COMMENT@933..940 "/* c */"
+                RPAREN@940..941 ")"
+                WHITESPACE@941..942 " "
+                LBRACK@942..943 "{"
+                WHITESPACE@943..952 "\n        "
+                MATCH_ARM@952..959
+                    LITERAL@952..953
+                        NUMBER@952..953 "1"
+                    WHITESPACE@953..954 " "
+                    RARROW@954..956 "->"
+                    WHITESPACE@956..957 " "
+                    BLOCK_STMT@957..959
+                        LBRACK@957..958 "{"
+                        RBRACK@958..959 "}"
+                WHITESPACE@959..964 "\n    "
+                RBRACK@964..965 "}"
+            WHITESPACE@965..971 "\n\n    "
+            COMMENT@971..1007 "// Comment between rparen and lbrace"
+            WHITESPACE@1007..1012 "\n    "
+            MATCH_STMT@1012..1053
+                MATCH_KW@1012..1017 "match"
+                WHITESPACE@1017..1018 " "
+                LPAREN@1018..1019 "("
+                NAME_REF@1019..1020
+                    IDENT@1019..1020 "x"
+                RPAREN@1020..1021 ")"
+                WHITESPACE@1021..1022 " "
+                COMMENT@1022..1029 "/* c */"
+                WHITESPACE@1029..1030 " "
+                LBRACK@1030..1031 "{"
+                WHITESPACE@1031..1040 "\n        "
+                MATCH_ARM@1040..1047
+                    LITERAL@1040..1041
+                        NUMBER@1040..1041 "1"
+                    WHITESPACE@1041..1042 " "
+                    RARROW@1042..1044 "->"
+                    WHITESPACE@1044..1045 " "
+                    BLOCK_STMT@1045..1047
+                        LBRACK@1045..1046 "{"
+                        RBRACK@1046..1047 "}"
+                WHITESPACE@1047..1052 "\n    "
+                RBRACK@1052..1053 "}"
+            WHITESPACE@1053..1059 "\n\n    "
+            COMMENT@1059..1098 "// Comment between lbrace and first arm"
+            WHITESPACE@1098..1103 "\n    "
+            MATCH_STMT@1103..1164
+                MATCH_KW@1103..1108 "match"
+                WHITESPACE@1108..1109 " "
+                LPAREN@1109..1110 "("
+                NAME_REF@1110..1111
+                    IDENT@1110..1111 "x"
+                RPAREN@1111..1112 ")"
+                WHITESPACE@1112..1113 " "
+                LBRACK@1113..1114 "{"
+                WHITESPACE@1114..1123 "\n        "
+                COMMENT@1123..1142 "// before first arm"
+                WHITESPACE@1142..1151 "\n        "
+                MATCH_ARM@1151..1158
+                    LITERAL@1151..1152
+                        NUMBER@1151..1152 "1"
+                    WHITESPACE@1152..1153 " "
+                    RARROW@1153..1155 "->"
+                    WHITESPACE@1155..1156 " "
+                    BLOCK_STMT@1156..1158
+                        LBRACK@1156..1157 "{"
+                        RBRACK@1157..1158 "}"
+                WHITESPACE@1158..1163 "\n    "
+                RBRACK@1163..1164 "}"
+            WHITESPACE@1164..1170 "\n\n    "
+            COMMENT@1170..1193 "// Comment between arms"
+            WHITESPACE@1193..1198 "\n    "
+            MATCH_STMT@1198..1271
+                MATCH_KW@1198..1203 "match"
+                WHITESPACE@1203..1204 " "
+                LPAREN@1204..1205 "("
+                NAME_REF@1205..1206
+                    IDENT@1205..1206 "x"
+                RPAREN@1206..1207 ")"
+                WHITESPACE@1207..1208 " "
+                LBRACK@1208..1209 "{"
+                WHITESPACE@1209..1218 "\n        "
+                MATCH_ARM@1218..1225
+                    LITERAL@1218..1219
+                        NUMBER@1218..1219 "1"
+                    WHITESPACE@1219..1220 " "
+                    RARROW@1220..1222 "->"
+                    WHITESPACE@1222..1223 " "
+                    BLOCK_STMT@1223..1225
+                        LBRACK@1223..1224 "{"
+                        RBRACK@1224..1225 "}"
+                WHITESPACE@1225..1234 "\n        "
+                COMMENT@1234..1249 "// between arms"
+                WHITESPACE@1249..1258 "\n        "
+                MATCH_ARM@1258..1265
+                    LITERAL@1258..1259
+                        NUMBER@1258..1259 "2"
+                    WHITESPACE@1259..1260 " "
+                    RARROW@1260..1262 "->"
+                    WHITESPACE@1262..1263 " "
+                    BLOCK_STMT@1263..1265
+                        LBRACK@1263..1264 "{"
+                        RBRACK@1264..1265 "}"
+                WHITESPACE@1265..1270 "\n    "
+                RBRACK@1270..1271 "}"
+            WHITESPACE@1271..1277 "\n\n    "
+            COMMENT@1277..1315 "// Comment between last arm and rbrace"
+            WHITESPACE@1315..1320 "\n    "
+            MATCH_STMT@1320..1379
+                MATCH_KW@1320..1325 "match"
+                WHITESPACE@1325..1326 " "
+                LPAREN@1326..1327 "("
+                NAME_REF@1327..1328
+                    IDENT@1327..1328 "x"
+                RPAREN@1328..1329 ")"
+                WHITESPACE@1329..1330 " "
+                LBRACK@1330..1331 "{"
+                WHITESPACE@1331..1340 "\n        "
+                MATCH_ARM@1340..1347
+                    LITERAL@1340..1341
+                        NUMBER@1340..1341 "1"
+                    WHITESPACE@1341..1342 " "
+                    RARROW@1342..1344 "->"
+                    WHITESPACE@1344..1345 " "
+                    BLOCK_STMT@1345..1347
+                        LBRACK@1345..1346 "{"
+                        RBRACK@1346..1347 "}"
+                WHITESPACE@1347..1356 "\n        "
+                COMMENT@1356..1373 "// after last arm"
+                WHITESPACE@1373..1378 "\n    "
+                RBRACK@1378..1379 "}"
+            WHITESPACE@1379..1385 "\n\n    "
+            COMMENT@1385..1421 "// Comment between pattern and arrow"
+            WHITESPACE@1421..1426 "\n    "
+            MATCH_STMT@1426..1467
+                MATCH_KW@1426..1431 "match"
+                WHITESPACE@1431..1432 " "
+                LPAREN@1432..1433 "("
+                NAME_REF@1433..1434
+                    IDENT@1433..1434 "x"
+                RPAREN@1434..1435 ")"
+                WHITESPACE@1435..1436 " "
+                LBRACK@1436..1437 "{"
+                WHITESPACE@1437..1446 "\n        "
+                MATCH_ARM@1446..1461
+                    LITERAL@1446..1447
+                        NUMBER@1446..1447 "1"
+                    WHITESPACE@1447..1448 " "
+                    COMMENT@1448..1455 "/* c */"
+                    WHITESPACE@1455..1456 " "
+                    RARROW@1456..1458 "->"
+                    WHITESPACE@1458..1459 " "
+                    BLOCK_STMT@1459..1461
+                        LBRACK@1459..1460 "{"
+                        RBRACK@1460..1461 "}"
+                WHITESPACE@1461..1466 "\n    "
+                RBRACK@1466..1467 "}"
+            WHITESPACE@1467..1473 "\n\n    "
+            COMMENT@1473..1507 "// Comment between arrow and block"
+            WHITESPACE@1507..1512 "\n    "
+            MATCH_STMT@1512..1553
+                MATCH_KW@1512..1517 "match"
+                WHITESPACE@1517..1518 " "
+                LPAREN@1518..1519 "("
+                NAME_REF@1519..1520
+                    IDENT@1519..1520 "x"
+                RPAREN@1520..1521 ")"
+                WHITESPACE@1521..1522 " "
+                LBRACK@1522..1523 "{"
+                WHITESPACE@1523..1532 "\n        "
+                MATCH_ARM@1532..1547
+                    LITERAL@1532..1533
+                        NUMBER@1532..1533 "1"
+                    WHITESPACE@1533..1534 " "
+                    RARROW@1534..1536 "->"
+                    WHITESPACE@1536..1537 " "
+                    COMMENT@1537..1544 "/* c */"
+                    WHITESPACE@1544..1545 " "
+                    BLOCK_STMT@1545..1547
+                        LBRACK@1545..1546 "{"
+                        RBRACK@1546..1547 "}"
+                WHITESPACE@1547..1552 "\n    "
+                RBRACK@1552..1553 "}"
+            WHITESPACE@1553..1559 "\n\n    "
+            COMMENT@1559..1603 "// Comments inside arm block (between stmts)"
+            WHITESPACE@1603..1608 "\n    "
+            MATCH_STMT@1608..1736
+                MATCH_KW@1608..1613 "match"
+                WHITESPACE@1613..1614 " "
+                LPAREN@1614..1615 "("
+                NAME_REF@1615..1616
+                    IDENT@1615..1616 "x"
+                RPAREN@1616..1617 ")"
+                WHITESPACE@1617..1618 " "
+                LBRACK@1618..1619 "{"
+                WHITESPACE@1619..1628 "\n        "
+                MATCH_ARM@1628..1730
+                    LITERAL@1628..1629
+                        NUMBER@1628..1629 "1"
+                    WHITESPACE@1629..1630 " "
+                    RARROW@1630..1632 "->"
+                    WHITESPACE@1632..1633 " "
+                    BLOCK_STMT@1633..1730
+                        LBRACK@1633..1634 "{"
+                        WHITESPACE@1634..1647 "\n            "
+                        COMMENT@1647..1661 "// before stmt"
+                        WHITESPACE@1661..1674 "\n            "
+                        EXPR_STMT@1674..1676
+                            NAME_REF@1674..1675
+                                IDENT@1674..1675 "a"
+                            SEMICOLON@1675..1676 ";"
+                        WHITESPACE@1676..1689 "\n            "
+                        COMMENT@1689..1705 "// between stmts"
+                        WHITESPACE@1705..1718 "\n            "
+                        EXPR_STMT@1718..1720
+                            NAME_REF@1718..1719
+                                IDENT@1718..1719 "b"
+                            SEMICOLON@1719..1720 ";"
+                        WHITESPACE@1720..1729 "\n        "
+                        RBRACK@1729..1730 "}"
+                WHITESPACE@1730..1735 "\n    "
+                RBRACK@1735..1736 "}"
+            WHITESPACE@1736..1742 "\n\n    "
+            COMMENT@1742..1768 "// Blank line between arms"
+            WHITESPACE@1768..1773 "\n    "
+            MATCH_STMT@1773..1823
+                MATCH_KW@1773..1778 "match"
+                WHITESPACE@1778..1779 " "
+                LPAREN@1779..1780 "("
+                NAME_REF@1780..1781
+                    IDENT@1780..1781 "x"
+                RPAREN@1781..1782 ")"
+                WHITESPACE@1782..1783 " "
+                LBRACK@1783..1784 "{"
+                WHITESPACE@1784..1793 "\n        "
+                MATCH_ARM@1793..1800
+                    LITERAL@1793..1794
+                        NUMBER@1793..1794 "1"
+                    WHITESPACE@1794..1795 " "
+                    RARROW@1795..1797 "->"
+                    WHITESPACE@1797..1798 " "
+                    BLOCK_STMT@1798..1800
+                        LBRACK@1798..1799 "{"
+                        RBRACK@1799..1800 "}"
+                WHITESPACE@1800..1810 "\n\n        "
+                MATCH_ARM@1810..1817
+                    LITERAL@1810..1811
+                        NUMBER@1810..1811 "2"
+                    WHITESPACE@1811..1812 " "
+                    RARROW@1812..1814 "->"
+                    WHITESPACE@1814..1815 " "
+                    BLOCK_STMT@1815..1817
+                        LBRACK@1815..1816 "{"
+                        RBRACK@1816..1817 "}"
+                WHITESPACE@1817..1822 "\n    "
+                RBRACK@1822..1823 "}"
+            WHITESPACE@1823..1824 "\n"
+            RBRACK@1824..1825 "}"
+    WHITESPACE@1825..1826 "\n"

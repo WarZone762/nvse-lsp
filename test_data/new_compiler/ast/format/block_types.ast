@@ -1,0 +1,398 @@
+SCRIPT@0..1105
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..16
+        IDENT@5..16 "block_types"
+    SEMICOLON@16..17 ";"
+    WHITESPACE@17..19 "\n\n"
+    COMMENT@19..55 "// All supported block type keywords"
+    WHITESPACE@55..57 "\n\n"
+    BLOCK_TYPE_ITEM@57..68
+        BLOCK_TYPE@57..65 "GameMode"
+        WHITESPACE@65..66 " "
+        BLOCK_STMT@66..68
+            LBRACK@66..67 "{"
+            RBRACK@67..68 "}"
+    WHITESPACE@68..70 "\n\n"
+    BLOCK_TYPE_ITEM@70..81
+        BLOCK_TYPE@70..78 "MenuMode"
+        WHITESPACE@78..79 " "
+        BLOCK_STMT@79..81
+            LBRACK@79..80 "{"
+            RBRACK@80..81 "}"
+    WHITESPACE@81..83 "\n\n"
+    BLOCK_TYPE_ITEM@83..96
+        BLOCK_TYPE@83..93 "OnActivate"
+        WHITESPACE@93..94 " "
+        BLOCK_STMT@94..96
+            LBRACK@94..95 "{"
+            RBRACK@95..96 "}"
+    WHITESPACE@96..98 "\n\n"
+    BLOCK_TYPE_ITEM@98..113
+        BLOCK_TYPE@98..110 "OnActorEquip"
+        WHITESPACE@110..111 " "
+        BLOCK_STMT@111..113
+            LBRACK@111..112 "{"
+            RBRACK@112..113 "}"
+    WHITESPACE@113..115 "\n\n"
+    BLOCK_TYPE_ITEM@115..132
+        BLOCK_TYPE@115..129 "OnActorUnequip"
+        WHITESPACE@129..130 " "
+        BLOCK_STMT@130..132
+            LBRACK@130..131 "{"
+            RBRACK@131..132 "}"
+    WHITESPACE@132..134 "\n\n"
+    BLOCK_TYPE_ITEM@134..142
+        BLOCK_TYPE@134..139 "OnAdd"
+        WHITESPACE@139..140 " "
+        BLOCK_STMT@140..142
+            LBRACK@140..141 "{"
+            RBRACK@141..142 "}"
+    WHITESPACE@142..144 "\n\n"
+    BLOCK_TYPE_ITEM@144..154
+        BLOCK_TYPE@144..151 "OnClose"
+        WHITESPACE@151..152 " "
+        BLOCK_STMT@152..154
+            LBRACK@152..153 "{"
+            RBRACK@153..154 "}"
+    WHITESPACE@154..156 "\n\n"
+    BLOCK_TYPE_ITEM@156..170
+        BLOCK_TYPE@156..167 "OnCombatEnd"
+        WHITESPACE@167..168 " "
+        BLOCK_STMT@168..170
+            LBRACK@168..169 "{"
+            RBRACK@169..170 "}"
+    WHITESPACE@170..172 "\n\n"
+    BLOCK_TYPE_ITEM@172..182
+        BLOCK_TYPE@172..179 "OnDeath"
+        WHITESPACE@179..180 " "
+        BLOCK_STMT@180..182
+            LBRACK@180..181 "{"
+            RBRACK@181..182 "}"
+    WHITESPACE@182..184 "\n\n"
+    BLOCK_TYPE_ITEM@184..211
+        BLOCK_TYPE@184..208 "OnDestructionStageChange"
+        WHITESPACE@208..209 " "
+        BLOCK_STMT@209..211
+            LBRACK@209..210 "{"
+            RBRACK@210..211 "}"
+    WHITESPACE@211..213 "\n\n"
+    BLOCK_TYPE_ITEM@213..222
+        BLOCK_TYPE@213..219 "OnDrop"
+        WHITESPACE@219..220 " "
+        BLOCK_STMT@220..222
+            LBRACK@220..221 "{"
+            RBRACK@221..222 "}"
+    WHITESPACE@222..224 "\n\n"
+    BLOCK_TYPE_ITEM@224..234
+        BLOCK_TYPE@224..231 "OnEquip"
+        WHITESPACE@231..232 " "
+        BLOCK_STMT@232..234
+            LBRACK@232..233 "{"
+            RBRACK@233..234 "}"
+    WHITESPACE@234..236 "\n\n"
+    BLOCK_TYPE_ITEM@236..245
+        BLOCK_TYPE@236..242 "OnFire"
+        WHITESPACE@242..243 " "
+        BLOCK_STMT@243..245
+            LBRACK@243..244 "{"
+            RBRACK@244..245 "}"
+    WHITESPACE@245..247 "\n\n"
+    BLOCK_TYPE_ITEM@247..256
+        BLOCK_TYPE@247..253 "OnGrab"
+        WHITESPACE@253..254 " "
+        BLOCK_STMT@254..256
+            LBRACK@254..255 "{"
+            RBRACK@255..256 "}"
+    WHITESPACE@256..258 "\n\n"
+    BLOCK_TYPE_ITEM@258..266
+        BLOCK_TYPE@258..263 "OnHit"
+        WHITESPACE@263..264 " "
+        BLOCK_STMT@264..266
+            LBRACK@264..265 "{"
+            RBRACK@265..266 "}"
+    WHITESPACE@266..268 "\n\n"
+    BLOCK_TYPE_ITEM@268..280
+        BLOCK_TYPE@268..277 "OnHitWith"
+        WHITESPACE@277..278 " "
+        BLOCK_STMT@278..280
+            LBRACK@278..279 "{"
+            RBRACK@279..280 "}"
+    WHITESPACE@280..282 "\n\n"
+    BLOCK_TYPE_ITEM@282..291
+        BLOCK_TYPE@282..288 "OnLoad"
+        WHITESPACE@288..289 " "
+        BLOCK_STMT@289..291
+            LBRACK@289..290 "{"
+            RBRACK@290..291 "}"
+    WHITESPACE@291..293 "\n\n"
+    BLOCK_TYPE_ITEM@293..312
+        BLOCK_TYPE@293..309 "OnMagicEffectHit"
+        WHITESPACE@309..310 " "
+        BLOCK_STMT@310..312
+            LBRACK@310..311 "{"
+            RBRACK@311..312 "}"
+    WHITESPACE@312..314 "\n\n"
+    BLOCK_TYPE_ITEM@314..325
+        BLOCK_TYPE@314..322 "OnMurder"
+        WHITESPACE@322..323 " "
+        BLOCK_STMT@323..325
+            LBRACK@323..324 "{"
+            RBRACK@324..325 "}"
+    WHITESPACE@325..327 "\n\n"
+    BLOCK_TYPE_ITEM@327..343
+        BLOCK_TYPE@327..340 "OnNPCActivate"
+        WHITESPACE@340..341 " "
+        BLOCK_STMT@341..343
+            LBRACK@341..342 "{"
+            RBRACK@342..343 "}"
+    WHITESPACE@343..345 "\n\n"
+    BLOCK_TYPE_ITEM@345..354
+        BLOCK_TYPE@345..351 "OnOpen"
+        WHITESPACE@351..352 " "
+        BLOCK_STMT@352..354
+            LBRACK@352..353 "{"
+            RBRACK@353..354 "}"
+    WHITESPACE@354..356 "\n\n"
+    BLOCK_TYPE_ITEM@356..374
+        BLOCK_TYPE@356..371 "OnPackageChange"
+        WHITESPACE@371..372 " "
+        BLOCK_STMT@372..374
+            LBRACK@372..373 "{"
+            RBRACK@373..374 "}"
+    WHITESPACE@374..376 "\n\n"
+    BLOCK_TYPE_ITEM@376..392
+        BLOCK_TYPE@376..389 "OnPackageDone"
+        WHITESPACE@389..390 " "
+        BLOCK_STMT@390..392
+            LBRACK@390..391 "{"
+            RBRACK@391..392 "}"
+    WHITESPACE@392..394 "\n\n"
+    BLOCK_TYPE_ITEM@394..411
+        BLOCK_TYPE@394..408 "OnPackageStart"
+        WHITESPACE@408..409 " "
+        BLOCK_STMT@409..411
+            LBRACK@409..410 "{"
+            RBRACK@410..411 "}"
+    WHITESPACE@411..413 "\n\n"
+    BLOCK_TYPE_ITEM@413..425
+        BLOCK_TYPE@413..422 "OnRelease"
+        WHITESPACE@422..423 " "
+        BLOCK_STMT@423..425
+            LBRACK@423..424 "{"
+            RBRACK@424..425 "}"
+    WHITESPACE@425..427 "\n\n"
+    BLOCK_TYPE_ITEM@427..437
+        BLOCK_TYPE@427..434 "OnReset"
+        WHITESPACE@434..435 " "
+        BLOCK_STMT@435..437
+            LBRACK@435..436 "{"
+            RBRACK@436..437 "}"
+    WHITESPACE@437..439 "\n\n"
+    BLOCK_TYPE_ITEM@439..448
+        BLOCK_TYPE@439..445 "OnSell"
+        WHITESPACE@445..446 " "
+        BLOCK_STMT@446..448
+            LBRACK@446..447 "{"
+            RBRACK@447..448 "}"
+    WHITESPACE@448..450 "\n\n"
+    BLOCK_TYPE_ITEM@450..466
+        BLOCK_TYPE@450..463 "OnStartCombat"
+        WHITESPACE@463..464 " "
+        BLOCK_STMT@464..466
+            LBRACK@464..465 "{"
+            RBRACK@465..466 "}"
+    WHITESPACE@466..468 "\n\n"
+    BLOCK_TYPE_ITEM@468..480
+        BLOCK_TYPE@468..477 "OnTrigger"
+        WHITESPACE@477..478 " "
+        BLOCK_STMT@478..480
+            LBRACK@478..479 "{"
+            RBRACK@479..480 "}"
+    WHITESPACE@480..482 "\n\n"
+    BLOCK_TYPE_ITEM@482..499
+        BLOCK_TYPE@482..496 "OnTriggerEnter"
+        WHITESPACE@496..497 " "
+        BLOCK_STMT@497..499
+            LBRACK@497..498 "{"
+            RBRACK@498..499 "}"
+    WHITESPACE@499..501 "\n\n"
+    BLOCK_TYPE_ITEM@501..518
+        BLOCK_TYPE@501..515 "OnTriggerLeave"
+        WHITESPACE@515..516 " "
+        BLOCK_STMT@516..518
+            LBRACK@516..517 "{"
+            RBRACK@517..518 "}"
+    WHITESPACE@518..520 "\n\n"
+    BLOCK_TYPE_ITEM@520..532
+        BLOCK_TYPE@520..529 "OnUnequip"
+        WHITESPACE@529..530 " "
+        BLOCK_STMT@530..532
+            LBRACK@530..531 "{"
+            RBRACK@531..532 "}"
+    WHITESPACE@532..534 "\n\n"
+    BLOCK_TYPE_ITEM@534..546
+        BLOCK_TYPE@534..543 "SayToDone"
+        WHITESPACE@543..544 " "
+        BLOCK_STMT@544..546
+            LBRACK@544..545 "{"
+            RBRACK@545..546 "}"
+    WHITESPACE@546..548 "\n\n"
+    BLOCK_TYPE_ITEM@548..569
+        BLOCK_TYPE@548..566 "ScriptEffectFinish"
+        WHITESPACE@566..567 " "
+        BLOCK_STMT@567..569
+            LBRACK@567..568 "{"
+            RBRACK@568..569 "}"
+    WHITESPACE@569..571 "\n\n"
+    BLOCK_TYPE_ITEM@571..591
+        BLOCK_TYPE@571..588 "ScriptEffectStart"
+        WHITESPACE@588..589 " "
+        BLOCK_STMT@589..591
+            LBRACK@589..590 "{"
+            RBRACK@590..591 "}"
+    WHITESPACE@591..593 "\n\n"
+    BLOCK_TYPE_ITEM@593..614
+        BLOCK_TYPE@593..611 "ScriptEffectUpdate"
+        WHITESPACE@611..612 " "
+        BLOCK_STMT@612..614
+            LBRACK@612..613 "{"
+            RBRACK@613..614 "}"
+    WHITESPACE@614..616 "\n\n"
+    COMMENT@616..639 "// Block type with body"
+    WHITESPACE@639..640 "\n"
+    BLOCK_TYPE_ITEM@640..705
+        BLOCK_TYPE@640..648 "GameMode"
+        WHITESPACE@648..649 " "
+        BLOCK_STMT@649..705
+            LBRACK@649..650 "{"
+            WHITESPACE@650..655 "\n    "
+            VAR_DECL_STMT@655..665
+                VAR_DECL@655..664
+                    INT_TY@655..658 "int"
+                    WHITESPACE@658..659 " "
+                    NAME@659..660
+                        IDENT@659..660 "x"
+                    WHITESPACE@660..661 " "
+                    EQ@661..662 "="
+                    WHITESPACE@662..663 " "
+                    LITERAL@663..664
+                        NUMBER@663..664 "1"
+                SEMICOLON@664..665 ";"
+            WHITESPACE@665..670 "\n    "
+            VAR_DECL_STMT@670..680
+                VAR_DECL@670..679
+                    INT_TY@670..673 "int"
+                    WHITESPACE@673..674 " "
+                    NAME@674..675
+                        IDENT@674..675 "y"
+                    WHITESPACE@675..676 " "
+                    EQ@676..677 "="
+                    WHITESPACE@677..678 " "
+                    LITERAL@678..679
+                        NUMBER@678..679 "2"
+                SEMICOLON@679..680 ";"
+            WHITESPACE@680..685 "\n    "
+            EXPR_STMT@685..703
+                CALL_EXPR@685..702
+                    NAME_REF@685..692
+                        IDENT@685..692 "Message"
+                    ARG_LIST@692..702
+                        LPAREN@692..693 "("
+                        UNARY_EXPR@693..701
+                            DOLLAR@693..694 "$"
+                            PAREN_EXPR@694..701
+                                LPAREN@694..695 "("
+                                BIN_EXPR@695..700
+                                    NAME_REF@695..696
+                                        IDENT@695..696 "x"
+                                    WHITESPACE@696..697 " "
+                                    PLUS@697..698 "+"
+                                    WHITESPACE@698..699 " "
+                                    NAME_REF@699..700
+                                        IDENT@699..700 "y"
+                                RPAREN@700..701 ")"
+                        RPAREN@701..702 ")"
+                SEMICOLON@702..703 ";"
+            WHITESPACE@703..704 "\n"
+            RBRACK@704..705 "}"
+    WHITESPACE@705..707 "\n\n"
+    COMMENT@707..759 "// Block type with comment between keyword and block"
+    WHITESPACE@759..760 "\n"
+    BLOCK_TYPE_ITEM@760..778
+        BLOCK_TYPE@760..767 "OnDeath"
+        WHITESPACE@767..768 " "
+        COMMENT@768..775 "/* c */"
+        WHITESPACE@775..776 " "
+        BLOCK_STMT@776..778
+            LBRACK@776..777 "{"
+            RBRACK@777..778 "}"
+    WHITESPACE@778..780 "\n\n"
+    COMMENT@780..825 "// Block type with comment inside empty block"
+    WHITESPACE@825..826 "\n"
+    BLOCK_TYPE_ITEM@826..842
+        BLOCK_TYPE@826..832 "OnLoad"
+        WHITESPACE@832..833 " "
+        BLOCK_STMT@833..842
+            LBRACK@833..834 "{"
+            COMMENT@834..841 "/* c */"
+            RBRACK@841..842 "}"
+    WHITESPACE@842..844 "\n\n"
+    COMMENT@844..888 "// Block type with comment before first stmt"
+    WHITESPACE@888..889 "\n"
+    BLOCK_TYPE_ITEM@889..929
+        BLOCK_TYPE@889..899 "OnActivate"
+        WHITESPACE@899..900 " "
+        BLOCK_STMT@900..929
+            LBRACK@900..901 "{"
+            WHITESPACE@901..906 "\n    "
+            COMMENT@906..920 "// before stmt"
+            WHITESPACE@920..925 "\n    "
+            EXPR_STMT@925..927
+                NAME_REF@925..926
+                    IDENT@925..926 "x"
+                SEMICOLON@926..927 ";"
+            WHITESPACE@927..928 "\n"
+            RBRACK@928..929 "}"
+    WHITESPACE@929..931 "\n\n"
+    COMMENT@931..973 "// Block type with comment after last stmt"
+    WHITESPACE@973..974 "\n"
+    BLOCK_TYPE_ITEM@974..1009
+        BLOCK_TYPE@974..980 "OnDrop"
+        WHITESPACE@980..981 " "
+        BLOCK_STMT@981..1009
+            LBRACK@981..982 "{"
+            WHITESPACE@982..987 "\n    "
+            EXPR_STMT@987..989
+                NAME_REF@987..988
+                    IDENT@987..988 "x"
+                SEMICOLON@988..989 ";"
+            WHITESPACE@989..994 "\n    "
+            COMMENT@994..1007 "// after stmt"
+            WHITESPACE@1007..1008 "\n"
+            RBRACK@1008..1009 "}"
+    WHITESPACE@1009..1011 "\n\n"
+    COMMENT@1011..1051 "// Block type with comment between stmts"
+    WHITESPACE@1051..1052 "\n"
+    BLOCK_TYPE_ITEM@1052..1104
+        BLOCK_TYPE@1052..1058 "OnOpen"
+        WHITESPACE@1058..1059 " "
+        BLOCK_STMT@1059..1104
+            LBRACK@1059..1060 "{"
+            WHITESPACE@1060..1065 "\n    "
+            EXPR_STMT@1065..1067
+                NAME_REF@1065..1066
+                    IDENT@1065..1066 "x"
+                SEMICOLON@1066..1067 ";"
+            WHITESPACE@1067..1068 " "
+            COMMENT@1068..1077 "// inline"
+            WHITESPACE@1077..1082 "\n    "
+            COMMENT@1082..1095 "// standalone"
+            WHITESPACE@1095..1100 "\n    "
+            EXPR_STMT@1100..1102
+                NAME_REF@1100..1101
+                    IDENT@1100..1101 "y"
+                SEMICOLON@1101..1102 ";"
+            WHITESPACE@1102..1103 "\n"
+            RBRACK@1103..1104 "}"
+    WHITESPACE@1104..1105 "\n"

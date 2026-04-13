@@ -1,0 +1,46 @@
+name match_stmt;
+
+fn () {
+	// Match on a number literal
+	int x = 2;
+	match (x) {
+		1 -> { Message("one"); }
+		2 -> { Message("two"); }
+		3 -> { Message("three"); }
+	}
+
+	// Match on a boolean literal
+	int flag = true;
+	match (flag) {
+		true -> { Message("yes"); }
+		false -> { Message("no"); }
+	}
+
+	// Match on a string literal
+	string s = "hello";
+	match (s) {
+		"hello" -> { Message("greeting"); }
+		"bye"   -> { Message("farewell"); }
+	}
+
+	// Match with a var-decl pattern (binds the matched value)
+	match (x) {
+		int n -> { Message($n); }
+	}
+
+	// Match with an ident pattern (wildcard)
+	match (x) {
+		_ -> { Message("anything"); }
+	}
+
+	// Match with multiple statements in arm body
+	match (x) {
+		1 -> {
+			int tmp = x + 1;
+			Message($tmp);
+		}
+		_ -> {
+			Message("other");
+		}
+	}
+}

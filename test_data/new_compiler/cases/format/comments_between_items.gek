@@ -1,0 +1,43 @@
+name comments_between_items;
+
+// Comment immediately after script header (no blank line before first item)
+fn first () {}
+
+// Comment with blank line on each side
+
+fn second () {}
+
+// Multiple comment lines before item
+// line one
+// line two
+fn third () {}
+
+// Block comment before item
+/* block comment */
+fn fourth () {}
+
+fn fifth () {}
+// Comment immediately after item (no blank line)
+fn sixth () {}
+
+fn seventh () {}
+
+// Comment with blank line after item
+fn eighth () {}
+
+// Comment between two block types
+GameMode {}
+
+// between GameMode and OnDeath
+
+OnDeath {}
+
+// Comment between fn and block type
+fn ninth () {}
+
+// before block type
+GameMode {}
+
+// Comment at end of script, no trailing newline
+fn tenth () {}
+// end comment

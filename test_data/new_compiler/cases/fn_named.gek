@@ -1,0 +1,39 @@
+name fn_named;
+
+// Named fn with no parameters
+fn noParams() {
+	Message("no params");
+}
+
+// Named fn with a single typed parameter
+fn oneParam(int x) {
+	return x;
+}
+
+// Named fn with parameters of every primitive type
+fn allTypes(int a, double b, float c, ref d, string e, array f) {
+	return a;
+}
+
+// Anonymous fn with no parameters (existing pattern for completeness)
+fn () {
+	noParams();
+	oneParam(42);
+}
+
+// Named fn whose body uses its own parameters in expressions
+fn compute(int base, int exp) {
+	int result = base ^ exp;
+	return result;
+}
+
+// Named fn with early returns via if/else
+fn clamp(int val, int lo, int hi) {
+	if (val < lo) {
+		return lo;
+	}
+	if (val > hi) {
+		return hi;
+	}
+	return val;
+}

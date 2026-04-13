@@ -1,0 +1,33 @@
+name global_vars;
+
+// Declarations of every primitive type at script scope (no initialiser)
+int gInt;
+double gDouble;
+float gFloat;
+ref gRef;
+string gString;
+array gArray;
+
+// Script-scope declarations with an initialiser
+int gInitialized = 100;
+string gMessage = "hello";
+ref gPlayer = player;
+
+// Multiple names in a single declaration
+int gA, gB, gC;
+
+// Exported script-scope variables
+export int gExportedInt = 42;
+export string gExportedStr;
+export ref gExportedRef;
+
+fn () {
+	// Export inside a block
+	export int localExported = 5;
+
+	// Reference and mutate script-scope vars
+	gInt = 10;
+	gMessage = "world";
+	gA = gB + gC;
+	Message($gExportedInt);
+}

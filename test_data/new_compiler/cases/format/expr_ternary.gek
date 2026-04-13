@@ -1,0 +1,33 @@
+name expr_ternary;
+
+fn () {
+    // Simple ternary
+    int a = x ? y : z;
+
+    // Ternary with complex sub-expressions
+    int b = (x > 0) ? x : -x;
+
+    // Nested ternary
+    int c = a ? b ? 1 : 2 : 3;
+
+    // Ternary as call argument
+    foo(x ? a : b);
+
+    // Comment between condition and question mark
+    int r1 = x /* c */ ? y : z;
+
+    // Comment between question mark and true branch
+    int r2 = x ? /* c */ y : z;
+
+    // Comment between true branch and colon
+    int r3 = x ? y /* c */ : z;
+
+    // Comment between colon and false branch
+    int r4 = x ? y : /* c */ z;
+
+    // Comments on all sides
+    int r5 = x /* a */ ? /* b */ y /* c */ : /* d */ z;
+
+    // Ternary in assignment
+    x = flag ? a : b;
+}

@@ -1,0 +1,315 @@
+SCRIPT@0..722
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..17
+        IDENT@5..17 "expr_ternary"
+    SEMICOLON@17..18 ";"
+    WHITESPACE@18..20 "\n\n"
+    FN_DECL_ITEM@20..721
+        FN_KW@20..22 "fn"
+        WHITESPACE@22..23 " "
+        PARAM_LIST@23..25
+            LPAREN@23..24 "("
+            RPAREN@24..25 ")"
+        WHITESPACE@25..26 " "
+        BLOCK_STMT@26..721
+            LBRACK@26..27 "{"
+            WHITESPACE@27..32 "\n    "
+            COMMENT@32..49 "// Simple ternary"
+            WHITESPACE@49..54 "\n    "
+            VAR_DECL_STMT@54..72
+                VAR_DECL@54..71
+                    INT_TY@54..57 "int"
+                    WHITESPACE@57..58 " "
+                    NAME@58..59
+                        IDENT@58..59 "a"
+                    WHITESPACE@59..60 " "
+                    EQ@60..61 "="
+                    WHITESPACE@61..62 " "
+                    TERNARY_EXPR@62..71
+                        NAME_REF@62..63
+                            IDENT@62..63 "x"
+                        WHITESPACE@63..64 " "
+                        QUESTION_MARK@64..65 "?"
+                        WHITESPACE@65..66 " "
+                        NAME_REF@66..67
+                            IDENT@66..67 "y"
+                        WHITESPACE@67..68 " "
+                        COLON@68..69 ":"
+                        WHITESPACE@69..70 " "
+                        NAME_REF@70..71
+                            IDENT@70..71 "z"
+                SEMICOLON@71..72 ";"
+            WHITESPACE@72..78 "\n\n    "
+            COMMENT@78..117 "// Ternary with complex sub-expressions"
+            WHITESPACE@117..122 "\n    "
+            VAR_DECL_STMT@122..147
+                VAR_DECL@122..146
+                    INT_TY@122..125 "int"
+                    WHITESPACE@125..126 " "
+                    NAME@126..127
+                        IDENT@126..127 "b"
+                    WHITESPACE@127..128 " "
+                    EQ@128..129 "="
+                    WHITESPACE@129..130 " "
+                    TERNARY_EXPR@130..146
+                        PAREN_EXPR@130..137
+                            LPAREN@130..131 "("
+                            BIN_EXPR@131..136
+                                NAME_REF@131..132
+                                    IDENT@131..132 "x"
+                                WHITESPACE@132..133 " "
+                                GT@133..134 ">"
+                                WHITESPACE@134..135 " "
+                                LITERAL@135..136
+                                    NUMBER@135..136 "0"
+                            RPAREN@136..137 ")"
+                        WHITESPACE@137..138 " "
+                        QUESTION_MARK@138..139 "?"
+                        WHITESPACE@139..140 " "
+                        NAME_REF@140..141
+                            IDENT@140..141 "x"
+                        WHITESPACE@141..142 " "
+                        COLON@142..143 ":"
+                        WHITESPACE@143..144 " "
+                        UNARY_EXPR@144..146
+                            MINUS@144..145 "-"
+                            NAME_REF@145..146
+                                IDENT@145..146 "x"
+                SEMICOLON@146..147 ";"
+            WHITESPACE@147..153 "\n\n    "
+            COMMENT@153..170 "// Nested ternary"
+            WHITESPACE@170..175 "\n    "
+            VAR_DECL_STMT@175..201
+                VAR_DECL@175..201
+                    INT_TY@175..178 "int"
+                    WHITESPACE@178..179 " "
+                    NAME@179..180
+                        IDENT@179..180 "c"
+                    WHITESPACE@180..181 " "
+                    EQ@181..182 "="
+                    WHITESPACE@182..183 " "
+                    TERNARY_EXPR@183..201
+                        NAME_REF@183..184
+                            IDENT@183..184 "a"
+                        WHITESPACE@184..185 " "
+                        QUESTION_MARK@185..186 "?"
+                        WHITESPACE@186..187 " "
+                        TERNARY_EXPR@187..200
+                            NAME_REF@187..188
+                                IDENT@187..188 "b"
+                            WHITESPACE@188..189 " "
+                            QUESTION_MARK@189..190 "?"
+                            WHITESPACE@190..191 " "
+                            LITERAL@191..192
+                                NUMBER@191..192 "1"
+                            WHITESPACE@192..193 " "
+                            COLON@193..194 ":"
+                            WHITESPACE@194..195 " "
+                            BIN_EXPR@195..200
+                                LITERAL@195..196
+                                    NUMBER@195..196 "2"
+                                WHITESPACE@196..197 " "
+                                COLON@197..198 ":"
+                                WHITESPACE@198..199 " "
+                                LITERAL@199..200
+                                    NUMBER@199..200 "3"
+                        ERROR@200..201
+                            SEMICOLON@200..201 ";"
+            WHITESPACE@201..207 "\n\n    "
+            COMMENT@207..234 "// Ternary as call argument"
+            WHITESPACE@234..239 "\n    "
+            EXPR_STMT@239..254
+                CALL_EXPR@239..253
+                    NAME_REF@239..242
+                        IDENT@239..242 "foo"
+                    ARG_LIST@242..253
+                        LPAREN@242..243 "("
+                        TERNARY_EXPR@243..252
+                            NAME_REF@243..244
+                                IDENT@243..244 "x"
+                            WHITESPACE@244..245 " "
+                            QUESTION_MARK@245..246 "?"
+                            WHITESPACE@246..247 " "
+                            NAME_REF@247..248
+                                IDENT@247..248 "a"
+                            WHITESPACE@248..249 " "
+                            COLON@249..250 ":"
+                            WHITESPACE@250..251 " "
+                            NAME_REF@251..252
+                                IDENT@251..252 "b"
+                        RPAREN@252..253 ")"
+                SEMICOLON@253..254 ";"
+            WHITESPACE@254..260 "\n\n    "
+            COMMENT@260..306 "// Comment between condition and question mark"
+            WHITESPACE@306..311 "\n    "
+            VAR_DECL_STMT@311..338
+                VAR_DECL@311..337
+                    INT_TY@311..314 "int"
+                    WHITESPACE@314..315 " "
+                    NAME@315..317
+                        IDENT@315..317 "r1"
+                    WHITESPACE@317..318 " "
+                    EQ@318..319 "="
+                    WHITESPACE@319..320 " "
+                    TERNARY_EXPR@320..337
+                        NAME_REF@320..321
+                            IDENT@320..321 "x"
+                        WHITESPACE@321..322 " "
+                        COMMENT@322..329 "/* c */"
+                        WHITESPACE@329..330 " "
+                        QUESTION_MARK@330..331 "?"
+                        WHITESPACE@331..332 " "
+                        NAME_REF@332..333
+                            IDENT@332..333 "y"
+                        WHITESPACE@333..334 " "
+                        COLON@334..335 ":"
+                        WHITESPACE@335..336 " "
+                        NAME_REF@336..337
+                            IDENT@336..337 "z"
+                SEMICOLON@337..338 ";"
+            WHITESPACE@338..344 "\n\n    "
+            COMMENT@344..392 "// Comment between question mark and true branch"
+            WHITESPACE@392..397 "\n    "
+            VAR_DECL_STMT@397..424
+                VAR_DECL@397..423
+                    INT_TY@397..400 "int"
+                    WHITESPACE@400..401 " "
+                    NAME@401..403
+                        IDENT@401..403 "r2"
+                    WHITESPACE@403..404 " "
+                    EQ@404..405 "="
+                    WHITESPACE@405..406 " "
+                    TERNARY_EXPR@406..423
+                        NAME_REF@406..407
+                            IDENT@406..407 "x"
+                        WHITESPACE@407..408 " "
+                        QUESTION_MARK@408..409 "?"
+                        WHITESPACE@409..410 " "
+                        COMMENT@410..417 "/* c */"
+                        WHITESPACE@417..418 " "
+                        NAME_REF@418..419
+                            IDENT@418..419 "y"
+                        WHITESPACE@419..420 " "
+                        COLON@420..421 ":"
+                        WHITESPACE@421..422 " "
+                        NAME_REF@422..423
+                            IDENT@422..423 "z"
+                SEMICOLON@423..424 ";"
+            WHITESPACE@424..430 "\n\n    "
+            COMMENT@430..470 "// Comment between true branch and colon"
+            WHITESPACE@470..475 "\n    "
+            VAR_DECL_STMT@475..502
+                VAR_DECL@475..501
+                    INT_TY@475..478 "int"
+                    WHITESPACE@478..479 " "
+                    NAME@479..481
+                        IDENT@479..481 "r3"
+                    WHITESPACE@481..482 " "
+                    EQ@482..483 "="
+                    WHITESPACE@483..484 " "
+                    TERNARY_EXPR@484..501
+                        NAME_REF@484..485
+                            IDENT@484..485 "x"
+                        WHITESPACE@485..486 " "
+                        QUESTION_MARK@486..487 "?"
+                        WHITESPACE@487..488 " "
+                        NAME_REF@488..489
+                            IDENT@488..489 "y"
+                        WHITESPACE@489..490 " "
+                        COMMENT@490..497 "/* c */"
+                        WHITESPACE@497..498 " "
+                        COLON@498..499 ":"
+                        WHITESPACE@499..500 " "
+                        NAME_REF@500..501
+                            IDENT@500..501 "z"
+                SEMICOLON@501..502 ";"
+            WHITESPACE@502..508 "\n\n    "
+            COMMENT@508..549 "// Comment between colon and false branch"
+            WHITESPACE@549..554 "\n    "
+            VAR_DECL_STMT@554..581
+                VAR_DECL@554..580
+                    INT_TY@554..557 "int"
+                    WHITESPACE@557..558 " "
+                    NAME@558..560
+                        IDENT@558..560 "r4"
+                    WHITESPACE@560..561 " "
+                    EQ@561..562 "="
+                    WHITESPACE@562..563 " "
+                    TERNARY_EXPR@563..580
+                        NAME_REF@563..564
+                            IDENT@563..564 "x"
+                        WHITESPACE@564..565 " "
+                        QUESTION_MARK@565..566 "?"
+                        WHITESPACE@566..567 " "
+                        NAME_REF@567..568
+                            IDENT@567..568 "y"
+                        WHITESPACE@568..569 " "
+                        COLON@569..570 ":"
+                        WHITESPACE@570..571 " "
+                        COMMENT@571..578 "/* c */"
+                        WHITESPACE@578..579 " "
+                        NAME_REF@579..580
+                            IDENT@579..580 "z"
+                SEMICOLON@580..581 ";"
+            WHITESPACE@581..587 "\n\n    "
+            COMMENT@587..611 "// Comments on all sides"
+            WHITESPACE@611..616 "\n    "
+            VAR_DECL_STMT@616..667
+                VAR_DECL@616..666
+                    INT_TY@616..619 "int"
+                    WHITESPACE@619..620 " "
+                    NAME@620..622
+                        IDENT@620..622 "r5"
+                    WHITESPACE@622..623 " "
+                    EQ@623..624 "="
+                    WHITESPACE@624..625 " "
+                    TERNARY_EXPR@625..666
+                        NAME_REF@625..626
+                            IDENT@625..626 "x"
+                        WHITESPACE@626..627 " "
+                        COMMENT@627..634 "/* a */"
+                        WHITESPACE@634..635 " "
+                        QUESTION_MARK@635..636 "?"
+                        WHITESPACE@636..637 " "
+                        COMMENT@637..644 "/* b */"
+                        WHITESPACE@644..645 " "
+                        NAME_REF@645..646
+                            IDENT@645..646 "y"
+                        WHITESPACE@646..647 " "
+                        COMMENT@647..654 "/* c */"
+                        WHITESPACE@654..655 " "
+                        COLON@655..656 ":"
+                        WHITESPACE@656..657 " "
+                        COMMENT@657..664 "/* d */"
+                        WHITESPACE@664..665 " "
+                        NAME_REF@665..666
+                            IDENT@665..666 "z"
+                SEMICOLON@666..667 ";"
+            WHITESPACE@667..673 "\n\n    "
+            COMMENT@673..697 "// Ternary in assignment"
+            WHITESPACE@697..702 "\n    "
+            EXPR_STMT@702..719
+                BIN_EXPR@702..718
+                    NAME_REF@702..703
+                        IDENT@702..703 "x"
+                    WHITESPACE@703..704 " "
+                    EQ@704..705 "="
+                    WHITESPACE@705..706 " "
+                    TERNARY_EXPR@706..718
+                        NAME_REF@706..710
+                            IDENT@706..710 "flag"
+                        WHITESPACE@710..711 " "
+                        QUESTION_MARK@711..712 "?"
+                        WHITESPACE@712..713 " "
+                        NAME_REF@713..714
+                            IDENT@713..714 "a"
+                        WHITESPACE@714..715 " "
+                        COLON@715..716 ":"
+                        WHITESPACE@716..717 " "
+                        NAME_REF@717..718
+                            IDENT@717..718 "b"
+                SEMICOLON@718..719 ";"
+            WHITESPACE@719..720 "\n"
+            RBRACK@720..721 "}"
+    WHITESPACE@721..722 "\n"

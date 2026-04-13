@@ -1,0 +1,44 @@
+name stmt_while;
+
+fn () {
+    // Empty block
+    while (x) {}
+
+    // With body
+    while (x > 0) {
+        x--;
+    }
+
+    // Infinite loop
+    while (true) {
+        break;
+    }
+
+    // Nested while
+    while (a) {
+        while (b) {
+            c;
+        }
+    }
+
+    // Comment between while keyword and lparen
+    while /* c */ (x) {}
+
+    // Comment between lparen and condition
+    while ( /* c */x) {}
+
+    // Comment between condition and rparen
+    while (x /* c */) {}
+
+    // Comment between rparen and block
+    while (x) /* c */ {}
+
+    // Comments inside while body
+    while (x) {
+        // before stmt
+        y;
+        // between stmts
+        z;
+        // trailing
+    }
+}

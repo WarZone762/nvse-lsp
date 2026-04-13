@@ -1,0 +1,52 @@
+name stmt_foreach;
+
+fn () {
+    // Array pattern: two elements
+    for ([int k, ref v] in arr) {}
+
+    // Array pattern: single element
+    for ([int k] in arr) {}
+
+    // Var decl pattern
+    for (int x in arr) {}
+
+    // String var decl pattern
+    for (string s in arr) {}
+
+    // With body
+    for ([int k, ref v] in arr) {
+        Message($v);
+    }
+
+    // Nested foreach
+    for ([int i] in outer) {
+        for ([int j] in inner) {
+            Message($i);
+        }
+    }
+
+    // Comment between for keyword and lparen
+    for /* c */ ([int k] in arr) {}
+
+    // Comment between lparen and pattern
+    for ( /* c */[int k] in arr) {}
+
+    // Comment between pattern and in keyword
+    for ([int k] /* c */ in arr) {}
+
+    // Comment between in keyword and iterable
+    for ([int k] in /* c */ arr) {}
+
+    // Comment between iterable and rparen
+    for ([int k] in arr /* c */) {}
+
+    // Comment between rparen and block
+    for ([int k] in arr) /* c */ {}
+
+    // Comments inside the array pattern
+    for ([ /* c */int k] in arr) {}
+    for ([int k /* c */] in arr) {}
+
+    // Comment between pattern type and name
+    for ([int /* c */ k] in arr) {}
+}

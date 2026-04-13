@@ -1,0 +1,529 @@
+SCRIPT@0..854
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..26
+        IDENT@5..26 "return_break_continue"
+    SEMICOLON@26..27 ";"
+    WHITESPACE@27..29 "\n\n"
+    COMMENT@29..66 "// Return with no value (void return)"
+    WHITESPACE@66..67 "\n"
+    FN_DECL_ITEM@67..147
+        FN_KW@67..69 "fn"
+        WHITESPACE@69..70 " "
+        NAME@70..80
+            IDENT@70..80 "voidReturn"
+        PARAM_LIST@80..82
+            LPAREN@80..81 "("
+            RPAREN@81..82 ")"
+        WHITESPACE@82..83 " "
+        BLOCK_STMT@83..147
+            LBRACK@83..84 "{"
+            WHITESPACE@84..86 "\n\t"
+            EXPR_STMT@86..111
+                CALL_EXPR@86..110
+                    NAME_REF@86..93
+                        IDENT@86..93 "Message"
+                    ARG_LIST@93..110
+                        LPAREN@93..94 "("
+                        STR_EXPR@94..109
+                            QUOTE_DOUBLE@94..95 "\""
+                            STR_SHARD_LITERAL@95..108
+                                STR_SHARD@95..108 "before return"
+                            QUOTE_DOUBLE@108..109 "\""
+                        RPAREN@109..110 ")"
+                SEMICOLON@110..111 ";"
+            WHITESPACE@111..113 "\n\t"
+            RETURN_STMT@113..120
+                RETURN_KW@113..119 "return"
+                SEMICOLON@119..120 ";"
+            WHITESPACE@120..122 "\n\t"
+            EXPR_STMT@122..145
+                CALL_EXPR@122..144
+                    NAME_REF@122..129
+                        IDENT@122..129 "Message"
+                    ARG_LIST@129..144
+                        LPAREN@129..130 "("
+                        STR_EXPR@130..143
+                            QUOTE_DOUBLE@130..131 "\""
+                            STR_SHARD_LITERAL@131..142
+                                STR_SHARD@131..142 "unreachable"
+                            QUOTE_DOUBLE@142..143 "\""
+                        RPAREN@143..144 ")"
+                SEMICOLON@144..145 ";"
+            WHITESPACE@145..146 "\n"
+            RBRACK@146..147 "}"
+    WHITESPACE@147..149 "\n\n"
+    COMMENT@149..171 "// Return with a value"
+    WHITESPACE@171..172 "\n"
+    FN_DECL_ITEM@172..226
+        FN_KW@172..174 "fn"
+        WHITESPACE@174..175 " "
+        PARAM_LIST@175..182
+            LPAREN@175..176 "("
+            VAR_DECL@176..181
+                INT_TY@176..179 "int"
+                WHITESPACE@179..180 " "
+                NAME@180..181
+                    IDENT@180..181 "x"
+            RPAREN@181..182 ")"
+        WHITESPACE@182..183 " "
+        BLOCK_STMT@183..226
+            LBRACK@183..184 "{"
+            WHITESPACE@184..186 "\n\t"
+            IF_STMT@186..213
+                IF_KW@186..188 "if"
+                WHITESPACE@188..189 " "
+                LPAREN@189..190 "("
+                BIN_EXPR@190..195
+                    NAME_REF@190..191
+                        IDENT@190..191 "x"
+                    WHITESPACE@191..192 " "
+                    GT@192..193 ">"
+                    WHITESPACE@193..194 " "
+                    LITERAL@194..195
+                        NUMBER@194..195 "0"
+                RPAREN@195..196 ")"
+                WHITESPACE@196..197 " "
+                BLOCK_STMT@197..213
+                    LBRACK@197..198 "{"
+                    WHITESPACE@198..201 "\n\t\t"
+                    RETURN_STMT@201..210
+                        RETURN_KW@201..207 "return"
+                        WHITESPACE@207..208 " "
+                        NAME_REF@208..209
+                            IDENT@208..209 "x"
+                        SEMICOLON@209..210 ";"
+                    WHITESPACE@210..212 "\n\t"
+                    RBRACK@212..213 "}"
+            WHITESPACE@213..215 "\n\t"
+            RETURN_STMT@215..224
+                RETURN_KW@215..221 "return"
+                WHITESPACE@221..222 " "
+                LITERAL@222..223
+                    NUMBER@222..223 "0"
+                SEMICOLON@223..224 ";"
+            WHITESPACE@224..225 "\n"
+            RBRACK@225..226 "}"
+    WHITESPACE@226..228 "\n\n"
+    COMMENT@228..258 "// Return a complex expression"
+    WHITESPACE@258..259 "\n"
+    FN_DECL_ITEM@259..299
+        FN_KW@259..261 "fn"
+        WHITESPACE@261..262 " "
+        PARAM_LIST@262..276
+            LPAREN@262..263 "("
+            VAR_DECL@263..268
+                INT_TY@263..266 "int"
+                WHITESPACE@266..267 " "
+                NAME@267..268
+                    IDENT@267..268 "a"
+            COMMA@268..269 ","
+            WHITESPACE@269..270 " "
+            VAR_DECL@270..275
+                INT_TY@270..273 "int"
+                WHITESPACE@273..274 " "
+                NAME@274..275
+                    IDENT@274..275 "b"
+            RPAREN@275..276 ")"
+        WHITESPACE@276..277 " "
+        BLOCK_STMT@277..299
+            LBRACK@277..278 "{"
+            WHITESPACE@278..280 "\n\t"
+            RETURN_STMT@280..297
+                RETURN_KW@280..286 "return"
+                WHITESPACE@286..287 " "
+                BIN_EXPR@287..296
+                    BIN_EXPR@287..292
+                        NAME_REF@287..288
+                            IDENT@287..288 "a"
+                        WHITESPACE@288..289 " "
+                        ASTERISK@289..290 "*"
+                        WHITESPACE@290..291 " "
+                        LITERAL@291..292
+                            NUMBER@291..292 "2"
+                    WHITESPACE@292..293 " "
+                    PLUS@293..294 "+"
+                    WHITESPACE@294..295 " "
+                    NAME_REF@295..296
+                        IDENT@295..296 "b"
+                SEMICOLON@296..297 ";"
+            WHITESPACE@297..298 "\n"
+            RBRACK@298..299 "}"
+    WHITESPACE@299..301 "\n\n"
+    FN_DECL_ITEM@301..853
+        FN_KW@301..303 "fn"
+        WHITESPACE@303..304 " "
+        PARAM_LIST@304..306
+            LPAREN@304..305 "("
+            RPAREN@305..306 ")"
+        WHITESPACE@306..307 " "
+        BLOCK_STMT@307..853
+            LBRACK@307..308 "{"
+            WHITESPACE@308..310 "\n\t"
+            COMMENT@310..331 "// break inside while"
+            WHITESPACE@331..333 "\n\t"
+            VAR_DECL_STMT@333..343
+                VAR_DECL@333..342
+                    INT_TY@333..336 "int"
+                    WHITESPACE@336..337 " "
+                    NAME@337..338
+                        IDENT@337..338 "i"
+                    WHITESPACE@338..339 " "
+                    EQ@339..340 "="
+                    WHITESPACE@340..341 " "
+                    LITERAL@341..342
+                        NUMBER@341..342 "0"
+                SEMICOLON@342..343 ";"
+            WHITESPACE@343..345 "\n\t"
+            WHILE_STMT@345..400
+                WHILE_KW@345..350 "while"
+                WHITESPACE@350..351 " "
+                LPAREN@351..352 "("
+                LITERAL@352..356
+                    BOOL@352..356 "true"
+                RPAREN@356..357 ")"
+                WHITESPACE@357..358 " "
+                BLOCK_STMT@358..400
+                    LBRACK@358..359 "{"
+                    WHITESPACE@359..362 "\n\t\t"
+                    IF_STMT@362..390
+                        IF_KW@362..364 "if"
+                        WHITESPACE@364..365 " "
+                        LPAREN@365..366 "("
+                        BIN_EXPR@366..373
+                            NAME_REF@366..367
+                                IDENT@366..367 "i"
+                            WHITESPACE@367..368 " "
+                            GT_EQ@368..370 ">="
+                            WHITESPACE@370..371 " "
+                            LITERAL@371..373
+                                NUMBER@371..373 "10"
+                        RPAREN@373..374 ")"
+                        WHITESPACE@374..375 " "
+                        BLOCK_STMT@375..390
+                            LBRACK@375..376 "{"
+                            WHITESPACE@376..380 "\n\t\t\t"
+                            BREAK_STMT@380..386
+                                BREAK_KW@380..385 "break"
+                                SEMICOLON@385..386 ";"
+                            WHITESPACE@386..389 "\n\t\t"
+                            RBRACK@389..390 "}"
+                    WHITESPACE@390..393 "\n\t\t"
+                    EXPR_STMT@393..397
+                        POSTFIX_EXPR@393..396
+                            NAME_REF@393..394
+                                IDENT@393..394 "i"
+                            PLUS_2@394..396 "++"
+                        SEMICOLON@396..397 ";"
+                    WHITESPACE@397..399 "\n\t"
+                    RBRACK@399..400 "}"
+            WHITESPACE@400..403 "\n\n\t"
+            COMMENT@403..427 "// continue inside while"
+            WHITESPACE@427..429 "\n\t"
+            VAR_DECL_STMT@429..441
+                VAR_DECL@429..440
+                    INT_TY@429..432 "int"
+                    WHITESPACE@432..433 " "
+                    NAME@433..436
+                        IDENT@433..436 "sum"
+                    WHITESPACE@436..437 " "
+                    EQ@437..438 "="
+                    WHITESPACE@438..439 " "
+                    LITERAL@439..440
+                        NUMBER@439..440 "0"
+                SEMICOLON@440..441 ";"
+            WHITESPACE@441..443 "\n\t"
+            EXPR_STMT@443..449
+                BIN_EXPR@443..448
+                    NAME_REF@443..444
+                        IDENT@443..444 "i"
+                    WHITESPACE@444..445 " "
+                    EQ@445..446 "="
+                    WHITESPACE@446..447 " "
+                    LITERAL@447..448
+                        NUMBER@447..448 "0"
+                SEMICOLON@448..449 ";"
+            WHITESPACE@449..451 "\n\t"
+            WHILE_STMT@451..522
+                WHILE_KW@451..456 "while"
+                WHITESPACE@456..457 " "
+                LPAREN@457..458 "("
+                BIN_EXPR@458..464
+                    NAME_REF@458..459
+                        IDENT@458..459 "i"
+                    WHITESPACE@459..460 " "
+                    LT@460..461 "<"
+                    WHITESPACE@461..462 " "
+                    LITERAL@462..464
+                        NUMBER@462..464 "10"
+                RPAREN@464..465 ")"
+                WHITESPACE@465..466 " "
+                BLOCK_STMT@466..522
+                    LBRACK@466..467 "{"
+                    WHITESPACE@467..470 "\n\t\t"
+                    EXPR_STMT@470..474
+                        POSTFIX_EXPR@470..473
+                            NAME_REF@470..471
+                                IDENT@470..471 "i"
+                            PLUS_2@471..473 "++"
+                        SEMICOLON@473..474 ";"
+                    WHITESPACE@474..477 "\n\t\t"
+                    IF_STMT@477..507
+                        IF_KW@477..479 "if"
+                        WHITESPACE@479..480 " "
+                        LPAREN@480..481 "("
+                        BIN_EXPR@481..487
+                            NAME_REF@481..482
+                                IDENT@481..482 "i"
+                            WHITESPACE@482..483 " "
+                            EQ_2@483..485 "=="
+                            WHITESPACE@485..486 " "
+                            LITERAL@486..487
+                                NUMBER@486..487 "5"
+                        RPAREN@487..488 ")"
+                        WHITESPACE@488..489 " "
+                        BLOCK_STMT@489..507
+                            LBRACK@489..490 "{"
+                            WHITESPACE@490..494 "\n\t\t\t"
+                            CONTINUE_STMT@494..503
+                                CONTINUE_KW@494..502 "continue"
+                                SEMICOLON@502..503 ";"
+                            WHITESPACE@503..506 "\n\t\t"
+                            RBRACK@506..507 "}"
+                    WHITESPACE@507..510 "\n\t\t"
+                    EXPR_STMT@510..519
+                        BIN_EXPR@510..518
+                            NAME_REF@510..513
+                                IDENT@510..513 "sum"
+                            WHITESPACE@513..514 " "
+                            PLUS_EQ@514..516 "+="
+                            WHITESPACE@516..517 " "
+                            NAME_REF@517..518
+                                IDENT@517..518 "i"
+                        SEMICOLON@518..519 ";"
+                    WHITESPACE@519..521 "\n\t"
+                    RBRACK@521..522 "}"
+            WHITESPACE@522..525 "\n\n\t"
+            COMMENT@525..552 "// break inside C-style for"
+            WHITESPACE@552..554 "\n\t"
+            FOR_STMT@554..618
+                FOR_KW@554..557 "for"
+                WHITESPACE@557..558 " "
+                LPAREN@558..559 "("
+                VAR_DECL@559..568
+                    INT_TY@559..562 "int"
+                    WHITESPACE@562..563 " "
+                    NAME@563..564
+                        IDENT@563..564 "j"
+                    WHITESPACE@564..565 " "
+                    EQ@565..566 "="
+                    WHITESPACE@566..567 " "
+                    LITERAL@567..568
+                        NUMBER@567..568 "0"
+                SEMICOLON@568..569 ";"
+                WHITESPACE@569..570 " "
+                BIN_EXPR@570..577
+                    NAME_REF@570..571
+                        IDENT@570..571 "j"
+                    WHITESPACE@571..572 " "
+                    LT@572..573 "<"
+                    WHITESPACE@573..574 " "
+                    LITERAL@574..577
+                        NUMBER@574..577 "100"
+                SEMICOLON@577..578 ";"
+                WHITESPACE@578..579 " "
+                POSTFIX_EXPR@579..582
+                    NAME_REF@579..580
+                        IDENT@579..580 "j"
+                    PLUS_2@580..582 "++"
+                RPAREN@582..583 ")"
+                WHITESPACE@583..584 " "
+                BLOCK_STMT@584..618
+                    LBRACK@584..585 "{"
+                    WHITESPACE@585..588 "\n\t\t"
+                    IF_STMT@588..615
+                        IF_KW@588..590 "if"
+                        WHITESPACE@590..591 " "
+                        LPAREN@591..592 "("
+                        BIN_EXPR@592..598
+                            NAME_REF@592..593
+                                IDENT@592..593 "j"
+                            WHITESPACE@593..594 " "
+                            EQ_2@594..596 "=="
+                            WHITESPACE@596..597 " "
+                            LITERAL@597..598
+                                NUMBER@597..598 "7"
+                        RPAREN@598..599 ")"
+                        WHITESPACE@599..600 " "
+                        BLOCK_STMT@600..615
+                            LBRACK@600..601 "{"
+                            WHITESPACE@601..605 "\n\t\t\t"
+                            BREAK_STMT@605..611
+                                BREAK_KW@605..610 "break"
+                                SEMICOLON@610..611 ";"
+                            WHITESPACE@611..614 "\n\t\t"
+                            RBRACK@614..615 "}"
+                    WHITESPACE@615..617 "\n\t"
+                    RBRACK@617..618 "}"
+            WHITESPACE@618..621 "\n\n\t"
+            COMMENT@621..651 "// continue inside C-style for"
+            WHITESPACE@651..653 "\n\t"
+            FOR_STMT@653..738
+                FOR_KW@653..656 "for"
+                WHITESPACE@656..657 " "
+                LPAREN@657..658 "("
+                VAR_DECL@658..667
+                    INT_TY@658..661 "int"
+                    WHITESPACE@661..662 " "
+                    NAME@662..663
+                        IDENT@662..663 "k"
+                    WHITESPACE@663..664 " "
+                    EQ@664..665 "="
+                    WHITESPACE@665..666 " "
+                    LITERAL@666..667
+                        NUMBER@666..667 "0"
+                SEMICOLON@667..668 ";"
+                WHITESPACE@668..669 " "
+                BIN_EXPR@669..675
+                    NAME_REF@669..670
+                        IDENT@669..670 "k"
+                    WHITESPACE@670..671 " "
+                    LT@671..672 "<"
+                    WHITESPACE@672..673 " "
+                    LITERAL@673..675
+                        NUMBER@673..675 "10"
+                SEMICOLON@675..676 ";"
+                WHITESPACE@676..677 " "
+                POSTFIX_EXPR@677..680
+                    NAME_REF@677..678
+                        IDENT@677..678 "k"
+                    PLUS_2@678..680 "++"
+                RPAREN@680..681 ")"
+                WHITESPACE@681..682 " "
+                BLOCK_STMT@682..738
+                    LBRACK@682..683 "{"
+                    WHITESPACE@683..686 "\n\t\t"
+                    IF_STMT@686..720
+                        IF_KW@686..688 "if"
+                        WHITESPACE@688..689 " "
+                        LPAREN@689..690 "("
+                        BIN_EXPR@690..700
+                            BIN_EXPR@690..695
+                                NAME_REF@690..691
+                                    IDENT@690..691 "k"
+                                WHITESPACE@691..692 " "
+                                PERCENT@692..693 "%"
+                                WHITESPACE@693..694 " "
+                                LITERAL@694..695
+                                    NUMBER@694..695 "2"
+                            WHITESPACE@695..696 " "
+                            EQ_2@696..698 "=="
+                            WHITESPACE@698..699 " "
+                            LITERAL@699..700
+                                NUMBER@699..700 "0"
+                        RPAREN@700..701 ")"
+                        WHITESPACE@701..702 " "
+                        BLOCK_STMT@702..720
+                            LBRACK@702..703 "{"
+                            WHITESPACE@703..707 "\n\t\t\t"
+                            CONTINUE_STMT@707..716
+                                CONTINUE_KW@707..715 "continue"
+                                SEMICOLON@715..716 ";"
+                            WHITESPACE@716..719 "\n\t\t"
+                            RBRACK@719..720 "}"
+                    WHITESPACE@720..723 "\n\t\t"
+                    EXPR_STMT@723..735
+                        CALL_EXPR@723..734
+                            NAME_REF@723..730
+                                IDENT@723..730 "Message"
+                            ARG_LIST@730..734
+                                LPAREN@730..731 "("
+                                UNARY_EXPR@731..733
+                                    DOLLAR@731..732 "$"
+                                    NAME_REF@732..733
+                                        IDENT@732..733 "k"
+                                RPAREN@733..734 ")"
+                        SEMICOLON@734..735 ";"
+                    WHITESPACE@735..737 "\n\t"
+                    RBRACK@737..738 "}"
+            WHITESPACE@738..741 "\n\n\t"
+            COMMENT@741..766 "// break inside range for"
+            WHITESPACE@766..768 "\n\t"
+            VAR_DECL_STMT@768..796
+                VAR_DECL@768..795
+                    ARRAY_TY@768..773 "array"
+                    WHITESPACE@773..774 " "
+                    NAME@774..777
+                        IDENT@774..777 "arr"
+                    WHITESPACE@777..778 " "
+                    EQ@778..779 "="
+                    WHITESPACE@779..780 " "
+                    LIT_ARR@780..795
+                        LSQ_BRACK@780..781 "["
+                        LITERAL@781..782
+                            NUMBER@781..782 "1"
+                        COMMA@782..783 ","
+                        WHITESPACE@783..784 " "
+                        LITERAL@784..785
+                            NUMBER@784..785 "2"
+                        COMMA@785..786 ","
+                        WHITESPACE@786..787 " "
+                        LITERAL@787..788
+                            NUMBER@787..788 "3"
+                        COMMA@788..789 ","
+                        WHITESPACE@789..790 " "
+                        LITERAL@790..791
+                            NUMBER@790..791 "4"
+                        COMMA@791..792 ","
+                        WHITESPACE@792..793 " "
+                        LITERAL@793..794
+                            NUMBER@793..794 "5"
+                        RSQ_BRACK@794..795 "]"
+                SEMICOLON@795..796 ";"
+            WHITESPACE@796..798 "\n\t"
+            FOR_RANGE_STMT@798..851
+                FOR_KW@798..801 "for"
+                WHITESPACE@801..802 " "
+                LPAREN@802..803 "("
+                VAR_DECL@803..808
+                    INT_TY@803..806 "int"
+                    WHITESPACE@806..807 " "
+                    NAME@807..808
+                        IDENT@807..808 "v"
+                WHITESPACE@808..809 " "
+                IN_KW@809..811 "in"
+                WHITESPACE@811..812 " "
+                NAME_REF@812..815
+                    IDENT@812..815 "arr"
+                RPAREN@815..816 ")"
+                WHITESPACE@816..817 " "
+                BLOCK_STMT@817..851
+                    LBRACK@817..818 "{"
+                    WHITESPACE@818..821 "\n\t\t"
+                    IF_STMT@821..848
+                        IF_KW@821..823 "if"
+                        WHITESPACE@823..824 " "
+                        LPAREN@824..825 "("
+                        BIN_EXPR@825..831
+                            NAME_REF@825..826
+                                IDENT@825..826 "v"
+                            WHITESPACE@826..827 " "
+                            EQ_2@827..829 "=="
+                            WHITESPACE@829..830 " "
+                            LITERAL@830..831
+                                NUMBER@830..831 "3"
+                        RPAREN@831..832 ")"
+                        WHITESPACE@832..833 " "
+                        BLOCK_STMT@833..848
+                            LBRACK@833..834 "{"
+                            WHITESPACE@834..838 "\n\t\t\t"
+                            BREAK_STMT@838..844
+                                BREAK_KW@838..843 "break"
+                                SEMICOLON@843..844 ";"
+                            WHITESPACE@844..847 "\n\t\t"
+                            RBRACK@847..848 "}"
+                    WHITESPACE@848..850 "\n\t"
+                    RBRACK@850..851 "}"
+            WHITESPACE@851..852 "\n"
+            RBRACK@852..853 "}"
+    WHITESPACE@853..854 "\n"

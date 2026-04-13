@@ -1,0 +1,628 @@
+SCRIPT@0..1424
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..19
+        IDENT@5..19 "expr_array_map"
+    SEMICOLON@19..20 ";"
+    WHITESPACE@20..22 "\n\n"
+    FN_DECL_ITEM@22..1423
+        FN_KW@22..24 "fn"
+        WHITESPACE@24..25 " "
+        PARAM_LIST@25..27
+            LPAREN@25..26 "("
+            RPAREN@26..27 ")"
+        WHITESPACE@27..28 " "
+        BLOCK_STMT@28..1423
+            LBRACK@28..29 "{"
+            WHITESPACE@29..34 "\n    "
+            COMMENT@34..59 "// === Array literals ==="
+            WHITESPACE@59..65 "\n\n    "
+            COMMENT@65..73 "// Empty"
+            WHITESPACE@73..78 "\n    "
+            VAR_DECL_STMT@78..92
+                VAR_DECL@78..91
+                    ARRAY_TY@78..83 "array"
+                    WHITESPACE@83..84 " "
+                    NAME@84..86
+                        IDENT@84..86 "a1"
+                    WHITESPACE@86..87 " "
+                    EQ@87..88 "="
+                    WHITESPACE@88..89 " "
+                    LIT_ARR@89..91
+                        LSQ_BRACK@89..90 "["
+                        RSQ_BRACK@90..91 "]"
+                SEMICOLON@91..92 ";"
+            WHITESPACE@92..98 "\n\n    "
+            COMMENT@98..115 "// Single element"
+            WHITESPACE@115..120 "\n    "
+            VAR_DECL_STMT@120..135
+                VAR_DECL@120..134
+                    ARRAY_TY@120..125 "array"
+                    WHITESPACE@125..126 " "
+                    NAME@126..128
+                        IDENT@126..128 "a2"
+                    WHITESPACE@128..129 " "
+                    EQ@129..130 "="
+                    WHITESPACE@130..131 " "
+                    LIT_ARR@131..134
+                        LSQ_BRACK@131..132 "["
+                        LITERAL@132..133
+                            NUMBER@132..133 "1"
+                        RSQ_BRACK@133..134 "]"
+                SEMICOLON@134..135 ";"
+            WHITESPACE@135..141 "\n\n    "
+            COMMENT@141..161 "// Multiple elements"
+            WHITESPACE@161..166 "\n    "
+            VAR_DECL_STMT@166..187
+                VAR_DECL@166..186
+                    ARRAY_TY@166..171 "array"
+                    WHITESPACE@171..172 " "
+                    NAME@172..174
+                        IDENT@172..174 "a3"
+                    WHITESPACE@174..175 " "
+                    EQ@175..176 "="
+                    WHITESPACE@176..177 " "
+                    LIT_ARR@177..186
+                        LSQ_BRACK@177..178 "["
+                        LITERAL@178..179
+                            NUMBER@178..179 "1"
+                        COMMA@179..180 ","
+                        WHITESPACE@180..181 " "
+                        LITERAL@181..182
+                            NUMBER@181..182 "2"
+                        COMMA@182..183 ","
+                        WHITESPACE@183..184 " "
+                        LITERAL@184..185
+                            NUMBER@184..185 "3"
+                        RSQ_BRACK@185..186 "]"
+                SEMICOLON@186..187 ";"
+            WHITESPACE@187..193 "\n\n    "
+            COMMENT@193..223 "// Mixed types (refs, numbers)"
+            WHITESPACE@223..228 "\n    "
+            VAR_DECL_STMT@228..259
+                VAR_DECL@228..258
+                    ARRAY_TY@228..233 "array"
+                    WHITESPACE@233..234 " "
+                    NAME@234..236
+                        IDENT@234..236 "a4"
+                    WHITESPACE@236..237 " "
+                    EQ@237..238 "="
+                    WHITESPACE@238..239 " "
+                    LIT_ARR@239..258
+                        LSQ_BRACK@239..240 "["
+                        NAME_REF@240..246
+                            IDENT@240..246 "player"
+                        COMMA@246..247 ","
+                        WHITESPACE@247..248 " "
+                        LITERAL@248..250
+                            NUMBER@248..250 "42"
+                        COMMA@250..251 ","
+                        WHITESPACE@251..252 " "
+                        STR_EXPR@252..257
+                            QUOTE_DOUBLE@252..253 "\""
+                            STR_SHARD_LITERAL@253..256
+                                STR_SHARD@253..256 "str"
+                            QUOTE_DOUBLE@256..257 "\""
+                        RSQ_BRACK@257..258 "]"
+                SEMICOLON@258..259 ";"
+            WHITESPACE@259..265 "\n\n    "
+            COMMENT@265..287 "// Expression elements"
+            WHITESPACE@287..292 "\n    "
+            VAR_DECL_STMT@292..325
+                VAR_DECL@292..324
+                    ARRAY_TY@292..297 "array"
+                    WHITESPACE@297..298 " "
+                    NAME@298..300
+                        IDENT@298..300 "a5"
+                    WHITESPACE@300..301 " "
+                    EQ@301..302 "="
+                    WHITESPACE@302..303 " "
+                    LIT_ARR@303..324
+                        LSQ_BRACK@303..304 "["
+                        BIN_EXPR@304..309
+                            NAME_REF@304..305
+                                IDENT@304..305 "x"
+                            WHITESPACE@305..306 " "
+                            PLUS@306..307 "+"
+                            WHITESPACE@307..308 " "
+                            LITERAL@308..309
+                                NUMBER@308..309 "1"
+                        COMMA@309..310 ","
+                        WHITESPACE@310..311 " "
+                        BIN_EXPR@311..316
+                            NAME_REF@311..312
+                                IDENT@311..312 "y"
+                            WHITESPACE@312..313 " "
+                            ASTERISK@313..314 "*"
+                            WHITESPACE@314..315 " "
+                            LITERAL@315..316
+                                NUMBER@315..316 "2"
+                        COMMA@316..317 ","
+                        WHITESPACE@317..318 " "
+                        BIN_EXPR@318..323
+                            NAME_REF@318..319
+                                IDENT@318..319 "z"
+                            WHITESPACE@319..320 " "
+                            MINUS@320..321 "-"
+                            WHITESPACE@321..322 " "
+                            LITERAL@322..323
+                                NUMBER@322..323 "3"
+                        RSQ_BRACK@323..324 "]"
+                SEMICOLON@324..325 ";"
+            WHITESPACE@325..331 "\n\n    "
+            COMMENT@331..346 "// Nested array"
+            WHITESPACE@346..351 "\n    "
+            VAR_DECL_STMT@351..379
+                VAR_DECL@351..378
+                    ARRAY_TY@351..356 "array"
+                    WHITESPACE@356..357 " "
+                    NAME@357..359
+                        IDENT@357..359 "a6"
+                    WHITESPACE@359..360 " "
+                    EQ@360..361 "="
+                    WHITESPACE@361..362 " "
+                    LIT_ARR@362..378
+                        LSQ_BRACK@362..363 "["
+                        LIT_ARR@363..369
+                            LSQ_BRACK@363..364 "["
+                            LITERAL@364..365
+                                NUMBER@364..365 "1"
+                            COMMA@365..366 ","
+                            WHITESPACE@366..367 " "
+                            LITERAL@367..368
+                                NUMBER@367..368 "2"
+                            RSQ_BRACK@368..369 "]"
+                        COMMA@369..370 ","
+                        WHITESPACE@370..371 " "
+                        LIT_ARR@371..377
+                            LSQ_BRACK@371..372 "["
+                            LITERAL@372..373
+                                NUMBER@372..373 "3"
+                            COMMA@373..374 ","
+                            WHITESPACE@374..375 " "
+                            LITERAL@375..376
+                                NUMBER@375..376 "4"
+                            RSQ_BRACK@376..377 "]"
+                        RSQ_BRACK@377..378 "]"
+                SEMICOLON@378..379 ";"
+            WHITESPACE@379..385 "\n\n    "
+            COMMENT@385..416 "// Comment before first element"
+            WHITESPACE@416..421 "\n    "
+            VAR_DECL_STMT@421..450
+                VAR_DECL@421..449
+                    ARRAY_TY@421..426 "array"
+                    WHITESPACE@426..427 " "
+                    NAME@427..429
+                        IDENT@427..429 "c1"
+                    WHITESPACE@429..430 " "
+                    EQ@430..431 "="
+                    WHITESPACE@431..432 " "
+                    LIT_ARR@432..449
+                        LSQ_BRACK@432..433 "["
+                        WHITESPACE@433..434 " "
+                        COMMENT@434..441 "/* c */"
+                        LITERAL@441..442
+                            NUMBER@441..442 "1"
+                        COMMA@442..443 ","
+                        WHITESPACE@443..444 " "
+                        LITERAL@444..445
+                            NUMBER@444..445 "2"
+                        COMMA@445..446 ","
+                        WHITESPACE@446..447 " "
+                        LITERAL@447..448
+                            NUMBER@447..448 "3"
+                        RSQ_BRACK@448..449 "]"
+                SEMICOLON@449..450 ";"
+            WHITESPACE@450..456 "\n\n    "
+            COMMENT@456..485 "// Comment after last element"
+            WHITESPACE@485..490 "\n    "
+            VAR_DECL_STMT@490..519
+                VAR_DECL@490..518
+                    ARRAY_TY@490..495 "array"
+                    WHITESPACE@495..496 " "
+                    NAME@496..498
+                        IDENT@496..498 "c2"
+                    WHITESPACE@498..499 " "
+                    EQ@499..500 "="
+                    WHITESPACE@500..501 " "
+                    LIT_ARR@501..518
+                        LSQ_BRACK@501..502 "["
+                        LITERAL@502..503
+                            NUMBER@502..503 "1"
+                        COMMA@503..504 ","
+                        WHITESPACE@504..505 " "
+                        LITERAL@505..506
+                            NUMBER@505..506 "2"
+                        COMMA@506..507 ","
+                        WHITESPACE@507..508 " "
+                        LITERAL@508..509
+                            NUMBER@508..509 "3"
+                        WHITESPACE@509..510 " "
+                        COMMENT@510..517 "/* c */"
+                        RSQ_BRACK@517..518 "]"
+                SEMICOLON@518..519 ";"
+            WHITESPACE@519..525 "\n\n    "
+            COMMENT@525..568 "// Comment before first, comment after last"
+            WHITESPACE@568..573 "\n    "
+            VAR_DECL_STMT@573..610
+                VAR_DECL@573..609
+                    ARRAY_TY@573..578 "array"
+                    WHITESPACE@578..579 " "
+                    NAME@579..581
+                        IDENT@579..581 "c3"
+                    WHITESPACE@581..582 " "
+                    EQ@582..583 "="
+                    WHITESPACE@583..584 " "
+                    LIT_ARR@584..609
+                        LSQ_BRACK@584..585 "["
+                        WHITESPACE@585..586 " "
+                        COMMENT@586..593 "/* a */"
+                        LITERAL@593..594
+                            NUMBER@593..594 "1"
+                        COMMA@594..595 ","
+                        WHITESPACE@595..596 " "
+                        LITERAL@596..597
+                            NUMBER@596..597 "2"
+                        COMMA@597..598 ","
+                        WHITESPACE@598..599 " "
+                        LITERAL@599..600
+                            NUMBER@599..600 "3"
+                        WHITESPACE@600..601 " "
+                        COMMENT@601..608 "/* b */"
+                        RSQ_BRACK@608..609 "]"
+                SEMICOLON@609..610 ";"
+            WHITESPACE@610..616 "\n\n    "
+            COMMENT@616..639 "// === Map literals ==="
+            WHITESPACE@639..645 "\n\n    "
+            COMMENT@645..653 "// Empty"
+            WHITESPACE@653..658 "\n    "
+            VAR_DECL_STMT@658..672
+                VAR_DECL@658..671
+                    ARRAY_TY@658..663 "array"
+                    WHITESPACE@663..664 " "
+                    NAME@664..666
+                        IDENT@664..666 "m1"
+                    WHITESPACE@666..667 " "
+                    EQ@667..668 "="
+                    WHITESPACE@668..669 " "
+                    LIT_MAP@669..671
+                        LBRACK@669..670 "{"
+                        RBRACK@670..671 "}"
+                SEMICOLON@671..672 ";"
+            WHITESPACE@672..678 "\n\n    "
+            COMMENT@678..692 "// Single pair"
+            WHITESPACE@692..697 "\n    "
+            VAR_DECL_STMT@697..721
+                VAR_DECL@697..720
+                    ARRAY_TY@697..702 "array"
+                    WHITESPACE@702..703 " "
+                    NAME@703..705
+                        IDENT@703..705 "m2"
+                    WHITESPACE@705..706 " "
+                    EQ@706..707 "="
+                    WHITESPACE@707..708 " "
+                    LIT_MAP@708..720
+                        LBRACK@708..709 "{"
+                        KV_PAIR@709..719
+                            STR_EXPR@709..714
+                                QUOTE_DOUBLE@709..710 "\""
+                                STR_SHARD_LITERAL@710..713
+                                    STR_SHARD@710..713 "key"
+                                QUOTE_DOUBLE@713..714 "\""
+                            COLON_2@714..716 "::"
+                            NAME_REF@716..719
+                                IDENT@716..719 "val"
+                        RBRACK@719..720 "}"
+                SEMICOLON@720..721 ";"
+            WHITESPACE@721..727 "\n\n    "
+            COMMENT@727..744 "// Multiple pairs"
+            WHITESPACE@744..749 "\n    "
+            VAR_DECL_STMT@749..791
+                VAR_DECL@749..790
+                    ARRAY_TY@749..754 "array"
+                    WHITESPACE@754..755 " "
+                    NAME@755..757
+                        IDENT@755..757 "m3"
+                    WHITESPACE@757..758 " "
+                    EQ@758..759 "="
+                    WHITESPACE@759..760 " "
+                    LIT_MAP@760..790
+                        LBRACK@760..761 "{"
+                        KV_PAIR@761..769
+                            STR_EXPR@761..765
+                                QUOTE_DOUBLE@761..762 "\""
+                                STR_SHARD_LITERAL@762..764
+                                    STR_SHARD@762..764 "k1"
+                                QUOTE_DOUBLE@764..765 "\""
+                            COLON_2@765..767 "::"
+                            NAME_REF@767..769
+                                IDENT@767..769 "v1"
+                        COMMA@769..770 ","
+                        WHITESPACE@770..771 " "
+                        KV_PAIR@771..779
+                            STR_EXPR@771..775
+                                QUOTE_DOUBLE@771..772 "\""
+                                STR_SHARD_LITERAL@772..774
+                                    STR_SHARD@772..774 "k2"
+                                QUOTE_DOUBLE@774..775 "\""
+                            COLON_2@775..777 "::"
+                            NAME_REF@777..779
+                                IDENT@777..779 "v2"
+                        COMMA@779..780 ","
+                        WHITESPACE@780..781 " "
+                        KV_PAIR@781..789
+                            STR_EXPR@781..785
+                                QUOTE_DOUBLE@781..782 "\""
+                                STR_SHARD_LITERAL@782..784
+                                    STR_SHARD@782..784 "k3"
+                                QUOTE_DOUBLE@784..785 "\""
+                            COLON_2@785..787 "::"
+                            NAME_REF@787..789
+                                IDENT@787..789 "v3"
+                        RBRACK@789..790 "}"
+                SEMICOLON@790..791 ";"
+            WHITESPACE@791..797 "\n\n    "
+            COMMENT@797..826 "// Expression keys and values"
+            WHITESPACE@826..831 "\n    "
+            VAR_DECL_STMT@831..867
+                VAR_DECL@831..866
+                    ARRAY_TY@831..836 "array"
+                    WHITESPACE@836..837 " "
+                    NAME@837..839
+                        IDENT@837..839 "m4"
+                    WHITESPACE@839..840 " "
+                    EQ@840..841 "="
+                    WHITESPACE@841..842 " "
+                    LIT_MAP@842..866
+                        LBRACK@842..843 "{"
+                        KV_PAIR@843..855
+                            NAME_REF@843..846
+                                IDENT@843..846 "foo"
+                            PAREN_EXPR@846..855
+                                LPAREN@846..847 "("
+                                BIN_EXPR@847..855
+                                    ERROR@847..848
+                                        RPAREN@847..848 ")"
+                                    COLON_2@848..850 "::"
+                                    CALL_EXPR@850..855
+                                        NAME_REF@850..853
+                                            IDENT@850..853 "bar"
+                                        ARG_LIST@853..855
+                                            LPAREN@853..854 "("
+                                            RPAREN@854..855 ")"
+                        COMMA@855..856 ","
+                        WHITESPACE@856..857 " "
+                        KV_PAIR@857..865
+                            NAME_REF@857..860
+                                IDENT@857..860 "baz"
+                            COLON_2@860..862 "::"
+                            NAME_REF@862..865
+                                IDENT@862..865 "qux"
+                        RBRACK@865..866 "}"
+                SEMICOLON@866..867 ";"
+            WHITESPACE@867..873 "\n\n    "
+            COMMENT@873..900 "// Comment before first key"
+            WHITESPACE@900..905 "\n    "
+            VAR_DECL_STMT@905..933
+                VAR_DECL@905..932
+                    ARRAY_TY@905..910 "array"
+                    WHITESPACE@910..911 " "
+                    NAME@911..913
+                        IDENT@911..913 "c4"
+                    WHITESPACE@913..914 " "
+                    EQ@914..915 "="
+                    WHITESPACE@915..916 " "
+                    LIT_MAP@916..932
+                        LBRACK@916..917 "{"
+                        WHITESPACE@917..918 " "
+                        COMMENT@918..925 "/* c */"
+                        KV_PAIR@925..931
+                            STR_EXPR@925..928
+                                QUOTE_DOUBLE@925..926 "\""
+                                STR_SHARD_LITERAL@926..927
+                                    STR_SHARD@926..927 "k"
+                                QUOTE_DOUBLE@927..928 "\""
+                            COLON_2@928..930 "::"
+                            NAME_REF@930..931
+                                IDENT@930..931 "v"
+                        RBRACK@931..932 "}"
+                SEMICOLON@932..933 ";"
+            WHITESPACE@933..939 "\n\n    "
+            COMMENT@939..968 "// Comment between key and ::"
+            WHITESPACE@968..973 "\n    "
+            VAR_DECL_STMT@973..1001
+                VAR_DECL@973..1000
+                    ARRAY_TY@973..978 "array"
+                    WHITESPACE@978..979 " "
+                    NAME@979..981
+                        IDENT@979..981 "c5"
+                    WHITESPACE@981..982 " "
+                    EQ@982..983 "="
+                    WHITESPACE@983..984 " "
+                    LIT_MAP@984..1000
+                        LBRACK@984..985 "{"
+                        KV_PAIR@985..999
+                            STR_EXPR@985..988
+                                QUOTE_DOUBLE@985..986 "\""
+                                STR_SHARD_LITERAL@986..987
+                                    STR_SHARD@986..987 "k"
+                                QUOTE_DOUBLE@987..988 "\""
+                            WHITESPACE@988..989 " "
+                            COMMENT@989..996 "/* c */"
+                            COLON_2@996..998 "::"
+                            NAME_REF@998..999
+                                IDENT@998..999 "v"
+                        RBRACK@999..1000 "}"
+                SEMICOLON@1000..1001 ";"
+            WHITESPACE@1001..1007 "\n\n    "
+            COMMENT@1007..1038 "// Comment between :: and value"
+            WHITESPACE@1038..1043 "\n    "
+            VAR_DECL_STMT@1043..1071
+                VAR_DECL@1043..1070
+                    ARRAY_TY@1043..1048 "array"
+                    WHITESPACE@1048..1049 " "
+                    NAME@1049..1051
+                        IDENT@1049..1051 "c6"
+                    WHITESPACE@1051..1052 " "
+                    EQ@1052..1053 "="
+                    WHITESPACE@1053..1054 " "
+                    LIT_MAP@1054..1070
+                        LBRACK@1054..1055 "{"
+                        KV_PAIR@1055..1069
+                            STR_EXPR@1055..1058
+                                QUOTE_DOUBLE@1055..1056 "\""
+                                STR_SHARD_LITERAL@1056..1057
+                                    STR_SHARD@1056..1057 "k"
+                                QUOTE_DOUBLE@1057..1058 "\""
+                            COLON_2@1058..1060 "::"
+                            WHITESPACE@1060..1061 " "
+                            COMMENT@1061..1068 "/* c */"
+                            NAME_REF@1068..1069
+                                IDENT@1068..1069 "v"
+                        RBRACK@1069..1070 "}"
+                SEMICOLON@1070..1071 ";"
+            WHITESPACE@1071..1077 "\n\n    "
+            COMMENT@1077..1104 "// Comment after last value"
+            WHITESPACE@1104..1109 "\n    "
+            VAR_DECL_STMT@1109..1137
+                VAR_DECL@1109..1136
+                    ARRAY_TY@1109..1114 "array"
+                    WHITESPACE@1114..1115 " "
+                    NAME@1115..1117
+                        IDENT@1115..1117 "c7"
+                    WHITESPACE@1117..1118 " "
+                    EQ@1118..1119 "="
+                    WHITESPACE@1119..1120 " "
+                    LIT_MAP@1120..1136
+                        LBRACK@1120..1121 "{"
+                        KV_PAIR@1121..1127
+                            STR_EXPR@1121..1124
+                                QUOTE_DOUBLE@1121..1122 "\""
+                                STR_SHARD_LITERAL@1122..1123
+                                    STR_SHARD@1122..1123 "k"
+                                QUOTE_DOUBLE@1123..1124 "\""
+                            COLON_2@1124..1126 "::"
+                            NAME_REF@1126..1127
+                                IDENT@1126..1127 "v"
+                        WHITESPACE@1127..1128 " "
+                        COMMENT@1128..1135 "/* c */"
+                        RBRACK@1135..1136 "}"
+                SEMICOLON@1136..1137 ";"
+            WHITESPACE@1137..1143 "\n\n    "
+            COMMENT@1143..1177 "// === Literals as expressions ==="
+            WHITESPACE@1177..1183 "\n\n    "
+            COMMENT@1183..1202 "// Integer literals"
+            WHITESPACE@1202..1207 "\n    "
+            VAR_DECL_STMT@1207..1220
+                VAR_DECL@1207..1219
+                    INT_TY@1207..1210 "int"
+                    WHITESPACE@1210..1211 " "
+                    NAME@1211..1215
+                        IDENT@1211..1215 "lit1"
+                    WHITESPACE@1215..1216 " "
+                    EQ@1216..1217 "="
+                    WHITESPACE@1217..1218 " "
+                    LITERAL@1218..1219
+                        NUMBER@1218..1219 "0"
+                SEMICOLON@1219..1220 ";"
+            WHITESPACE@1220..1225 "\n    "
+            VAR_DECL_STMT@1225..1239
+                VAR_DECL@1225..1238
+                    INT_TY@1225..1228 "int"
+                    WHITESPACE@1228..1229 " "
+                    NAME@1229..1233
+                        IDENT@1229..1233 "lit2"
+                    WHITESPACE@1233..1234 " "
+                    EQ@1234..1235 "="
+                    WHITESPACE@1235..1236 " "
+                    LITERAL@1236..1238
+                        NUMBER@1236..1238 "42"
+                SEMICOLON@1238..1239 ";"
+            WHITESPACE@1239..1244 "\n    "
+            VAR_DECL_STMT@1244..1263
+                VAR_DECL@1244..1262
+                    INT_TY@1244..1247 "int"
+                    WHITESPACE@1247..1248 " "
+                    NAME@1248..1252
+                        IDENT@1248..1252 "lit3"
+                    WHITESPACE@1252..1253 " "
+                    EQ@1253..1254 "="
+                    WHITESPACE@1254..1255 " "
+                    LITERAL@1255..1262
+                        NUMBER@1255..1262 "1000000"
+                SEMICOLON@1262..1263 ";"
+            WHITESPACE@1263..1269 "\n\n    "
+            COMMENT@1269..1286 "// Float literals"
+            WHITESPACE@1286..1291 "\n    "
+            VAR_DECL_STMT@1291..1308
+                VAR_DECL@1291..1307
+                    FLOAT_TY@1291..1296 "float"
+                    WHITESPACE@1296..1297 " "
+                    NAME@1297..1301
+                        IDENT@1297..1301 "lit4"
+                    WHITESPACE@1301..1302 " "
+                    EQ@1302..1303 "="
+                    WHITESPACE@1303..1304 " "
+                    LITERAL@1304..1307
+                        NUMBER@1304..1307 "0.0"
+                SEMICOLON@1307..1308 ";"
+            WHITESPACE@1308..1313 "\n    "
+            VAR_DECL_STMT@1313..1331
+                VAR_DECL@1313..1330
+                    FLOAT_TY@1313..1318 "float"
+                    WHITESPACE@1318..1319 " "
+                    NAME@1319..1323
+                        IDENT@1319..1323 "lit5"
+                    WHITESPACE@1323..1324 " "
+                    EQ@1324..1325 "="
+                    WHITESPACE@1325..1326 " "
+                    LITERAL@1326..1330
+                        NUMBER@1326..1330 "3.14"
+                SEMICOLON@1330..1331 ";"
+            WHITESPACE@1331..1336 "\n    "
+            VAR_DECL_STMT@1336..1352
+                VAR_DECL@1336..1352
+                    FLOAT_TY@1336..1341 "float"
+                    WHITESPACE@1341..1342 " "
+                    NAME@1342..1346
+                        IDENT@1342..1346 "lit6"
+                    WHITESPACE@1346..1347 " "
+                    EQ@1347..1348 "="
+                    WHITESPACE@1348..1349 " "
+                    LITERAL@1349..1352
+                        NUMBER@1349..1352 "1.5"
+            EXPR_STMT@1352..1356
+                NAME_REF@1352..1355
+                    IDENT@1352..1355 "e10"
+                SEMICOLON@1355..1356 ";"
+            WHITESPACE@1356..1362 "\n\n    "
+            COMMENT@1362..1378 "// Bool literals"
+            WHITESPACE@1378..1383 "\n    "
+            VAR_DECL_STMT@1383..1399
+                VAR_DECL@1383..1398
+                    INT_TY@1383..1386 "int"
+                    WHITESPACE@1386..1387 " "
+                    NAME@1387..1391
+                        IDENT@1387..1391 "lit7"
+                    WHITESPACE@1391..1392 " "
+                    EQ@1392..1393 "="
+                    WHITESPACE@1393..1394 " "
+                    LITERAL@1394..1398
+                        BOOL@1394..1398 "true"
+                SEMICOLON@1398..1399 ";"
+            WHITESPACE@1399..1404 "\n    "
+            VAR_DECL_STMT@1404..1421
+                VAR_DECL@1404..1420
+                    INT_TY@1404..1407 "int"
+                    WHITESPACE@1407..1408 " "
+                    NAME@1408..1412
+                        IDENT@1408..1412 "lit8"
+                    WHITESPACE@1412..1413 " "
+                    EQ@1413..1414 "="
+                    WHITESPACE@1414..1415 " "
+                    LITERAL@1415..1420
+                        BOOL@1415..1420 "false"
+                SEMICOLON@1420..1421 ";"
+            WHITESPACE@1421..1422 "\n"
+            RBRACK@1422..1423 "}"
+    WHITESPACE@1423..1424 "\n"

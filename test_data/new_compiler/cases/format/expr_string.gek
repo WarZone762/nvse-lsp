@@ -1,0 +1,53 @@
+name expr_string;
+
+fn () {
+    // Plain strings
+    string s1 = "";
+    string s2 = "hello";
+    string s3 = "hello world";
+
+    // String with special chars
+    string s4 = "line1\nline2";
+
+    // Single interpolation
+    string s5 = "hello ${name}";
+
+    // Interpolation at start
+    string s6 = "${greeting} world";
+
+    // Interpolation at end
+    string s7 = "hello ${name}";
+
+    // Multiple interpolations
+    string s8 = "${a} + ${b} = ${c}";
+
+    // Interpolation with expression
+    string s9 = "value: ${x + 1}";
+
+    // Interpolation with call
+    string s10 = "result: ${foo(x)}";
+
+    // Interpolation with field access
+    string s11 = "name: ${obj.name}";
+
+    // Interpolation with unary
+    string s12 = "count: ${#arr}";
+
+    // Nested string (string inside interpolation)
+    string s13 = "prefix ${foo("inner")} suffix";
+
+    // Comment between ${ and expr
+    string c1 = "${ /* c */x}";
+
+    // Comment between expr and }
+    string c2 = "${x /* c */}";
+
+    // Comments in both positions
+    string c3 = "${ /* a */x /* b */}";
+
+    // Interpolation in call arg
+    foo("result: ${x}");
+
+    // Multiple interpolations with comments
+    string c4 = "${ /* a */a} and ${ /* b */b}";
+}

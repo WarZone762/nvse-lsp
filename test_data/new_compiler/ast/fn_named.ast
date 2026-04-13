@@ -1,0 +1,310 @@
+SCRIPT@0..707
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..13
+        IDENT@5..13 "fn_named"
+    SEMICOLON@13..14 ";"
+    WHITESPACE@14..16 "\n\n"
+    COMMENT@16..46 "// Named fn with no parameters"
+    WHITESPACE@46..47 "\n"
+    FN_DECL_ITEM@47..87
+        FN_KW@47..49 "fn"
+        WHITESPACE@49..50 " "
+        NAME@50..58
+            IDENT@50..58 "noParams"
+        PARAM_LIST@58..60
+            LPAREN@58..59 "("
+            RPAREN@59..60 ")"
+        WHITESPACE@60..61 " "
+        BLOCK_STMT@61..87
+            LBRACK@61..62 "{"
+            WHITESPACE@62..64 "\n\t"
+            EXPR_STMT@64..85
+                CALL_EXPR@64..84
+                    NAME_REF@64..71
+                        IDENT@64..71 "Message"
+                    ARG_LIST@71..84
+                        LPAREN@71..72 "("
+                        STR_EXPR@72..83
+                            QUOTE_DOUBLE@72..73 "\""
+                            STR_SHARD_LITERAL@73..82
+                                STR_SHARD@73..82 "no params"
+                            QUOTE_DOUBLE@82..83 "\""
+                        RPAREN@83..84 ")"
+                SEMICOLON@84..85 ";"
+            WHITESPACE@85..86 "\n"
+            RBRACK@86..87 "}"
+    WHITESPACE@87..89 "\n\n"
+    COMMENT@89..130 "// Named fn with a single typed parameter"
+    WHITESPACE@130..131 "\n"
+    FN_DECL_ITEM@131..164
+        FN_KW@131..133 "fn"
+        WHITESPACE@133..134 " "
+        NAME@134..142
+            IDENT@134..142 "oneParam"
+        PARAM_LIST@142..149
+            LPAREN@142..143 "("
+            VAR_DECL@143..148
+                INT_TY@143..146 "int"
+                WHITESPACE@146..147 " "
+                NAME@147..148
+                    IDENT@147..148 "x"
+            RPAREN@148..149 ")"
+        WHITESPACE@149..150 " "
+        BLOCK_STMT@150..164
+            LBRACK@150..151 "{"
+            WHITESPACE@151..153 "\n\t"
+            RETURN_STMT@153..162
+                RETURN_KW@153..159 "return"
+                WHITESPACE@159..160 " "
+                NAME_REF@160..161
+                    IDENT@160..161 "x"
+                SEMICOLON@161..162 ";"
+            WHITESPACE@162..163 "\n"
+            RBRACK@163..164 "}"
+    WHITESPACE@164..166 "\n\n"
+    COMMENT@166..217 "// Named fn with parameters of every primitive type"
+    WHITESPACE@217..218 "\n"
+    FN_DECL_ITEM@218..296
+        FN_KW@218..220 "fn"
+        WHITESPACE@220..221 " "
+        NAME@221..229
+            IDENT@221..229 "allTypes"
+        PARAM_LIST@229..281
+            LPAREN@229..230 "("
+            VAR_DECL@230..235
+                INT_TY@230..233 "int"
+                WHITESPACE@233..234 " "
+                NAME@234..235
+                    IDENT@234..235 "a"
+            COMMA@235..236 ","
+            WHITESPACE@236..237 " "
+            VAR_DECL@237..245
+                DOUBLE_TY@237..243 "double"
+                WHITESPACE@243..244 " "
+                NAME@244..245
+                    IDENT@244..245 "b"
+            COMMA@245..246 ","
+            WHITESPACE@246..247 " "
+            VAR_DECL@247..254
+                FLOAT_TY@247..252 "float"
+                WHITESPACE@252..253 " "
+                NAME@253..254
+                    IDENT@253..254 "c"
+            COMMA@254..255 ","
+            WHITESPACE@255..256 " "
+            VAR_DECL@256..261
+                REF_TY@256..259 "ref"
+                WHITESPACE@259..260 " "
+                NAME@260..261
+                    IDENT@260..261 "d"
+            COMMA@261..262 ","
+            WHITESPACE@262..263 " "
+            VAR_DECL@263..271
+                STRING_TY@263..269 "string"
+                WHITESPACE@269..270 " "
+                NAME@270..271
+                    IDENT@270..271 "e"
+            COMMA@271..272 ","
+            WHITESPACE@272..273 " "
+            VAR_DECL@273..280
+                ARRAY_TY@273..278 "array"
+                WHITESPACE@278..279 " "
+                NAME@279..280
+                    IDENT@279..280 "f"
+            RPAREN@280..281 ")"
+        WHITESPACE@281..282 " "
+        BLOCK_STMT@282..296
+            LBRACK@282..283 "{"
+            WHITESPACE@283..285 "\n\t"
+            RETURN_STMT@285..294
+                RETURN_KW@285..291 "return"
+                WHITESPACE@291..292 " "
+                NAME_REF@292..293
+                    IDENT@292..293 "a"
+                SEMICOLON@293..294 ";"
+            WHITESPACE@294..295 "\n"
+            RBRACK@295..296 "}"
+    WHITESPACE@296..298 "\n\n"
+    COMMENT@298..368 "// Anonymous fn with no parameters (existing pattern for completeness)"
+    WHITESPACE@368..369 "\n"
+    FN_DECL_ITEM@369..406
+        FN_KW@369..371 "fn"
+        WHITESPACE@371..372 " "
+        PARAM_LIST@372..374
+            LPAREN@372..373 "("
+            RPAREN@373..374 ")"
+        WHITESPACE@374..375 " "
+        BLOCK_STMT@375..406
+            LBRACK@375..376 "{"
+            WHITESPACE@376..378 "\n\t"
+            EXPR_STMT@378..389
+                CALL_EXPR@378..388
+                    NAME_REF@378..386
+                        IDENT@378..386 "noParams"
+                    ARG_LIST@386..388
+                        LPAREN@386..387 "("
+                        RPAREN@387..388 ")"
+                SEMICOLON@388..389 ";"
+            WHITESPACE@389..391 "\n\t"
+            EXPR_STMT@391..404
+                CALL_EXPR@391..403
+                    NAME_REF@391..399
+                        IDENT@391..399 "oneParam"
+                    ARG_LIST@399..403
+                        LPAREN@399..400 "("
+                        LITERAL@400..402
+                            NUMBER@400..402 "42"
+                        RPAREN@402..403 ")"
+                SEMICOLON@403..404 ";"
+            WHITESPACE@404..405 "\n"
+            RBRACK@405..406 "}"
+    WHITESPACE@406..408 "\n\n"
+    COMMENT@408..469 "// Named fn whose body uses its own parameters in expressions"
+    WHITESPACE@469..470 "\n"
+    FN_DECL_ITEM@470..545
+        FN_KW@470..472 "fn"
+        WHITESPACE@472..473 " "
+        NAME@473..480
+            IDENT@473..480 "compute"
+        PARAM_LIST@480..499
+            LPAREN@480..481 "("
+            VAR_DECL@481..489
+                INT_TY@481..484 "int"
+                WHITESPACE@484..485 " "
+                NAME@485..489
+                    IDENT@485..489 "base"
+            COMMA@489..490 ","
+            WHITESPACE@490..491 " "
+            VAR_DECL@491..498
+                INT_TY@491..494 "int"
+                WHITESPACE@494..495 " "
+                NAME@495..498
+                    IDENT@495..498 "exp"
+            RPAREN@498..499 ")"
+        WHITESPACE@499..500 " "
+        BLOCK_STMT@500..545
+            LBRACK@500..501 "{"
+            WHITESPACE@501..503 "\n\t"
+            VAR_DECL_STMT@503..527
+                VAR_DECL@503..526
+                    INT_TY@503..506 "int"
+                    WHITESPACE@506..507 " "
+                    NAME@507..513
+                        IDENT@507..513 "result"
+                    WHITESPACE@513..514 " "
+                    EQ@514..515 "="
+                    WHITESPACE@515..516 " "
+                    BIN_EXPR@516..526
+                        NAME_REF@516..520
+                            IDENT@516..520 "base"
+                        WHITESPACE@520..521 " "
+                        CIRCUMFLEX@521..522 "^"
+                        WHITESPACE@522..523 " "
+                        NAME_REF@523..526
+                            IDENT@523..526 "exp"
+                SEMICOLON@526..527 ";"
+            WHITESPACE@527..529 "\n\t"
+            RETURN_STMT@529..543
+                RETURN_KW@529..535 "return"
+                WHITESPACE@535..536 " "
+                NAME_REF@536..542
+                    IDENT@536..542 "result"
+                SEMICOLON@542..543 ";"
+            WHITESPACE@543..544 "\n"
+            RBRACK@544..545 "}"
+    WHITESPACE@545..547 "\n\n"
+    COMMENT@547..589 "// Named fn with early returns via if/else"
+    WHITESPACE@589..590 "\n"
+    FN_DECL_ITEM@590..706
+        FN_KW@590..592 "fn"
+        WHITESPACE@592..593 " "
+        NAME@593..598
+            IDENT@593..598 "clamp"
+        PARAM_LIST@598..623
+            LPAREN@598..599 "("
+            VAR_DECL@599..606
+                INT_TY@599..602 "int"
+                WHITESPACE@602..603 " "
+                NAME@603..606
+                    IDENT@603..606 "val"
+            COMMA@606..607 ","
+            WHITESPACE@607..608 " "
+            VAR_DECL@608..614
+                INT_TY@608..611 "int"
+                WHITESPACE@611..612 " "
+                NAME@612..614
+                    IDENT@612..614 "lo"
+            COMMA@614..615 ","
+            WHITESPACE@615..616 " "
+            VAR_DECL@616..622
+                INT_TY@616..619 "int"
+                WHITESPACE@619..620 " "
+                NAME@620..622
+                    IDENT@620..622 "hi"
+            RPAREN@622..623 ")"
+        WHITESPACE@623..624 " "
+        BLOCK_STMT@624..706
+            LBRACK@624..625 "{"
+            WHITESPACE@625..627 "\n\t"
+            IF_STMT@627..658
+                IF_KW@627..629 "if"
+                WHITESPACE@629..630 " "
+                LPAREN@630..631 "("
+                BIN_EXPR@631..639
+                    NAME_REF@631..634
+                        IDENT@631..634 "val"
+                    WHITESPACE@634..635 " "
+                    LT@635..636 "<"
+                    WHITESPACE@636..637 " "
+                    NAME_REF@637..639
+                        IDENT@637..639 "lo"
+                RPAREN@639..640 ")"
+                WHITESPACE@640..641 " "
+                BLOCK_STMT@641..658
+                    LBRACK@641..642 "{"
+                    WHITESPACE@642..645 "\n\t\t"
+                    RETURN_STMT@645..655
+                        RETURN_KW@645..651 "return"
+                        WHITESPACE@651..652 " "
+                        NAME_REF@652..654
+                            IDENT@652..654 "lo"
+                        SEMICOLON@654..655 ";"
+                    WHITESPACE@655..657 "\n\t"
+                    RBRACK@657..658 "}"
+            WHITESPACE@658..660 "\n\t"
+            IF_STMT@660..691
+                IF_KW@660..662 "if"
+                WHITESPACE@662..663 " "
+                LPAREN@663..664 "("
+                BIN_EXPR@664..672
+                    NAME_REF@664..667
+                        IDENT@664..667 "val"
+                    WHITESPACE@667..668 " "
+                    GT@668..669 ">"
+                    WHITESPACE@669..670 " "
+                    NAME_REF@670..672
+                        IDENT@670..672 "hi"
+                RPAREN@672..673 ")"
+                WHITESPACE@673..674 " "
+                BLOCK_STMT@674..691
+                    LBRACK@674..675 "{"
+                    WHITESPACE@675..678 "\n\t\t"
+                    RETURN_STMT@678..688
+                        RETURN_KW@678..684 "return"
+                        WHITESPACE@684..685 " "
+                        NAME_REF@685..687
+                            IDENT@685..687 "hi"
+                        SEMICOLON@687..688 ";"
+                    WHITESPACE@688..690 "\n\t"
+                    RBRACK@690..691 "}"
+            WHITESPACE@691..693 "\n\t"
+            RETURN_STMT@693..704
+                RETURN_KW@693..699 "return"
+                WHITESPACE@699..700 " "
+                NAME_REF@700..703
+                    IDENT@700..703 "val"
+                SEMICOLON@703..704 ";"
+            WHITESPACE@704..705 "\n"
+            RBRACK@705..706 "}"
+    WHITESPACE@706..707 "\n"

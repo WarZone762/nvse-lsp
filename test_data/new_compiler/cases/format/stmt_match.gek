@@ -1,0 +1,114 @@
+name stmt_match;
+
+fn () {
+    // Single literal arm
+    match (x) {
+        1 -> {}
+    }
+
+    // Multiple literal arms
+    match (x) {
+        1 -> {}
+        2 -> {}
+        3 -> {}
+    }
+
+    // Bool arms
+    match (flag) {
+        true -> {}
+        false -> {}
+    }
+
+    // String arms
+    match (s) {
+        "hello" -> {}
+        "bye" -> {}
+    }
+
+    // Var-decl binding pattern
+    match (x) {
+        int n -> {}
+    }
+
+    // Array destructuring pattern
+    match (x) {
+        [int a, int b] -> {}
+    }
+
+    // Arms with bodies
+    match (x) {
+        1 -> {
+            int tmp = x + 1;
+            Message($tmp);
+        }
+        2 -> {
+            Message("two");
+        }
+    }
+
+    // Comment between match keyword and lparen
+    match /* c */ (x) {
+        1 -> {}
+    }
+
+    // Comment between lparen and expr
+    match ( /* c */x) {
+        1 -> {}
+    }
+
+    // Comment between expr and rparen
+    match (x /* c */) {
+        1 -> {}
+    }
+
+    // Comment between rparen and lbrace
+    match (x) /* c */ {
+        1 -> {}
+    }
+
+    // Comment between lbrace and first arm
+    match (x) {
+        // before first arm
+        1 -> {}
+    }
+
+    // Comment between arms
+    match (x) {
+        1 -> {}
+        // between arms
+        2 -> {}
+    }
+
+    // Comment between last arm and rbrace
+    match (x) {
+        1 -> {}
+        // after last arm
+    }
+
+    // Comment between pattern and arrow
+    match (x) {
+        1 /* c */ -> {}
+    }
+
+    // Comment between arrow and block
+    match (x) {
+        1 -> /* c */ {}
+    }
+
+    // Comments inside arm block (between stmts)
+    match (x) {
+        1 -> {
+            // before stmt
+            a;
+            // between stmts
+            b;
+        }
+    }
+
+    // Blank line between arms
+    match (x) {
+        1 -> {}
+
+        2 -> {}
+    }
+}

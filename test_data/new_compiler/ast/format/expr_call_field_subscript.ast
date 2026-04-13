@@ -1,0 +1,541 @@
+SCRIPT@0..1521
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..30
+        IDENT@5..30 "expr_call_field_subscript"
+    SEMICOLON@30..31 ";"
+    WHITESPACE@31..33 "\n\n"
+    FN_DECL_ITEM@33..1520
+        FN_KW@33..35 "fn"
+        WHITESPACE@35..36 " "
+        PARAM_LIST@36..38
+            LPAREN@36..37 "("
+            RPAREN@37..38 ")"
+        WHITESPACE@38..39 " "
+        BLOCK_STMT@39..1520
+            LBRACK@39..40 "{"
+            WHITESPACE@40..45 "\n    "
+            COMMENT@45..61 "// === Calls ==="
+            WHITESPACE@61..67 "\n\n    "
+            COMMENT@67..77 "// No args"
+            WHITESPACE@77..82 "\n    "
+            EXPR_STMT@82..88
+                CALL_EXPR@82..87
+                    NAME_REF@82..85
+                        IDENT@82..85 "foo"
+                    ARG_LIST@85..87
+                        LPAREN@85..86 "("
+                        RPAREN@86..87 ")"
+                SEMICOLON@87..88 ";"
+            WHITESPACE@88..94 "\n\n    "
+            COMMENT@94..104 "// One arg"
+            WHITESPACE@104..109 "\n    "
+            EXPR_STMT@109..116
+                CALL_EXPR@109..115
+                    NAME_REF@109..112
+                        IDENT@109..112 "foo"
+                    ARG_LIST@112..115
+                        LPAREN@112..113 "("
+                        NAME_REF@113..114
+                            IDENT@113..114 "x"
+                        RPAREN@114..115 ")"
+                SEMICOLON@115..116 ";"
+            WHITESPACE@116..122 "\n\n    "
+            COMMENT@122..138 "// Multiple args"
+            WHITESPACE@138..143 "\n    "
+            EXPR_STMT@143..156
+                CALL_EXPR@143..155
+                    NAME_REF@143..146
+                        IDENT@143..146 "foo"
+                    ARG_LIST@146..155
+                        LPAREN@146..147 "("
+                        NAME_REF@147..148
+                            IDENT@147..148 "a"
+                        COMMA@148..149 ","
+                        WHITESPACE@149..150 " "
+                        NAME_REF@150..151
+                            IDENT@150..151 "b"
+                        COMMA@151..152 ","
+                        WHITESPACE@152..153 " "
+                        NAME_REF@153..154
+                            IDENT@153..154 "c"
+                        RPAREN@154..155 ")"
+                SEMICOLON@155..156 ";"
+            WHITESPACE@156..162 "\n\n    "
+            COMMENT@162..177 "// Nested calls"
+            WHITESPACE@177..182 "\n    "
+            EXPR_STMT@182..202
+                CALL_EXPR@182..201
+                    NAME_REF@182..185
+                        IDENT@182..185 "foo"
+                    ARG_LIST@185..201
+                        LPAREN@185..186 "("
+                        CALL_EXPR@186..192
+                            NAME_REF@186..189
+                                IDENT@186..189 "bar"
+                            ARG_LIST@189..192
+                                LPAREN@189..190 "("
+                                NAME_REF@190..191
+                                    IDENT@190..191 "x"
+                                RPAREN@191..192 ")"
+                        COMMA@192..193 ","
+                        WHITESPACE@193..194 " "
+                        CALL_EXPR@194..200
+                            NAME_REF@194..197
+                                IDENT@194..197 "baz"
+                            ARG_LIST@197..200
+                                LPAREN@197..198 "("
+                                NAME_REF@198..199
+                                    IDENT@198..199 "y"
+                                RPAREN@199..200 ")"
+                        RPAREN@200..201 ")"
+                SEMICOLON@201..202 ";"
+            WHITESPACE@202..208 "\n\n    "
+            COMMENT@208..228 "// Method call chain"
+            WHITESPACE@228..233 "\n    "
+            EXPR_STMT@233..250
+                CALL_EXPR@233..249
+                    FIELD_EXPR@233..243
+                        NAME_REF@233..236
+                            IDENT@233..236 "obj"
+                        DOT@236..237 "."
+                        NAME_REF@237..243
+                            IDENT@237..243 "method"
+                    ARG_LIST@243..249
+                        LPAREN@243..244 "("
+                        NAME_REF@244..245
+                            IDENT@244..245 "a"
+                        COMMA@245..246 ","
+                        WHITESPACE@246..247 " "
+                        NAME_REF@247..248
+                            IDENT@247..248 "b"
+                        RPAREN@248..249 ")"
+                SEMICOLON@249..250 ";"
+            WHITESPACE@250..256 "\n\n    "
+            COMMENT@256..278 "// Call on call result"
+            WHITESPACE@278..283 "\n    "
+            EXPR_STMT@283..292
+                CALL_EXPR@283..291
+                    CALL_EXPR@283..288
+                        NAME_REF@283..286
+                            IDENT@283..286 "foo"
+                        ARG_LIST@286..288
+                            LPAREN@286..287 "("
+                            RPAREN@287..288 ")"
+                    ARG_LIST@288..291
+                        LPAREN@288..289 "("
+                        NAME_REF@289..290
+                            IDENT@289..290 "x"
+                        RPAREN@290..291 ")"
+                SEMICOLON@291..292 ";"
+            WHITESPACE@292..298 "\n\n    "
+            COMMENT@298..336 "// Comment between callee and arg list"
+            WHITESPACE@336..341 "\n    "
+            EXPR_STMT@341..356
+                CALL_EXPR@341..355
+                    NAME_REF@341..344
+                        IDENT@341..344 "foo"
+                    WHITESPACE@344..345 " "
+                    COMMENT@345..352 "/* c */"
+                    ARG_LIST@352..355
+                        LPAREN@352..353 "("
+                        NAME_REF@353..354
+                            IDENT@353..354 "x"
+                        RPAREN@354..355 ")"
+                SEMICOLON@355..356 ";"
+            WHITESPACE@356..362 "\n\n    "
+            COMMENT@362..389 "// Comment before first arg"
+            WHITESPACE@389..394 "\n    "
+            EXPR_STMT@394..409
+                CALL_EXPR@394..408
+                    NAME_REF@394..397
+                        IDENT@394..397 "foo"
+                    ARG_LIST@397..408
+                        LPAREN@397..398 "("
+                        WHITESPACE@398..399 " "
+                        COMMENT@399..406 "/* c */"
+                        NAME_REF@406..407
+                            IDENT@406..407 "x"
+                        RPAREN@407..408 ")"
+                SEMICOLON@408..409 ";"
+            WHITESPACE@409..415 "\n\n    "
+            COMMENT@415..440 "// Comment after last arg"
+            WHITESPACE@440..445 "\n    "
+            EXPR_STMT@445..460
+                CALL_EXPR@445..459
+                    NAME_REF@445..448
+                        IDENT@445..448 "foo"
+                    ARG_LIST@448..459
+                        LPAREN@448..449 "("
+                        NAME_REF@449..450
+                            IDENT@449..450 "x"
+                        WHITESPACE@450..451 " "
+                        COMMENT@451..458 "/* c */"
+                        RPAREN@458..459 ")"
+                SEMICOLON@459..460 ";"
+            WHITESPACE@460..466 "\n\n    "
+            COMMENT@466..560 "// Comment between args — only end-of-args comment survives (between-arg comments are dropped)"
+            WHITESPACE@560..565 "\n    "
+            EXPR_STMT@565..583
+                CALL_EXPR@565..582
+                    NAME_REF@565..568
+                        IDENT@565..568 "foo"
+                    ARG_LIST@568..582
+                        LPAREN@568..569 "("
+                        NAME_REF@569..570
+                            IDENT@569..570 "a"
+                        COMMA@570..571 ","
+                        WHITESPACE@571..572 " "
+                        NAME_REF@572..573
+                            IDENT@572..573 "b"
+                        WHITESPACE@573..574 " "
+                        COMMENT@574..581 "/* c */"
+                        RPAREN@581..582 ")"
+                SEMICOLON@582..583 ";"
+            WHITESPACE@583..589 "\n\n    "
+            COMMENT@589..612 "// === Field access ==="
+            WHITESPACE@612..618 "\n\n    "
+            COMMENT@618..627 "// Simple"
+            WHITESPACE@627..632 "\n    "
+            VAR_DECL_STMT@632..650
+                VAR_DECL@632..649
+                    INT_TY@632..635 "int"
+                    WHITESPACE@635..636 " "
+                    NAME@636..637
+                        IDENT@636..637 "x"
+                    WHITESPACE@637..638 " "
+                    EQ@638..639 "="
+                    WHITESPACE@639..640 " "
+                    FIELD_EXPR@640..649
+                        NAME_REF@640..643
+                            IDENT@640..643 "obj"
+                        DOT@643..644 "."
+                        NAME_REF@644..649
+                            IDENT@644..649 "field"
+                SEMICOLON@649..650 ";"
+            WHITESPACE@650..656 "\n\n    "
+            COMMENT@656..666 "// Chained"
+            WHITESPACE@666..671 "\n    "
+            VAR_DECL_STMT@671..685
+                VAR_DECL@671..684
+                    INT_TY@671..674 "int"
+                    WHITESPACE@674..675 " "
+                    NAME@675..676
+                        IDENT@675..676 "y"
+                    WHITESPACE@676..677 " "
+                    EQ@677..678 "="
+                    WHITESPACE@678..679 " "
+                    FIELD_EXPR@679..684
+                        FIELD_EXPR@679..682
+                            NAME_REF@679..680
+                                IDENT@679..680 "a"
+                            DOT@680..681 "."
+                            NAME_REF@681..682
+                                IDENT@681..682 "b"
+                        DOT@682..683 "."
+                        NAME_REF@683..684
+                            IDENT@683..684 "c"
+                SEMICOLON@684..685 ";"
+            WHITESPACE@685..691 "\n\n    "
+            COMMENT@691..709 "// Call then field"
+            WHITESPACE@709..714 "\n    "
+            VAR_DECL_STMT@714..734
+                VAR_DECL@714..733
+                    INT_TY@714..717 "int"
+                    WHITESPACE@717..718 " "
+                    NAME@718..719
+                        IDENT@718..719 "z"
+                    WHITESPACE@719..720 " "
+                    EQ@720..721 "="
+                    WHITESPACE@721..722 " "
+                    FIELD_EXPR@722..733
+                        CALL_EXPR@722..727
+                            NAME_REF@722..725
+                                IDENT@722..725 "foo"
+                            ARG_LIST@725..727
+                                LPAREN@725..726 "("
+                                RPAREN@726..727 ")"
+                        DOT@727..728 "."
+                        NAME_REF@728..733
+                            IDENT@728..733 "field"
+                SEMICOLON@733..734 ";"
+            WHITESPACE@734..740 "\n\n    "
+            COMMENT@740..770 "// Comment between lhs and dot"
+            WHITESPACE@770..775 "\n    "
+            VAR_DECL_STMT@775..802
+                VAR_DECL@775..801
+                    INT_TY@775..778 "int"
+                    WHITESPACE@778..779 " "
+                    NAME@779..781
+                        IDENT@779..781 "r1"
+                    WHITESPACE@781..782 " "
+                    EQ@782..783 "="
+                    WHITESPACE@783..784 " "
+                    FIELD_EXPR@784..801
+                        NAME_REF@784..787
+                            IDENT@784..787 "obj"
+                        WHITESPACE@787..788 " "
+                        COMMENT@788..795 "/* c */"
+                        DOT@795..796 "."
+                        NAME_REF@796..801
+                            IDENT@796..801 "field"
+                SEMICOLON@801..802 ";"
+            WHITESPACE@802..808 "\n\n    "
+            COMMENT@808..845 "// Comment between dot and field name"
+            WHITESPACE@845..850 "\n    "
+            VAR_DECL_STMT@850..876
+                VAR_DECL@850..875
+                    INT_TY@850..853 "int"
+                    WHITESPACE@853..854 " "
+                    NAME@854..856
+                        IDENT@854..856 "r2"
+                    WHITESPACE@856..857 " "
+                    EQ@857..858 "="
+                    WHITESPACE@858..859 " "
+                    FIELD_EXPR@859..875
+                        NAME_REF@859..862
+                            IDENT@859..862 "obj"
+                        DOT@862..863 "."
+                        COMMENT@863..870 "/* c */"
+                        NAME_REF@870..875
+                            IDENT@870..875 "field"
+                SEMICOLON@875..876 ";"
+            WHITESPACE@876..882 "\n\n    "
+            COMMENT@882..902 "// === Subscript ==="
+            WHITESPACE@902..908 "\n\n    "
+            COMMENT@908..924 "// Integer index"
+            WHITESPACE@924..929 "\n    "
+            VAR_DECL_STMT@929..945
+                VAR_DECL@929..944
+                    INT_TY@929..932 "int"
+                    WHITESPACE@932..933 " "
+                    NAME@933..935
+                        IDENT@933..935 "s1"
+                    WHITESPACE@935..936 " "
+                    EQ@936..937 "="
+                    WHITESPACE@937..938 " "
+                    SUBSCRIPT_EXPR@938..944
+                        NAME_REF@938..941
+                            IDENT@938..941 "arr"
+                        LSQ_BRACK@941..942 "["
+                        LITERAL@942..943
+                            NUMBER@942..943 "0"
+                        RSQ_BRACK@943..944 "]"
+                SEMICOLON@944..945 ";"
+            WHITESPACE@945..951 "\n\n    "
+            COMMENT@951..970 "// Expression index"
+            WHITESPACE@970..975 "\n    "
+            VAR_DECL_STMT@975..995
+                VAR_DECL@975..994
+                    INT_TY@975..978 "int"
+                    WHITESPACE@978..979 " "
+                    NAME@979..981
+                        IDENT@979..981 "s2"
+                    WHITESPACE@981..982 " "
+                    EQ@982..983 "="
+                    WHITESPACE@983..984 " "
+                    SUBSCRIPT_EXPR@984..994
+                        NAME_REF@984..987
+                            IDENT@984..987 "arr"
+                        LSQ_BRACK@987..988 "["
+                        BIN_EXPR@988..993
+                            NAME_REF@988..989
+                                IDENT@988..989 "i"
+                            WHITESPACE@989..990 " "
+                            PLUS@990..991 "+"
+                            WHITESPACE@991..992 " "
+                            LITERAL@992..993
+                                NUMBER@992..993 "1"
+                        RSQ_BRACK@993..994 "]"
+                SEMICOLON@994..995 ";"
+            WHITESPACE@995..1001 "\n\n    "
+            COMMENT@1001..1014 "// String key"
+            WHITESPACE@1014..1019 "\n    "
+            VAR_DECL_STMT@1019..1039
+                VAR_DECL@1019..1038
+                    REF_TY@1019..1022 "ref"
+                    WHITESPACE@1022..1023 " "
+                    NAME@1023..1025
+                        IDENT@1023..1025 "s3"
+                    WHITESPACE@1025..1026 " "
+                    EQ@1026..1027 "="
+                    WHITESPACE@1027..1028 " "
+                    SUBSCRIPT_EXPR@1028..1038
+                        NAME_REF@1028..1031
+                            IDENT@1028..1031 "map"
+                        LSQ_BRACK@1031..1032 "["
+                        STR_EXPR@1032..1037
+                            QUOTE_DOUBLE@1032..1033 "\""
+                            STR_SHARD_LITERAL@1033..1036
+                                STR_SHARD@1033..1036 "key"
+                            QUOTE_DOUBLE@1036..1037 "\""
+                        RSQ_BRACK@1037..1038 "]"
+                SEMICOLON@1038..1039 ";"
+            WHITESPACE@1039..1045 "\n\n    "
+            COMMENT@1045..1064 "// Nested subscript"
+            WHITESPACE@1064..1069 "\n    "
+            VAR_DECL_STMT@1069..1090
+                VAR_DECL@1069..1089
+                    INT_TY@1069..1072 "int"
+                    WHITESPACE@1072..1073 " "
+                    NAME@1073..1075
+                        IDENT@1073..1075 "s4"
+                    WHITESPACE@1075..1076 " "
+                    EQ@1076..1077 "="
+                    WHITESPACE@1077..1078 " "
+                    SUBSCRIPT_EXPR@1078..1089
+                        NAME_REF@1078..1081
+                            IDENT@1078..1081 "arr"
+                        LSQ_BRACK@1081..1082 "["
+                        SUBSCRIPT_EXPR@1082..1088
+                            NAME_REF@1082..1085
+                                IDENT@1082..1085 "arr"
+                            LSQ_BRACK@1085..1086 "["
+                            LITERAL@1086..1087
+                                NUMBER@1086..1087 "0"
+                            RSQ_BRACK@1087..1088 "]"
+                        RSQ_BRACK@1088..1089 "]"
+                SEMICOLON@1089..1090 ";"
+            WHITESPACE@1090..1096 "\n\n    "
+            COMMENT@1096..1138 "// Comment between lhs and opening bracket"
+            WHITESPACE@1138..1143 "\n    "
+            VAR_DECL_STMT@1143..1167
+                VAR_DECL@1143..1166
+                    INT_TY@1143..1146 "int"
+                    WHITESPACE@1146..1147 " "
+                    NAME@1147..1149
+                        IDENT@1147..1149 "r3"
+                    WHITESPACE@1149..1150 " "
+                    EQ@1150..1151 "="
+                    WHITESPACE@1151..1152 " "
+                    SUBSCRIPT_EXPR@1152..1166
+                        NAME_REF@1152..1155
+                            IDENT@1152..1155 "arr"
+                        WHITESPACE@1155..1156 " "
+                        COMMENT@1156..1163 "/* c */"
+                        LSQ_BRACK@1163..1164 "["
+                        LITERAL@1164..1165
+                            NUMBER@1164..1165 "0"
+                        RSQ_BRACK@1165..1166 "]"
+                SEMICOLON@1166..1167 ";"
+            WHITESPACE@1167..1173 "\n\n    "
+            COMMENT@1173..1217 "// Comment between opening bracket and index"
+            WHITESPACE@1217..1222 "\n    "
+            VAR_DECL_STMT@1222..1246
+                VAR_DECL@1222..1245
+                    INT_TY@1222..1225 "int"
+                    WHITESPACE@1225..1226 " "
+                    NAME@1226..1228
+                        IDENT@1226..1228 "r4"
+                    WHITESPACE@1228..1229 " "
+                    EQ@1229..1230 "="
+                    WHITESPACE@1230..1231 " "
+                    SUBSCRIPT_EXPR@1231..1245
+                        NAME_REF@1231..1234
+                            IDENT@1231..1234 "arr"
+                        LSQ_BRACK@1234..1235 "["
+                        WHITESPACE@1235..1236 " "
+                        COMMENT@1236..1243 "/* c */"
+                        LITERAL@1243..1244
+                            NUMBER@1243..1244 "0"
+                        RSQ_BRACK@1244..1245 "]"
+                SEMICOLON@1245..1246 ";"
+            WHITESPACE@1246..1252 "\n\n    "
+            COMMENT@1252..1296 "// Comment between index and closing bracket"
+            WHITESPACE@1296..1301 "\n    "
+            VAR_DECL_STMT@1301..1325
+                VAR_DECL@1301..1324
+                    INT_TY@1301..1304 "int"
+                    WHITESPACE@1304..1305 " "
+                    NAME@1305..1307
+                        IDENT@1305..1307 "r5"
+                    WHITESPACE@1307..1308 " "
+                    EQ@1308..1309 "="
+                    WHITESPACE@1309..1310 " "
+                    SUBSCRIPT_EXPR@1310..1324
+                        NAME_REF@1310..1313
+                            IDENT@1310..1313 "arr"
+                        LSQ_BRACK@1313..1314 "["
+                        LITERAL@1314..1315
+                            NUMBER@1314..1315 "0"
+                        WHITESPACE@1315..1316 " "
+                        COMMENT@1316..1323 "/* c */"
+                        RSQ_BRACK@1323..1324 "]"
+                SEMICOLON@1324..1325 ";"
+            WHITESPACE@1325..1331 "\n\n    "
+            COMMENT@1331..1350 "// === Combined ==="
+            WHITESPACE@1350..1356 "\n\n    "
+            COMMENT@1356..1382 "// Call result subscripted"
+            WHITESPACE@1382..1387 "\n    "
+            VAR_DECL_STMT@1387..1405
+                VAR_DECL@1387..1404
+                    INT_TY@1387..1390 "int"
+                    WHITESPACE@1390..1391 " "
+                    NAME@1391..1393
+                        IDENT@1391..1393 "r6"
+                    WHITESPACE@1393..1394 " "
+                    EQ@1394..1395 "="
+                    WHITESPACE@1395..1396 " "
+                    SUBSCRIPT_EXPR@1396..1404
+                        CALL_EXPR@1396..1401
+                            NAME_REF@1396..1399
+                                IDENT@1396..1399 "foo"
+                            ARG_LIST@1399..1401
+                                LPAREN@1399..1400 "("
+                                RPAREN@1400..1401 ")"
+                        LSQ_BRACK@1401..1402 "["
+                        LITERAL@1402..1403
+                            NUMBER@1402..1403 "0"
+                        RSQ_BRACK@1403..1404 "]"
+                SEMICOLON@1404..1405 ";"
+            WHITESPACE@1405..1411 "\n\n    "
+            COMMENT@1411..1439 "// Field of subscript result"
+            WHITESPACE@1439..1444 "\n    "
+            VAR_DECL_STMT@1444..1466
+                VAR_DECL@1444..1465
+                    INT_TY@1444..1447 "int"
+                    WHITESPACE@1447..1448 " "
+                    NAME@1448..1450
+                        IDENT@1448..1450 "r7"
+                    WHITESPACE@1450..1451 " "
+                    EQ@1451..1452 "="
+                    WHITESPACE@1452..1453 " "
+                    FIELD_EXPR@1453..1465
+                        SUBSCRIPT_EXPR@1453..1459
+                            NAME_REF@1453..1456
+                                IDENT@1453..1456 "arr"
+                            LSQ_BRACK@1456..1457 "["
+                            LITERAL@1457..1458
+                                NUMBER@1457..1458 "0"
+                            RSQ_BRACK@1458..1459 "]"
+                        DOT@1459..1460 "."
+                        NAME_REF@1460..1465
+                            IDENT@1460..1465 "field"
+                SEMICOLON@1465..1466 ";"
+            WHITESPACE@1466..1472 "\n\n    "
+            COMMENT@1472..1493 "// Subscript of field"
+            WHITESPACE@1493..1498 "\n    "
+            VAR_DECL_STMT@1498..1518
+                VAR_DECL@1498..1517
+                    INT_TY@1498..1501 "int"
+                    WHITESPACE@1501..1502 " "
+                    NAME@1502..1504
+                        IDENT@1502..1504 "r8"
+                    WHITESPACE@1504..1505 " "
+                    EQ@1505..1506 "="
+                    WHITESPACE@1506..1507 " "
+                    SUBSCRIPT_EXPR@1507..1517
+                        FIELD_EXPR@1507..1514
+                            NAME_REF@1507..1510
+                                IDENT@1507..1510 "obj"
+                            DOT@1510..1511 "."
+                            NAME_REF@1511..1514
+                                IDENT@1511..1514 "arr"
+                        LSQ_BRACK@1514..1515 "["
+                        LITERAL@1515..1516
+                            NUMBER@1515..1516 "0"
+                        RSQ_BRACK@1516..1517 "]"
+                SEMICOLON@1517..1518 ";"
+            WHITESPACE@1518..1519 "\n"
+            RBRACK@1519..1520 "}"
+    WHITESPACE@1520..1521 "\n"

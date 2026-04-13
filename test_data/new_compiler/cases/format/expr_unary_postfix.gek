@@ -1,0 +1,39 @@
+name expr_unary_postfix;
+
+fn () {
+    // Prefix unary operators
+    int a = -x;
+    int b = +x;
+    int c = !x;
+    string s = $x;
+    int size = #arr;
+    int inv = ~x;
+    ++x;
+    --x;
+
+    // Postfix operators
+    x++;
+    x--;
+
+    // Prefix on complex expression
+    int d = -(a + b);
+    int e = !foo();
+
+    // Chained unary
+    int f = --x;
+    int g = ++x;
+
+    // Comment between prefix op and operand
+    int h = - /* c */ x;
+    int i = ! /* c */ x;
+    int j = $ /* c */ n;
+    int k = # /* c */ arr;
+
+    // Comment between operand and postfix op
+    x /* c */++;
+    x /* c */--;
+
+    // Unary in binary context
+    int l = -a + -b;
+    int m = !a && !b;
+}

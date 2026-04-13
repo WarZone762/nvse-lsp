@@ -1,0 +1,56 @@
+name expr_binary;
+
+fn () {
+    // Arithmetic
+    int a = x + y;
+    int b = x - y;
+    int c = x * y;
+    int d = x / y;
+    int e = x % y;
+    int f = x ^ y;
+
+    // Comparison
+    int eq = x == y;
+    int ne = x != y;
+    int lt = x < y;
+    int gt = x > y;
+    int le = x <= y;
+    int ge = x >= y;
+
+    // Logical
+    int and_ = x && y;
+    int or_ = x || y;
+
+    // Bitwise
+    int band = x & y;
+    int bor = x | y;
+    int shl = x << y;
+    int shr = x >> y;
+
+    // Assignment operators
+    x = 1;
+    x += 1;
+    x -= 1;
+    x *= 2;
+    x /= 2;
+    x %= 3;
+    x ^= 2;
+    x |= 1;
+    x &= 1;
+
+    // Chained
+    int chain = a + b + c;
+    int mixed = a * b + c * d;
+
+    // Comment between lhs and operator
+    int r1 = a /* c */ + b;
+
+    // Comment between operator and rhs
+    int r2 = a + /* c */ b;
+
+    // Comments on both sides of operator
+    int r3 = a /* lhs */ + /* rhs */ b;
+
+    // Comment in nested binary
+    int r4 = (a /* c */ + b) * c;
+}

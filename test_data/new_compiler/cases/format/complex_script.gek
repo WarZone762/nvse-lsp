@@ -1,0 +1,117 @@
+name complex_script;
+
+// === Script-level globals ===
+int gCount = 0;
+string gStatus = "init";
+ref gPlayer = player;
+array gLog = [];
+
+// === Named utility functions ===
+
+fn clamp (int val, int lo, int hi) {
+    if (val < lo) {
+        return lo;
+    }
+    if (val > hi) {
+        return hi;
+    }
+    return val;
+}
+
+fn factorial (int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+fn joinStrings (string a, string b, string sep) {
+    return a + sep + b;
+}
+
+// === Anonymous startup handler ===
+
+fn () {
+    // Lambda stored in ref
+    ref doubler = fn (int x) {
+        return x * 2;
+    };
+
+    // For loop with break
+    for (int i = 0; i < 10; i++) {
+        if (i == 5) {
+            break;
+        }
+        gCount += 1;
+    }
+
+    // Foreach with continue
+    for ([int k, ref v] in gLog) {
+        if (k == 0) {
+            continue;
+        }
+        Message($v);
+    }
+
+    // Nested if-else-if
+    if (gCount > 5) {
+        gStatus = "high";
+    } else if (gCount > 2) {
+        gStatus = "mid";
+    } else {
+        gStatus = "low";
+    }
+
+    // Match on status
+    match (gStatus) {
+        "high" -> {
+            Message("high count");
+        }
+        "mid" -> {
+            Message("mid count");
+        }
+        "low" -> {
+            Message("low count");
+        }
+    }
+
+    // While with complex condition
+    int tries = 0;
+    while (tries < 3 && gCount < 10) {
+        gCount++;
+        tries++;
+    }
+
+    // Array and map literals
+    array nums = [1, 2, 3, 4, 5];
+    array lookup = {"a"::1, "b"::2, "c"::3};
+
+    // Ternary in var decl
+    string label = gCount > 0 ? "active" : "idle";
+
+    // String interpolation
+    Message("status: ${gStatus}, count: ${gCount}");
+
+    // Postfix on subscript result
+    int clamped = clamp(gCount, 0, 100);
+    Message("clamped: ${clamped}");
+}
+
+// === Event handlers ===
+
+GameMode {
+    // Inline comment
+    int tick = gCount + 1; // increment
+    gCount = tick;
+}
+
+OnDeath {
+    gStatus = "dead";
+    Message("player died, count was ${gCount}");
+}
+
+OnLoad {
+    // Reset on load
+    gCount = 0;
+    gStatus = "init";
+}

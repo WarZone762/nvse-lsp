@@ -1,0 +1,74 @@
+name expr_array_map;
+
+fn () {
+    // === Array literals ===
+
+    // Empty
+    array a1 = [];
+
+    // Single element
+    array a2 = [1];
+
+    // Multiple elements
+    array a3 = [1, 2, 3];
+
+    // Mixed types (refs, numbers)
+    array a4 = [player, 42, "str"];
+
+    // Expression elements
+    array a5 = [x + 1, y * 2, z - 3];
+
+    // Nested array
+    array a6 = [[1, 2], [3, 4]];
+
+    // Comment before first element
+    array c1 = [ /* c */1, 2, 3];
+
+    // Comment after last element
+    array c2 = [1, 2, 3 /* c */];
+
+    // Comment before first, comment after last
+    array c3 = [ /* a */1, 2, 3 /* b */];
+
+    // === Map literals ===
+
+    // Empty
+    array m1 = {};
+
+    // Single pair
+    array m2 = {"key"::val};
+
+    // Multiple pairs
+    array m3 = {"k1"::v1, "k2"::v2, "k3"::v3};
+
+    // Expression keys and values
+    array m4 = {foo()::bar(), baz::qux};
+
+    // Comment before first key
+    array c4 = { /* c */"k"::v};
+
+    // Comment between key and ::
+    array c5 = {"k" /* c */::v};
+
+    // Comment between :: and value
+    array c6 = {"k":: /* c */v};
+
+    // Comment after last value
+    array c7 = {"k"::v /* c */};
+
+    // === Literals as expressions ===
+
+    // Integer literals
+    int lit1 = 0;
+    int lit2 = 42;
+    int lit3 = 1000000;
+
+    // Float literals
+    float lit4 = 0.0;
+    float lit5 = 3.14;
+    float lit6 = 1.5e10;
+
+    // Bool literals
+    int lit7 = true;
+    int lit8 = false;
+}

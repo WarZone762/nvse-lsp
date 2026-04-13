@@ -1,0 +1,192 @@
+SCRIPT@0..449
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..16
+        IDENT@5..16 "block_types"
+    SEMICOLON@16..17 ";"
+    WHITESPACE@17..19 "\n\n"
+    COMMENT@19..48 "// Block type with empty body"
+    WHITESPACE@48..49 "\n"
+    BLOCK_TYPE_ITEM@49..60
+        BLOCK_TYPE@49..57 "GameMode"
+        WHITESPACE@57..58 " "
+        BLOCK_STMT@58..60
+            LBRACK@58..59 "{"
+            RBRACK@59..60 "}"
+    WHITESPACE@60..62 "\n\n"
+    COMMENT@62..91 "// Block type with statements"
+    WHITESPACE@91..92 "\n"
+    BLOCK_TYPE_ITEM@92..131
+        BLOCK_TYPE@92..100 "MenuMode"
+        WHITESPACE@100..101 " "
+        BLOCK_STMT@101..131
+            LBRACK@101..102 "{"
+            WHITESPACE@102..104 "\n\t"
+            VAR_DECL_STMT@104..115
+                VAR_DECL@104..114
+                    INT_TY@104..107 "int"
+                    WHITESPACE@107..108 " "
+                    NAME@108..109
+                        IDENT@108..109 "i"
+                    WHITESPACE@109..110 " "
+                    EQ@110..111 "="
+                    WHITESPACE@111..112 " "
+                    LITERAL@112..114
+                        NUMBER@112..114 "42"
+                SEMICOLON@114..115 ";"
+            WHITESPACE@115..117 "\n\t"
+            EXPR_STMT@117..129
+                CALL_EXPR@117..128
+                    NAME_REF@117..124
+                        IDENT@117..124 "Message"
+                    ARG_LIST@124..128
+                        LPAREN@124..125 "("
+                        UNARY_EXPR@125..127
+                            DOLLAR@125..126 "$"
+                            NAME_REF@126..127
+                                IDENT@126..127 "i"
+                        RPAREN@127..128 ")"
+                SEMICOLON@128..129 ";"
+            WHITESPACE@129..130 "\n"
+            RBRACK@130..131 "}"
+    WHITESPACE@131..133 "\n\n"
+    COMMENT@133..208 "// Block type with a colon-separated primary expression (e.g. event filter)"
+    WHITESPACE@208..209 "\n"
+    BLOCK_TYPE_ITEM@209..259
+        BLOCK_TYPE@209..218 "OnHitWith"
+        COLON@218..219 ":"
+        WHITESPACE@219..220 " "
+        NAME_REF@220..226
+            IDENT@220..226 "player"
+        WHITESPACE@226..227 " "
+        BLOCK_STMT@227..259
+            LBRACK@227..228 "{"
+            WHITESPACE@228..230 "\n\t"
+            EXPR_STMT@230..257
+                CALL_EXPR@230..256
+                    NAME_REF@230..237
+                        IDENT@230..237 "Message"
+                    ARG_LIST@237..256
+                        LPAREN@237..238 "("
+                        STR_EXPR@238..255
+                            QUOTE_DOUBLE@238..239 "\""
+                            STR_SHARD_LITERAL@239..254
+                                STR_SHARD@239..254 "hit with player"
+                            QUOTE_DOUBLE@254..255 "\""
+                        RPAREN@255..256 ")"
+                SEMICOLON@256..257 ";"
+            WHITESPACE@257..258 "\n"
+            RBRACK@258..259 "}"
+    WHITESPACE@259..261 "\n\n"
+    COMMENT@261..313 "// Multiple different block types in the same script"
+    WHITESPACE@313..314 "\n"
+    BLOCK_TYPE_ITEM@314..351
+        BLOCK_TYPE@314..324 "OnActivate"
+        WHITESPACE@324..325 " "
+        BLOCK_STMT@325..351
+            LBRACK@325..326 "{"
+            WHITESPACE@326..328 "\n\t"
+            EXPR_STMT@328..349
+                CALL_EXPR@328..348
+                    NAME_REF@328..335
+                        IDENT@328..335 "Message"
+                    ARG_LIST@335..348
+                        LPAREN@335..336 "("
+                        STR_EXPR@336..347
+                            QUOTE_DOUBLE@336..337 "\""
+                            STR_SHARD_LITERAL@337..346
+                                STR_SHARD@337..346 "activated"
+                            QUOTE_DOUBLE@346..347 "\""
+                        RPAREN@347..348 ")"
+                SEMICOLON@348..349 ";"
+            WHITESPACE@349..350 "\n"
+            RBRACK@350..351 "}"
+    WHITESPACE@351..353 "\n\n"
+    BLOCK_TYPE_ITEM@353..382
+        BLOCK_TYPE@353..360 "OnDeath"
+        WHITESPACE@360..361 " "
+        BLOCK_STMT@361..382
+            LBRACK@361..362 "{"
+            WHITESPACE@362..364 "\n\t"
+            EXPR_STMT@364..380
+                CALL_EXPR@364..379
+                    NAME_REF@364..371
+                        IDENT@364..371 "Message"
+                    ARG_LIST@371..379
+                        LPAREN@371..372 "("
+                        STR_EXPR@372..378
+                            QUOTE_DOUBLE@372..373 "\""
+                            STR_SHARD_LITERAL@373..377
+                                STR_SHARD@373..377 "died"
+                            QUOTE_DOUBLE@377..378 "\""
+                        RPAREN@378..379 ")"
+                SEMICOLON@379..380 ";"
+            WHITESPACE@380..381 "\n"
+            RBRACK@381..382 "}"
+    WHITESPACE@382..384 "\n\n"
+    BLOCK_TYPE_ITEM@384..448
+        BLOCK_TYPE@384..390 "OnLoad"
+        WHITESPACE@390..391 " "
+        BLOCK_STMT@391..448
+            LBRACK@391..392 "{"
+            WHITESPACE@392..394 "\n\t"
+            VAR_DECL_STMT@394..404
+                VAR_DECL@394..403
+                    INT_TY@394..397 "int"
+                    WHITESPACE@397..398 " "
+                    NAME@398..399
+                        IDENT@398..399 "x"
+                    WHITESPACE@399..400 " "
+                    EQ@400..401 "="
+                    WHITESPACE@401..402 " "
+                    LITERAL@402..403
+                        NUMBER@402..403 "1"
+                SEMICOLON@403..404 ";"
+            WHITESPACE@404..406 "\n\t"
+            VAR_DECL_STMT@406..416
+                VAR_DECL@406..415
+                    INT_TY@406..409 "int"
+                    WHITESPACE@409..410 " "
+                    NAME@410..411
+                        IDENT@410..411 "y"
+                    WHITESPACE@411..412 " "
+                    EQ@412..413 "="
+                    WHITESPACE@413..414 " "
+                    LITERAL@414..415
+                        NUMBER@414..415 "2"
+                SEMICOLON@415..416 ";"
+            WHITESPACE@416..418 "\n\t"
+            VAR_DECL_STMT@418..432
+                VAR_DECL@418..431
+                    INT_TY@418..421 "int"
+                    WHITESPACE@421..422 " "
+                    NAME@422..423
+                        IDENT@422..423 "z"
+                    WHITESPACE@423..424 " "
+                    EQ@424..425 "="
+                    WHITESPACE@425..426 " "
+                    BIN_EXPR@426..431
+                        NAME_REF@426..427
+                            IDENT@426..427 "x"
+                        WHITESPACE@427..428 " "
+                        PLUS@428..429 "+"
+                        WHITESPACE@429..430 " "
+                        NAME_REF@430..431
+                            IDENT@430..431 "y"
+                SEMICOLON@431..432 ";"
+            WHITESPACE@432..434 "\n\t"
+            EXPR_STMT@434..446
+                CALL_EXPR@434..445
+                    NAME_REF@434..441
+                        IDENT@434..441 "Message"
+                    ARG_LIST@441..445
+                        LPAREN@441..442 "("
+                        UNARY_EXPR@442..444
+                            DOLLAR@442..443 "$"
+                            NAME_REF@443..444
+                                IDENT@443..444 "z"
+                        RPAREN@444..445 ")"
+                SEMICOLON@445..446 ";"
+            WHITESPACE@446..447 "\n"
+            RBRACK@447..448 "}"
+    WHITESPACE@448..449 "\n"

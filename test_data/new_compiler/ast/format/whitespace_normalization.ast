@@ -1,0 +1,267 @@
+SCRIPT@0..841
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..29
+        IDENT@5..29 "whitespace_normalization"
+    SEMICOLON@29..30 ";"
+    WHITESPACE@30..32 "\n\n"
+    COMMENT@32..107 "// This file demonstrates whitespace that gets normalized by the formatter."
+    WHITESPACE@107..108 "\n"
+    COMMENT@108..179 "// The formatter collapses multiple spaces, normalizes indentation, and"
+    WHITESPACE@179..180 "\n"
+    COMMENT@180..240 "// ensures consistent spacing around operators and keywords."
+    WHITESPACE@240..242 "\n\n"
+    COMMENT@242..321 "// Extra spaces in script header are collapsed: \"name  test  ;\" -> \"name test;\""
+    WHITESPACE@321..323 "\n\n"
+    FN_DECL_ITEM@323..345
+        FN_KW@323..325 "fn"
+        WHITESPACE@325..326 " "
+        NAME@326..339
+            IDENT@326..339 "noExtraSpaces"
+        WHITESPACE@339..340 " "
+        PARAM_LIST@340..342
+            LPAREN@340..341 "("
+            RPAREN@341..342 ")"
+        WHITESPACE@342..343 " "
+        BLOCK_STMT@343..345
+            LBRACK@343..344 "{"
+            RBRACK@344..345 "}"
+    WHITESPACE@345..347 "\n\n"
+    FN_DECL_ITEM@347..840
+        FN_KW@347..349 "fn"
+        WHITESPACE@349..350 " "
+        PARAM_LIST@350..352
+            LPAREN@350..351 "("
+            RPAREN@351..352 ")"
+        WHITESPACE@352..353 " "
+        BLOCK_STMT@353..840
+            LBRACK@353..354 "{"
+            WHITESPACE@354..359 "\n    "
+            COMMENT@359..393 "// Spacing around binary operators"
+            WHITESPACE@393..398 "\n    "
+            VAR_DECL_STMT@398..412
+                VAR_DECL@398..411
+                    INT_TY@398..401 "int"
+                    WHITESPACE@401..402 " "
+                    NAME@402..403
+                        IDENT@402..403 "a"
+                    WHITESPACE@403..404 " "
+                    EQ@404..405 "="
+                    WHITESPACE@405..406 " "
+                    BIN_EXPR@406..411
+                        NAME_REF@406..407
+                            IDENT@406..407 "x"
+                        WHITESPACE@407..408 " "
+                        PLUS@408..409 "+"
+                        WHITESPACE@409..410 " "
+                        NAME_REF@410..411
+                            IDENT@410..411 "y"
+                SEMICOLON@411..412 ";"
+            WHITESPACE@412..417 "\n    "
+            VAR_DECL_STMT@417..431
+                VAR_DECL@417..430
+                    INT_TY@417..420 "int"
+                    WHITESPACE@420..421 " "
+                    NAME@421..422
+                        IDENT@421..422 "b"
+                    WHITESPACE@422..423 " "
+                    EQ@423..424 "="
+                    WHITESPACE@424..425 " "
+                    BIN_EXPR@425..430
+                        NAME_REF@425..426
+                            IDENT@425..426 "x"
+                        WHITESPACE@426..427 " "
+                        MINUS@427..428 "-"
+                        WHITESPACE@428..429 " "
+                        NAME_REF@429..430
+                            IDENT@429..430 "y"
+                SEMICOLON@430..431 ";"
+            WHITESPACE@431..436 "\n    "
+            VAR_DECL_STMT@436..450
+                VAR_DECL@436..449
+                    INT_TY@436..439 "int"
+                    WHITESPACE@439..440 " "
+                    NAME@440..441
+                        IDENT@440..441 "c"
+                    WHITESPACE@441..442 " "
+                    EQ@442..443 "="
+                    WHITESPACE@443..444 " "
+                    BIN_EXPR@444..449
+                        NAME_REF@444..445
+                            IDENT@444..445 "x"
+                        WHITESPACE@445..446 " "
+                        ASTERISK@446..447 "*"
+                        WHITESPACE@447..448 " "
+                        NAME_REF@448..449
+                            IDENT@448..449 "y"
+                SEMICOLON@449..450 ";"
+            WHITESPACE@450..456 "\n\n    "
+            COMMENT@456..478 "// Spacing in var decl"
+            WHITESPACE@478..483 "\n    "
+            VAR_DECL_STMT@483..494
+                VAR_DECL@483..493
+                    INT_TY@483..486 "int"
+                    WHITESPACE@486..487 " "
+                    NAME@487..488
+                        IDENT@487..488 "d"
+                    WHITESPACE@488..489 " "
+                    EQ@489..490 "="
+                    WHITESPACE@490..491 " "
+                    LITERAL@491..493
+                        NUMBER@491..493 "42"
+                SEMICOLON@493..494 ";"
+            WHITESPACE@494..500 "\n\n    "
+            COMMENT@500..518 "// Spacing in call"
+            WHITESPACE@518..523 "\n    "
+            EXPR_STMT@523..536
+                CALL_EXPR@523..535
+                    NAME_REF@523..526
+                        IDENT@523..526 "foo"
+                    ARG_LIST@526..535
+                        LPAREN@526..527 "("
+                        NAME_REF@527..528
+                            IDENT@527..528 "a"
+                        COMMA@528..529 ","
+                        WHITESPACE@529..530 " "
+                        NAME_REF@530..531
+                            IDENT@530..531 "b"
+                        COMMA@531..532 ","
+                        WHITESPACE@532..533 " "
+                        NAME_REF@533..534
+                            IDENT@533..534 "c"
+                        RPAREN@534..535 ")"
+                SEMICOLON@535..536 ";"
+            WHITESPACE@536..542 "\n\n    "
+            COMMENT@542..558 "// Spacing in if"
+            WHITESPACE@558..563 "\n    "
+            IF_STMT@563..572
+                IF_KW@563..565 "if"
+                WHITESPACE@565..566 " "
+                LPAREN@566..567 "("
+                NAME_REF@567..568
+                    IDENT@567..568 "x"
+                RPAREN@568..569 ")"
+                WHITESPACE@569..570 " "
+                BLOCK_STMT@570..572
+                    LBRACK@570..571 "{"
+                    RBRACK@571..572 "}"
+            WHITESPACE@572..578 "\n\n    "
+            COMMENT@578..597 "// Spacing in while"
+            WHITESPACE@597..602 "\n    "
+            WHILE_STMT@602..614
+                WHILE_KW@602..607 "while"
+                WHITESPACE@607..608 " "
+                LPAREN@608..609 "("
+                NAME_REF@609..610
+                    IDENT@609..610 "x"
+                RPAREN@610..611 ")"
+                WHITESPACE@611..612 " "
+                BLOCK_STMT@612..614
+                    LBRACK@612..613 "{"
+                    RBRACK@613..614 "}"
+            WHITESPACE@614..620 "\n\n    "
+            COMMENT@620..637 "// Spacing in for"
+            WHITESPACE@637..642 "\n    "
+            FOR_STMT@642..673
+                FOR_KW@642..645 "for"
+                WHITESPACE@645..646 " "
+                LPAREN@646..647 "("
+                VAR_DECL@647..656
+                    INT_TY@647..650 "int"
+                    WHITESPACE@650..651 " "
+                    NAME@651..652
+                        IDENT@651..652 "i"
+                    WHITESPACE@652..653 " "
+                    EQ@653..654 "="
+                    WHITESPACE@654..655 " "
+                    LITERAL@655..656
+                        NUMBER@655..656 "0"
+                SEMICOLON@656..657 ";"
+                WHITESPACE@657..658 " "
+                BIN_EXPR@658..664
+                    NAME_REF@658..659
+                        IDENT@658..659 "i"
+                    WHITESPACE@659..660 " "
+                    LT@660..661 "<"
+                    WHITESPACE@661..662 " "
+                    LITERAL@662..664
+                        NUMBER@662..664 "10"
+                SEMICOLON@664..665 ";"
+                WHITESPACE@665..666 " "
+                POSTFIX_EXPR@666..669
+                    NAME_REF@666..667
+                        IDENT@666..667 "i"
+                    PLUS_2@667..669 "++"
+                RPAREN@669..670 ")"
+                WHITESPACE@670..671 " "
+                BLOCK_STMT@671..673
+                    LBRACK@671..672 "{"
+                    RBRACK@672..673 "}"
+            WHITESPACE@673..679 "\n\n    "
+            COMMENT@679..700 "// Spacing in foreach"
+            WHITESPACE@700..705 "\n    "
+            FOR_RANGE_STMT@705..735
+                FOR_KW@705..708 "for"
+                WHITESPACE@708..709 " "
+                LPAREN@709..710 "("
+                ARR_PAT@710..724
+                    LSQ_BRACK@710..711 "["
+                    VAR_DECL@711..716
+                        INT_TY@711..714 "int"
+                        WHITESPACE@714..715 " "
+                        NAME@715..716
+                            IDENT@715..716 "k"
+                    COMMA@716..717 ","
+                    WHITESPACE@717..718 " "
+                    VAR_DECL@718..723
+                        REF_TY@718..721 "ref"
+                        WHITESPACE@721..722 " "
+                        NAME@722..723
+                            IDENT@722..723 "v"
+                    RSQ_BRACK@723..724 "]"
+                WHITESPACE@724..725 " "
+                IN_KW@725..727 "in"
+                WHITESPACE@727..728 " "
+                NAME_REF@728..731
+                    IDENT@728..731 "arr"
+                RPAREN@731..732 ")"
+                WHITESPACE@732..733 " "
+                BLOCK_STMT@733..735
+                    LBRACK@733..734 "{"
+                    RBRACK@734..735 "}"
+            WHITESPACE@735..741 "\n\n    "
+            COMMENT@741..760 "// Spacing in match"
+            WHITESPACE@760..765 "\n    "
+            MATCH_STMT@765..798
+                MATCH_KW@765..770 "match"
+                WHITESPACE@770..771 " "
+                LPAREN@771..772 "("
+                NAME_REF@772..773
+                    IDENT@772..773 "x"
+                RPAREN@773..774 ")"
+                WHITESPACE@774..775 " "
+                LBRACK@775..776 "{"
+                WHITESPACE@776..785 "\n        "
+                MATCH_ARM@785..792
+                    LITERAL@785..786
+                        NUMBER@785..786 "1"
+                    WHITESPACE@786..787 " "
+                    RARROW@787..789 "->"
+                    WHITESPACE@789..790 " "
+                    BLOCK_STMT@790..792
+                        LBRACK@790..791 "{"
+                        RBRACK@791..792 "}"
+                WHITESPACE@792..797 "\n    "
+                RBRACK@797..798 "}"
+            WHITESPACE@798..804 "\n\n    "
+            COMMENT@804..824 "// Spacing in return"
+            WHITESPACE@824..829 "\n    "
+            RETURN_STMT@829..838
+                RETURN_KW@829..835 "return"
+                WHITESPACE@835..836 " "
+                NAME_REF@836..837
+                    IDENT@836..837 "x"
+                SEMICOLON@837..838 ";"
+            WHITESPACE@838..839 "\n"
+            RBRACK@839..840 "}"
+    WHITESPACE@840..841 "\n"

@@ -1,0 +1,27 @@
+name expr_paren;
+
+fn () {
+    // Simple
+    int a = (x);
+
+    // Arithmetic
+    int b = (x + y);
+
+    // Nested
+    int c = ((x + y) * z);
+
+    // Paren in call arg
+    foo((x + y));
+
+    // Paren in binary
+    int d = (a + b) * (c + d);
+
+    // Comment between lparen and expr
+    int r1 = ( /* c */x);
+
+    // Comment between expr and rparen
+    int r2 = (x /* c */);
+
+    // Comments on both sides
+    int r3 = ( /* a */x /* b */);
+}

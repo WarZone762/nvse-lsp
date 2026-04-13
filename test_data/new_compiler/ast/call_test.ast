@@ -1,0 +1,309 @@
+SCRIPT@0..683
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..13
+        IDENT@5..13 "CallTest"
+    SEMICOLON@13..14 ";"
+    WHITESPACE@14..16 "\n\n"
+    FN_DECL_ITEM@16..683
+        FN_KW@16..18 "fn"
+        WHITESPACE@18..19 " "
+        PARAM_LIST@19..21
+            LPAREN@19..20 "("
+            RPAREN@20..21 ")"
+        WHITESPACE@21..22 " "
+        BLOCK_STMT@22..683
+            LBRACK@22..23 "{"
+            WHITESPACE@23..26 "\t\n\t"
+            VAR_DECL_STMT@26..65
+                VAR_DECL@26..64
+                    STRING_TY@26..32 "string"
+                    WHITESPACE@32..33 " "
+                    NAME@33..41
+                        IDENT@33..41 "testName"
+                    WHITESPACE@41..42 " "
+                    EQ@42..43 "="
+                    WHITESPACE@43..44 " "
+                    STR_EXPR@44..64
+                        QUOTE_DOUBLE@44..45 "\""
+                        STR_SHARD_LITERAL@45..63
+                            STR_SHARD@45..63 "'Call...' Commands"
+                        QUOTE_DOUBLE@63..64 "\""
+                SEMICOLON@64..65 ";"
+            WHITESPACE@65..67 "\n\t"
+            EXPR_STMT@67..129
+                CALL_EXPR@67..128
+                    NAME_REF@67..72
+                        IDENT@67..72 "print"
+                    ARG_LIST@72..128
+                        LPAREN@72..73 "("
+                        PAREN_EXPR@73..127
+                            LPAREN@73..74 "("
+                            BIN_EXPR@74..126
+                                BIN_EXPR@74..109
+                                    STR_EXPR@74..98
+                                        QUOTE_DOUBLE@74..75 "\""
+                                        STR_SHARD_LITERAL@75..97
+                                            STR_SHARD@75..97 "Started running xNVSE "
+                                        QUOTE_DOUBLE@97..98 "\""
+                                    WHITESPACE@98..99 " "
+                                    PLUS@99..100 "+"
+                                    WHITESPACE@100..101 " "
+                                    NAME_REF@101..109
+                                        IDENT@101..109 "testName"
+                                WHITESPACE@109..110 " "
+                                PLUS@110..111 "+"
+                                WHITESPACE@111..112 " "
+                                STR_EXPR@112..126
+                                    QUOTE_DOUBLE@112..113 "\""
+                                    STR_SHARD_LITERAL@113..125
+                                        STR_SHARD@113..125 " unit tests."
+                                    QUOTE_DOUBLE@125..126 "\""
+                            RPAREN@126..127 ")"
+                        RPAREN@127..128 ")"
+                SEMICOLON@128..129 ";"
+            WHITESPACE@129..132 "\n\n\t"
+            VAR_DECL_STMT@132..207
+                VAR_DECL@132..206
+                    REF_TY@132..135 "ref"
+                    WHITESPACE@135..136 " "
+                    NAME@136..143
+                        IDENT@136..143 "TestUDF"
+                    WHITESPACE@143..144 " "
+                    EQ@144..145 "="
+                    WHITESPACE@145..146 " "
+                    CALL_EXPR@146..206
+                        NAME_REF@146..159
+                            IDENT@146..159 "CompileScript"
+                        ARG_LIST@159..206
+                            LPAREN@159..160 "("
+                            STR_EXPR@160..205
+                                QUOTE_DOUBLE@160..161 "\""
+                                STR_SHARD_LITERAL@161..204
+                                    STR_SHARD@161..204 "../unit_tests/new_compiler/udfs/TestUDF.txt"
+                                QUOTE_DOUBLE@204..205 "\""
+                            RPAREN@205..206 ")"
+                SEMICOLON@206..207 ";"
+            WHITESPACE@207..209 "\n\t"
+            EXPR_STMT@209..238
+                CALL_EXPR@209..237
+                    NAME_REF@209..215
+                        IDENT@209..215 "assert"
+                    ARG_LIST@215..237
+                        LPAREN@215..216 "("
+                        CALL_EXPR@216..236
+                            NAME_REF@216..227
+                                IDENT@216..227 "IsFormValid"
+                            ARG_LIST@227..236
+                                LPAREN@227..228 "("
+                                NAME_REF@228..235
+                                    IDENT@228..235 "TestUDF"
+                                RPAREN@235..236 ")"
+                        RPAREN@236..237 ")"
+                SEMICOLON@237..238 ";"
+            WHITESPACE@238..241 "\n\n\t"
+            COMMENT@241..264 "// Simple testing value"
+            WHITESPACE@264..266 "\n\t"
+            VAR_DECL_STMT@266..311
+                VAR_DECL@266..310
+                    REF_TY@266..269 "ref"
+                    WHITESPACE@269..270 " "
+                    NAME@270..284
+                        IDENT@270..284 "playerBaseForm"
+                    WHITESPACE@284..285 " "
+                    EQ@285..286 "="
+                    WHITESPACE@286..287 " "
+                    CALL_EXPR@287..310
+                        FIELD_EXPR@287..308
+                            NAME_REF@287..296
+                                IDENT@287..296 "PlayerREF"
+                            DOT@296..297 "."
+                            NAME_REF@297..308
+                                IDENT@297..308 "GetBaseForm"
+                        ARG_LIST@308..310
+                            LPAREN@308..309 "("
+                            RPAREN@309..310 ")"
+                SEMICOLON@310..311 ";"
+            WHITESPACE@311..313 "\n\t"
+            EXPR_STMT@313..349
+                CALL_EXPR@313..348
+                    NAME_REF@313..319
+                        IDENT@313..319 "assert"
+                    ARG_LIST@319..348
+                        LPAREN@319..320 "("
+                        CALL_EXPR@320..347
+                            NAME_REF@320..331
+                                IDENT@320..331 "IsFormValid"
+                            ARG_LIST@331..347
+                                LPAREN@331..332 "("
+                                NAME_REF@332..346
+                                    IDENT@332..346 "playerBaseForm"
+                                RPAREN@346..347 ")"
+                        RPAREN@347..348 ")"
+                SEMICOLON@348..349 ";"
+            WHITESPACE@349..352 "\n\n\t"
+            COMMENT@352..369 "// Test UDF calls"
+            WHITESPACE@369..371 "\n\t"
+            VAR_DECL_STMT@371..423
+                VAR_DECL@371..422
+                    REF_TY@371..374 "ref"
+                    WHITESPACE@374..375 " "
+                    NAME@375..381
+                        IDENT@375..381 "result"
+                    WHITESPACE@381..382 " "
+                    EQ@382..383 "="
+                    WHITESPACE@383..384 " "
+                    CALL_EXPR@384..422
+                        NAME_REF@384..388
+                            IDENT@384..388 "call"
+                        ARG_LIST@388..422
+                            LPAREN@388..389 "("
+                            NAME_REF@389..396
+                                IDENT@389..396 "TestUDF"
+                            COMMA@396..397 ","
+                            WHITESPACE@397..398 " "
+                            CALL_EXPR@398..421
+                                FIELD_EXPR@398..419
+                                    NAME_REF@398..407
+                                        IDENT@398..407 "PlayerREF"
+                                    DOT@407..408 "."
+                                    NAME_REF@408..419
+                                        IDENT@408..419 "GetBaseForm"
+                                ARG_LIST@419..421
+                                    LPAREN@419..420 "("
+                                    RPAREN@420..421 ")"
+                            RPAREN@421..422 ")"
+                SEMICOLON@422..423 ";"
+            WHITESPACE@423..425 "\n\t"
+            EXPR_STMT@425..458
+                CALL_EXPR@425..457
+                    NAME_REF@425..431
+                        IDENT@425..431 "assert"
+                    ARG_LIST@431..457
+                        LPAREN@431..432 "("
+                        BIN_EXPR@432..456
+                            NAME_REF@432..446
+                                IDENT@432..446 "playerBaseForm"
+                            WHITESPACE@446..447 " "
+                            EQ_2@447..449 "=="
+                            WHITESPACE@449..450 " "
+                            NAME_REF@450..456
+                                IDENT@450..456 "result"
+                        RPAREN@456..457 ")"
+                SEMICOLON@457..458 ";"
+            WHITESPACE@458..461 "\n\n\t"
+            COMMENT@461..480 "// Test lambda call"
+            WHITESPACE@480..482 "\n\t"
+            VAR_DECL_STMT@482..530
+                VAR_DECL@482..529
+                    REF_TY@482..485 "ref"
+                    WHITESPACE@485..486 " "
+                    NAME@486..493
+                        IDENT@486..493 "rLambda"
+                    WHITESPACE@493..494 " "
+                    EQ@494..495 "="
+                    WHITESPACE@495..496 " "
+                    LAMBDA_EXPR@496..529
+                        FN_KW@496..498 "fn"
+                        WHITESPACE@498..499 " "
+                        PARAM_LIST@499..509
+                            LPAREN@499..500 "("
+                            VAR_DECL@500..508
+                                REF_TY@500..503 "ref"
+                                WHITESPACE@503..504 " "
+                                NAME@504..508
+                                    IDENT@504..508 "rRef"
+                            RPAREN@508..509 ")"
+                        WHITESPACE@509..510 " "
+                        BLOCK_STMT@510..529
+                            LBRACK@510..511 "{"
+                            WHITESPACE@511..514 "\n\t\t"
+                            RETURN_STMT@514..526
+                                RETURN_KW@514..520 "return"
+                                WHITESPACE@520..521 " "
+                                NAME_REF@521..525
+                                    IDENT@521..525 "rRef"
+                                SEMICOLON@525..526 ";"
+                            WHITESPACE@526..528 "\n\t"
+                            RBRACK@528..529 "}"
+                SEMICOLON@529..530 ";"
+            WHITESPACE@530..532 "\n\t"
+            EXPR_STMT@532..580
+                BIN_EXPR@532..579
+                    NAME_REF@532..538
+                        IDENT@532..538 "result"
+                    WHITESPACE@538..539 " "
+                    EQ@539..540 "="
+                    WHITESPACE@540..541 " "
+                    CALL_EXPR@541..579
+                        NAME_REF@541..545
+                            IDENT@541..545 "call"
+                        ARG_LIST@545..579
+                            LPAREN@545..546 "("
+                            NAME_REF@546..553
+                                IDENT@546..553 "rLambda"
+                            COMMA@553..554 ","
+                            WHITESPACE@554..555 " "
+                            CALL_EXPR@555..578
+                                FIELD_EXPR@555..576
+                                    NAME_REF@555..564
+                                        IDENT@555..564 "PlayerREF"
+                                    DOT@564..565 "."
+                                    NAME_REF@565..576
+                                        IDENT@565..576 "GetBaseForm"
+                                ARG_LIST@576..578
+                                    LPAREN@576..577 "("
+                                    RPAREN@577..578 ")"
+                            RPAREN@578..579 ")"
+                SEMICOLON@579..580 ";"
+            WHITESPACE@580..582 "\n\t"
+            EXPR_STMT@582..615
+                CALL_EXPR@582..614
+                    NAME_REF@582..588
+                        IDENT@582..588 "assert"
+                    ARG_LIST@588..614
+                        LPAREN@588..589 "("
+                        BIN_EXPR@589..613
+                            NAME_REF@589..603
+                                IDENT@589..603 "playerBaseForm"
+                            WHITESPACE@603..604 " "
+                            EQ_2@604..606 "=="
+                            WHITESPACE@606..607 " "
+                            NAME_REF@607..613
+                                IDENT@607..613 "result"
+                        RPAREN@613..614 ")"
+                SEMICOLON@614..615 ";"
+            WHITESPACE@615..618 "\n\n\t"
+            EXPR_STMT@618..681
+                CALL_EXPR@618..680
+                    NAME_REF@618..623
+                        IDENT@618..623 "print"
+                    ARG_LIST@623..680
+                        LPAREN@623..624 "("
+                        PAREN_EXPR@624..679
+                            LPAREN@624..625 "("
+                            BIN_EXPR@625..678
+                                BIN_EXPR@625..661
+                                    STR_EXPR@625..650
+                                        QUOTE_DOUBLE@625..626 "\""
+                                        STR_SHARD_LITERAL@626..649
+                                            STR_SHARD@626..649 "Finished running xNVSE "
+                                        QUOTE_DOUBLE@649..650 "\""
+                                    WHITESPACE@650..651 " "
+                                    PLUS@651..652 "+"
+                                    WHITESPACE@652..653 " "
+                                    NAME_REF@653..661
+                                        IDENT@653..661 "testName"
+                                WHITESPACE@661..662 " "
+                                PLUS@662..663 "+"
+                                WHITESPACE@663..664 " "
+                                STR_EXPR@664..678
+                                    QUOTE_DOUBLE@664..665 "\""
+                                    STR_SHARD_LITERAL@665..677
+                                        STR_SHARD@665..677 " unit tests."
+                                    QUOTE_DOUBLE@677..678 "\""
+                            RPAREN@678..679 ")"
+                        RPAREN@679..680 ")"
+                SEMICOLON@680..681 ";"
+            WHITESPACE@681..682 "\n"
+            RBRACK@682..683 "}"

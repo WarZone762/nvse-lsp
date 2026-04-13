@@ -1,0 +1,61 @@
+name comments_in_block;
+
+fn () {
+    // Comment before first statement
+    int x = 1;
+    // Comment after last statement
+}
+
+fn withInline () {
+    int x = 1; // inline after stmt
+    int y = 2; // inline after second stmt
+    int z = 3;
+}
+
+fn withLinesBetween () {
+    int x = 1;
+    // standalone comment line
+    int y = 2;
+
+    // comment after blank line
+    int z = 3;
+}
+
+fn withBlockComments () {
+    int x = 1; /* inline block */ int y = 2;
+    int a = /* mid-decl */ 3;
+}
+
+fn withTrailingComment () {
+    int x = 1;
+    // trailing comment before closing brace
+}
+
+fn withMultipleComments () {
+    // section A
+    int a = 1;
+    int b = 2;
+
+    // section B
+    int c = 3;
+    int d = 4;
+
+    // section C
+    // still section C
+    int e = 5;
+}
+
+fn withNestedBlockComments () {
+    if (x) {
+        // inside if
+        a;
+        // still inside if
+    } else {
+        // inside else
+        b;
+    }
+}
+
+fn emptyBlockWithComment () {
+    // only a comment — no stmts
+}

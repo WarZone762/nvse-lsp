@@ -1,0 +1,64 @@
+name expr_lambda;
+
+fn () {
+    // Block form — no params
+    ref f1 = fn () {};
+
+    // Block form — one param
+    ref f2 = fn (int x) {
+        return x;
+    };
+
+    // Block form — multiple params
+    ref f3 = fn (int a, int b) {
+        return a + b;
+    };
+
+    // Block form — multiple stmts
+    ref f4 = fn (int x) {
+        int doubled = x * 2;
+        int tripled = x * 3;
+        return doubled + tripled;
+    };
+
+    // Lambda as call argument
+    call(fn (int x) {
+        return x;
+    });
+
+    // Lambda stored and called
+    ref square = fn (int n) {};
+    int result = call(square, 5);
+
+    // Nested lambdas
+    ref outer = fn (int x) {
+        ref inner = fn (int y) {
+            return x + y;
+        };
+        return inner;
+    };
+
+    // Comment between fn keyword and param list
+    ref c1 = fn /* c */ () {};
+
+    // Comment between param list and block
+    ref c2 = fn () /* c */ {};
+
+    // Comment inside param list — before first param
+    ref c3 = fn ( /* c */int x) {};
+
+    // Comment inside param list — between type and name
+    ref c4 = fn (int /* c */ x) {};
+
+    // Comment inside param list — after last param
+    ref c5 = fn (int x /* c */) {};
+
+    // Comment in lambda body between stmts
+    ref c6 = fn (int x) {
+        // before
+        int y = x;
+        // between
+        return y;
+        // trailing
+    };
+}

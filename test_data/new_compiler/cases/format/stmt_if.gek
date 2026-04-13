@@ -1,0 +1,73 @@
+name stmt_if;
+
+fn () {
+    // Simple if, empty block
+    if (x) {}
+
+    // Simple if, with body
+    if (x) {
+        y;
+    }
+
+    // If-else, empty blocks
+    if (x) {} else {}
+
+    // If-else, with bodies
+    if (x) {
+        y;
+    } else {
+        z;
+    }
+
+    // If-else-if
+    if (a) {
+        x;
+    } else if (b) {
+        y;
+    }
+
+    // If-else-if-else
+    if (a) {
+        x;
+    } else if (b) {
+        y;
+    } else {
+        z;
+    }
+
+    // Deeply chained else-if
+    if (a == 1) {
+        x;
+    } else if (a == 2) {
+        y;
+    } else if (a == 3) {
+        z;
+    } else {
+        w;
+    }
+
+    // Comment between if keyword and lparen
+    if /* c */ (x) {}
+
+    // Comment between lparen and condition
+    if ( /* c */x) {}
+
+    // Comment between condition and rparen
+    if (x /* c */) {}
+
+    // Comment between rparen and true branch
+    if (x) /* c */ {}
+
+    // Block comment between true branch and else
+    if (x) {} /* c */ else {}
+
+    // Comment between else keyword and false branch (block)
+    if (x) {} else /* c */ {}
+
+    // Comment between else keyword and else-if
+    if (x) {} else /* c */ if (y) {}
+
+    // Line comment between true branch and else — newline consumed, else on same line
+    if (x) {} // line comment
+    else {}
+}

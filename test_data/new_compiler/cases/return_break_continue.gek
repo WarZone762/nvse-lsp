@@ -1,0 +1,66 @@
+name return_break_continue;
+
+// Return with no value (void return)
+fn voidReturn() {
+	Message("before return");
+	return;
+	Message("unreachable");
+}
+
+// Return with a value
+fn (int x) {
+	if (x > 0) {
+		return x;
+	}
+	return 0;
+}
+
+// Return a complex expression
+fn (int a, int b) {
+	return a * 2 + b;
+}
+
+fn () {
+	// break inside while
+	int i = 0;
+	while (true) {
+		if (i >= 10) {
+			break;
+		}
+		i++;
+	}
+
+	// continue inside while
+	int sum = 0;
+	i = 0;
+	while (i < 10) {
+		i++;
+		if (i == 5) {
+			continue;
+		}
+		sum += i;
+	}
+
+	// break inside C-style for
+	for (int j = 0; j < 100; j++) {
+		if (j == 7) {
+			break;
+		}
+	}
+
+	// continue inside C-style for
+	for (int k = 0; k < 10; k++) {
+		if (k % 2 == 0) {
+			continue;
+		}
+		Message($k);
+	}
+
+	// break inside range for
+	array arr = [1, 2, 3, 4, 5];
+	for (int v in arr) {
+		if (v == 3) {
+			break;
+		}
+	}
+}

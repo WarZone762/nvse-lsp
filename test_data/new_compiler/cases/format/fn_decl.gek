@@ -1,0 +1,57 @@
+name fn_decl;
+
+// Anonymous fn, no params, empty block
+fn () {}
+
+// Named fn, no params
+fn noParams () {}
+
+// Named fn, one param of each primitive type
+fn oneInt (int x) {}
+fn oneDouble (double x) {}
+fn oneFloat (float x) {}
+fn oneRef (ref x) {}
+fn oneString (string x) {}
+fn oneArray (array x) {}
+
+// Named fn, all primitive types
+fn allTypes (int a, double b, float c, ref d, string e, array f) {}
+
+// Named fn with body
+fn withBody (int x) {
+    int y = x + 1;
+    return y;
+}
+
+// Anonymous fn with body
+fn () {
+    int z = 0;
+    z++;
+}
+
+// Comment between fn keyword and name
+fn /* between kw and name */ named () {}
+
+// Comment between name and param list
+fn named2 /* between name and params */ () {}
+
+// Comment between param list and block
+fn named3 () /* between params and block */ {}
+
+// Comment between fn keyword and param list (anonymous)
+fn /* between kw and params */ () {}
+
+// Comment inside param list — before first param
+fn paramComment (/* before first */ int x) {}
+
+// Comment inside param list — between type and name
+fn paramTypeComment (int /* between type and name */ x) {}
+
+// Comment inside param list — after last param
+fn paramTrailingComment (int x /* after last */) {}
+
+// Nested: fn that contains a fn call
+fn outer (int n) {
+    fn /* c */ inner () {}
+    inner();
+}

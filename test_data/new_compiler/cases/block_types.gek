@@ -1,0 +1,31 @@
+name block_types;
+
+// Block type with empty body
+GameMode {}
+
+// Block type with statements
+MenuMode {
+	int i = 42;
+	Message($i);
+}
+
+// Block type with a colon-separated primary expression (e.g. event filter)
+OnHitWith: player {
+	Message("hit with player");
+}
+
+// Multiple different block types in the same script
+OnActivate {
+	Message("activated");
+}
+
+OnDeath {
+	Message("died");
+}
+
+OnLoad {
+	int x = 1;
+	int y = 2;
+	int z = x + y;
+	Message($z);
+}

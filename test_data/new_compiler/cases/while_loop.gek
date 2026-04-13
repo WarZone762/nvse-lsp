@@ -1,0 +1,45 @@
+name while_loop;
+
+fn () {
+	// Basic while loop
+	int i = 0;
+	while (i < 10) {
+		i++;
+	}
+
+	// While with break
+	while (true) {
+		if (i >= 5) {
+			break;
+		}
+		i++;
+	}
+
+	// While with continue
+	int sum = 0;
+	while (i < 10) {
+		i++;
+		if (i == 5) {
+			continue;
+		}
+		sum += i;
+	}
+
+	// Nested while loops
+	int outer = 0;
+	while (outer < 3) {
+		int inner = 0;
+		while (inner < 3) {
+			inner++;
+		}
+		outer++;
+	}
+
+	// While with complex condition
+	int a = 0;
+	int b = 10;
+	while (a < b && b > 0) {
+		a++;
+		b--;
+	}
+}

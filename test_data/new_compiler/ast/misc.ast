@@ -1,0 +1,381 @@
+SCRIPT@0..609
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..14
+        IDENT@5..14 "miscexprs"
+    SEMICOLON@14..15 ";"
+    WHITESPACE@15..17 "\n\n"
+    FN_DECL_ITEM@17..609
+        FN_KW@17..19 "fn"
+        WHITESPACE@19..20 " "
+        PARAM_LIST@20..22
+            LPAREN@20..21 "("
+            RPAREN@21..22 ")"
+        WHITESPACE@22..23 " "
+        BLOCK_STMT@23..609
+            LBRACK@23..24 "{"
+            WHITESPACE@24..26 "\n\t"
+            VAR_DECL_STMT@26..52
+                VAR_DECL@26..51
+                    STRING_TY@26..32 "string"
+                    WHITESPACE@32..33 " "
+                    NAME@33..41
+                        IDENT@33..41 "testName"
+                    WHITESPACE@41..42 " "
+                    EQ@42..43 "="
+                    WHITESPACE@43..44 " "
+                    STR_EXPR@44..51
+                        QUOTE_DOUBLE@44..45 "\""
+                        STR_SHARD_LITERAL@45..50
+                            STR_SHARD@45..50 "Misc."
+                        QUOTE_DOUBLE@50..51 "\""
+                SEMICOLON@51..52 ";"
+            WHITESPACE@52..54 "\n\t"
+            EXPR_STMT@54..116
+                CALL_EXPR@54..115
+                    NAME_REF@54..59
+                        IDENT@54..59 "print"
+                    ARG_LIST@59..115
+                        LPAREN@59..60 "("
+                        PAREN_EXPR@60..114
+                            LPAREN@60..61 "("
+                            BIN_EXPR@61..113
+                                BIN_EXPR@61..96
+                                    STR_EXPR@61..85
+                                        QUOTE_DOUBLE@61..62 "\""
+                                        STR_SHARD_LITERAL@62..84
+                                            STR_SHARD@62..84 "Started running xNVSE "
+                                        QUOTE_DOUBLE@84..85 "\""
+                                    WHITESPACE@85..86 " "
+                                    PLUS@86..87 "+"
+                                    WHITESPACE@87..88 " "
+                                    NAME_REF@88..96
+                                        IDENT@88..96 "testName"
+                                WHITESPACE@96..97 " "
+                                PLUS@97..98 "+"
+                                WHITESPACE@98..99 " "
+                                STR_EXPR@99..113
+                                    QUOTE_DOUBLE@99..100 "\""
+                                    STR_SHARD_LITERAL@100..112
+                                        STR_SHARD@100..112 " unit tests."
+                                    QUOTE_DOUBLE@112..113 "\""
+                            RPAREN@113..114 ")"
+                        RPAREN@114..115 ")"
+                SEMICOLON@115..116 ";"
+            WHITESPACE@116..119 "\n\n\t"
+            COMMENT@119..170 "// Just making sure some things compile that should"
+            WHITESPACE@170..172 "\n\t"
+            EXPR_STMT@172..242
+                CALL_EXPR@172..241
+                    NAME_REF@172..182
+                        IDENT@172..182 "ar_foreach"
+                    ARG_LIST@182..241
+                        LPAREN@182..183 "("
+                        CALL_EXPR@183..195
+                            NAME_REF@183..190
+                                IDENT@183..190 "GetRefs"
+                            ARG_LIST@190..195
+                                LPAREN@190..191 "("
+                                LITERAL@191..194
+                                    NUMBER@191..194 "200"
+                                RPAREN@194..195 ")"
+                        COMMA@195..196 ","
+                        WHITESPACE@196..197 " "
+                        LAMBDA_EXPR@197..240
+                            FN_KW@197..199 "fn"
+                            WHITESPACE@199..200 " "
+                            PARAM_LIST@200..212
+                                LPAREN@200..201 "("
+                                VAR_DECL@201..211
+                                    ARRAY_TY@201..206 "array"
+                                    WHITESPACE@206..207 " "
+                                    NAME@207..211
+                                        IDENT@207..211 "iter"
+                                RPAREN@211..212 ")"
+                            WHITESPACE@212..213 " "
+                            RARROW@213..215 "->"
+                            WHITESPACE@215..216 " "
+                            CALL_EXPR@216..240
+                                NAME_REF@216..221
+                                    IDENT@216..221 "print"
+                                ARG_LIST@221..240
+                                    LPAREN@221..222 "("
+                                    CALL_EXPR@222..239
+                                        FIELD_EXPR@222..237
+                                            PAREN_EXPR@222..229
+                                                LPAREN@222..223 "("
+                                                UNARY_EXPR@223..228
+                                                    ASTERISK@223..224 "*"
+                                                    NAME_REF@224..228
+                                                        IDENT@224..228 "iter"
+                                                RPAREN@228..229 ")"
+                                            DOT@229..230 "."
+                                            NAME_REF@230..237
+                                                IDENT@230..237 "GetName"
+                                        ARG_LIST@237..239
+                                            LPAREN@237..238 "("
+                                            RPAREN@238..239 ")"
+                                    RPAREN@239..240 ")"
+                        RPAREN@240..241 ")"
+                SEMICOLON@241..242 ";"
+            WHITESPACE@242..245 "\n\n\t"
+            COMMENT@245..267 "// Test in expressions"
+            WHITESPACE@267..269 "\n\t"
+            VAR_DECL_STMT@269..290
+                VAR_DECL@269..289
+                    ARRAY_TY@269..274 "array"
+                    WHITESPACE@274..275 " "
+                    NAME@275..279
+                        IDENT@275..279 "test"
+                    WHITESPACE@279..280 " "
+                    EQ@280..281 "="
+                    WHITESPACE@281..282 " "
+                    LIT_ARR@282..289
+                        LSQ_BRACK@282..283 "["
+                        LITERAL@283..284
+                            NUMBER@283..284 "1"
+                        COMMA@284..285 ","
+                        LITERAL@285..286
+                            NUMBER@285..286 "2"
+                        COMMA@286..287 ","
+                        LITERAL@287..288
+                            NUMBER@287..288 "3"
+                        RSQ_BRACK@288..289 "]"
+                SEMICOLON@289..290 ";"
+            WHITESPACE@290..292 "\n\t"
+            EXPR_STMT@292..310
+                CALL_EXPR@292..309
+                    NAME_REF@292..298
+                        IDENT@292..298 "Assert"
+                    ARG_LIST@298..309
+                        LPAREN@298..299 "("
+                        BIN_EXPR@299..308
+                            LITERAL@299..300
+                                NUMBER@299..300 "1"
+                            WHITESPACE@300..301 " "
+                            IN_KW@301..303 "in"
+                            WHITESPACE@303..304 " "
+                            NAME_REF@304..308
+                                IDENT@304..308 "test"
+                        RPAREN@308..309 ")"
+                SEMICOLON@309..310 ";"
+            WHITESPACE@310..312 "\n\t"
+            EXPR_STMT@312..330
+                CALL_EXPR@312..329
+                    NAME_REF@312..318
+                        IDENT@312..318 "Assert"
+                    ARG_LIST@318..329
+                        LPAREN@318..319 "("
+                        BIN_EXPR@319..328
+                            LITERAL@319..320
+                                NUMBER@319..320 "2"
+                            WHITESPACE@320..321 " "
+                            IN_KW@321..323 "in"
+                            WHITESPACE@323..324 " "
+                            NAME_REF@324..328
+                                IDENT@324..328 "test"
+                        RPAREN@328..329 ")"
+                SEMICOLON@329..330 ";"
+            WHITESPACE@330..332 "\n\t"
+            EXPR_STMT@332..350
+                CALL_EXPR@332..349
+                    NAME_REF@332..338
+                        IDENT@332..338 "Assert"
+                    ARG_LIST@338..349
+                        LPAREN@338..339 "("
+                        BIN_EXPR@339..348
+                            LITERAL@339..340
+                                NUMBER@339..340 "3"
+                            WHITESPACE@340..341 " "
+                            IN_KW@341..343 "in"
+                            WHITESPACE@343..344 " "
+                            NAME_REF@344..348
+                                IDENT@344..348 "test"
+                        RPAREN@348..349 ")"
+                SEMICOLON@349..350 ";"
+            WHITESPACE@350..352 "\n\t"
+            EXPR_STMT@352..374
+                CALL_EXPR@352..373
+                    NAME_REF@352..358
+                        IDENT@352..358 "Assert"
+                    ARG_LIST@358..373
+                        LPAREN@358..359 "("
+                        BIN_EXPR@359..372
+                            LITERAL@359..360
+                                NUMBER@359..360 "4"
+                            WHITESPACE@360..361 " "
+                            NOT_KW@361..364 "not"
+                            WHITESPACE@364..365 " "
+                            IN_KW@365..367 "in"
+                            WHITESPACE@367..368 " "
+                            NAME_REF@368..372
+                                IDENT@368..372 "test"
+                        RPAREN@372..373 ")"
+                SEMICOLON@373..374 ";"
+            WHITESPACE@374..377 "\n\n\t"
+            EXPR_STMT@377..409
+                BIN_EXPR@377..408
+                    NAME_REF@377..381
+                        IDENT@377..381 "test"
+                    WHITESPACE@381..382 " "
+                    EQ@382..383 "="
+                    WHITESPACE@383..384 " "
+                    LIT_MAP@384..408
+                        LBRACK@384..385 "{"
+                        KV_PAIR@385..395
+                            STR_EXPR@385..392
+                                QUOTE_DOUBLE@385..386 "\""
+                                STR_SHARD_LITERAL@386..391
+                                    STR_SHARD@386..391 "Hello"
+                                QUOTE_DOUBLE@391..392 "\""
+                            COLON_2@392..394 "::"
+                            LITERAL@394..395
+                                NUMBER@394..395 "1"
+                        COMMA@395..396 ","
+                        WHITESPACE@396..397 " "
+                        KV_PAIR@397..407
+                            STR_EXPR@397..404
+                                QUOTE_DOUBLE@397..398 "\""
+                                STR_SHARD_LITERAL@398..403
+                                    STR_SHARD@398..403 "World"
+                                QUOTE_DOUBLE@403..404 "\""
+                            COLON_2@404..406 "::"
+                            LITERAL@406..407
+                                NUMBER@406..407 "2"
+                        RBRACK@407..408 "}"
+                SEMICOLON@408..409 ";"
+            WHITESPACE@409..411 "\n\t"
+            EXPR_STMT@411..435
+                CALL_EXPR@411..434
+                    NAME_REF@411..417
+                        IDENT@411..417 "Assert"
+                    ARG_LIST@417..434
+                        LPAREN@417..418 "("
+                        BIN_EXPR@418..433
+                            STR_EXPR@418..425
+                                QUOTE_DOUBLE@418..419 "\""
+                                STR_SHARD_LITERAL@419..424
+                                    STR_SHARD@419..424 "Hello"
+                                QUOTE_DOUBLE@424..425 "\""
+                            WHITESPACE@425..426 " "
+                            IN_KW@426..428 "in"
+                            WHITESPACE@428..429 " "
+                            NAME_REF@429..433
+                                IDENT@429..433 "test"
+                        RPAREN@433..434 ")"
+                SEMICOLON@434..435 ";"
+            WHITESPACE@435..437 "\n\t"
+            EXPR_STMT@437..461
+                CALL_EXPR@437..460
+                    NAME_REF@437..443
+                        IDENT@437..443 "Assert"
+                    ARG_LIST@443..460
+                        LPAREN@443..444 "("
+                        BIN_EXPR@444..459
+                            STR_EXPR@444..451
+                                QUOTE_DOUBLE@444..445 "\""
+                                STR_SHARD_LITERAL@445..450
+                                    STR_SHARD@445..450 "World"
+                                QUOTE_DOUBLE@450..451 "\""
+                            WHITESPACE@451..452 " "
+                            IN_KW@452..454 "in"
+                            WHITESPACE@454..455 " "
+                            NAME_REF@455..459
+                                IDENT@455..459 "test"
+                        RPAREN@459..460 ")"
+                SEMICOLON@460..461 ";"
+            WHITESPACE@461..463 "\n\t"
+            EXPR_STMT@463..492
+                CALL_EXPR@463..491
+                    NAME_REF@463..469
+                        IDENT@463..469 "Assert"
+                    ARG_LIST@469..491
+                        LPAREN@469..470 "("
+                        BIN_EXPR@470..490
+                            STR_EXPR@470..478
+                                QUOTE_DOUBLE@470..471 "\""
+                                STR_SHARD_LITERAL@471..477
+                                    STR_SHARD@471..477 "Foobar"
+                                QUOTE_DOUBLE@477..478 "\""
+                            WHITESPACE@478..479 " "
+                            NOT_KW@479..482 "not"
+                            WHITESPACE@482..483 " "
+                            IN_KW@483..485 "in"
+                            WHITESPACE@485..486 " "
+                            NAME_REF@486..490
+                                IDENT@486..490 "test"
+                        RPAREN@490..491 ")"
+                SEMICOLON@491..492 ";"
+            WHITESPACE@492..494 "\n\t"
+            EXPR_STMT@494..513
+                BIN_EXPR@494..512
+                    SUBSCRIPT_EXPR@494..508
+                        NAME_REF@494..498
+                            IDENT@494..498 "test"
+                        LSQ_BRACK@498..499 "["
+                        STR_EXPR@499..507
+                            QUOTE_DOUBLE@499..500 "\""
+                            STR_SHARD_LITERAL@500..506
+                                STR_SHARD@500..506 "Foobar"
+                            QUOTE_DOUBLE@506..507 "\""
+                        RSQ_BRACK@507..508 "]"
+                    WHITESPACE@508..509 " "
+                    EQ@509..510 "="
+                    WHITESPACE@510..511 " "
+                    LITERAL@511..512
+                        NUMBER@511..512 "3"
+                SEMICOLON@512..513 ";"
+            WHITESPACE@513..515 "\n\t"
+            EXPR_STMT@515..540
+                CALL_EXPR@515..539
+                    NAME_REF@515..521
+                        IDENT@515..521 "Assert"
+                    ARG_LIST@521..539
+                        LPAREN@521..522 "("
+                        BIN_EXPR@522..538
+                            STR_EXPR@522..530
+                                QUOTE_DOUBLE@522..523 "\""
+                                STR_SHARD_LITERAL@523..529
+                                    STR_SHARD@523..529 "Foobar"
+                                QUOTE_DOUBLE@529..530 "\""
+                            WHITESPACE@530..531 " "
+                            IN_KW@531..533 "in"
+                            WHITESPACE@533..534 " "
+                            NAME_REF@534..538
+                                IDENT@534..538 "test"
+                        RPAREN@538..539 ")"
+                SEMICOLON@539..540 ";"
+            WHITESPACE@540..544 "\n\t\n\t"
+            EXPR_STMT@544..607
+                CALL_EXPR@544..606
+                    NAME_REF@544..549
+                        IDENT@544..549 "print"
+                    ARG_LIST@549..606
+                        LPAREN@549..550 "("
+                        PAREN_EXPR@550..605
+                            LPAREN@550..551 "("
+                            BIN_EXPR@551..604
+                                BIN_EXPR@551..587
+                                    STR_EXPR@551..576
+                                        QUOTE_DOUBLE@551..552 "\""
+                                        STR_SHARD_LITERAL@552..575
+                                            STR_SHARD@552..575 "Finished running xNVSE "
+                                        QUOTE_DOUBLE@575..576 "\""
+                                    WHITESPACE@576..577 " "
+                                    PLUS@577..578 "+"
+                                    WHITESPACE@578..579 " "
+                                    NAME_REF@579..587
+                                        IDENT@579..587 "testName"
+                                WHITESPACE@587..588 " "
+                                PLUS@588..589 "+"
+                                WHITESPACE@589..590 " "
+                                STR_EXPR@590..604
+                                    QUOTE_DOUBLE@590..591 "\""
+                                    STR_SHARD_LITERAL@591..603
+                                        STR_SHARD@591..603 " unit tests."
+                                    QUOTE_DOUBLE@603..604 "\""
+                            RPAREN@604..605 ")"
+                        RPAREN@605..606 ")"
+                SEMICOLON@606..607 ";"
+            WHITESPACE@607..608 "\n"
+            RBRACK@608..609 "}"

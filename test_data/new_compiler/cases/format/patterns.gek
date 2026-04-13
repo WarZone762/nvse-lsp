@@ -1,0 +1,86 @@
+name patterns;
+
+fn () {
+    // === Patterns in match ===
+
+    // Literal: integer
+    match (x) {
+        0 -> {}
+        1 -> {}
+        42 -> {}
+    }
+
+    // Literal: bool
+    match (flag) {
+        true -> {}
+        false -> {}
+    }
+
+    // Literal: string
+    match (s) {
+        "hello" -> {}
+        "bye" -> {}
+        "" -> {}
+    }
+
+    // Var-decl pattern (typed binding)
+    match (x) {
+        int n -> {}
+    }
+
+    match (x) {
+        ref r -> {}
+    }
+
+    match (x) {
+        string s -> {}
+    }
+
+    // Array pattern in match
+    match (x) {
+        [int a, int b] -> {}
+    }
+
+    match (x) {
+        [int a, ref b, string c] -> {}
+    }
+
+    // === Patterns in foreach ===
+
+    // Var-decl: every type
+    for (int x in arr) {}
+    for (double x in arr) {}
+    for (float x in arr) {}
+    for (ref x in arr) {}
+    for (string x in arr) {}
+    for (array x in arr) {}
+
+    // Array pattern: one to three elements
+    for ([int k] in arr) {}
+    for ([int k, ref v] in arr) {}
+    for ([string s, int n, ref r] in arr) {}
+
+    // === Comment positions in patterns ===
+
+    // Comment between [ and first pattern
+    for ([ /* c */int k] in arr) {}
+
+    // Comment between pattern type and name
+    for ([int /* c */ k] in arr) {}
+
+    // Comment after last pattern in array
+    for ([int k /* c */] in arr) {}
+
+    // Comment in var-decl pattern (match)
+    match (x) {
+        int /* c */ n -> {}
+    }
+
+    // Comment in array pattern (match)
+    match (x) {
+        [ /* c */int a, int b] -> {}
+    }
+    match (x) {
+        [int a, int b /* c */] -> {}
+    }
+}

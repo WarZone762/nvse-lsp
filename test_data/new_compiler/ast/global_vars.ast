@@ -1,0 +1,242 @@
+SCRIPT@0..658
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..16
+        IDENT@5..16 "global_vars"
+    SEMICOLON@16..17 ";"
+    WHITESPACE@17..19 "\n\n"
+    COMMENT@19..91 "// Declarations of every primitive type at script scope (no initialiser)"
+    WHITESPACE@91..92 "\n"
+    VAR_DECL_STMT@92..101
+        VAR_DECL@92..100
+            INT_TY@92..95 "int"
+            WHITESPACE@95..96 " "
+            NAME@96..100
+                IDENT@96..100 "gInt"
+        SEMICOLON@100..101 ";"
+    WHITESPACE@101..102 "\n"
+    VAR_DECL_STMT@102..117
+        VAR_DECL@102..116
+            DOUBLE_TY@102..108 "double"
+            WHITESPACE@108..109 " "
+            NAME@109..116
+                IDENT@109..116 "gDouble"
+        SEMICOLON@116..117 ";"
+    WHITESPACE@117..118 "\n"
+    VAR_DECL_STMT@118..131
+        VAR_DECL@118..130
+            FLOAT_TY@118..123 "float"
+            WHITESPACE@123..124 " "
+            NAME@124..130
+                IDENT@124..130 "gFloat"
+        SEMICOLON@130..131 ";"
+    WHITESPACE@131..132 "\n"
+    VAR_DECL_STMT@132..141
+        VAR_DECL@132..140
+            REF_TY@132..135 "ref"
+            WHITESPACE@135..136 " "
+            NAME@136..140
+                IDENT@136..140 "gRef"
+        SEMICOLON@140..141 ";"
+    WHITESPACE@141..142 "\n"
+    VAR_DECL_STMT@142..157
+        VAR_DECL@142..156
+            STRING_TY@142..148 "string"
+            WHITESPACE@148..149 " "
+            NAME@149..156
+                IDENT@149..156 "gString"
+        SEMICOLON@156..157 ";"
+    WHITESPACE@157..158 "\n"
+    VAR_DECL_STMT@158..171
+        VAR_DECL@158..170
+            ARRAY_TY@158..163 "array"
+            WHITESPACE@163..164 " "
+            NAME@164..170
+                IDENT@164..170 "gArray"
+        SEMICOLON@170..171 ";"
+    WHITESPACE@171..173 "\n\n"
+    COMMENT@173..221 "// Script-scope declarations with an initialiser"
+    WHITESPACE@221..222 "\n"
+    VAR_DECL_STMT@222..245
+        VAR_DECL@222..244
+            INT_TY@222..225 "int"
+            WHITESPACE@225..226 " "
+            NAME@226..238
+                IDENT@226..238 "gInitialized"
+            WHITESPACE@238..239 " "
+            EQ@239..240 "="
+            WHITESPACE@240..241 " "
+            LITERAL@241..244
+                NUMBER@241..244 "100"
+        SEMICOLON@244..245 ";"
+    WHITESPACE@245..246 "\n"
+    VAR_DECL_STMT@246..272
+        VAR_DECL@246..271
+            STRING_TY@246..252 "string"
+            WHITESPACE@252..253 " "
+            NAME@253..261
+                IDENT@253..261 "gMessage"
+            WHITESPACE@261..262 " "
+            EQ@262..263 "="
+            WHITESPACE@263..264 " "
+            STR_EXPR@264..271
+                QUOTE_DOUBLE@264..265 "\""
+                STR_SHARD_LITERAL@265..270
+                    STR_SHARD@265..270 "hello"
+                QUOTE_DOUBLE@270..271 "\""
+        SEMICOLON@271..272 ";"
+    WHITESPACE@272..273 "\n"
+    VAR_DECL_STMT@273..294
+        VAR_DECL@273..293
+            REF_TY@273..276 "ref"
+            WHITESPACE@276..277 " "
+            NAME@277..284
+                IDENT@277..284 "gPlayer"
+            WHITESPACE@284..285 " "
+            EQ@285..286 "="
+            WHITESPACE@286..287 " "
+            NAME_REF@287..293
+                IDENT@287..293 "player"
+        SEMICOLON@293..294 ";"
+    WHITESPACE@294..296 "\n\n"
+    COMMENT@296..337 "// Multiple names in a single declaration"
+    WHITESPACE@337..338 "\n"
+    VAR_DECL_STMT@338..353
+        VAR_DECL@338..352
+            INT_TY@338..341 "int"
+            WHITESPACE@341..342 " "
+            NAME@342..344
+                IDENT@342..344 "gA"
+            COMMA@344..345 ","
+            WHITESPACE@345..346 " "
+            NAME@346..348
+                IDENT@346..348 "gB"
+            COMMA@348..349 ","
+            WHITESPACE@349..350 " "
+            NAME@350..352
+                IDENT@350..352 "gC"
+        SEMICOLON@352..353 ";"
+    WHITESPACE@353..355 "\n\n"
+    COMMENT@355..389 "// Exported script-scope variables"
+    WHITESPACE@389..390 "\n"
+    EXPORT_KW@390..396 "export"
+    WHITESPACE@396..397 " "
+    VAR_DECL_STMT@397..419
+        VAR_DECL@397..418
+            INT_TY@397..400 "int"
+            WHITESPACE@400..401 " "
+            NAME@401..413
+                IDENT@401..413 "gExportedInt"
+            WHITESPACE@413..414 " "
+            EQ@414..415 "="
+            WHITESPACE@415..416 " "
+            LITERAL@416..418
+                NUMBER@416..418 "42"
+        SEMICOLON@418..419 ";"
+    WHITESPACE@419..420 "\n"
+    EXPORT_KW@420..426 "export"
+    WHITESPACE@426..427 " "
+    VAR_DECL_STMT@427..447
+        VAR_DECL@427..446
+            STRING_TY@427..433 "string"
+            WHITESPACE@433..434 " "
+            NAME@434..446
+                IDENT@434..446 "gExportedStr"
+        SEMICOLON@446..447 ";"
+    WHITESPACE@447..448 "\n"
+    EXPORT_KW@448..454 "export"
+    WHITESPACE@454..455 " "
+    VAR_DECL_STMT@455..472
+        VAR_DECL@455..471
+            REF_TY@455..458 "ref"
+            WHITESPACE@458..459 " "
+            NAME@459..471
+                IDENT@459..471 "gExportedRef"
+        SEMICOLON@471..472 ";"
+    WHITESPACE@472..474 "\n\n"
+    FN_DECL_ITEM@474..657
+        FN_KW@474..476 "fn"
+        WHITESPACE@476..477 " "
+        PARAM_LIST@477..479
+            LPAREN@477..478 "("
+            RPAREN@478..479 ")"
+        WHITESPACE@479..480 " "
+        BLOCK_STMT@480..657
+            LBRACK@480..481 "{"
+            WHITESPACE@481..483 "\n\t"
+            COMMENT@483..507 "// Export inside a block"
+            WHITESPACE@507..509 "\n\t"
+            VAR_DECL_STMT@509..538
+                EXPORT_KW@509..515 "export"
+                WHITESPACE@515..516 " "
+                VAR_DECL@516..537
+                    INT_TY@516..519 "int"
+                    WHITESPACE@519..520 " "
+                    NAME@520..533
+                        IDENT@520..533 "localExported"
+                    WHITESPACE@533..534 " "
+                    EQ@534..535 "="
+                    WHITESPACE@535..536 " "
+                    LITERAL@536..537
+                        NUMBER@536..537 "5"
+                SEMICOLON@537..538 ";"
+            WHITESPACE@538..541 "\n\n\t"
+            COMMENT@541..582 "// Reference and mutate script-scope vars"
+            WHITESPACE@582..584 "\n\t"
+            EXPR_STMT@584..594
+                BIN_EXPR@584..593
+                    NAME_REF@584..588
+                        IDENT@584..588 "gInt"
+                    WHITESPACE@588..589 " "
+                    EQ@589..590 "="
+                    WHITESPACE@590..591 " "
+                    LITERAL@591..593
+                        NUMBER@591..593 "10"
+                SEMICOLON@593..594 ";"
+            WHITESPACE@594..596 "\n\t"
+            EXPR_STMT@596..615
+                BIN_EXPR@596..614
+                    NAME_REF@596..604
+                        IDENT@596..604 "gMessage"
+                    WHITESPACE@604..605 " "
+                    EQ@605..606 "="
+                    WHITESPACE@606..607 " "
+                    STR_EXPR@607..614
+                        QUOTE_DOUBLE@607..608 "\""
+                        STR_SHARD_LITERAL@608..613
+                            STR_SHARD@608..613 "world"
+                        QUOTE_DOUBLE@613..614 "\""
+                SEMICOLON@614..615 ";"
+            WHITESPACE@615..617 "\n\t"
+            EXPR_STMT@617..630
+                BIN_EXPR@617..629
+                    NAME_REF@617..619
+                        IDENT@617..619 "gA"
+                    WHITESPACE@619..620 " "
+                    EQ@620..621 "="
+                    WHITESPACE@621..622 " "
+                    BIN_EXPR@622..629
+                        NAME_REF@622..624
+                            IDENT@622..624 "gB"
+                        WHITESPACE@624..625 " "
+                        PLUS@625..626 "+"
+                        WHITESPACE@626..627 " "
+                        NAME_REF@627..629
+                            IDENT@627..629 "gC"
+                SEMICOLON@629..630 ";"
+            WHITESPACE@630..632 "\n\t"
+            EXPR_STMT@632..655
+                CALL_EXPR@632..654
+                    NAME_REF@632..639
+                        IDENT@632..639 "Message"
+                    ARG_LIST@639..654
+                        LPAREN@639..640 "("
+                        UNARY_EXPR@640..653
+                            DOLLAR@640..641 "$"
+                            NAME_REF@641..653
+                                IDENT@641..653 "gExportedInt"
+                        RPAREN@653..654 ")"
+                SEMICOLON@654..655 ";"
+            WHITESPACE@655..656 "\n"
+            RBRACK@656..657 "}"
+    WHITESPACE@657..658 "\n"

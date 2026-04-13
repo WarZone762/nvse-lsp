@@ -1,0 +1,447 @@
+SCRIPT@0..1274
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..12
+        IDENT@5..12 "stmt_if"
+    SEMICOLON@12..13 ";"
+    WHITESPACE@13..15 "\n\n"
+    FN_DECL_ITEM@15..1273
+        FN_KW@15..17 "fn"
+        WHITESPACE@17..18 " "
+        PARAM_LIST@18..20
+            LPAREN@18..19 "("
+            RPAREN@19..20 ")"
+        WHITESPACE@20..21 " "
+        BLOCK_STMT@21..1273
+            LBRACK@21..22 "{"
+            WHITESPACE@22..27 "\n    "
+            COMMENT@27..52 "// Simple if, empty block"
+            WHITESPACE@52..57 "\n    "
+            IF_STMT@57..66
+                IF_KW@57..59 "if"
+                WHITESPACE@59..60 " "
+                LPAREN@60..61 "("
+                NAME_REF@61..62
+                    IDENT@61..62 "x"
+                RPAREN@62..63 ")"
+                WHITESPACE@63..64 " "
+                BLOCK_STMT@64..66
+                    LBRACK@64..65 "{"
+                    RBRACK@65..66 "}"
+            WHITESPACE@66..72 "\n\n    "
+            COMMENT@72..95 "// Simple if, with body"
+            WHITESPACE@95..100 "\n    "
+            IF_STMT@100..125
+                IF_KW@100..102 "if"
+                WHITESPACE@102..103 " "
+                LPAREN@103..104 "("
+                NAME_REF@104..105
+                    IDENT@104..105 "x"
+                RPAREN@105..106 ")"
+                WHITESPACE@106..107 " "
+                BLOCK_STMT@107..125
+                    LBRACK@107..108 "{"
+                    WHITESPACE@108..117 "\n        "
+                    EXPR_STMT@117..119
+                        NAME_REF@117..118
+                            IDENT@117..118 "y"
+                        SEMICOLON@118..119 ";"
+                    WHITESPACE@119..124 "\n    "
+                    RBRACK@124..125 "}"
+            WHITESPACE@125..131 "\n\n    "
+            COMMENT@131..155 "// If-else, empty blocks"
+            WHITESPACE@155..160 "\n    "
+            IF_STMT@160..177
+                IF_KW@160..162 "if"
+                WHITESPACE@162..163 " "
+                LPAREN@163..164 "("
+                NAME_REF@164..165
+                    IDENT@164..165 "x"
+                RPAREN@165..166 ")"
+                WHITESPACE@166..167 " "
+                BLOCK_STMT@167..169
+                    LBRACK@167..168 "{"
+                    RBRACK@168..169 "}"
+                WHITESPACE@169..170 " "
+                ELSE_KW@170..174 "else"
+                WHITESPACE@174..175 " "
+                BLOCK_STMT@175..177
+                    LBRACK@175..176 "{"
+                    RBRACK@176..177 "}"
+            WHITESPACE@177..183 "\n\n    "
+            COMMENT@183..206 "// If-else, with bodies"
+            WHITESPACE@206..211 "\n    "
+            IF_STMT@211..260
+                IF_KW@211..213 "if"
+                WHITESPACE@213..214 " "
+                LPAREN@214..215 "("
+                NAME_REF@215..216
+                    IDENT@215..216 "x"
+                RPAREN@216..217 ")"
+                WHITESPACE@217..218 " "
+                BLOCK_STMT@218..236
+                    LBRACK@218..219 "{"
+                    WHITESPACE@219..228 "\n        "
+                    EXPR_STMT@228..230
+                        NAME_REF@228..229
+                            IDENT@228..229 "y"
+                        SEMICOLON@229..230 ";"
+                    WHITESPACE@230..235 "\n    "
+                    RBRACK@235..236 "}"
+                WHITESPACE@236..237 " "
+                ELSE_KW@237..241 "else"
+                WHITESPACE@241..242 " "
+                BLOCK_STMT@242..260
+                    LBRACK@242..243 "{"
+                    WHITESPACE@243..252 "\n        "
+                    EXPR_STMT@252..254
+                        NAME_REF@252..253
+                            IDENT@252..253 "z"
+                        SEMICOLON@253..254 ";"
+                    WHITESPACE@254..259 "\n    "
+                    RBRACK@259..260 "}"
+            WHITESPACE@260..266 "\n\n    "
+            COMMENT@266..279 "// If-else-if"
+            WHITESPACE@279..284 "\n    "
+            IF_STMT@284..340
+                IF_KW@284..286 "if"
+                WHITESPACE@286..287 " "
+                LPAREN@287..288 "("
+                NAME_REF@288..289
+                    IDENT@288..289 "a"
+                RPAREN@289..290 ")"
+                WHITESPACE@290..291 " "
+                BLOCK_STMT@291..309
+                    LBRACK@291..292 "{"
+                    WHITESPACE@292..301 "\n        "
+                    EXPR_STMT@301..303
+                        NAME_REF@301..302
+                            IDENT@301..302 "x"
+                        SEMICOLON@302..303 ";"
+                    WHITESPACE@303..308 "\n    "
+                    RBRACK@308..309 "}"
+                WHITESPACE@309..310 " "
+                ELSE_KW@310..314 "else"
+                WHITESPACE@314..315 " "
+                IF_STMT@315..340
+                    IF_KW@315..317 "if"
+                    WHITESPACE@317..318 " "
+                    LPAREN@318..319 "("
+                    NAME_REF@319..320
+                        IDENT@319..320 "b"
+                    RPAREN@320..321 ")"
+                    WHITESPACE@321..322 " "
+                    BLOCK_STMT@322..340
+                        LBRACK@322..323 "{"
+                        WHITESPACE@323..332 "\n        "
+                        EXPR_STMT@332..334
+                            NAME_REF@332..333
+                                IDENT@332..333 "y"
+                            SEMICOLON@333..334 ";"
+                        WHITESPACE@334..339 "\n    "
+                        RBRACK@339..340 "}"
+            WHITESPACE@340..346 "\n\n    "
+            COMMENT@346..364 "// If-else-if-else"
+            WHITESPACE@364..369 "\n    "
+            IF_STMT@369..449
+                IF_KW@369..371 "if"
+                WHITESPACE@371..372 " "
+                LPAREN@372..373 "("
+                NAME_REF@373..374
+                    IDENT@373..374 "a"
+                RPAREN@374..375 ")"
+                WHITESPACE@375..376 " "
+                BLOCK_STMT@376..394
+                    LBRACK@376..377 "{"
+                    WHITESPACE@377..386 "\n        "
+                    EXPR_STMT@386..388
+                        NAME_REF@386..387
+                            IDENT@386..387 "x"
+                        SEMICOLON@387..388 ";"
+                    WHITESPACE@388..393 "\n    "
+                    RBRACK@393..394 "}"
+                WHITESPACE@394..395 " "
+                ELSE_KW@395..399 "else"
+                WHITESPACE@399..400 " "
+                IF_STMT@400..449
+                    IF_KW@400..402 "if"
+                    WHITESPACE@402..403 " "
+                    LPAREN@403..404 "("
+                    NAME_REF@404..405
+                        IDENT@404..405 "b"
+                    RPAREN@405..406 ")"
+                    WHITESPACE@406..407 " "
+                    BLOCK_STMT@407..425
+                        LBRACK@407..408 "{"
+                        WHITESPACE@408..417 "\n        "
+                        EXPR_STMT@417..419
+                            NAME_REF@417..418
+                                IDENT@417..418 "y"
+                            SEMICOLON@418..419 ";"
+                        WHITESPACE@419..424 "\n    "
+                        RBRACK@424..425 "}"
+                    WHITESPACE@425..426 " "
+                    ELSE_KW@426..430 "else"
+                    WHITESPACE@430..431 " "
+                    BLOCK_STMT@431..449
+                        LBRACK@431..432 "{"
+                        WHITESPACE@432..441 "\n        "
+                        EXPR_STMT@441..443
+                            NAME_REF@441..442
+                                IDENT@441..442 "z"
+                            SEMICOLON@442..443 ";"
+                        WHITESPACE@443..448 "\n    "
+                        RBRACK@448..449 "}"
+            WHITESPACE@449..455 "\n\n    "
+            COMMENT@455..480 "// Deeply chained else-if"
+            WHITESPACE@480..485 "\n    "
+            IF_STMT@485..611
+                IF_KW@485..487 "if"
+                WHITESPACE@487..488 " "
+                LPAREN@488..489 "("
+                BIN_EXPR@489..495
+                    NAME_REF@489..490
+                        IDENT@489..490 "a"
+                    WHITESPACE@490..491 " "
+                    EQ_2@491..493 "=="
+                    WHITESPACE@493..494 " "
+                    LITERAL@494..495
+                        NUMBER@494..495 "1"
+                RPAREN@495..496 ")"
+                WHITESPACE@496..497 " "
+                BLOCK_STMT@497..515
+                    LBRACK@497..498 "{"
+                    WHITESPACE@498..507 "\n        "
+                    EXPR_STMT@507..509
+                        NAME_REF@507..508
+                            IDENT@507..508 "x"
+                        SEMICOLON@508..509 ";"
+                    WHITESPACE@509..514 "\n    "
+                    RBRACK@514..515 "}"
+                WHITESPACE@515..516 " "
+                ELSE_KW@516..520 "else"
+                WHITESPACE@520..521 " "
+                IF_STMT@521..611
+                    IF_KW@521..523 "if"
+                    WHITESPACE@523..524 " "
+                    LPAREN@524..525 "("
+                    BIN_EXPR@525..531
+                        NAME_REF@525..526
+                            IDENT@525..526 "a"
+                        WHITESPACE@526..527 " "
+                        EQ_2@527..529 "=="
+                        WHITESPACE@529..530 " "
+                        LITERAL@530..531
+                            NUMBER@530..531 "2"
+                    RPAREN@531..532 ")"
+                    WHITESPACE@532..533 " "
+                    BLOCK_STMT@533..551
+                        LBRACK@533..534 "{"
+                        WHITESPACE@534..543 "\n        "
+                        EXPR_STMT@543..545
+                            NAME_REF@543..544
+                                IDENT@543..544 "y"
+                            SEMICOLON@544..545 ";"
+                        WHITESPACE@545..550 "\n    "
+                        RBRACK@550..551 "}"
+                    WHITESPACE@551..552 " "
+                    ELSE_KW@552..556 "else"
+                    WHITESPACE@556..557 " "
+                    IF_STMT@557..611
+                        IF_KW@557..559 "if"
+                        WHITESPACE@559..560 " "
+                        LPAREN@560..561 "("
+                        BIN_EXPR@561..567
+                            NAME_REF@561..562
+                                IDENT@561..562 "a"
+                            WHITESPACE@562..563 " "
+                            EQ_2@563..565 "=="
+                            WHITESPACE@565..566 " "
+                            LITERAL@566..567
+                                NUMBER@566..567 "3"
+                        RPAREN@567..568 ")"
+                        WHITESPACE@568..569 " "
+                        BLOCK_STMT@569..587
+                            LBRACK@569..570 "{"
+                            WHITESPACE@570..579 "\n        "
+                            EXPR_STMT@579..581
+                                NAME_REF@579..580
+                                    IDENT@579..580 "z"
+                                SEMICOLON@580..581 ";"
+                            WHITESPACE@581..586 "\n    "
+                            RBRACK@586..587 "}"
+                        WHITESPACE@587..588 " "
+                        ELSE_KW@588..592 "else"
+                        WHITESPACE@592..593 " "
+                        BLOCK_STMT@593..611
+                            LBRACK@593..594 "{"
+                            WHITESPACE@594..603 "\n        "
+                            EXPR_STMT@603..605
+                                NAME_REF@603..604
+                                    IDENT@603..604 "w"
+                                SEMICOLON@604..605 ";"
+                            WHITESPACE@605..610 "\n    "
+                            RBRACK@610..611 "}"
+            WHITESPACE@611..617 "\n\n    "
+            COMMENT@617..657 "// Comment between if keyword and lparen"
+            WHITESPACE@657..662 "\n    "
+            IF_STMT@662..679
+                IF_KW@662..664 "if"
+                WHITESPACE@664..665 " "
+                COMMENT@665..672 "/* c */"
+                WHITESPACE@672..673 " "
+                LPAREN@673..674 "("
+                NAME_REF@674..675
+                    IDENT@674..675 "x"
+                RPAREN@675..676 ")"
+                WHITESPACE@676..677 " "
+                BLOCK_STMT@677..679
+                    LBRACK@677..678 "{"
+                    RBRACK@678..679 "}"
+            WHITESPACE@679..685 "\n\n    "
+            COMMENT@685..724 "// Comment between lparen and condition"
+            WHITESPACE@724..729 "\n    "
+            IF_STMT@729..746
+                IF_KW@729..731 "if"
+                WHITESPACE@731..732 " "
+                LPAREN@732..733 "("
+                WHITESPACE@733..734 " "
+                COMMENT@734..741 "/* c */"
+                NAME_REF@741..742
+                    IDENT@741..742 "x"
+                RPAREN@742..743 ")"
+                WHITESPACE@743..744 " "
+                BLOCK_STMT@744..746
+                    LBRACK@744..745 "{"
+                    RBRACK@745..746 "}"
+            WHITESPACE@746..752 "\n\n    "
+            COMMENT@752..791 "// Comment between condition and rparen"
+            WHITESPACE@791..796 "\n    "
+            IF_STMT@796..813
+                IF_KW@796..798 "if"
+                WHITESPACE@798..799 " "
+                LPAREN@799..800 "("
+                NAME_REF@800..801
+                    IDENT@800..801 "x"
+                WHITESPACE@801..802 " "
+                COMMENT@802..809 "/* c */"
+                RPAREN@809..810 ")"
+                WHITESPACE@810..811 " "
+                BLOCK_STMT@811..813
+                    LBRACK@811..812 "{"
+                    RBRACK@812..813 "}"
+            WHITESPACE@813..819 "\n\n    "
+            COMMENT@819..860 "// Comment between rparen and true branch"
+            WHITESPACE@860..865 "\n    "
+            IF_STMT@865..882
+                IF_KW@865..867 "if"
+                WHITESPACE@867..868 " "
+                LPAREN@868..869 "("
+                NAME_REF@869..870
+                    IDENT@869..870 "x"
+                RPAREN@870..871 ")"
+                WHITESPACE@871..872 " "
+                COMMENT@872..879 "/* c */"
+                WHITESPACE@879..880 " "
+                BLOCK_STMT@880..882
+                    LBRACK@880..881 "{"
+                    RBRACK@881..882 "}"
+            WHITESPACE@882..888 "\n\n    "
+            COMMENT@888..933 "// Block comment between true branch and else"
+            WHITESPACE@933..938 "\n    "
+            IF_STMT@938..963
+                IF_KW@938..940 "if"
+                WHITESPACE@940..941 " "
+                LPAREN@941..942 "("
+                NAME_REF@942..943
+                    IDENT@942..943 "x"
+                RPAREN@943..944 ")"
+                WHITESPACE@944..945 " "
+                BLOCK_STMT@945..947
+                    LBRACK@945..946 "{"
+                    RBRACK@946..947 "}"
+                WHITESPACE@947..948 " "
+                COMMENT@948..955 "/* c */"
+                WHITESPACE@955..956 " "
+                ELSE_KW@956..960 "else"
+                WHITESPACE@960..961 " "
+                BLOCK_STMT@961..963
+                    LBRACK@961..962 "{"
+                    RBRACK@962..963 "}"
+            WHITESPACE@963..969 "\n\n    "
+            COMMENT@969..1025 "// Comment between else keyword and false branch (block)"
+            WHITESPACE@1025..1030 "\n    "
+            IF_STMT@1030..1055
+                IF_KW@1030..1032 "if"
+                WHITESPACE@1032..1033 " "
+                LPAREN@1033..1034 "("
+                NAME_REF@1034..1035
+                    IDENT@1034..1035 "x"
+                RPAREN@1035..1036 ")"
+                WHITESPACE@1036..1037 " "
+                BLOCK_STMT@1037..1039
+                    LBRACK@1037..1038 "{"
+                    RBRACK@1038..1039 "}"
+                WHITESPACE@1039..1040 " "
+                ELSE_KW@1040..1044 "else"
+                WHITESPACE@1044..1045 " "
+                COMMENT@1045..1052 "/* c */"
+                WHITESPACE@1052..1053 " "
+                BLOCK_STMT@1053..1055
+                    LBRACK@1053..1054 "{"
+                    RBRACK@1054..1055 "}"
+            WHITESPACE@1055..1061 "\n\n    "
+            COMMENT@1061..1104 "// Comment between else keyword and else-if"
+            WHITESPACE@1104..1109 "\n    "
+            IF_STMT@1109..1141
+                IF_KW@1109..1111 "if"
+                WHITESPACE@1111..1112 " "
+                LPAREN@1112..1113 "("
+                NAME_REF@1113..1114
+                    IDENT@1113..1114 "x"
+                RPAREN@1114..1115 ")"
+                WHITESPACE@1115..1116 " "
+                BLOCK_STMT@1116..1118
+                    LBRACK@1116..1117 "{"
+                    RBRACK@1117..1118 "}"
+                WHITESPACE@1118..1119 " "
+                ELSE_KW@1119..1123 "else"
+                WHITESPACE@1123..1124 " "
+                COMMENT@1124..1131 "/* c */"
+                WHITESPACE@1131..1132 " "
+                IF_STMT@1132..1141
+                    IF_KW@1132..1134 "if"
+                    WHITESPACE@1134..1135 " "
+                    LPAREN@1135..1136 "("
+                    NAME_REF@1136..1137
+                        IDENT@1136..1137 "y"
+                    RPAREN@1137..1138 ")"
+                    WHITESPACE@1138..1139 " "
+                    BLOCK_STMT@1139..1141
+                        LBRACK@1139..1140 "{"
+                        RBRACK@1140..1141 "}"
+            WHITESPACE@1141..1147 "\n\n    "
+            COMMENT@1147..1229 "// Line comment between true branch and else — newline consumed, else on same line"
+            WHITESPACE@1229..1234 "\n    "
+            IF_STMT@1234..1271
+                IF_KW@1234..1236 "if"
+                WHITESPACE@1236..1237 " "
+                LPAREN@1237..1238 "("
+                NAME_REF@1238..1239
+                    IDENT@1238..1239 "x"
+                RPAREN@1239..1240 ")"
+                WHITESPACE@1240..1241 " "
+                BLOCK_STMT@1241..1243
+                    LBRACK@1241..1242 "{"
+                    RBRACK@1242..1243 "}"
+                WHITESPACE@1243..1244 " "
+                COMMENT@1244..1259 "// line comment"
+                WHITESPACE@1259..1264 "\n    "
+                ELSE_KW@1264..1268 "else"
+                WHITESPACE@1268..1269 " "
+                BLOCK_STMT@1269..1271
+                    LBRACK@1269..1270 "{"
+                    RBRACK@1270..1271 "}"
+            WHITESPACE@1271..1272 "\n"
+            RBRACK@1272..1273 "}"
+    WHITESPACE@1273..1274 "\n"

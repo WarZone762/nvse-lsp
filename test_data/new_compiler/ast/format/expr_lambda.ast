@@ -1,0 +1,563 @@
+SCRIPT@0..1357
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..16
+        IDENT@5..16 "expr_lambda"
+    SEMICOLON@16..17 ";"
+    WHITESPACE@17..19 "\n\n"
+    FN_DECL_ITEM@19..1356
+        FN_KW@19..21 "fn"
+        WHITESPACE@21..22 " "
+        PARAM_LIST@22..24
+            LPAREN@22..23 "("
+            RPAREN@23..24 ")"
+        WHITESPACE@24..25 " "
+        BLOCK_STMT@25..1356
+            LBRACK@25..26 "{"
+            WHITESPACE@26..31 "\n    "
+            COMMENT@31..56 "// Block form — no params"
+            WHITESPACE@56..61 "\n    "
+            VAR_DECL_STMT@61..79
+                VAR_DECL@61..78
+                    REF_TY@61..64 "ref"
+                    WHITESPACE@64..65 " "
+                    NAME@65..67
+                        IDENT@65..67 "f1"
+                    WHITESPACE@67..68 " "
+                    EQ@68..69 "="
+                    WHITESPACE@69..70 " "
+                    LAMBDA_EXPR@70..78
+                        FN_KW@70..72 "fn"
+                        WHITESPACE@72..73 " "
+                        PARAM_LIST@73..75
+                            LPAREN@73..74 "("
+                            RPAREN@74..75 ")"
+                        WHITESPACE@75..76 " "
+                        BLOCK_STMT@76..78
+                            LBRACK@76..77 "{"
+                            RBRACK@77..78 "}"
+                SEMICOLON@78..79 ";"
+            WHITESPACE@79..85 "\n\n    "
+            COMMENT@85..110 "// Block form — one param"
+            WHITESPACE@110..115 "\n    "
+            VAR_DECL_STMT@115..161
+                VAR_DECL@115..160
+                    REF_TY@115..118 "ref"
+                    WHITESPACE@118..119 " "
+                    NAME@119..121
+                        IDENT@119..121 "f2"
+                    WHITESPACE@121..122 " "
+                    EQ@122..123 "="
+                    WHITESPACE@123..124 " "
+                    LAMBDA_EXPR@124..160
+                        FN_KW@124..126 "fn"
+                        WHITESPACE@126..127 " "
+                        PARAM_LIST@127..134
+                            LPAREN@127..128 "("
+                            VAR_DECL@128..133
+                                INT_TY@128..131 "int"
+                                WHITESPACE@131..132 " "
+                                NAME@132..133
+                                    IDENT@132..133 "x"
+                            RPAREN@133..134 ")"
+                        WHITESPACE@134..135 " "
+                        BLOCK_STMT@135..160
+                            LBRACK@135..136 "{"
+                            WHITESPACE@136..145 "\n        "
+                            RETURN_STMT@145..154
+                                RETURN_KW@145..151 "return"
+                                WHITESPACE@151..152 " "
+                                NAME_REF@152..153
+                                    IDENT@152..153 "x"
+                                SEMICOLON@153..154 ";"
+                            WHITESPACE@154..159 "\n    "
+                            RBRACK@159..160 "}"
+                SEMICOLON@160..161 ";"
+            WHITESPACE@161..167 "\n\n    "
+            COMMENT@167..198 "// Block form — multiple params"
+            WHITESPACE@198..203 "\n    "
+            VAR_DECL_STMT@203..260
+                VAR_DECL@203..259
+                    REF_TY@203..206 "ref"
+                    WHITESPACE@206..207 " "
+                    NAME@207..209
+                        IDENT@207..209 "f3"
+                    WHITESPACE@209..210 " "
+                    EQ@210..211 "="
+                    WHITESPACE@211..212 " "
+                    LAMBDA_EXPR@212..259
+                        FN_KW@212..214 "fn"
+                        WHITESPACE@214..215 " "
+                        PARAM_LIST@215..229
+                            LPAREN@215..216 "("
+                            VAR_DECL@216..221
+                                INT_TY@216..219 "int"
+                                WHITESPACE@219..220 " "
+                                NAME@220..221
+                                    IDENT@220..221 "a"
+                            COMMA@221..222 ","
+                            WHITESPACE@222..223 " "
+                            VAR_DECL@223..228
+                                INT_TY@223..226 "int"
+                                WHITESPACE@226..227 " "
+                                NAME@227..228
+                                    IDENT@227..228 "b"
+                            RPAREN@228..229 ")"
+                        WHITESPACE@229..230 " "
+                        BLOCK_STMT@230..259
+                            LBRACK@230..231 "{"
+                            WHITESPACE@231..240 "\n        "
+                            RETURN_STMT@240..253
+                                RETURN_KW@240..246 "return"
+                                WHITESPACE@246..247 " "
+                                BIN_EXPR@247..252
+                                    NAME_REF@247..248
+                                        IDENT@247..248 "a"
+                                    WHITESPACE@248..249 " "
+                                    PLUS@249..250 "+"
+                                    WHITESPACE@250..251 " "
+                                    NAME_REF@251..252
+                                        IDENT@251..252 "b"
+                                SEMICOLON@252..253 ";"
+                            WHITESPACE@253..258 "\n    "
+                            RBRACK@258..259 "}"
+                SEMICOLON@259..260 ";"
+            WHITESPACE@260..266 "\n\n    "
+            COMMENT@266..296 "// Block form — multiple stmts"
+            WHITESPACE@296..301 "\n    "
+            VAR_DECL_STMT@301..421
+                VAR_DECL@301..420
+                    REF_TY@301..304 "ref"
+                    WHITESPACE@304..305 " "
+                    NAME@305..307
+                        IDENT@305..307 "f4"
+                    WHITESPACE@307..308 " "
+                    EQ@308..309 "="
+                    WHITESPACE@309..310 " "
+                    LAMBDA_EXPR@310..420
+                        FN_KW@310..312 "fn"
+                        WHITESPACE@312..313 " "
+                        PARAM_LIST@313..320
+                            LPAREN@313..314 "("
+                            VAR_DECL@314..319
+                                INT_TY@314..317 "int"
+                                WHITESPACE@317..318 " "
+                                NAME@318..319
+                                    IDENT@318..319 "x"
+                            RPAREN@319..320 ")"
+                        WHITESPACE@320..321 " "
+                        BLOCK_STMT@321..420
+                            LBRACK@321..322 "{"
+                            WHITESPACE@322..331 "\n        "
+                            VAR_DECL_STMT@331..351
+                                VAR_DECL@331..350
+                                    INT_TY@331..334 "int"
+                                    WHITESPACE@334..335 " "
+                                    NAME@335..342
+                                        IDENT@335..342 "doubled"
+                                    WHITESPACE@342..343 " "
+                                    EQ@343..344 "="
+                                    WHITESPACE@344..345 " "
+                                    BIN_EXPR@345..350
+                                        NAME_REF@345..346
+                                            IDENT@345..346 "x"
+                                        WHITESPACE@346..347 " "
+                                        ASTERISK@347..348 "*"
+                                        WHITESPACE@348..349 " "
+                                        LITERAL@349..350
+                                            NUMBER@349..350 "2"
+                                SEMICOLON@350..351 ";"
+                            WHITESPACE@351..360 "\n        "
+                            VAR_DECL_STMT@360..380
+                                VAR_DECL@360..379
+                                    INT_TY@360..363 "int"
+                                    WHITESPACE@363..364 " "
+                                    NAME@364..371
+                                        IDENT@364..371 "tripled"
+                                    WHITESPACE@371..372 " "
+                                    EQ@372..373 "="
+                                    WHITESPACE@373..374 " "
+                                    BIN_EXPR@374..379
+                                        NAME_REF@374..375
+                                            IDENT@374..375 "x"
+                                        WHITESPACE@375..376 " "
+                                        ASTERISK@376..377 "*"
+                                        WHITESPACE@377..378 " "
+                                        LITERAL@378..379
+                                            NUMBER@378..379 "3"
+                                SEMICOLON@379..380 ";"
+                            WHITESPACE@380..389 "\n        "
+                            RETURN_STMT@389..414
+                                RETURN_KW@389..395 "return"
+                                WHITESPACE@395..396 " "
+                                BIN_EXPR@396..413
+                                    NAME_REF@396..403
+                                        IDENT@396..403 "doubled"
+                                    WHITESPACE@403..404 " "
+                                    PLUS@404..405 "+"
+                                    WHITESPACE@405..406 " "
+                                    NAME_REF@406..413
+                                        IDENT@406..413 "tripled"
+                                SEMICOLON@413..414 ";"
+                            WHITESPACE@414..419 "\n    "
+                            RBRACK@419..420 "}"
+                SEMICOLON@420..421 ";"
+            WHITESPACE@421..427 "\n\n    "
+            COMMENT@427..453 "// Lambda as call argument"
+            WHITESPACE@453..458 "\n    "
+            EXPR_STMT@458..501
+                CALL_EXPR@458..500
+                    NAME_REF@458..462
+                        IDENT@458..462 "call"
+                    ARG_LIST@462..500
+                        LPAREN@462..463 "("
+                        LAMBDA_EXPR@463..499
+                            FN_KW@463..465 "fn"
+                            WHITESPACE@465..466 " "
+                            PARAM_LIST@466..473
+                                LPAREN@466..467 "("
+                                VAR_DECL@467..472
+                                    INT_TY@467..470 "int"
+                                    WHITESPACE@470..471 " "
+                                    NAME@471..472
+                                        IDENT@471..472 "x"
+                                RPAREN@472..473 ")"
+                            WHITESPACE@473..474 " "
+                            BLOCK_STMT@474..499
+                                LBRACK@474..475 "{"
+                                WHITESPACE@475..484 "\n        "
+                                RETURN_STMT@484..493
+                                    RETURN_KW@484..490 "return"
+                                    WHITESPACE@490..491 " "
+                                    NAME_REF@491..492
+                                        IDENT@491..492 "x"
+                                    SEMICOLON@492..493 ";"
+                                WHITESPACE@493..498 "\n    "
+                                RBRACK@498..499 "}"
+                        RPAREN@499..500 ")"
+                SEMICOLON@500..501 ";"
+            WHITESPACE@501..507 "\n\n    "
+            COMMENT@507..534 "// Lambda stored and called"
+            WHITESPACE@534..539 "\n    "
+            VAR_DECL_STMT@539..566
+                VAR_DECL@539..565
+                    REF_TY@539..542 "ref"
+                    WHITESPACE@542..543 " "
+                    NAME@543..549
+                        IDENT@543..549 "square"
+                    WHITESPACE@549..550 " "
+                    EQ@550..551 "="
+                    WHITESPACE@551..552 " "
+                    LAMBDA_EXPR@552..565
+                        FN_KW@552..554 "fn"
+                        WHITESPACE@554..555 " "
+                        PARAM_LIST@555..562
+                            LPAREN@555..556 "("
+                            VAR_DECL@556..561
+                                INT_TY@556..559 "int"
+                                WHITESPACE@559..560 " "
+                                NAME@560..561
+                                    IDENT@560..561 "n"
+                            RPAREN@561..562 ")"
+                        WHITESPACE@562..563 " "
+                        BLOCK_STMT@563..565
+                            LBRACK@563..564 "{"
+                            RBRACK@564..565 "}"
+                SEMICOLON@565..566 ";"
+            WHITESPACE@566..571 "\n    "
+            VAR_DECL_STMT@571..600
+                VAR_DECL@571..599
+                    INT_TY@571..574 "int"
+                    WHITESPACE@574..575 " "
+                    NAME@575..581
+                        IDENT@575..581 "result"
+                    WHITESPACE@581..582 " "
+                    EQ@582..583 "="
+                    WHITESPACE@583..584 " "
+                    CALL_EXPR@584..599
+                        NAME_REF@584..588
+                            IDENT@584..588 "call"
+                        ARG_LIST@588..599
+                            LPAREN@588..589 "("
+                            NAME_REF@589..595
+                                IDENT@589..595 "square"
+                            COMMA@595..596 ","
+                            WHITESPACE@596..597 " "
+                            LITERAL@597..598
+                                NUMBER@597..598 "5"
+                            RPAREN@598..599 ")"
+                SEMICOLON@599..600 ";"
+            WHITESPACE@600..606 "\n\n    "
+            COMMENT@606..623 "// Nested lambdas"
+            WHITESPACE@623..628 "\n    "
+            VAR_DECL_STMT@628..751
+                VAR_DECL@628..750
+                    REF_TY@628..631 "ref"
+                    WHITESPACE@631..632 " "
+                    NAME@632..637
+                        IDENT@632..637 "outer"
+                    WHITESPACE@637..638 " "
+                    EQ@638..639 "="
+                    WHITESPACE@639..640 " "
+                    LAMBDA_EXPR@640..750
+                        FN_KW@640..642 "fn"
+                        WHITESPACE@642..643 " "
+                        PARAM_LIST@643..650
+                            LPAREN@643..644 "("
+                            VAR_DECL@644..649
+                                INT_TY@644..647 "int"
+                                WHITESPACE@647..648 " "
+                                NAME@648..649
+                                    IDENT@648..649 "x"
+                            RPAREN@649..650 ")"
+                        WHITESPACE@650..651 " "
+                        BLOCK_STMT@651..750
+                            LBRACK@651..652 "{"
+                            WHITESPACE@652..661 "\n        "
+                            VAR_DECL_STMT@661..722
+                                VAR_DECL@661..721
+                                    REF_TY@661..664 "ref"
+                                    WHITESPACE@664..665 " "
+                                    NAME@665..670
+                                        IDENT@665..670 "inner"
+                                    WHITESPACE@670..671 " "
+                                    EQ@671..672 "="
+                                    WHITESPACE@672..673 " "
+                                    LAMBDA_EXPR@673..721
+                                        FN_KW@673..675 "fn"
+                                        WHITESPACE@675..676 " "
+                                        PARAM_LIST@676..683
+                                            LPAREN@676..677 "("
+                                            VAR_DECL@677..682
+                                                INT_TY@677..680 "int"
+                                                WHITESPACE@680..681 " "
+                                                NAME@681..682
+                                                    IDENT@681..682 "y"
+                                            RPAREN@682..683 ")"
+                                        WHITESPACE@683..684 " "
+                                        BLOCK_STMT@684..721
+                                            LBRACK@684..685 "{"
+                                            WHITESPACE@685..698 "\n            "
+                                            RETURN_STMT@698..711
+                                                RETURN_KW@698..704 "return"
+                                                WHITESPACE@704..705 " "
+                                                BIN_EXPR@705..710
+                                                    NAME_REF@705..706
+                                                        IDENT@705..706 "x"
+                                                    WHITESPACE@706..707 " "
+                                                    PLUS@707..708 "+"
+                                                    WHITESPACE@708..709 " "
+                                                    NAME_REF@709..710
+                                                        IDENT@709..710 "y"
+                                                SEMICOLON@710..711 ";"
+                                            WHITESPACE@711..720 "\n        "
+                                            RBRACK@720..721 "}"
+                                SEMICOLON@721..722 ";"
+                            WHITESPACE@722..731 "\n        "
+                            RETURN_STMT@731..744
+                                RETURN_KW@731..737 "return"
+                                WHITESPACE@737..738 " "
+                                NAME_REF@738..743
+                                    IDENT@738..743 "inner"
+                                SEMICOLON@743..744 ";"
+                            WHITESPACE@744..749 "\n    "
+                            RBRACK@749..750 "}"
+                SEMICOLON@750..751 ";"
+            WHITESPACE@751..757 "\n\n    "
+            COMMENT@757..801 "// Comment between fn keyword and param list"
+            WHITESPACE@801..806 "\n    "
+            VAR_DECL_STMT@806..832
+                VAR_DECL@806..831
+                    REF_TY@806..809 "ref"
+                    WHITESPACE@809..810 " "
+                    NAME@810..812
+                        IDENT@810..812 "c1"
+                    WHITESPACE@812..813 " "
+                    EQ@813..814 "="
+                    WHITESPACE@814..815 " "
+                    LAMBDA_EXPR@815..831
+                        FN_KW@815..817 "fn"
+                        WHITESPACE@817..818 " "
+                        COMMENT@818..825 "/* c */"
+                        WHITESPACE@825..826 " "
+                        PARAM_LIST@826..828
+                            LPAREN@826..827 "("
+                            RPAREN@827..828 ")"
+                        WHITESPACE@828..829 " "
+                        BLOCK_STMT@829..831
+                            LBRACK@829..830 "{"
+                            RBRACK@830..831 "}"
+                SEMICOLON@831..832 ";"
+            WHITESPACE@832..838 "\n\n    "
+            COMMENT@838..877 "// Comment between param list and block"
+            WHITESPACE@877..882 "\n    "
+            VAR_DECL_STMT@882..908
+                VAR_DECL@882..907
+                    REF_TY@882..885 "ref"
+                    WHITESPACE@885..886 " "
+                    NAME@886..888
+                        IDENT@886..888 "c2"
+                    WHITESPACE@888..889 " "
+                    EQ@889..890 "="
+                    WHITESPACE@890..891 " "
+                    LAMBDA_EXPR@891..907
+                        FN_KW@891..893 "fn"
+                        WHITESPACE@893..894 " "
+                        PARAM_LIST@894..896
+                            LPAREN@894..895 "("
+                            RPAREN@895..896 ")"
+                        WHITESPACE@896..897 " "
+                        COMMENT@897..904 "/* c */"
+                        WHITESPACE@904..905 " "
+                        BLOCK_STMT@905..907
+                            LBRACK@905..906 "{"
+                            RBRACK@906..907 "}"
+                SEMICOLON@907..908 ";"
+            WHITESPACE@908..914 "\n\n    "
+            COMMENT@914..963 "// Comment inside param list — before first param"
+            WHITESPACE@963..968 "\n    "
+            VAR_DECL_STMT@968..999
+                VAR_DECL@968..998
+                    REF_TY@968..971 "ref"
+                    WHITESPACE@971..972 " "
+                    NAME@972..974
+                        IDENT@972..974 "c3"
+                    WHITESPACE@974..975 " "
+                    EQ@975..976 "="
+                    WHITESPACE@976..977 " "
+                    LAMBDA_EXPR@977..998
+                        FN_KW@977..979 "fn"
+                        WHITESPACE@979..980 " "
+                        PARAM_LIST@980..995
+                            LPAREN@980..981 "("
+                            WHITESPACE@981..982 " "
+                            COMMENT@982..989 "/* c */"
+                            VAR_DECL@989..994
+                                INT_TY@989..992 "int"
+                                WHITESPACE@992..993 " "
+                                NAME@993..994
+                                    IDENT@993..994 "x"
+                            RPAREN@994..995 ")"
+                        WHITESPACE@995..996 " "
+                        BLOCK_STMT@996..998
+                            LBRACK@996..997 "{"
+                            RBRACK@997..998 "}"
+                SEMICOLON@998..999 ";"
+            WHITESPACE@999..1005 "\n\n    "
+            COMMENT@1005..1057 "// Comment inside param list — between type and name"
+            WHITESPACE@1057..1062 "\n    "
+            VAR_DECL_STMT@1062..1093
+                VAR_DECL@1062..1092
+                    REF_TY@1062..1065 "ref"
+                    WHITESPACE@1065..1066 " "
+                    NAME@1066..1068
+                        IDENT@1066..1068 "c4"
+                    WHITESPACE@1068..1069 " "
+                    EQ@1069..1070 "="
+                    WHITESPACE@1070..1071 " "
+                    LAMBDA_EXPR@1071..1092
+                        FN_KW@1071..1073 "fn"
+                        WHITESPACE@1073..1074 " "
+                        PARAM_LIST@1074..1089
+                            LPAREN@1074..1075 "("
+                            VAR_DECL@1075..1088
+                                INT_TY@1075..1078 "int"
+                                WHITESPACE@1078..1079 " "
+                                COMMENT@1079..1086 "/* c */"
+                                WHITESPACE@1086..1087 " "
+                                NAME@1087..1088
+                                    IDENT@1087..1088 "x"
+                            RPAREN@1088..1089 ")"
+                        WHITESPACE@1089..1090 " "
+                        BLOCK_STMT@1090..1092
+                            LBRACK@1090..1091 "{"
+                            RBRACK@1091..1092 "}"
+                SEMICOLON@1092..1093 ";"
+            WHITESPACE@1093..1099 "\n\n    "
+            COMMENT@1099..1146 "// Comment inside param list — after last param"
+            WHITESPACE@1146..1151 "\n    "
+            VAR_DECL_STMT@1151..1182
+                VAR_DECL@1151..1181
+                    REF_TY@1151..1154 "ref"
+                    WHITESPACE@1154..1155 " "
+                    NAME@1155..1157
+                        IDENT@1155..1157 "c5"
+                    WHITESPACE@1157..1158 " "
+                    EQ@1158..1159 "="
+                    WHITESPACE@1159..1160 " "
+                    LAMBDA_EXPR@1160..1181
+                        FN_KW@1160..1162 "fn"
+                        WHITESPACE@1162..1163 " "
+                        PARAM_LIST@1163..1178
+                            LPAREN@1163..1164 "("
+                            VAR_DECL@1164..1169
+                                INT_TY@1164..1167 "int"
+                                WHITESPACE@1167..1168 " "
+                                NAME@1168..1169
+                                    IDENT@1168..1169 "x"
+                            WHITESPACE@1169..1170 " "
+                            COMMENT@1170..1177 "/* c */"
+                            RPAREN@1177..1178 ")"
+                        WHITESPACE@1178..1179 " "
+                        BLOCK_STMT@1179..1181
+                            LBRACK@1179..1180 "{"
+                            RBRACK@1180..1181 "}"
+                SEMICOLON@1181..1182 ";"
+            WHITESPACE@1182..1188 "\n\n    "
+            COMMENT@1188..1227 "// Comment in lambda body between stmts"
+            WHITESPACE@1227..1232 "\n    "
+            VAR_DECL_STMT@1232..1354
+                VAR_DECL@1232..1353
+                    REF_TY@1232..1235 "ref"
+                    WHITESPACE@1235..1236 " "
+                    NAME@1236..1238
+                        IDENT@1236..1238 "c6"
+                    WHITESPACE@1238..1239 " "
+                    EQ@1239..1240 "="
+                    WHITESPACE@1240..1241 " "
+                    LAMBDA_EXPR@1241..1353
+                        FN_KW@1241..1243 "fn"
+                        WHITESPACE@1243..1244 " "
+                        PARAM_LIST@1244..1251
+                            LPAREN@1244..1245 "("
+                            VAR_DECL@1245..1250
+                                INT_TY@1245..1248 "int"
+                                WHITESPACE@1248..1249 " "
+                                NAME@1249..1250
+                                    IDENT@1249..1250 "x"
+                            RPAREN@1250..1251 ")"
+                        WHITESPACE@1251..1252 " "
+                        BLOCK_STMT@1252..1353
+                            LBRACK@1252..1253 "{"
+                            WHITESPACE@1253..1262 "\n        "
+                            COMMENT@1262..1271 "// before"
+                            WHITESPACE@1271..1280 "\n        "
+                            VAR_DECL_STMT@1280..1290
+                                VAR_DECL@1280..1289
+                                    INT_TY@1280..1283 "int"
+                                    WHITESPACE@1283..1284 " "
+                                    NAME@1284..1285
+                                        IDENT@1284..1285 "y"
+                                    WHITESPACE@1285..1286 " "
+                                    EQ@1286..1287 "="
+                                    WHITESPACE@1287..1288 " "
+                                    NAME_REF@1288..1289
+                                        IDENT@1288..1289 "x"
+                                SEMICOLON@1289..1290 ";"
+                            WHITESPACE@1290..1299 "\n        "
+                            COMMENT@1299..1309 "// between"
+                            WHITESPACE@1309..1318 "\n        "
+                            RETURN_STMT@1318..1327
+                                RETURN_KW@1318..1324 "return"
+                                WHITESPACE@1324..1325 " "
+                                NAME_REF@1325..1326
+                                    IDENT@1325..1326 "y"
+                                SEMICOLON@1326..1327 ";"
+                            WHITESPACE@1327..1336 "\n        "
+                            COMMENT@1336..1347 "// trailing"
+                            WHITESPACE@1347..1352 "\n    "
+                            RBRACK@1352..1353 "}"
+                SEMICOLON@1353..1354 ";"
+            WHITESPACE@1354..1355 "\n"
+            RBRACK@1355..1356 "}"
+    WHITESPACE@1356..1357 "\n"

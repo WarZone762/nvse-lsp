@@ -1,0 +1,59 @@
+name stmt_for;
+
+fn () {
+    // All parts present
+    for (int i = 0; i < 10; i++) {}
+
+    // All parts present, with body
+    for (int i = 0; i < 3; i++) {
+        Message($i);
+    }
+
+    // Empty init
+    for (; i < 10; i++) {}
+
+    // Empty cond
+    for (int i = 0;; i++) {}
+
+    // Empty loop expr
+    for (int i = 0; i < 10;) {}
+
+    // All parts empty (infinite loop skeleton)
+    for (;;) {}
+
+    // Decrement loop
+    for (int i = 10; i > 0; i--) {
+        Message($i);
+    }
+
+    // Nested for loops
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            Message($i);
+        }
+    }
+
+    // Comment between for keyword and opening paren
+    for /* c */ (;;) {}
+
+    // Comment between lparen and init var-decl
+    for ( /* c */int i = 0; i < 10; i++) {}
+
+    // Comment between init and first semicolon
+    for (int i = 0 /* c */; i < 10; i++) {}
+
+    // Comment between first semicolon and cond
+    for (int i = 0; /* c */ i < 10; i++) {}
+
+    // Comment between cond and second semicolon
+    for (int i = 0; i < 10 /* c */; i++) {}
+
+    // Comment between second semicolon and loop expr
+    for (int i = 0; i < 10; /* c */ i++) {}
+
+    // Comment between loop expr and rparen
+    for (int i = 0; i < 10; i++ /* c */) {}
+
+    // Comment between rparen and block
+    for (;;) /* c */ {}
+}

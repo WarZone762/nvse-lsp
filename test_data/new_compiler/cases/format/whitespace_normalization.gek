@@ -1,0 +1,42 @@
+name whitespace_normalization;
+
+// This file demonstrates whitespace that gets normalized by the formatter.
+// The formatter collapses multiple spaces, normalizes indentation, and
+// ensures consistent spacing around operators and keywords.
+
+// Extra spaces in script header are collapsed: "name  test  ;" -> "name test;"
+
+fn noExtraSpaces () {}
+
+fn () {
+    // Spacing around binary operators
+    int a = x + y;
+    int b = x - y;
+    int c = x * y;
+
+    // Spacing in var decl
+    int d = 42;
+
+    // Spacing in call
+    foo(a, b, c);
+
+    // Spacing in if
+    if (x) {}
+
+    // Spacing in while
+    while (x) {}
+
+    // Spacing in for
+    for (int i = 0; i < 10; i++) {}
+
+    // Spacing in foreach
+    for ([int k, ref v] in arr) {}
+
+    // Spacing in match
+    match (x) {
+        1 -> {}
+    }
+
+    // Spacing in return
+    return x;
+}

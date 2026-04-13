@@ -1,0 +1,198 @@
+SCRIPT@0..738
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..27
+        IDENT@5..27 "comments_between_items"
+    SEMICOLON@27..28 ";"
+    WHITESPACE@28..30 "\n\n"
+    COMMENT@30..106 "// Comment immediately after script header (no blank line before first item)"
+    WHITESPACE@106..107 "\n"
+    FN_DECL_ITEM@107..121
+        FN_KW@107..109 "fn"
+        WHITESPACE@109..110 " "
+        NAME@110..115
+            IDENT@110..115 "first"
+        WHITESPACE@115..116 " "
+        PARAM_LIST@116..118
+            LPAREN@116..117 "("
+            RPAREN@117..118 ")"
+        WHITESPACE@118..119 " "
+        BLOCK_STMT@119..121
+            LBRACK@119..120 "{"
+            RBRACK@120..121 "}"
+    WHITESPACE@121..123 "\n\n"
+    COMMENT@123..162 "// Comment with blank line on each side"
+    WHITESPACE@162..164 "\n\n"
+    FN_DECL_ITEM@164..179
+        FN_KW@164..166 "fn"
+        WHITESPACE@166..167 " "
+        NAME@167..173
+            IDENT@167..173 "second"
+        WHITESPACE@173..174 " "
+        PARAM_LIST@174..176
+            LPAREN@174..175 "("
+            RPAREN@175..176 ")"
+        WHITESPACE@176..177 " "
+        BLOCK_STMT@177..179
+            LBRACK@177..178 "{"
+            RBRACK@178..179 "}"
+    WHITESPACE@179..181 "\n\n"
+    COMMENT@181..218 "// Multiple comment lines before item"
+    WHITESPACE@218..219 "\n"
+    COMMENT@219..230 "// line one"
+    WHITESPACE@230..231 "\n"
+    COMMENT@231..242 "// line two"
+    WHITESPACE@242..243 "\n"
+    FN_DECL_ITEM@243..257
+        FN_KW@243..245 "fn"
+        WHITESPACE@245..246 " "
+        NAME@246..251
+            IDENT@246..251 "third"
+        WHITESPACE@251..252 " "
+        PARAM_LIST@252..254
+            LPAREN@252..253 "("
+            RPAREN@253..254 ")"
+        WHITESPACE@254..255 " "
+        BLOCK_STMT@255..257
+            LBRACK@255..256 "{"
+            RBRACK@256..257 "}"
+    WHITESPACE@257..259 "\n\n"
+    COMMENT@259..287 "// Block comment before item"
+    WHITESPACE@287..288 "\n"
+    COMMENT@288..307 "/* block comment */"
+    WHITESPACE@307..308 "\n"
+    FN_DECL_ITEM@308..323
+        FN_KW@308..310 "fn"
+        WHITESPACE@310..311 " "
+        NAME@311..317
+            IDENT@311..317 "fourth"
+        WHITESPACE@317..318 " "
+        PARAM_LIST@318..320
+            LPAREN@318..319 "("
+            RPAREN@319..320 ")"
+        WHITESPACE@320..321 " "
+        BLOCK_STMT@321..323
+            LBRACK@321..322 "{"
+            RBRACK@322..323 "}"
+    WHITESPACE@323..325 "\n\n"
+    FN_DECL_ITEM@325..339
+        FN_KW@325..327 "fn"
+        WHITESPACE@327..328 " "
+        NAME@328..333
+            IDENT@328..333 "fifth"
+        WHITESPACE@333..334 " "
+        PARAM_LIST@334..336
+            LPAREN@334..335 "("
+            RPAREN@335..336 ")"
+        WHITESPACE@336..337 " "
+        BLOCK_STMT@337..339
+            LBRACK@337..338 "{"
+            RBRACK@338..339 "}"
+    WHITESPACE@339..340 "\n"
+    COMMENT@340..389 "// Comment immediately after item (no blank line)"
+    WHITESPACE@389..390 "\n"
+    FN_DECL_ITEM@390..404
+        FN_KW@390..392 "fn"
+        WHITESPACE@392..393 " "
+        NAME@393..398
+            IDENT@393..398 "sixth"
+        WHITESPACE@398..399 " "
+        PARAM_LIST@399..401
+            LPAREN@399..400 "("
+            RPAREN@400..401 ")"
+        WHITESPACE@401..402 " "
+        BLOCK_STMT@402..404
+            LBRACK@402..403 "{"
+            RBRACK@403..404 "}"
+    WHITESPACE@404..406 "\n\n"
+    FN_DECL_ITEM@406..422
+        FN_KW@406..408 "fn"
+        WHITESPACE@408..409 " "
+        NAME@409..416
+            IDENT@409..416 "seventh"
+        WHITESPACE@416..417 " "
+        PARAM_LIST@417..419
+            LPAREN@417..418 "("
+            RPAREN@418..419 ")"
+        WHITESPACE@419..420 " "
+        BLOCK_STMT@420..422
+            LBRACK@420..421 "{"
+            RBRACK@421..422 "}"
+    WHITESPACE@422..424 "\n\n"
+    COMMENT@424..461 "// Comment with blank line after item"
+    WHITESPACE@461..462 "\n"
+    FN_DECL_ITEM@462..477
+        FN_KW@462..464 "fn"
+        WHITESPACE@464..465 " "
+        NAME@465..471
+            IDENT@465..471 "eighth"
+        WHITESPACE@471..472 " "
+        PARAM_LIST@472..474
+            LPAREN@472..473 "("
+            RPAREN@473..474 ")"
+        WHITESPACE@474..475 " "
+        BLOCK_STMT@475..477
+            LBRACK@475..476 "{"
+            RBRACK@476..477 "}"
+    WHITESPACE@477..479 "\n\n"
+    COMMENT@479..513 "// Comment between two block types"
+    WHITESPACE@513..514 "\n"
+    BLOCK_TYPE_ITEM@514..525
+        BLOCK_TYPE@514..522 "GameMode"
+        WHITESPACE@522..523 " "
+        BLOCK_STMT@523..525
+            LBRACK@523..524 "{"
+            RBRACK@524..525 "}"
+    WHITESPACE@525..527 "\n\n"
+    COMMENT@527..558 "// between GameMode and OnDeath"
+    WHITESPACE@558..560 "\n\n"
+    BLOCK_TYPE_ITEM@560..570
+        BLOCK_TYPE@560..567 "OnDeath"
+        WHITESPACE@567..568 " "
+        BLOCK_STMT@568..570
+            LBRACK@568..569 "{"
+            RBRACK@569..570 "}"
+    WHITESPACE@570..572 "\n\n"
+    COMMENT@572..608 "// Comment between fn and block type"
+    WHITESPACE@608..609 "\n"
+    FN_DECL_ITEM@609..623
+        FN_KW@609..611 "fn"
+        WHITESPACE@611..612 " "
+        NAME@612..617
+            IDENT@612..617 "ninth"
+        WHITESPACE@617..618 " "
+        PARAM_LIST@618..620
+            LPAREN@618..619 "("
+            RPAREN@619..620 ")"
+        WHITESPACE@620..621 " "
+        BLOCK_STMT@621..623
+            LBRACK@621..622 "{"
+            RBRACK@622..623 "}"
+    WHITESPACE@623..625 "\n\n"
+    COMMENT@625..645 "// before block type"
+    WHITESPACE@645..646 "\n"
+    BLOCK_TYPE_ITEM@646..657
+        BLOCK_TYPE@646..654 "GameMode"
+        WHITESPACE@654..655 " "
+        BLOCK_STMT@655..657
+            LBRACK@655..656 "{"
+            RBRACK@656..657 "}"
+    WHITESPACE@657..659 "\n\n"
+    COMMENT@659..707 "// Comment at end of script, no trailing newline"
+    WHITESPACE@707..708 "\n"
+    FN_DECL_ITEM@708..722
+        FN_KW@708..710 "fn"
+        WHITESPACE@710..711 " "
+        NAME@711..716
+            IDENT@711..716 "tenth"
+        WHITESPACE@716..717 " "
+        PARAM_LIST@717..719
+            LPAREN@717..718 "("
+            RPAREN@718..719 ")"
+        WHITESPACE@719..720 " "
+        BLOCK_STMT@720..722
+            LBRACK@720..721 "{"
+            RBRACK@721..722 "}"
+    WHITESPACE@722..723 "\n"
+    COMMENT@723..737 "// end comment"
+    WHITESPACE@737..738 "\n"

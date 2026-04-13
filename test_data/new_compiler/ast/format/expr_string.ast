@@ -1,0 +1,457 @@
+SCRIPT@0..1209
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..16
+        IDENT@5..16 "expr_string"
+    SEMICOLON@16..17 ";"
+    WHITESPACE@17..19 "\n\n"
+    FN_DECL_ITEM@19..1208
+        FN_KW@19..21 "fn"
+        WHITESPACE@21..22 " "
+        PARAM_LIST@22..24
+            LPAREN@22..23 "("
+            RPAREN@23..24 ")"
+        WHITESPACE@24..25 " "
+        BLOCK_STMT@25..1208
+            LBRACK@25..26 "{"
+            WHITESPACE@26..31 "\n    "
+            COMMENT@31..47 "// Plain strings"
+            WHITESPACE@47..52 "\n    "
+            VAR_DECL_STMT@52..67
+                VAR_DECL@52..66
+                    STRING_TY@52..58 "string"
+                    WHITESPACE@58..59 " "
+                    NAME@59..61
+                        IDENT@59..61 "s1"
+                    WHITESPACE@61..62 " "
+                    EQ@62..63 "="
+                    WHITESPACE@63..64 " "
+                    STR_EXPR@64..66
+                        QUOTE_DOUBLE@64..65 "\""
+                        QUOTE_DOUBLE@65..66 "\""
+                SEMICOLON@66..67 ";"
+            WHITESPACE@67..72 "\n    "
+            VAR_DECL_STMT@72..92
+                VAR_DECL@72..91
+                    STRING_TY@72..78 "string"
+                    WHITESPACE@78..79 " "
+                    NAME@79..81
+                        IDENT@79..81 "s2"
+                    WHITESPACE@81..82 " "
+                    EQ@82..83 "="
+                    WHITESPACE@83..84 " "
+                    STR_EXPR@84..91
+                        QUOTE_DOUBLE@84..85 "\""
+                        STR_SHARD_LITERAL@85..90
+                            STR_SHARD@85..90 "hello"
+                        QUOTE_DOUBLE@90..91 "\""
+                SEMICOLON@91..92 ";"
+            WHITESPACE@92..97 "\n    "
+            VAR_DECL_STMT@97..123
+                VAR_DECL@97..122
+                    STRING_TY@97..103 "string"
+                    WHITESPACE@103..104 " "
+                    NAME@104..106
+                        IDENT@104..106 "s3"
+                    WHITESPACE@106..107 " "
+                    EQ@107..108 "="
+                    WHITESPACE@108..109 " "
+                    STR_EXPR@109..122
+                        QUOTE_DOUBLE@109..110 "\""
+                        STR_SHARD_LITERAL@110..121
+                            STR_SHARD@110..121 "hello world"
+                        QUOTE_DOUBLE@121..122 "\""
+                SEMICOLON@122..123 ";"
+            WHITESPACE@123..129 "\n\n    "
+            COMMENT@129..157 "// String with special chars"
+            WHITESPACE@157..162 "\n    "
+            VAR_DECL_STMT@162..189
+                VAR_DECL@162..188
+                    STRING_TY@162..168 "string"
+                    WHITESPACE@168..169 " "
+                    NAME@169..171
+                        IDENT@169..171 "s4"
+                    WHITESPACE@171..172 " "
+                    EQ@172..173 "="
+                    WHITESPACE@173..174 " "
+                    STR_EXPR@174..188
+                        QUOTE_DOUBLE@174..175 "\""
+                        STR_SHARD_LITERAL@175..187
+                            STR_SHARD@175..187 "line1\\nline2"
+                        QUOTE_DOUBLE@187..188 "\""
+                SEMICOLON@188..189 ";"
+            WHITESPACE@189..195 "\n\n    "
+            COMMENT@195..218 "// Single interpolation"
+            WHITESPACE@218..223 "\n    "
+            VAR_DECL_STMT@223..251
+                VAR_DECL@223..250
+                    STRING_TY@223..229 "string"
+                    WHITESPACE@229..230 " "
+                    NAME@230..232
+                        IDENT@230..232 "s5"
+                    WHITESPACE@232..233 " "
+                    EQ@233..234 "="
+                    WHITESPACE@234..235 " "
+                    STR_EXPR@235..250
+                        QUOTE_DOUBLE@235..236 "\""
+                        STR_SHARD_LITERAL@236..242
+                            STR_SHARD@236..242 "hello "
+                        STR_SHARD_EXPR@242..249
+                            DOLLAR_LBRACK@242..244 "${"
+                            ERROR@244..248
+                                NAME_KW@244..248 "name"
+                            RBRACK@248..249 "}"
+                        QUOTE_DOUBLE@249..250 "\""
+                SEMICOLON@250..251 ";"
+            WHITESPACE@251..257 "\n\n    "
+            COMMENT@257..282 "// Interpolation at start"
+            WHITESPACE@282..287 "\n    "
+            VAR_DECL_STMT@287..319
+                VAR_DECL@287..318
+                    STRING_TY@287..293 "string"
+                    WHITESPACE@293..294 " "
+                    NAME@294..296
+                        IDENT@294..296 "s6"
+                    WHITESPACE@296..297 " "
+                    EQ@297..298 "="
+                    WHITESPACE@298..299 " "
+                    STR_EXPR@299..318
+                        QUOTE_DOUBLE@299..300 "\""
+                        STR_SHARD_EXPR@300..311
+                            DOLLAR_LBRACK@300..302 "${"
+                            NAME_REF@302..310
+                                IDENT@302..310 "greeting"
+                            RBRACK@310..311 "}"
+                        STR_SHARD_LITERAL@311..317
+                            STR_SHARD@311..317 " world"
+                        QUOTE_DOUBLE@317..318 "\""
+                SEMICOLON@318..319 ";"
+            WHITESPACE@319..325 "\n\n    "
+            COMMENT@325..348 "// Interpolation at end"
+            WHITESPACE@348..353 "\n    "
+            VAR_DECL_STMT@353..381
+                VAR_DECL@353..380
+                    STRING_TY@353..359 "string"
+                    WHITESPACE@359..360 " "
+                    NAME@360..362
+                        IDENT@360..362 "s7"
+                    WHITESPACE@362..363 " "
+                    EQ@363..364 "="
+                    WHITESPACE@364..365 " "
+                    STR_EXPR@365..380
+                        QUOTE_DOUBLE@365..366 "\""
+                        STR_SHARD_LITERAL@366..372
+                            STR_SHARD@366..372 "hello "
+                        STR_SHARD_EXPR@372..379
+                            DOLLAR_LBRACK@372..374 "${"
+                            ERROR@374..378
+                                NAME_KW@374..378 "name"
+                            RBRACK@378..379 "}"
+                        QUOTE_DOUBLE@379..380 "\""
+                SEMICOLON@380..381 ";"
+            WHITESPACE@381..387 "\n\n    "
+            COMMENT@387..413 "// Multiple interpolations"
+            WHITESPACE@413..418 "\n    "
+            VAR_DECL_STMT@418..451
+                VAR_DECL@418..450
+                    STRING_TY@418..424 "string"
+                    WHITESPACE@424..425 " "
+                    NAME@425..427
+                        IDENT@425..427 "s8"
+                    WHITESPACE@427..428 " "
+                    EQ@428..429 "="
+                    WHITESPACE@429..430 " "
+                    STR_EXPR@430..450
+                        QUOTE_DOUBLE@430..431 "\""
+                        STR_SHARD_EXPR@431..435
+                            DOLLAR_LBRACK@431..433 "${"
+                            NAME_REF@433..434
+                                IDENT@433..434 "a"
+                            RBRACK@434..435 "}"
+                        STR_SHARD_LITERAL@435..438
+                            STR_SHARD@435..438 " + "
+                        STR_SHARD_EXPR@438..442
+                            DOLLAR_LBRACK@438..440 "${"
+                            NAME_REF@440..441
+                                IDENT@440..441 "b"
+                            RBRACK@441..442 "}"
+                        STR_SHARD_LITERAL@442..445
+                            STR_SHARD@442..445 " = "
+                        STR_SHARD_EXPR@445..449
+                            DOLLAR_LBRACK@445..447 "${"
+                            NAME_REF@447..448
+                                IDENT@447..448 "c"
+                            RBRACK@448..449 "}"
+                        QUOTE_DOUBLE@449..450 "\""
+                SEMICOLON@450..451 ";"
+            WHITESPACE@451..457 "\n\n    "
+            COMMENT@457..489 "// Interpolation with expression"
+            WHITESPACE@489..494 "\n    "
+            VAR_DECL_STMT@494..524
+                VAR_DECL@494..523
+                    STRING_TY@494..500 "string"
+                    WHITESPACE@500..501 " "
+                    NAME@501..503
+                        IDENT@501..503 "s9"
+                    WHITESPACE@503..504 " "
+                    EQ@504..505 "="
+                    WHITESPACE@505..506 " "
+                    STR_EXPR@506..523
+                        QUOTE_DOUBLE@506..507 "\""
+                        STR_SHARD_LITERAL@507..514
+                            STR_SHARD@507..514 "value: "
+                        STR_SHARD_EXPR@514..522
+                            DOLLAR_LBRACK@514..516 "${"
+                            BIN_EXPR@516..521
+                                NAME_REF@516..517
+                                    IDENT@516..517 "x"
+                                WHITESPACE@517..518 " "
+                                PLUS@518..519 "+"
+                                WHITESPACE@519..520 " "
+                                LITERAL@520..521
+                                    NUMBER@520..521 "1"
+                            RBRACK@521..522 "}"
+                        QUOTE_DOUBLE@522..523 "\""
+                SEMICOLON@523..524 ";"
+            WHITESPACE@524..530 "\n\n    "
+            COMMENT@530..556 "// Interpolation with call"
+            WHITESPACE@556..561 "\n    "
+            VAR_DECL_STMT@561..594
+                VAR_DECL@561..593
+                    STRING_TY@561..567 "string"
+                    WHITESPACE@567..568 " "
+                    NAME@568..571
+                        IDENT@568..571 "s10"
+                    WHITESPACE@571..572 " "
+                    EQ@572..573 "="
+                    WHITESPACE@573..574 " "
+                    STR_EXPR@574..593
+                        QUOTE_DOUBLE@574..575 "\""
+                        STR_SHARD_LITERAL@575..583
+                            STR_SHARD@575..583 "result: "
+                        STR_SHARD_EXPR@583..592
+                            DOLLAR_LBRACK@583..585 "${"
+                            CALL_EXPR@585..591
+                                NAME_REF@585..588
+                                    IDENT@585..588 "foo"
+                                ARG_LIST@588..591
+                                    LPAREN@588..589 "("
+                                    NAME_REF@589..590
+                                        IDENT@589..590 "x"
+                                    RPAREN@590..591 ")"
+                            RBRACK@591..592 "}"
+                        QUOTE_DOUBLE@592..593 "\""
+                SEMICOLON@593..594 ";"
+            WHITESPACE@594..600 "\n\n    "
+            COMMENT@600..634 "// Interpolation with field access"
+            WHITESPACE@634..639 "\n    "
+            VAR_DECL_STMT@639..672
+                VAR_DECL@639..671
+                    STRING_TY@639..645 "string"
+                    WHITESPACE@645..646 " "
+                    NAME@646..649
+                        IDENT@646..649 "s11"
+                    WHITESPACE@649..650 " "
+                    EQ@650..651 "="
+                    WHITESPACE@651..652 " "
+                    STR_EXPR@652..671
+                        QUOTE_DOUBLE@652..653 "\""
+                        STR_SHARD_LITERAL@653..659
+                            STR_SHARD@653..659 "name: "
+                        STR_SHARD_EXPR@659..670
+                            DOLLAR_LBRACK@659..661 "${"
+                            FIELD_EXPR@661..669
+                                NAME_REF@661..664
+                                    IDENT@661..664 "obj"
+                                DOT@664..665 "."
+                                ERROR@665..669
+                                    NAME_KW@665..669 "name"
+                            RBRACK@669..670 "}"
+                        QUOTE_DOUBLE@670..671 "\""
+                SEMICOLON@671..672 ";"
+            WHITESPACE@672..678 "\n\n    "
+            COMMENT@678..705 "// Interpolation with unary"
+            WHITESPACE@705..710 "\n    "
+            VAR_DECL_STMT@710..740
+                VAR_DECL@710..739
+                    STRING_TY@710..716 "string"
+                    WHITESPACE@716..717 " "
+                    NAME@717..720
+                        IDENT@717..720 "s12"
+                    WHITESPACE@720..721 " "
+                    EQ@721..722 "="
+                    WHITESPACE@722..723 " "
+                    STR_EXPR@723..739
+                        QUOTE_DOUBLE@723..724 "\""
+                        STR_SHARD_LITERAL@724..731
+                            STR_SHARD@724..731 "count: "
+                        STR_SHARD_EXPR@731..738
+                            DOLLAR_LBRACK@731..733 "${"
+                            UNARY_EXPR@733..737
+                                NUM_SIGN@733..734 "#"
+                                NAME_REF@734..737
+                                    IDENT@734..737 "arr"
+                            RBRACK@737..738 "}"
+                        QUOTE_DOUBLE@738..739 "\""
+                SEMICOLON@739..740 ";"
+            WHITESPACE@740..746 "\n\n    "
+            COMMENT@746..792 "// Nested string (string inside interpolation)"
+            WHITESPACE@792..797 "\n    "
+            VAR_DECL_STMT@797..842
+                VAR_DECL@797..841
+                    STRING_TY@797..803 "string"
+                    WHITESPACE@803..804 " "
+                    NAME@804..807
+                        IDENT@804..807 "s13"
+                    WHITESPACE@807..808 " "
+                    EQ@808..809 "="
+                    WHITESPACE@809..810 " "
+                    STR_EXPR@810..841
+                        QUOTE_DOUBLE@810..811 "\""
+                        STR_SHARD_LITERAL@811..818
+                            STR_SHARD@811..818 "prefix "
+                        STR_SHARD_EXPR@818..833
+                            DOLLAR_LBRACK@818..820 "${"
+                            CALL_EXPR@820..832
+                                NAME_REF@820..823
+                                    IDENT@820..823 "foo"
+                                ARG_LIST@823..832
+                                    LPAREN@823..824 "("
+                                    STR_EXPR@824..831
+                                        QUOTE_DOUBLE@824..825 "\""
+                                        STR_SHARD_LITERAL@825..830
+                                            STR_SHARD@825..830 "inner"
+                                        QUOTE_DOUBLE@830..831 "\""
+                                    RPAREN@831..832 ")"
+                            RBRACK@832..833 "}"
+                        STR_SHARD_LITERAL@833..840
+                            STR_SHARD@833..840 " suffix"
+                        QUOTE_DOUBLE@840..841 "\""
+                SEMICOLON@841..842 ";"
+            WHITESPACE@842..848 "\n\n    "
+            COMMENT@848..878 "// Comment between ${ and expr"
+            WHITESPACE@878..883 "\n    "
+            VAR_DECL_STMT@883..910
+                VAR_DECL@883..909
+                    STRING_TY@883..889 "string"
+                    WHITESPACE@889..890 " "
+                    NAME@890..892
+                        IDENT@890..892 "c1"
+                    WHITESPACE@892..893 " "
+                    EQ@893..894 "="
+                    WHITESPACE@894..895 " "
+                    STR_EXPR@895..909
+                        QUOTE_DOUBLE@895..896 "\""
+                        STR_SHARD_EXPR@896..908
+                            DOLLAR_LBRACK@896..898 "${"
+                            WHITESPACE@898..899 " "
+                            COMMENT@899..906 "/* c */"
+                            NAME_REF@906..907
+                                IDENT@906..907 "x"
+                            RBRACK@907..908 "}"
+                        QUOTE_DOUBLE@908..909 "\""
+                SEMICOLON@909..910 ";"
+            WHITESPACE@910..916 "\n\n    "
+            COMMENT@916..945 "// Comment between expr and }"
+            WHITESPACE@945..950 "\n    "
+            VAR_DECL_STMT@950..977
+                VAR_DECL@950..976
+                    STRING_TY@950..956 "string"
+                    WHITESPACE@956..957 " "
+                    NAME@957..959
+                        IDENT@957..959 "c2"
+                    WHITESPACE@959..960 " "
+                    EQ@960..961 "="
+                    WHITESPACE@961..962 " "
+                    STR_EXPR@962..976
+                        QUOTE_DOUBLE@962..963 "\""
+                        STR_SHARD_EXPR@963..975
+                            DOLLAR_LBRACK@963..965 "${"
+                            NAME_REF@965..966
+                                IDENT@965..966 "x"
+                            WHITESPACE@966..967 " "
+                            COMMENT@967..974 "/* c */"
+                            RBRACK@974..975 "}"
+                        QUOTE_DOUBLE@975..976 "\""
+                SEMICOLON@976..977 ";"
+            WHITESPACE@977..983 "\n\n    "
+            COMMENT@983..1012 "// Comments in both positions"
+            WHITESPACE@1012..1017 "\n    "
+            VAR_DECL_STMT@1017..1052
+                VAR_DECL@1017..1051
+                    STRING_TY@1017..1023 "string"
+                    WHITESPACE@1023..1024 " "
+                    NAME@1024..1026
+                        IDENT@1024..1026 "c3"
+                    WHITESPACE@1026..1027 " "
+                    EQ@1027..1028 "="
+                    WHITESPACE@1028..1029 " "
+                    STR_EXPR@1029..1051
+                        QUOTE_DOUBLE@1029..1030 "\""
+                        STR_SHARD_EXPR@1030..1050
+                            DOLLAR_LBRACK@1030..1032 "${"
+                            WHITESPACE@1032..1033 " "
+                            COMMENT@1033..1040 "/* a */"
+                            NAME_REF@1040..1041
+                                IDENT@1040..1041 "x"
+                            WHITESPACE@1041..1042 " "
+                            COMMENT@1042..1049 "/* b */"
+                            RBRACK@1049..1050 "}"
+                        QUOTE_DOUBLE@1050..1051 "\""
+                SEMICOLON@1051..1052 ";"
+            WHITESPACE@1052..1058 "\n\n    "
+            COMMENT@1058..1086 "// Interpolation in call arg"
+            WHITESPACE@1086..1091 "\n    "
+            EXPR_STMT@1091..1111
+                CALL_EXPR@1091..1110
+                    NAME_REF@1091..1094
+                        IDENT@1091..1094 "foo"
+                    ARG_LIST@1094..1110
+                        LPAREN@1094..1095 "("
+                        STR_EXPR@1095..1109
+                            QUOTE_DOUBLE@1095..1096 "\""
+                            STR_SHARD_LITERAL@1096..1104
+                                STR_SHARD@1096..1104 "result: "
+                            STR_SHARD_EXPR@1104..1108
+                                DOLLAR_LBRACK@1104..1106 "${"
+                                NAME_REF@1106..1107
+                                    IDENT@1106..1107 "x"
+                                RBRACK@1107..1108 "}"
+                            QUOTE_DOUBLE@1108..1109 "\""
+                        RPAREN@1109..1110 ")"
+                SEMICOLON@1110..1111 ";"
+            WHITESPACE@1111..1117 "\n\n    "
+            COMMENT@1117..1157 "// Multiple interpolations with comments"
+            WHITESPACE@1157..1162 "\n    "
+            VAR_DECL_STMT@1162..1206
+                VAR_DECL@1162..1205
+                    STRING_TY@1162..1168 "string"
+                    WHITESPACE@1168..1169 " "
+                    NAME@1169..1171
+                        IDENT@1169..1171 "c4"
+                    WHITESPACE@1171..1172 " "
+                    EQ@1172..1173 "="
+                    WHITESPACE@1173..1174 " "
+                    STR_EXPR@1174..1205
+                        QUOTE_DOUBLE@1174..1175 "\""
+                        STR_SHARD_EXPR@1175..1187
+                            DOLLAR_LBRACK@1175..1177 "${"
+                            WHITESPACE@1177..1178 " "
+                            COMMENT@1178..1185 "/* a */"
+                            NAME_REF@1185..1186
+                                IDENT@1185..1186 "a"
+                            RBRACK@1186..1187 "}"
+                        STR_SHARD_LITERAL@1187..1192
+                            STR_SHARD@1187..1192 " and "
+                        STR_SHARD_EXPR@1192..1204
+                            DOLLAR_LBRACK@1192..1194 "${"
+                            WHITESPACE@1194..1195 " "
+                            COMMENT@1195..1202 "/* b */"
+                            NAME_REF@1202..1203
+                                IDENT@1202..1203 "b"
+                            RBRACK@1203..1204 "}"
+                        QUOTE_DOUBLE@1204..1205 "\""
+                SEMICOLON@1205..1206 ";"
+            WHITESPACE@1206..1207 "\n"
+            RBRACK@1207..1208 "}"
+    WHITESPACE@1208..1209 "\n"

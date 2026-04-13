@@ -1,0 +1,396 @@
+SCRIPT@0..981
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..22
+        IDENT@5..22 "comments_in_block"
+    SEMICOLON@22..23 ";"
+    WHITESPACE@23..25 "\n\n"
+    FN_DECL_ITEM@25..123
+        FN_KW@25..27 "fn"
+        WHITESPACE@27..28 " "
+        PARAM_LIST@28..30
+            LPAREN@28..29 "("
+            RPAREN@29..30 ")"
+        WHITESPACE@30..31 " "
+        BLOCK_STMT@31..123
+            LBRACK@31..32 "{"
+            WHITESPACE@32..37 "\n    "
+            COMMENT@37..70 "// Comment before first statement"
+            WHITESPACE@70..75 "\n    "
+            VAR_DECL_STMT@75..85
+                VAR_DECL@75..84
+                    INT_TY@75..78 "int"
+                    WHITESPACE@78..79 " "
+                    NAME@79..80
+                        IDENT@79..80 "x"
+                    WHITESPACE@80..81 " "
+                    EQ@81..82 "="
+                    WHITESPACE@82..83 " "
+                    LITERAL@83..84
+                        NUMBER@83..84 "1"
+                SEMICOLON@84..85 ";"
+            WHITESPACE@85..90 "\n    "
+            COMMENT@90..121 "// Comment after last statement"
+            WHITESPACE@121..122 "\n"
+            RBRACK@122..123 "}"
+    WHITESPACE@123..125 "\n\n"
+    FN_DECL_ITEM@125..239
+        FN_KW@125..127 "fn"
+        WHITESPACE@127..128 " "
+        NAME@128..138
+            IDENT@128..138 "withInline"
+        WHITESPACE@138..139 " "
+        PARAM_LIST@139..141
+            LPAREN@139..140 "("
+            RPAREN@140..141 ")"
+        WHITESPACE@141..142 " "
+        BLOCK_STMT@142..239
+            LBRACK@142..143 "{"
+            WHITESPACE@143..148 "\n    "
+            VAR_DECL_STMT@148..158
+                VAR_DECL@148..157
+                    INT_TY@148..151 "int"
+                    WHITESPACE@151..152 " "
+                    NAME@152..153
+                        IDENT@152..153 "x"
+                    WHITESPACE@153..154 " "
+                    EQ@154..155 "="
+                    WHITESPACE@155..156 " "
+                    LITERAL@156..157
+                        NUMBER@156..157 "1"
+                SEMICOLON@157..158 ";"
+            WHITESPACE@158..159 " "
+            COMMENT@159..179 "// inline after stmt"
+            WHITESPACE@179..184 "\n    "
+            VAR_DECL_STMT@184..194
+                VAR_DECL@184..193
+                    INT_TY@184..187 "int"
+                    WHITESPACE@187..188 " "
+                    NAME@188..189
+                        IDENT@188..189 "y"
+                    WHITESPACE@189..190 " "
+                    EQ@190..191 "="
+                    WHITESPACE@191..192 " "
+                    LITERAL@192..193
+                        NUMBER@192..193 "2"
+                SEMICOLON@193..194 ";"
+            WHITESPACE@194..195 " "
+            COMMENT@195..222 "// inline after second stmt"
+            WHITESPACE@222..227 "\n    "
+            VAR_DECL_STMT@227..237
+                VAR_DECL@227..236
+                    INT_TY@227..230 "int"
+                    WHITESPACE@230..231 " "
+                    NAME@231..232
+                        IDENT@231..232 "z"
+                    WHITESPACE@232..233 " "
+                    EQ@233..234 "="
+                    WHITESPACE@234..235 " "
+                    LITERAL@235..236
+                        NUMBER@235..236 "3"
+                SEMICOLON@236..237 ";"
+            WHITESPACE@237..238 "\n"
+            RBRACK@238..239 "}"
+    WHITESPACE@239..241 "\n\n"
+    FN_DECL_ITEM@241..376
+        FN_KW@241..243 "fn"
+        WHITESPACE@243..244 " "
+        NAME@244..260
+            IDENT@244..260 "withLinesBetween"
+        WHITESPACE@260..261 " "
+        PARAM_LIST@261..263
+            LPAREN@261..262 "("
+            RPAREN@262..263 ")"
+        WHITESPACE@263..264 " "
+        BLOCK_STMT@264..376
+            LBRACK@264..265 "{"
+            WHITESPACE@265..270 "\n    "
+            VAR_DECL_STMT@270..280
+                VAR_DECL@270..279
+                    INT_TY@270..273 "int"
+                    WHITESPACE@273..274 " "
+                    NAME@274..275
+                        IDENT@274..275 "x"
+                    WHITESPACE@275..276 " "
+                    EQ@276..277 "="
+                    WHITESPACE@277..278 " "
+                    LITERAL@278..279
+                        NUMBER@278..279 "1"
+                SEMICOLON@279..280 ";"
+            WHITESPACE@280..285 "\n    "
+            COMMENT@285..311 "// standalone comment line"
+            WHITESPACE@311..316 "\n    "
+            VAR_DECL_STMT@316..326
+                VAR_DECL@316..325
+                    INT_TY@316..319 "int"
+                    WHITESPACE@319..320 " "
+                    NAME@320..321
+                        IDENT@320..321 "y"
+                    WHITESPACE@321..322 " "
+                    EQ@322..323 "="
+                    WHITESPACE@323..324 " "
+                    LITERAL@324..325
+                        NUMBER@324..325 "2"
+                SEMICOLON@325..326 ";"
+            WHITESPACE@326..332 "\n\n    "
+            COMMENT@332..359 "// comment after blank line"
+            WHITESPACE@359..364 "\n    "
+            VAR_DECL_STMT@364..374
+                VAR_DECL@364..373
+                    INT_TY@364..367 "int"
+                    WHITESPACE@367..368 " "
+                    NAME@368..369
+                        IDENT@368..369 "z"
+                    WHITESPACE@369..370 " "
+                    EQ@370..371 "="
+                    WHITESPACE@371..372 " "
+                    LITERAL@372..373
+                        NUMBER@372..373 "3"
+                SEMICOLON@373..374 ";"
+            WHITESPACE@374..375 "\n"
+            RBRACK@375..376 "}"
+    WHITESPACE@376..378 "\n\n"
+    FN_DECL_ITEM@378..480
+        FN_KW@378..380 "fn"
+        WHITESPACE@380..381 " "
+        NAME@381..398
+            IDENT@381..398 "withBlockComments"
+        WHITESPACE@398..399 " "
+        PARAM_LIST@399..401
+            LPAREN@399..400 "("
+            RPAREN@400..401 ")"
+        WHITESPACE@401..402 " "
+        BLOCK_STMT@402..480
+            LBRACK@402..403 "{"
+            WHITESPACE@403..408 "\n    "
+            VAR_DECL_STMT@408..418
+                VAR_DECL@408..417
+                    INT_TY@408..411 "int"
+                    WHITESPACE@411..412 " "
+                    NAME@412..413
+                        IDENT@412..413 "x"
+                    WHITESPACE@413..414 " "
+                    EQ@414..415 "="
+                    WHITESPACE@415..416 " "
+                    LITERAL@416..417
+                        NUMBER@416..417 "1"
+                SEMICOLON@417..418 ";"
+            WHITESPACE@418..419 " "
+            COMMENT@419..437 "/* inline block */"
+            WHITESPACE@437..438 " "
+            VAR_DECL_STMT@438..448
+                VAR_DECL@438..447
+                    INT_TY@438..441 "int"
+                    WHITESPACE@441..442 " "
+                    NAME@442..443
+                        IDENT@442..443 "y"
+                    WHITESPACE@443..444 " "
+                    EQ@444..445 "="
+                    WHITESPACE@445..446 " "
+                    LITERAL@446..447
+                        NUMBER@446..447 "2"
+                SEMICOLON@447..448 ";"
+            WHITESPACE@448..453 "\n    "
+            VAR_DECL_STMT@453..478
+                VAR_DECL@453..477
+                    INT_TY@453..456 "int"
+                    WHITESPACE@456..457 " "
+                    NAME@457..458
+                        IDENT@457..458 "a"
+                    WHITESPACE@458..459 " "
+                    EQ@459..460 "="
+                    WHITESPACE@460..461 " "
+                    COMMENT@461..475 "/* mid-decl */"
+                    WHITESPACE@475..476 " "
+                    LITERAL@476..477
+                        NUMBER@476..477 "3"
+                SEMICOLON@477..478 ";"
+            WHITESPACE@478..479 "\n"
+            RBRACK@479..480 "}"
+    WHITESPACE@480..482 "\n\n"
+    FN_DECL_ITEM@482..571
+        FN_KW@482..484 "fn"
+        WHITESPACE@484..485 " "
+        NAME@485..504
+            IDENT@485..504 "withTrailingComment"
+        WHITESPACE@504..505 " "
+        PARAM_LIST@505..507
+            LPAREN@505..506 "("
+            RPAREN@506..507 ")"
+        WHITESPACE@507..508 " "
+        BLOCK_STMT@508..571
+            LBRACK@508..509 "{"
+            WHITESPACE@509..514 "\n    "
+            VAR_DECL_STMT@514..524
+                VAR_DECL@514..523
+                    INT_TY@514..517 "int"
+                    WHITESPACE@517..518 " "
+                    NAME@518..519
+                        IDENT@518..519 "x"
+                    WHITESPACE@519..520 " "
+                    EQ@520..521 "="
+                    WHITESPACE@521..522 " "
+                    LITERAL@522..523
+                        NUMBER@522..523 "1"
+                SEMICOLON@523..524 ";"
+            WHITESPACE@524..529 "\n    "
+            COMMENT@529..569 "// trailing comment before closing brace"
+            WHITESPACE@569..570 "\n"
+            RBRACK@570..571 "}"
+    WHITESPACE@571..573 "\n\n"
+    FN_DECL_ITEM@573..754
+        FN_KW@573..575 "fn"
+        WHITESPACE@575..576 " "
+        NAME@576..596
+            IDENT@576..596 "withMultipleComments"
+        WHITESPACE@596..597 " "
+        PARAM_LIST@597..599
+            LPAREN@597..598 "("
+            RPAREN@598..599 ")"
+        WHITESPACE@599..600 " "
+        BLOCK_STMT@600..754
+            LBRACK@600..601 "{"
+            WHITESPACE@601..606 "\n    "
+            COMMENT@606..618 "// section A"
+            WHITESPACE@618..623 "\n    "
+            VAR_DECL_STMT@623..633
+                VAR_DECL@623..632
+                    INT_TY@623..626 "int"
+                    WHITESPACE@626..627 " "
+                    NAME@627..628
+                        IDENT@627..628 "a"
+                    WHITESPACE@628..629 " "
+                    EQ@629..630 "="
+                    WHITESPACE@630..631 " "
+                    LITERAL@631..632
+                        NUMBER@631..632 "1"
+                SEMICOLON@632..633 ";"
+            WHITESPACE@633..638 "\n    "
+            VAR_DECL_STMT@638..648
+                VAR_DECL@638..647
+                    INT_TY@638..641 "int"
+                    WHITESPACE@641..642 " "
+                    NAME@642..643
+                        IDENT@642..643 "b"
+                    WHITESPACE@643..644 " "
+                    EQ@644..645 "="
+                    WHITESPACE@645..646 " "
+                    LITERAL@646..647
+                        NUMBER@646..647 "2"
+                SEMICOLON@647..648 ";"
+            WHITESPACE@648..654 "\n\n    "
+            COMMENT@654..666 "// section B"
+            WHITESPACE@666..671 "\n    "
+            VAR_DECL_STMT@671..681
+                VAR_DECL@671..680
+                    INT_TY@671..674 "int"
+                    WHITESPACE@674..675 " "
+                    NAME@675..676
+                        IDENT@675..676 "c"
+                    WHITESPACE@676..677 " "
+                    EQ@677..678 "="
+                    WHITESPACE@678..679 " "
+                    LITERAL@679..680
+                        NUMBER@679..680 "3"
+                SEMICOLON@680..681 ";"
+            WHITESPACE@681..686 "\n    "
+            VAR_DECL_STMT@686..696
+                VAR_DECL@686..695
+                    INT_TY@686..689 "int"
+                    WHITESPACE@689..690 " "
+                    NAME@690..691
+                        IDENT@690..691 "d"
+                    WHITESPACE@691..692 " "
+                    EQ@692..693 "="
+                    WHITESPACE@693..694 " "
+                    LITERAL@694..695
+                        NUMBER@694..695 "4"
+                SEMICOLON@695..696 ";"
+            WHITESPACE@696..702 "\n\n    "
+            COMMENT@702..714 "// section C"
+            WHITESPACE@714..719 "\n    "
+            COMMENT@719..737 "// still section C"
+            WHITESPACE@737..742 "\n    "
+            VAR_DECL_STMT@742..752
+                VAR_DECL@742..751
+                    INT_TY@742..745 "int"
+                    WHITESPACE@745..746 " "
+                    NAME@746..747
+                        IDENT@746..747 "e"
+                    WHITESPACE@747..748 " "
+                    EQ@748..749 "="
+                    WHITESPACE@749..750 " "
+                    LITERAL@750..751
+                        NUMBER@750..751 "5"
+                SEMICOLON@751..752 ";"
+            WHITESPACE@752..753 "\n"
+            RBRACK@753..754 "}"
+    WHITESPACE@754..756 "\n\n"
+    FN_DECL_ITEM@756..914
+        FN_KW@756..758 "fn"
+        WHITESPACE@758..759 " "
+        NAME@759..782
+            IDENT@759..782 "withNestedBlockComments"
+        WHITESPACE@782..783 " "
+        PARAM_LIST@783..785
+            LPAREN@783..784 "("
+            RPAREN@784..785 ")"
+        WHITESPACE@785..786 " "
+        BLOCK_STMT@786..914
+            LBRACK@786..787 "{"
+            WHITESPACE@787..792 "\n    "
+            IF_STMT@792..912
+                IF_KW@792..794 "if"
+                WHITESPACE@794..795 " "
+                LPAREN@795..796 "("
+                NAME_REF@796..797
+                    IDENT@796..797 "x"
+                RPAREN@797..798 ")"
+                WHITESPACE@798..799 " "
+                BLOCK_STMT@799..865
+                    LBRACK@799..800 "{"
+                    WHITESPACE@800..809 "\n        "
+                    COMMENT@809..821 "// inside if"
+                    WHITESPACE@821..830 "\n        "
+                    EXPR_STMT@830..832
+                        NAME_REF@830..831
+                            IDENT@830..831 "a"
+                        SEMICOLON@831..832 ";"
+                    WHITESPACE@832..841 "\n        "
+                    COMMENT@841..859 "// still inside if"
+                    WHITESPACE@859..864 "\n    "
+                    RBRACK@864..865 "}"
+                WHITESPACE@865..866 " "
+                ELSE_KW@866..870 "else"
+                WHITESPACE@870..871 " "
+                BLOCK_STMT@871..912
+                    LBRACK@871..872 "{"
+                    WHITESPACE@872..881 "\n        "
+                    COMMENT@881..895 "// inside else"
+                    WHITESPACE@895..904 "\n        "
+                    EXPR_STMT@904..906
+                        NAME_REF@904..905
+                            IDENT@904..905 "b"
+                        SEMICOLON@905..906 ";"
+                    WHITESPACE@906..911 "\n    "
+                    RBRACK@911..912 "}"
+            WHITESPACE@912..913 "\n"
+            RBRACK@913..914 "}"
+    WHITESPACE@914..916 "\n\n"
+    FN_DECL_ITEM@916..980
+        FN_KW@916..918 "fn"
+        WHITESPACE@918..919 " "
+        NAME@919..940
+            IDENT@919..940 "emptyBlockWithComment"
+        WHITESPACE@940..941 " "
+        PARAM_LIST@941..943
+            LPAREN@941..942 "("
+            RPAREN@942..943 ")"
+        WHITESPACE@943..944 " "
+        BLOCK_STMT@944..980
+            LBRACK@944..945 "{"
+            WHITESPACE@945..950 "\n    "
+            COMMENT@950..978 "// only a comment — no stmts"
+            WHITESPACE@978..979 "\n"
+            RBRACK@979..980 "}"
+    WHITESPACE@980..981 "\n"

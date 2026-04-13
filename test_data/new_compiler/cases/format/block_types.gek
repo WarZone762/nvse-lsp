@@ -1,0 +1,107 @@
+name block_types;
+
+// All supported block type keywords
+
+GameMode {}
+
+MenuMode {}
+
+OnActivate {}
+
+OnActorEquip {}
+
+OnActorUnequip {}
+
+OnAdd {}
+
+OnClose {}
+
+OnCombatEnd {}
+
+OnDeath {}
+
+OnDestructionStageChange {}
+
+OnDrop {}
+
+OnEquip {}
+
+OnFire {}
+
+OnGrab {}
+
+OnHit {}
+
+OnHitWith {}
+
+OnLoad {}
+
+OnMagicEffectHit {}
+
+OnMurder {}
+
+OnNPCActivate {}
+
+OnOpen {}
+
+OnPackageChange {}
+
+OnPackageDone {}
+
+OnPackageStart {}
+
+OnRelease {}
+
+OnReset {}
+
+OnSell {}
+
+OnStartCombat {}
+
+OnTrigger {}
+
+OnTriggerEnter {}
+
+OnTriggerLeave {}
+
+OnUnequip {}
+
+SayToDone {}
+
+ScriptEffectFinish {}
+
+ScriptEffectStart {}
+
+ScriptEffectUpdate {}
+
+// Block type with body
+GameMode {
+    int x = 1;
+    int y = 2;
+    Message($(x + y));
+}
+
+// Block type with comment between keyword and block
+OnDeath /* c */ {}
+
+// Block type with comment inside empty block
+OnLoad {/* c */}
+
+// Block type with comment before first stmt
+OnActivate {
+    // before stmt
+    x;
+}
+
+// Block type with comment after last stmt
+OnDrop {
+    x;
+    // after stmt
+}
+
+// Block type with comment between stmts
+OnOpen {
+    x; // inline
+    // standalone
+    y;
+}

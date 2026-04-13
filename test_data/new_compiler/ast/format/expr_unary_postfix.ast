@@ -1,0 +1,360 @@
+SCRIPT@0..673
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..23
+        IDENT@5..23 "expr_unary_postfix"
+    SEMICOLON@23..24 ";"
+    WHITESPACE@24..26 "\n\n"
+    FN_DECL_ITEM@26..672
+        FN_KW@26..28 "fn"
+        WHITESPACE@28..29 " "
+        PARAM_LIST@29..31
+            LPAREN@29..30 "("
+            RPAREN@30..31 ")"
+        WHITESPACE@31..32 " "
+        BLOCK_STMT@32..672
+            LBRACK@32..33 "{"
+            WHITESPACE@33..38 "\n    "
+            COMMENT@38..63 "// Prefix unary operators"
+            WHITESPACE@63..68 "\n    "
+            VAR_DECL_STMT@68..79
+                VAR_DECL@68..78
+                    INT_TY@68..71 "int"
+                    WHITESPACE@71..72 " "
+                    NAME@72..73
+                        IDENT@72..73 "a"
+                    WHITESPACE@73..74 " "
+                    EQ@74..75 "="
+                    WHITESPACE@75..76 " "
+                    UNARY_EXPR@76..78
+                        MINUS@76..77 "-"
+                        NAME_REF@77..78
+                            IDENT@77..78 "x"
+                SEMICOLON@78..79 ";"
+            WHITESPACE@79..84 "\n    "
+            VAR_DECL_STMT@84..95
+                VAR_DECL@84..94
+                    INT_TY@84..87 "int"
+                    WHITESPACE@87..88 " "
+                    NAME@88..89
+                        IDENT@88..89 "b"
+                    WHITESPACE@89..90 " "
+                    EQ@90..91 "="
+                    WHITESPACE@91..92 " "
+                    UNARY_EXPR@92..94
+                        PLUS@92..93 "+"
+                        NAME_REF@93..94
+                            IDENT@93..94 "x"
+                SEMICOLON@94..95 ";"
+            WHITESPACE@95..100 "\n    "
+            VAR_DECL_STMT@100..111
+                VAR_DECL@100..110
+                    INT_TY@100..103 "int"
+                    WHITESPACE@103..104 " "
+                    NAME@104..105
+                        IDENT@104..105 "c"
+                    WHITESPACE@105..106 " "
+                    EQ@106..107 "="
+                    WHITESPACE@107..108 " "
+                    UNARY_EXPR@108..110
+                        EXCLAMATION@108..109 "!"
+                        NAME_REF@109..110
+                            IDENT@109..110 "x"
+                SEMICOLON@110..111 ";"
+            WHITESPACE@111..116 "\n    "
+            VAR_DECL_STMT@116..130
+                VAR_DECL@116..129
+                    STRING_TY@116..122 "string"
+                    WHITESPACE@122..123 " "
+                    NAME@123..124
+                        IDENT@123..124 "s"
+                    WHITESPACE@124..125 " "
+                    EQ@125..126 "="
+                    WHITESPACE@126..127 " "
+                    UNARY_EXPR@127..129
+                        DOLLAR@127..128 "$"
+                        NAME_REF@128..129
+                            IDENT@128..129 "x"
+                SEMICOLON@129..130 ";"
+            WHITESPACE@130..135 "\n    "
+            VAR_DECL_STMT@135..151
+                VAR_DECL@135..150
+                    INT_TY@135..138 "int"
+                    WHITESPACE@138..139 " "
+                    NAME@139..143
+                        IDENT@139..143 "size"
+                    WHITESPACE@143..144 " "
+                    EQ@144..145 "="
+                    WHITESPACE@145..146 " "
+                    UNARY_EXPR@146..150
+                        NUM_SIGN@146..147 "#"
+                        NAME_REF@147..150
+                            IDENT@147..150 "arr"
+                SEMICOLON@150..151 ";"
+            WHITESPACE@151..156 "\n    "
+            VAR_DECL_STMT@156..169
+                VAR_DECL@156..168
+                    INT_TY@156..159 "int"
+                    WHITESPACE@159..160 " "
+                    NAME@160..163
+                        IDENT@160..163 "inv"
+                    WHITESPACE@163..164 " "
+                    EQ@164..165 "="
+                    WHITESPACE@165..166 " "
+                    UNARY_EXPR@166..168
+                        TILDE@166..167 "~"
+                        NAME_REF@167..168
+                            IDENT@167..168 "x"
+                SEMICOLON@168..169 ";"
+            WHITESPACE@169..174 "\n    "
+            EXPR_STMT@174..178
+                UNARY_EXPR@174..177
+                    PLUS_2@174..176 "++"
+                    NAME_REF@176..177
+                        IDENT@176..177 "x"
+                SEMICOLON@177..178 ";"
+            WHITESPACE@178..183 "\n    "
+            EXPR_STMT@183..187
+                UNARY_EXPR@183..186
+                    MINUS_2@183..185 "--"
+                    NAME_REF@185..186
+                        IDENT@185..186 "x"
+                SEMICOLON@186..187 ";"
+            WHITESPACE@187..193 "\n\n    "
+            COMMENT@193..213 "// Postfix operators"
+            WHITESPACE@213..218 "\n    "
+            EXPR_STMT@218..222
+                POSTFIX_EXPR@218..221
+                    NAME_REF@218..219
+                        IDENT@218..219 "x"
+                    PLUS_2@219..221 "++"
+                SEMICOLON@221..222 ";"
+            WHITESPACE@222..227 "\n    "
+            EXPR_STMT@227..231
+                POSTFIX_EXPR@227..230
+                    NAME_REF@227..228
+                        IDENT@227..228 "x"
+                    MINUS_2@228..230 "--"
+                SEMICOLON@230..231 ";"
+            WHITESPACE@231..237 "\n\n    "
+            COMMENT@237..268 "// Prefix on complex expression"
+            WHITESPACE@268..273 "\n    "
+            VAR_DECL_STMT@273..290
+                VAR_DECL@273..289
+                    INT_TY@273..276 "int"
+                    WHITESPACE@276..277 " "
+                    NAME@277..278
+                        IDENT@277..278 "d"
+                    WHITESPACE@278..279 " "
+                    EQ@279..280 "="
+                    WHITESPACE@280..281 " "
+                    UNARY_EXPR@281..289
+                        MINUS@281..282 "-"
+                        PAREN_EXPR@282..289
+                            LPAREN@282..283 "("
+                            BIN_EXPR@283..288
+                                NAME_REF@283..284
+                                    IDENT@283..284 "a"
+                                WHITESPACE@284..285 " "
+                                PLUS@285..286 "+"
+                                WHITESPACE@286..287 " "
+                                NAME_REF@287..288
+                                    IDENT@287..288 "b"
+                            RPAREN@288..289 ")"
+                SEMICOLON@289..290 ";"
+            WHITESPACE@290..295 "\n    "
+            VAR_DECL_STMT@295..310
+                VAR_DECL@295..309
+                    INT_TY@295..298 "int"
+                    WHITESPACE@298..299 " "
+                    NAME@299..300
+                        IDENT@299..300 "e"
+                    WHITESPACE@300..301 " "
+                    EQ@301..302 "="
+                    WHITESPACE@302..303 " "
+                    UNARY_EXPR@303..309
+                        EXCLAMATION@303..304 "!"
+                        CALL_EXPR@304..309
+                            NAME_REF@304..307
+                                IDENT@304..307 "foo"
+                            ARG_LIST@307..309
+                                LPAREN@307..308 "("
+                                RPAREN@308..309 ")"
+                SEMICOLON@309..310 ";"
+            WHITESPACE@310..316 "\n\n    "
+            COMMENT@316..332 "// Chained unary"
+            WHITESPACE@332..337 "\n    "
+            VAR_DECL_STMT@337..349
+                VAR_DECL@337..348
+                    INT_TY@337..340 "int"
+                    WHITESPACE@340..341 " "
+                    NAME@341..342
+                        IDENT@341..342 "f"
+                    WHITESPACE@342..343 " "
+                    EQ@343..344 "="
+                    WHITESPACE@344..345 " "
+                    UNARY_EXPR@345..348
+                        MINUS_2@345..347 "--"
+                        NAME_REF@347..348
+                            IDENT@347..348 "x"
+                SEMICOLON@348..349 ";"
+            WHITESPACE@349..354 "\n    "
+            VAR_DECL_STMT@354..366
+                VAR_DECL@354..365
+                    INT_TY@354..357 "int"
+                    WHITESPACE@357..358 " "
+                    NAME@358..359
+                        IDENT@358..359 "g"
+                    WHITESPACE@359..360 " "
+                    EQ@360..361 "="
+                    WHITESPACE@361..362 " "
+                    UNARY_EXPR@362..365
+                        PLUS_2@362..364 "++"
+                        NAME_REF@364..365
+                            IDENT@364..365 "x"
+                SEMICOLON@365..366 ";"
+            WHITESPACE@366..372 "\n\n    "
+            COMMENT@372..412 "// Comment between prefix op and operand"
+            WHITESPACE@412..417 "\n    "
+            VAR_DECL_STMT@417..437
+                VAR_DECL@417..436
+                    INT_TY@417..420 "int"
+                    WHITESPACE@420..421 " "
+                    NAME@421..422
+                        IDENT@421..422 "h"
+                    WHITESPACE@422..423 " "
+                    EQ@423..424 "="
+                    WHITESPACE@424..425 " "
+                    UNARY_EXPR@425..436
+                        MINUS@425..426 "-"
+                        WHITESPACE@426..427 " "
+                        COMMENT@427..434 "/* c */"
+                        WHITESPACE@434..435 " "
+                        NAME_REF@435..436
+                            IDENT@435..436 "x"
+                SEMICOLON@436..437 ";"
+            WHITESPACE@437..442 "\n    "
+            VAR_DECL_STMT@442..462
+                VAR_DECL@442..461
+                    INT_TY@442..445 "int"
+                    WHITESPACE@445..446 " "
+                    NAME@446..447
+                        IDENT@446..447 "i"
+                    WHITESPACE@447..448 " "
+                    EQ@448..449 "="
+                    WHITESPACE@449..450 " "
+                    UNARY_EXPR@450..461
+                        EXCLAMATION@450..451 "!"
+                        WHITESPACE@451..452 " "
+                        COMMENT@452..459 "/* c */"
+                        WHITESPACE@459..460 " "
+                        NAME_REF@460..461
+                            IDENT@460..461 "x"
+                SEMICOLON@461..462 ";"
+            WHITESPACE@462..467 "\n    "
+            VAR_DECL_STMT@467..487
+                VAR_DECL@467..486
+                    INT_TY@467..470 "int"
+                    WHITESPACE@470..471 " "
+                    NAME@471..472
+                        IDENT@471..472 "j"
+                    WHITESPACE@472..473 " "
+                    EQ@473..474 "="
+                    WHITESPACE@474..475 " "
+                    UNARY_EXPR@475..486
+                        DOLLAR@475..476 "$"
+                        WHITESPACE@476..477 " "
+                        COMMENT@477..484 "/* c */"
+                        WHITESPACE@484..485 " "
+                        NAME_REF@485..486
+                            IDENT@485..486 "n"
+                SEMICOLON@486..487 ";"
+            WHITESPACE@487..492 "\n    "
+            VAR_DECL_STMT@492..514
+                VAR_DECL@492..513
+                    INT_TY@492..495 "int"
+                    WHITESPACE@495..496 " "
+                    NAME@496..497
+                        IDENT@496..497 "k"
+                    WHITESPACE@497..498 " "
+                    EQ@498..499 "="
+                    WHITESPACE@499..500 " "
+                    UNARY_EXPR@500..513
+                        NUM_SIGN@500..501 "#"
+                        WHITESPACE@501..502 " "
+                        COMMENT@502..509 "/* c */"
+                        WHITESPACE@509..510 " "
+                        NAME_REF@510..513
+                            IDENT@510..513 "arr"
+                SEMICOLON@513..514 ";"
+            WHITESPACE@514..520 "\n\n    "
+            COMMENT@520..561 "// Comment between operand and postfix op"
+            WHITESPACE@561..566 "\n    "
+            EXPR_STMT@566..578
+                POSTFIX_EXPR@566..577
+                    NAME_REF@566..567
+                        IDENT@566..567 "x"
+                    WHITESPACE@567..568 " "
+                    COMMENT@568..575 "/* c */"
+                    PLUS_2@575..577 "++"
+                SEMICOLON@577..578 ";"
+            WHITESPACE@578..583 "\n    "
+            EXPR_STMT@583..595
+                POSTFIX_EXPR@583..594
+                    NAME_REF@583..584
+                        IDENT@583..584 "x"
+                    WHITESPACE@584..585 " "
+                    COMMENT@585..592 "/* c */"
+                    MINUS_2@592..594 "--"
+                SEMICOLON@594..595 ";"
+            WHITESPACE@595..601 "\n\n    "
+            COMMENT@601..627 "// Unary in binary context"
+            WHITESPACE@627..632 "\n    "
+            VAR_DECL_STMT@632..648
+                VAR_DECL@632..647
+                    INT_TY@632..635 "int"
+                    WHITESPACE@635..636 " "
+                    NAME@636..637
+                        IDENT@636..637 "l"
+                    WHITESPACE@637..638 " "
+                    EQ@638..639 "="
+                    WHITESPACE@639..640 " "
+                    UNARY_EXPR@640..647
+                        MINUS@640..641 "-"
+                        BIN_EXPR@641..647
+                            NAME_REF@641..642
+                                IDENT@641..642 "a"
+                            WHITESPACE@642..643 " "
+                            PLUS@643..644 "+"
+                            WHITESPACE@644..645 " "
+                            UNARY_EXPR@645..647
+                                MINUS@645..646 "-"
+                                NAME_REF@646..647
+                                    IDENT@646..647 "b"
+                SEMICOLON@647..648 ";"
+            WHITESPACE@648..653 "\n    "
+            VAR_DECL_STMT@653..670
+                VAR_DECL@653..669
+                    INT_TY@653..656 "int"
+                    WHITESPACE@656..657 " "
+                    NAME@657..658
+                        IDENT@657..658 "m"
+                    WHITESPACE@658..659 " "
+                    EQ@659..660 "="
+                    WHITESPACE@660..661 " "
+                    UNARY_EXPR@661..669
+                        EXCLAMATION@661..662 "!"
+                        BIN_EXPR@662..669
+                            NAME_REF@662..663
+                                IDENT@662..663 "a"
+                            WHITESPACE@663..664 " "
+                            AMPERSAND_2@664..666 "&&"
+                            WHITESPACE@666..667 " "
+                            UNARY_EXPR@667..669
+                                EXCLAMATION@667..668 "!"
+                                NAME_REF@668..669
+                                    IDENT@668..669 "b"
+                SEMICOLON@669..670 ";"
+            WHITESPACE@670..671 "\n"
+            RBRACK@671..672 "}"
+    WHITESPACE@672..673 "\n"

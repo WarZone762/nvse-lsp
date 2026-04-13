@@ -1,0 +1,35 @@
+name lambda_forms;
+
+fn () {
+	// Arrow form: fn(params) -> expr
+	ref addLambda = fn (int a, int b) -> a + b;
+
+	// Block form: fn(params) { stmts }
+	ref greetLambda = fn (string name) {
+		return "Hello " + name;
+	};
+
+	// No-param arrow form
+	ref alwaysOne = fn () -> 1;
+
+	// No-param block form
+	ref doNothing = fn () {
+	};
+
+	// Lambda passed directly as a call argument
+	ar_foreach([1, 2, 3], fn (array iter) -> print($(*iter)));
+
+	// Lambda with multiple statements in block form
+	ref multiStmt = fn (int x) {
+		int doubled = x * 2;
+		int tripled = x * 3;
+		return doubled + tripled;
+	};
+
+	// Arrow lambda returning a string expression
+	ref stringify = fn (int n) -> $n;
+
+	// Lambda stored and then called
+	ref square = fn (int n) -> n * n;
+	int result = call(square, 5);
+}

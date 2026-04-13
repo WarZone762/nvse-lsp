@@ -1,0 +1,65 @@
+name stmt_control_flow;
+
+fn noReturn () {}
+
+fn returnNoExpr () {
+    return;
+}
+
+fn returnWithExpr (int x) {
+    return x + 1;
+}
+
+fn returnString () {
+    return "done";
+}
+
+fn returnNested (int x) {
+    if (x > 0) {
+        return x;
+    }
+    return 0;
+}
+
+fn breakContinue () {
+    // break in while
+    while (true) {
+        break;
+    }
+
+    // continue in while
+    while (true) {
+        continue;
+    }
+
+    // break inside for
+    for (;;) {
+        break;
+    }
+
+    // continue inside foreach
+    for ([int k] in arr) {
+        continue;
+    }
+
+    // break with comment before semicolon
+    while (true) {
+        break /* c */;
+    }
+
+    // continue with comment before semicolon
+    while (true) {
+        continue /* c */;
+    }
+
+    // return with comment before semicolon (no expr)
+    return /* c */;
+}
+
+fn returnComments (int x) {
+    // Comment between return keyword and expr
+    return /* c */ x;
+
+    // Comment between expr and semicolon
+    return x /* c */;
+}

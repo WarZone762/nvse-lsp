@@ -1,0 +1,345 @@
+SCRIPT@0..939
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..13
+        IDENT@5..13 "var_decl"
+    SEMICOLON@13..14 ";"
+    WHITESPACE@14..16 "\n\n"
+    COMMENT@16..70 "// === Script-level var decls (no export, no init) ==="
+    WHITESPACE@70..71 "\n"
+    VAR_DECL_STMT@71..80
+        VAR_DECL@71..79
+            INT_TY@71..74 "int"
+            WHITESPACE@74..75 " "
+            NAME@75..79
+                IDENT@75..79 "gInt"
+        SEMICOLON@79..80 ";"
+    WHITESPACE@80..81 "\n"
+    VAR_DECL_STMT@81..96
+        VAR_DECL@81..95
+            DOUBLE_TY@81..87 "double"
+            WHITESPACE@87..88 " "
+            NAME@88..95
+                IDENT@88..95 "gDouble"
+        SEMICOLON@95..96 ";"
+    WHITESPACE@96..97 "\n"
+    VAR_DECL_STMT@97..110
+        VAR_DECL@97..109
+            FLOAT_TY@97..102 "float"
+            WHITESPACE@102..103 " "
+            NAME@103..109
+                IDENT@103..109 "gFloat"
+        SEMICOLON@109..110 ";"
+    WHITESPACE@110..111 "\n"
+    VAR_DECL_STMT@111..120
+        VAR_DECL@111..119
+            REF_TY@111..114 "ref"
+            WHITESPACE@114..115 " "
+            NAME@115..119
+                IDENT@115..119 "gRef"
+        SEMICOLON@119..120 ";"
+    WHITESPACE@120..121 "\n"
+    VAR_DECL_STMT@121..136
+        VAR_DECL@121..135
+            STRING_TY@121..127 "string"
+            WHITESPACE@127..128 " "
+            NAME@128..135
+                IDENT@128..135 "gString"
+        SEMICOLON@135..136 ";"
+    WHITESPACE@136..137 "\n"
+    VAR_DECL_STMT@137..150
+        VAR_DECL@137..149
+            ARRAY_TY@137..142 "array"
+            WHITESPACE@142..143 " "
+            NAME@143..149
+                IDENT@143..149 "gArray"
+        SEMICOLON@149..150 ";"
+    WHITESPACE@150..152 "\n\n"
+    COMMENT@152..195 "// === Script-level var decls with init ==="
+    WHITESPACE@195..196 "\n"
+    VAR_DECL_STMT@196..215
+        VAR_DECL@196..214
+            INT_TY@196..199 "int"
+            WHITESPACE@199..200 " "
+            NAME@200..209
+                IDENT@200..209 "gWithInit"
+            WHITESPACE@209..210 " "
+            EQ@210..211 "="
+            WHITESPACE@211..212 " "
+            LITERAL@212..214
+                NUMBER@212..214 "42"
+        SEMICOLON@214..215 ";"
+    WHITESPACE@215..216 "\n"
+    VAR_DECL_STMT@216..239
+        VAR_DECL@216..238
+            DOUBLE_TY@216..222 "double"
+            WHITESPACE@222..223 " "
+            NAME@223..231
+                IDENT@223..231 "gDouble2"
+            WHITESPACE@231..232 " "
+            EQ@232..233 "="
+            WHITESPACE@233..234 " "
+            LITERAL@234..238
+                NUMBER@234..238 "3.14"
+        SEMICOLON@238..239 ";"
+    WHITESPACE@239..240 "\n"
+    VAR_DECL_STMT@240..260
+        VAR_DECL@240..259
+            FLOAT_TY@240..245 "float"
+            WHITESPACE@245..246 " "
+            NAME@246..253
+                IDENT@246..253 "gFloat2"
+            WHITESPACE@253..254 " "
+            EQ@254..255 "="
+            WHITESPACE@255..256 " "
+            LITERAL@256..259
+                NUMBER@256..259 "1.5"
+        SEMICOLON@259..260 ";"
+    WHITESPACE@260..261 "\n"
+    VAR_DECL_STMT@261..282
+        VAR_DECL@261..281
+            REF_TY@261..264 "ref"
+            WHITESPACE@264..265 " "
+            NAME@265..272
+                IDENT@265..272 "gPlayer"
+            WHITESPACE@272..273 " "
+            EQ@273..274 "="
+            WHITESPACE@274..275 " "
+            NAME_REF@275..281
+                IDENT@275..281 "player"
+        SEMICOLON@281..282 ";"
+    WHITESPACE@282..283 "\n"
+    VAR_DECL_STMT@283..305
+        VAR_DECL@283..304
+            STRING_TY@283..289 "string"
+            WHITESPACE@289..290 " "
+            NAME@290..294
+                IDENT@290..294 "gMsg"
+            WHITESPACE@294..295 " "
+            EQ@295..296 "="
+            WHITESPACE@296..297 " "
+            STR_EXPR@297..304
+                QUOTE_DOUBLE@297..298 "\""
+                STR_SHARD_LITERAL@298..303
+                    STR_SHARD@298..303 "hello"
+                QUOTE_DOUBLE@303..304 "\""
+        SEMICOLON@304..305 ";"
+    WHITESPACE@305..306 "\n"
+    VAR_DECL_STMT@306..322
+        VAR_DECL@306..321
+            ARRAY_TY@306..311 "array"
+            WHITESPACE@311..312 " "
+            NAME@312..316
+                IDENT@312..316 "gArr"
+            WHITESPACE@316..317 " "
+            EQ@317..318 "="
+            WHITESPACE@318..319 " "
+            LIT_ARR@319..321
+                LSQ_BRACK@319..320 "["
+                RSQ_BRACK@320..321 "]"
+        SEMICOLON@321..322 ";"
+    WHITESPACE@322..324 "\n\n"
+    COMMENT@324..360 "// === Statement-level var decls ==="
+    WHITESPACE@360..361 "\n"
+    FN_DECL_ITEM@361..938
+        FN_KW@361..363 "fn"
+        WHITESPACE@363..364 " "
+        PARAM_LIST@364..366
+            LPAREN@364..365 "("
+            RPAREN@365..366 ")"
+        WHITESPACE@366..367 " "
+        BLOCK_STMT@367..938
+            LBRACK@367..368 "{"
+            WHITESPACE@368..373 "\n    "
+            COMMENT@373..383 "// No init"
+            WHITESPACE@383..388 "\n    "
+            VAR_DECL_STMT@388..394
+                VAR_DECL@388..393
+                    INT_TY@388..391 "int"
+                    WHITESPACE@391..392 " "
+                    NAME@392..393
+                        IDENT@392..393 "a"
+                SEMICOLON@393..394 ";"
+            WHITESPACE@394..399 "\n    "
+            VAR_DECL_STMT@399..405
+                VAR_DECL@399..404
+                    REF_TY@399..402 "ref"
+                    WHITESPACE@402..403 " "
+                    NAME@403..404
+                        IDENT@403..404 "b"
+                SEMICOLON@404..405 ";"
+            WHITESPACE@405..410 "\n    "
+            VAR_DECL_STMT@410..419
+                VAR_DECL@410..418
+                    STRING_TY@410..416 "string"
+                    WHITESPACE@416..417 " "
+                    NAME@417..418
+                        IDENT@417..418 "c"
+                SEMICOLON@418..419 ";"
+            WHITESPACE@419..425 "\n\n    "
+            COMMENT@425..437 "// With init"
+            WHITESPACE@437..442 "\n    "
+            VAR_DECL_STMT@442..453
+                VAR_DECL@442..452
+                    INT_TY@442..445 "int"
+                    WHITESPACE@445..446 " "
+                    NAME@446..447
+                        IDENT@446..447 "d"
+                    WHITESPACE@447..448 " "
+                    EQ@448..449 "="
+                    WHITESPACE@449..450 " "
+                    LITERAL@450..452
+                        NUMBER@450..452 "10"
+                SEMICOLON@452..453 ";"
+            WHITESPACE@453..458 "\n    "
+            VAR_DECL_STMT@458..477
+                VAR_DECL@458..476
+                    STRING_TY@458..464 "string"
+                    WHITESPACE@464..465 " "
+                    NAME@465..466
+                        IDENT@465..466 "e"
+                    WHITESPACE@466..467 " "
+                    EQ@467..468 "="
+                    WHITESPACE@468..469 " "
+                    STR_EXPR@469..476
+                        QUOTE_DOUBLE@469..470 "\""
+                        STR_SHARD_LITERAL@470..475
+                            STR_SHARD@470..475 "world"
+                        QUOTE_DOUBLE@475..476 "\""
+                SEMICOLON@476..477 ";"
+            WHITESPACE@477..482 "\n    "
+            VAR_DECL_STMT@482..502
+                VAR_DECL@482..501
+                    ARRAY_TY@482..487 "array"
+                    WHITESPACE@487..488 " "
+                    NAME@488..489
+                        IDENT@488..489 "f"
+                    WHITESPACE@489..490 " "
+                    EQ@490..491 "="
+                    WHITESPACE@491..492 " "
+                    LIT_ARR@492..501
+                        LSQ_BRACK@492..493 "["
+                        LITERAL@493..494
+                            NUMBER@493..494 "1"
+                        COMMA@494..495 ","
+                        WHITESPACE@495..496 " "
+                        LITERAL@496..497
+                            NUMBER@496..497 "2"
+                        COMMA@497..498 ","
+                        WHITESPACE@498..499 " "
+                        LITERAL@499..500
+                            NUMBER@499..500 "3"
+                        RSQ_BRACK@500..501 "]"
+                SEMICOLON@501..502 ";"
+            WHITESPACE@502..508 "\n\n    "
+            COMMENT@508..517 "// Export"
+            WHITESPACE@517..522 "\n    "
+            VAR_DECL_STMT@522..547
+                EXPORT_KW@522..528 "export"
+                WHITESPACE@528..529 " "
+                VAR_DECL@529..546
+                    INT_TY@529..532 "int"
+                    WHITESPACE@532..533 " "
+                    NAME@533..541
+                        IDENT@533..541 "exported"
+                    WHITESPACE@541..542 " "
+                    EQ@542..543 "="
+                    WHITESPACE@543..544 " "
+                    LITERAL@544..546
+                        NUMBER@544..546 "99"
+                SEMICOLON@546..547 ";"
+            WHITESPACE@547..552 "\n    "
+            VAR_DECL_STMT@552..578
+                EXPORT_KW@552..558 "export"
+                WHITESPACE@558..559 " "
+                VAR_DECL@559..577
+                    STRING_TY@559..565 "string"
+                    WHITESPACE@565..566 " "
+                    NAME@566..577
+                        IDENT@566..577 "exportedStr"
+                SEMICOLON@577..578 ";"
+            WHITESPACE@578..584 "\n\n    "
+            COMMENT@584..616 "// Comment between type and name"
+            WHITESPACE@616..621 "\n    "
+            VAR_DECL_STMT@621..636
+                VAR_DECL@621..635
+                    INT_TY@621..624 "int"
+                    WHITESPACE@624..625 " "
+                    COMMENT@625..632 "/* c */"
+                    WHITESPACE@632..633 " "
+                    NAME@633..635
+                        IDENT@633..635 "x1"
+                SEMICOLON@635..636 ";"
+            WHITESPACE@636..642 "\n\n    "
+            COMMENT@642..676 "// Comment between name and equals"
+            WHITESPACE@676..681 "\n    "
+            VAR_DECL_STMT@681..700
+                VAR_DECL@681..699
+                    INT_TY@681..684 "int"
+                    WHITESPACE@684..685 " "
+                    NAME@685..687
+                        IDENT@685..687 "x2"
+                    WHITESPACE@687..688 " "
+                    COMMENT@688..695 "/* c */"
+                    WHITESPACE@695..696 " "
+                    EQ@696..697 "="
+                    WHITESPACE@697..698 " "
+                    LITERAL@698..699
+                        NUMBER@698..699 "1"
+                SEMICOLON@699..700 ";"
+            WHITESPACE@700..706 "\n\n    "
+            COMMENT@706..751 "// Comment between equals and init expression"
+            WHITESPACE@751..756 "\n    "
+            VAR_DECL_STMT@756..775
+                VAR_DECL@756..774
+                    INT_TY@756..759 "int"
+                    WHITESPACE@759..760 " "
+                    NAME@760..762
+                        IDENT@760..762 "x3"
+                    WHITESPACE@762..763 " "
+                    EQ@763..764 "="
+                    WHITESPACE@764..765 " "
+                    COMMENT@765..772 "/* c */"
+                    WHITESPACE@772..773 " "
+                    LITERAL@773..774
+                        NUMBER@773..774 "1"
+                SEMICOLON@774..775 ";"
+            WHITESPACE@775..781 "\n\n    "
+            COMMENT@781..829 "// Comment between init expression and semicolon"
+            WHITESPACE@829..834 "\n    "
+            VAR_DECL_STMT@834..853
+                VAR_DECL@834..844
+                    INT_TY@834..837 "int"
+                    WHITESPACE@837..838 " "
+                    NAME@838..840
+                        IDENT@838..840 "x4"
+                    WHITESPACE@840..841 " "
+                    EQ@841..842 "="
+                    WHITESPACE@842..843 " "
+                    LITERAL@843..844
+                        NUMBER@843..844 "1"
+                WHITESPACE@844..845 " "
+                COMMENT@845..852 "/* c */"
+                SEMICOLON@852..853 ";"
+            WHITESPACE@853..859 "\n\n    "
+            COMMENT@859..905 "// Comment between export keyword and var decl"
+            WHITESPACE@905..910 "\n    "
+            VAR_DECL_STMT@910..936
+                EXPORT_KW@910..916 "export"
+                WHITESPACE@916..917 " "
+                COMMENT@917..924 "/* c */"
+                WHITESPACE@924..925 " "
+                VAR_DECL@925..935
+                    INT_TY@925..928 "int"
+                    WHITESPACE@928..929 " "
+                    NAME@929..931
+                        IDENT@929..931 "x5"
+                    WHITESPACE@931..932 " "
+                    EQ@932..933 "="
+                    WHITESPACE@933..934 " "
+                    LITERAL@934..935
+                        NUMBER@934..935 "5"
+                SEMICOLON@935..936 ";"
+            WHITESPACE@936..937 "\n"
+            RBRACK@937..938 "}"
+    WHITESPACE@938..939 "\n"
