@@ -1,0 +1,14 @@
+SCRIPT@0..22
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..7
+        IDENT@5..7 "t1"
+    SEMICOLON@7..8 ";"
+    WHITESPACE@8..10 "\n\n"
+    BLOCK_TYPE_ITEM@10..21
+        BLOCK_TYPE@10..18 "MenuMode"
+        WHITESPACE@18..19 " "
+        BLOCK_STMT@19..21
+            LBRACK@19..20 "{"
+            RBRACK@20..21 "}"
+    WHITESPACE@21..22 "\n"

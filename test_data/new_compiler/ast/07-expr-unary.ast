@@ -1,0 +1,137 @@
+SCRIPT@0..141
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..7
+        IDENT@5..7 "t7"
+    SEMICOLON@7..8 ";"
+    WHITESPACE@8..10 "\n\n"
+    FN_DECL_ITEM@10..140
+        FN_KW@10..12 "fn"
+        WHITESPACE@12..13 " "
+        PARAM_LIST@13..15
+            LPAREN@13..14 "("
+            RPAREN@14..15 ")"
+        WHITESPACE@15..16 " "
+        BLOCK_STMT@16..140
+            LBRACK@16..17 "{"
+            WHITESPACE@17..22 "\n    "
+            EXPR_STMT@22..25
+                UNARY_EXPR@22..24
+                    EXCLAMATION@22..23 "!"
+                    LITERAL@23..24
+                        NUMBER@23..24 "1"
+                SEMICOLON@24..25 ";"
+            WHITESPACE@25..30 "\n    "
+            EXPR_STMT@30..33
+                UNARY_EXPR@30..32
+                    MINUS@30..31 "-"
+                    LITERAL@31..32
+                        NUMBER@31..32 "2"
+                SEMICOLON@32..33 ";"
+            WHITESPACE@33..38 "\n    "
+            EXPR_STMT@38..41
+                UNARY_EXPR@38..40
+                    DOLLAR@38..39 "$"
+                    LITERAL@39..40
+                        NUMBER@39..40 "3"
+                SEMICOLON@40..41 ";"
+            WHITESPACE@41..47 "\n\n    "
+            EXPR_STMT@47..52
+                UNARY_EXPR@47..51
+                    EXCLAMATION@47..48 "!"
+                    UNARY_EXPR@48..51
+                        EXCLAMATION@48..49 "!"
+                        UNARY_EXPR@49..51
+                            EXCLAMATION@49..50 "!"
+                            LITERAL@50..51
+                                NUMBER@50..51 "4"
+                SEMICOLON@51..52 ";"
+            WHITESPACE@52..57 "\n    "
+            EXPR_STMT@57..62
+                UNARY_EXPR@57..61
+                    MINUS_2@57..59 "--"
+                    UNARY_EXPR@59..61
+                        MINUS@59..60 "-"
+                        LITERAL@60..61
+                            NUMBER@60..61 "5"
+                SEMICOLON@61..62 ";"
+            WHITESPACE@62..67 "\n    "
+            EXPR_STMT@67..72
+                UNARY_EXPR@67..71
+                    DOLLAR@67..68 "$"
+                    UNARY_EXPR@68..71
+                        DOLLAR@68..69 "$"
+                        UNARY_EXPR@69..71
+                            DOLLAR@69..70 "$"
+                            LITERAL@70..71
+                                NUMBER@70..71 "6"
+                SEMICOLON@71..72 ";"
+            WHITESPACE@72..78 "\n\n    "
+            EXPR_STMT@78..83
+                UNARY_EXPR@78..82
+                    EXCLAMATION@78..79 "!"
+                    UNARY_EXPR@79..82
+                        MINUS@79..80 "-"
+                        UNARY_EXPR@80..82
+                            DOLLAR@80..81 "$"
+                            LITERAL@81..82
+                                NUMBER@81..82 "7"
+                SEMICOLON@82..83 ";"
+            WHITESPACE@83..88 "\n    "
+            EXPR_STMT@88..93
+                UNARY_EXPR@88..92
+                    EXCLAMATION@88..89 "!"
+                    UNARY_EXPR@89..92
+                        DOLLAR@89..90 "$"
+                        UNARY_EXPR@90..92
+                            MINUS@90..91 "-"
+                            LITERAL@91..92
+                                NUMBER@91..92 "8"
+                SEMICOLON@92..93 ";"
+            WHITESPACE@93..99 "\n\n    "
+            EXPR_STMT@99..104
+                UNARY_EXPR@99..103
+                    MINUS@99..100 "-"
+                    UNARY_EXPR@100..103
+                        DOLLAR@100..101 "$"
+                        UNARY_EXPR@101..103
+                            EXCLAMATION@101..102 "!"
+                            LITERAL@102..103
+                                NUMBER@102..103 "9"
+                SEMICOLON@103..104 ";"
+            WHITESPACE@104..109 "\n    "
+            EXPR_STMT@109..115
+                UNARY_EXPR@109..114
+                    MINUS@109..110 "-"
+                    UNARY_EXPR@110..114
+                        EXCLAMATION@110..111 "!"
+                        UNARY_EXPR@111..114
+                            DOLLAR@111..112 "$"
+                            LITERAL@112..114
+                                NUMBER@112..114 "10"
+                SEMICOLON@114..115 ";"
+            WHITESPACE@115..121 "\n\n    "
+            EXPR_STMT@121..127
+                UNARY_EXPR@121..126
+                    DOLLAR@121..122 "$"
+                    UNARY_EXPR@122..126
+                        MINUS@122..123 "-"
+                        UNARY_EXPR@123..126
+                            EXCLAMATION@123..124 "!"
+                            LITERAL@124..126
+                                NUMBER@124..126 "11"
+                SEMICOLON@126..127 ";"
+            WHITESPACE@127..132 "\n    "
+            EXPR_STMT@132..138
+                UNARY_EXPR@132..137
+                    DOLLAR@132..133 "$"
+                    UNARY_EXPR@133..137
+                        EXCLAMATION@133..134 "!"
+                        UNARY_EXPR@134..137
+                            MINUS@134..135 "-"
+                            LITERAL@135..137
+                                NUMBER@135..137 "12"
+                SEMICOLON@137..138 ";"
+            WHITESPACE@138..139 "\n"
+            RBRACK@139..140 "}"
+    WHITESPACE@140..141 "\n"

@@ -2,7 +2,7 @@
 
 BIN=./target/release/nvse-lsp
 
-for file in $(find test_data/cases/new_compiler -type f -name "*.gek"); do
+for file in $(find test_data/new_compiler/cases -type f -name "*.gek"); do
     echo "Generating AST for $file"
     ast_file="${file/cases/ast}"
     ast_file="${ast_file/\.gek/\.ast}"

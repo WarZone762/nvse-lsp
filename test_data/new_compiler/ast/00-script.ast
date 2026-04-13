@@ -1,0 +1,7 @@
+SCRIPT@0..9
+    NAME_KW@0..4 "name"
+    WHITESPACE@4..5 " "
+    NAME@5..7
+        IDENT@5..7 "t0"
+    SEMICOLON@7..8 ";"
+    WHITESPACE@8..9 "\n"
