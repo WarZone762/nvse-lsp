@@ -465,6 +465,7 @@ dependencies = [
  "serde",
  "serde_json",
  "similar-asserts",
+ "test_each_file",
  "tokio",
  "tower-lsp",
  "walkdir",
@@ -713,6 +714,18 @@ checksum = "e665b8803e7b1d2a727f4023456bbbbe74da67099c585258af0ad9c5013b9b99"
 dependencies = [
  "proc-macro2",
  "quote",
+ "unicode-ident",
+]
+
+[[package]]
+name = "test_each_file"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "44619e49a1f62888c271dc50533f036363a7936f99c7cb467ca9d45224cf83b3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
  "unicode-ident",
 ]
 
